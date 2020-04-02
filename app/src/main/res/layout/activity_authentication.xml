@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MatchMatch"
+    android:background="@drawable/img_authentication">
+
+    <ImageView
+        style="@style/MatchMatch"
+        android:src="@drawable/shape_bg_authentication" />
+
+    <ImageView
+        style="@style/ImageViewLogo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/base_hundred" />
+
+    <LinearLayout
+        style="@style/MatchWrap"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/base_hundred"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            style="@style/ButtonBlueShort"
+            android:background="@drawable/shape_bt_blue"
+            android:text="@string/sign_up" />
+
+        <Button
+            style="@style/ButtonTransparent"
+            android:layout_marginStart="@dimen/base_pow_three"
+            android:background="@drawable/shape_bt_transparent"
+            android:text="@string/sign_in" />
+
+    </LinearLayout>
+
+</RelativeLayout>

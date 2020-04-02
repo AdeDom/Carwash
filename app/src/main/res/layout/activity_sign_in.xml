@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MatchMatch"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <RelativeLayout style="@style/MatchWrap">
+
+        <androidx.appcompat.widget.Toolbar
+            style="@style/MatchWrap"
+            android:background="@color/colorPrimary" />
+
+        <ImageView style="@style/ImageViewArrowBack" />
+
+        <ImageView
+            style="@style/ImageViewToolbar"
+            android:src="@drawable/ic_sign_in" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        style="@style/WrapWrap"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <ImageView
+            style="@style/ImageViewLogo"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/base_pow_five"
+            android:src="@drawable/img_logo_blue" />
+
+        <TextView
+            style="@style/TextViewMediumGray"
+            android:text="@string/sign_in_to_continue" />
+
+        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+            <EditText
+                style="@style/MatchMatch"
+                android:background="@drawable/shape_et"
+                android:drawableStart="@drawable/ic_account_gray"
+                android:hint="@string/username" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+            <EditText
+                style="@style/MatchMatch"
+                android:background="@drawable/shape_et"
+                android:drawableStart="@drawable/ic_key_gray"
+                android:hint="@string/password"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            style="@style/ButtonBlueLong"
+            android:layout_marginTop="@dimen/base_pow_four"
+            android:background="@drawable/shape_bt_blue"
+            android:text="@string/sign_in" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/WrapWrap"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/base_pow_five"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TextViewMediumGray"
+            android:text="@string/don_t_have_an_account" />
+
+        <TextView
+            style="@style/TextViewMediumBlack"
+            android:layout_marginStart="@dimen/base_pow_two"
+            android:text="@string/sign_up" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Car wash</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_up_to_join">Sign up to join</string>
+    <string name="have_an_account">Have an account?</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="username">Username</string>
+    <string name="re_password">Re-password</string>
+    <string name="identity_card">Identity card</string>
+    <string name="phone">Phone</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="sign_in_to_continue">Sign in to continue</string>
 </resources>

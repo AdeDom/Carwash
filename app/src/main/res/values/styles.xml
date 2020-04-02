@@ -1,11 +1,98 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="MatchMatch">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="WrapWrap">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="MatchWrap">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="WrapMatch">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="TextViewMediumGray" parent="WrapWrap">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textColor">@color/colorTextGray</item>
+    </style>
+
+    <style name="TextViewMediumBlack" parent="WrapWrap">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="TextInputLayout">
+        <item name="android:layout_width">@dimen/et_width</item>
+        <item name="android:layout_height">@dimen/et_height</item>
+    </style>
+
+    <style name="ButtonBlueShort">
+        <item name="android:layout_width">@dimen/bt_short_width</item>
+        <item name="android:layout_height">@dimen/bt_short_height</item>
+        <item name="background">@drawable/shape_bt_blue</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ButtonBlueLong" parent="ButtonBlueShort">
+        <item name="android:layout_width">@dimen/bt_long_width</item>
+    </style>
+
+    <style name="ButtonTransparent">
+        <item name="android:layout_width">@dimen/bt_short_width</item>
+        <item name="android:layout_height">@dimen/bt_short_height</item>
+        <item name="background">@drawable/shape_bt_transparent</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ImageViewLogo">
+        <item name="android:layout_width">@dimen/img_logo_width</item>
+        <item name="android:layout_height">@dimen/img_logo_height</item>
+        <item name="android:src">@drawable/img_logo_white</item>
+    </style>
+
+    <style name="ImageViewPhoto">
+        <item name="android:layout_width">@dimen/img_photo</item>
+        <item name="android:layout_height">@dimen/img_photo</item>
+        <item name="android:src">@drawable/ic_user</item>
+        <item name="android:background">@drawable/shape_img</item>
+    </style>
+
+    <style name="ImageViewCamera">
+        <item name="android:layout_width">@dimen/ic_camera</item>
+        <item name="android:layout_height">@dimen/ic_camera</item>
+        <item name="background">@drawable/shape_camera</item>
+        <item name="android:src">@drawable/ic_camera_white</item>
+    </style>
+
+    <style name="ImageViewArrowBack">
+        <item name="android:layout_width">@dimen/ic_toolbar</item>
+        <item name="android:layout_height">@dimen/ic_toolbar</item>
+        <item name="android:src">@drawable/ic_arrow_back_white</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginStart">@dimen/base_pow_four</item>
+    </style>
+
+    <style name="ImageViewToolbar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/ic_toolbar</item>
+        <item name="android:layout_centerInParent">true</item>
     </style>
 
 </resources>
