@@ -110,6 +110,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/bt_sign_up"
             style="@style/ButtonBlueLong"
             android:layout_marginTop="@dimen/base_pow_four"
             android:background="@drawable/shape_bt_blue"

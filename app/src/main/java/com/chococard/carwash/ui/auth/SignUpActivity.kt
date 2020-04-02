@@ -4,6 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.chococard.carwash.R
+import com.chococard.carwash.data.networks.AuthApi
+import com.chococard.carwash.data.repositories.AuthRepository
+import com.chococard.carwash.util.Coroutines
+import com.chococard.carwash.util.extension.toast
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUpActivity : AppCompatActivity() {
@@ -26,6 +30,14 @@ class SignUpActivity : AppCompatActivity() {
                 startActivity(it)
             }
             finish()
+        }
+
+        bt_sign_up.setOnClickListener {
+            Coroutines.main {
+                val repo = AuthRepository(AuthApi.invoke())
+                val response = repo.signUp("", "", "", "", "", "")
+                toast("${response.success}, ${response.message}")
+            }
         }
     }
 }
