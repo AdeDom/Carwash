@@ -14,4 +14,12 @@
     <string name="sign_in_to_continue">Sign in to continue</string>
     <string name="pref_file">PREF_FILE</string>
     <string name="token">token</string>
+    <string name="error_empty_name">Please enter name</string>
+    <string name="error_empty_username">Please enter username</string>
+    <string name="error_empty_password">Please enter password</string>
+    <string name="error_empty_re_password">Please enter re-password</string>
+    <string name="error_empty_identity_card">Please enter identity card</string>
+    <string name="error_empty_phone">Please enter phone</string>
+    <string name="error_length">Please enter a total of %1$d characters</string>
+    <string name="error_matching">Please enter the password to match</string>
 </resources>

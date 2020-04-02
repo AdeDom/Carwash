@@ -95,4 +95,9 @@
         <item name="android:layout_centerInParent">true</item>
     </style>
 
+    <style name="ProgressBar" parent="WrapWrap">
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
 </resources>
