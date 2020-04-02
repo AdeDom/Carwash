@@ -17,9 +17,7 @@ class SignInActivity : AppCompatActivity() {
 
     private fun init() {
         //event
-        iv_arrow_back.setOnClickListener {
-            onBackPressed()
-        }
+        iv_arrow_back.setOnClickListener { onBackPressed() }
 
         tv_sign_up.setOnClickListener {
             Intent(baseContext, SignUpActivity::class.java).also {

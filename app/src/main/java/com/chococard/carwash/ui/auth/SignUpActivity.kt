@@ -32,9 +32,7 @@ class SignUpActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
         //event
-        iv_arrow_back.setOnClickListener {
-            onBackPressed()
-        }
+        iv_arrow_back.setOnClickListener { onBackPressed() }
 
         iv_photo.setOnClickListener { selectImage() }
 
@@ -50,9 +48,15 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         //observe
-        viewModel.signUpResponse.observe(this, Observer {
+        viewModel.signUpResponse.observe(this, Observer { response ->
             progress_bar.hide()
-            toast("${it.success}, ${it.message}")
+            response.message?.let { toast(it) }
+            if (response.success) {
+                Intent(baseContext, SignInActivity::class.java).also {
+                    startActivity(it)
+                }
+                finish()
+            }
         })
     }
 
@@ -88,6 +92,8 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         //TODO check identity card
+
+        //TODO upload image
 
         progress_bar.show()
         viewModel.signUp(
