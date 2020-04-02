@@ -10,7 +10,9 @@
             style="@style/MatchWrap"
             android:background="@color/colorPrimary" />
 
-        <ImageView style="@style/ImageViewArrowBack" />
+        <ImageView
+            android:id="@+id/iv_arrow_back"
+            style="@style/ImageViewArrowBack" />
 
         <ImageView
             style="@style/ImageViewToolbar"
@@ -74,6 +76,7 @@
             android:text="@string/don_t_have_an_account" />
 
         <TextView
+            android:id="@+id/tv_sign_up"
             style="@style/TextViewMediumBlack"
             android:layout_marginStart="@dimen/base_pow_two"
             android:text="@string/sign_up" />

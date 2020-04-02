@@ -20,11 +20,13 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/bt_sign_up"
             style="@style/ButtonBlueShort"
             android:background="@drawable/shape_bt_blue"
             android:text="@string/sign_up" />
 
         <Button
+            android:id="@+id/bt_sign_in"
             style="@style/ButtonTransparent"
             android:layout_marginStart="@dimen/base_pow_three"
             android:background="@drawable/shape_bt_transparent"

@@ -1,7 +1,8 @@
-package com.chococard.carwash
+package com.chococard.carwash.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.chococard.carwash.R
 
 class MainActivity : AppCompatActivity() {
 
