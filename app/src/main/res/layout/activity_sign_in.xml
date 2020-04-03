@@ -38,6 +38,7 @@
         <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
             <EditText
+                android:id="@+id/et_username"
                 style="@style/MatchMatch"
                 android:background="@drawable/shape_et"
                 android:drawableStart="@drawable/ic_account_gray"
@@ -48,6 +49,7 @@
         <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
             <EditText
+                android:id="@+id/et_password"
                 style="@style/MatchMatch"
                 android:background="@drawable/shape_et"
                 android:drawableStart="@drawable/ic_key_gray"
@@ -57,6 +59,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/bt_sign_in"
             style="@style/ButtonBlueLong"
             android:layout_marginTop="@dimen/base_pow_four"
             android:background="@drawable/shape_bt_blue"
@@ -82,5 +85,9 @@
             android:text="@string/sign_up" />
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/ProgressBar" />
 
 </RelativeLayout>

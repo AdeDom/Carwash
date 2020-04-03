@@ -3,6 +3,7 @@ package com.chococard.carwash.ui.auth
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.chococard.carwash.data.networks.response.SignInResponse
 import com.chococard.carwash.data.networks.response.SignUpResponse
 import com.chococard.carwash.data.repositories.AuthRepository
 import com.chococard.carwash.util.Coroutines
@@ -16,6 +17,10 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
     val signUpResponse: LiveData<SignUpResponse>
         get() = _signUpResponse
 
+    private val _signInResponse = MutableLiveData<SignInResponse>()
+    val signInResponse: LiveData<SignInResponse>
+        get() = _signInResponse
+
     fun signUp(
         name: String,
         username: String,
@@ -26,6 +31,13 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
         job = Coroutines.main {
             val response = repository.signUp(name, username, password, identityCard, phone)
             _signUpResponse.value = response
+        }
+    }
+
+    fun signIn(username: String, password: String){
+        job = Coroutines.main {
+            val response = repository.signIn(username, password)
+            _signInResponse.value = response
         }
     }
 

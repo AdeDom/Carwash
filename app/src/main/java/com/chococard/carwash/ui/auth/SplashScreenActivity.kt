@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.util.Coroutines
+import com.chococard.carwash.util.extension.readPref
 import kotlinx.coroutines.delay
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -18,8 +19,7 @@ class SplashScreenActivity : AppCompatActivity() {
         Coroutines.main {
             delay(2000)
 
-            val token = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE)
-                .getString(getString(R.string.token), "") ?: ""
+            val token = readPref(R.string.token)
             if (token.isEmpty()) {
                 Intent(baseContext, AuthActivity::class.java).also {
                     startActivity(it)
