@@ -3,6 +3,7 @@ package com.chococard.carwash.data.networks
 import com.chococard.carwash.data.networks.response.SignInResponse
 import com.chococard.carwash.data.networks.response.SignUpResponse
 import okhttp3.MultipartBody
+import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -37,10 +38,17 @@ interface AuthApi {
     ): Response<ResponseBody>
 
     companion object {
-        operator fun invoke(): AuthApi {
+        operator fun invoke(
+            networkConnectionInterceptor: NetworkConnectionInterceptor
+        ): AuthApi {
+            val okHttpClient = OkHttpClient.Builder()
+                .addInterceptor(networkConnectionInterceptor)
+                .build()
+
             return Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
                 .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(AuthApi::class.java)
         }

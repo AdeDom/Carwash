@@ -6,12 +6,16 @@ import androidx.lifecycle.ViewModel
 import com.chococard.carwash.data.networks.response.SignInResponse
 import com.chococard.carwash.data.networks.response.SignUpResponse
 import com.chococard.carwash.data.repositories.AuthRepository
+import com.chococard.carwash.util.ApiException
 import com.chococard.carwash.util.Coroutines
+import com.chococard.carwash.util.NoInternetException
 import kotlinx.coroutines.Job
 
 class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
 
     private lateinit var job: Job
+
+    var exception: ((String) -> Unit)? = null
 
     private val _signUpResponse = MutableLiveData<SignUpResponse>()
     val signUpResponse: LiveData<SignUpResponse>
@@ -29,15 +33,27 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
         phone: String
     ) {
         job = Coroutines.main {
-            val response = repository.signUp(name, username, password, identityCard, phone)
-            _signUpResponse.value = response
+            try {
+                val response = repository.signUp(name, username, password, identityCard, phone)
+                _signUpResponse.value = response
+            } catch (e: ApiException) {
+                exception?.invoke(e.message!!)
+            } catch (e: NoInternetException) {
+                exception?.invoke(e.message!!)
+            }
         }
     }
 
-    fun signIn(username: String, password: String){
+    fun signIn(username: String, password: String) {
         job = Coroutines.main {
-            val response = repository.signIn(username, password)
-            _signInResponse.value = response
+            try {
+                val response = repository.signIn(username, password)
+                _signInResponse.value = response
+            } catch (e: ApiException) {
+                exception?.invoke(e.message!!)
+            } catch (e: NoInternetException) {
+                exception?.invoke(e.message!!)
+            }
         }
     }
 

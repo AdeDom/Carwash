@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.AuthApi
+import com.chococard.carwash.data.networks.NetworkConnectionInterceptor
 import com.chococard.carwash.data.repositories.AuthRepository
 import com.chococard.carwash.util.extension.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -26,7 +27,8 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        val factory = AuthFactory(AuthRepository(AuthApi.invoke()))
+        val networkConnectionInterceptor = NetworkConnectionInterceptor(baseContext)
+        val factory = AuthFactory(AuthRepository(AuthApi.invoke(networkConnectionInterceptor)))
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
         //event
@@ -56,6 +58,12 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
         })
+
+        //exception
+        viewModel.exception = {
+            progress_bar.hide()
+            toast(it)
+        }
     }
 
     private fun selectImage() = Intent().apply {
