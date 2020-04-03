@@ -84,14 +84,20 @@ class SignUpActivity : AppCompatActivity() {
             et_re_password.isEmpty(getString(R.string.error_empty_re_password)) -> return
             et_identity_card.isEmpty(getString(R.string.error_empty_identity_card)) -> return
             et_phone.isEmpty(getString(R.string.error_empty_phone)) -> return
-            et_password.isLength(8, getString(R.string.error_length, 8)) -> return
-            et_re_password.isLength(8, getString(R.string.error_length, 8)) -> return
+            et_password.isMinLength(8, getString(R.string.error_least_length, 8)) -> return
+            et_re_password.isMinLength(8, getString(R.string.error_least_length, 8)) -> return
             et_password.isMatching(et_re_password, getString(R.string.error_matching)) -> return
-            et_identity_card.isLength(13, getString(R.string.error_length, 13)) -> return
-            et_phone.isLength(10, getString(R.string.error_length, 10)) -> return
+            et_identity_card.isEqualLength(13, getString(R.string.error_equal_length, 13)) -> return
+            viewModel.isIdentityCard(et_identity_card.getContents()) -> {
+                et_identity_card.failed(getString(R.string.error_identity_card))
+                return
+            }
+            et_phone.isEqualLength(10, getString(R.string.error_equal_length, 10)) -> return
+            viewModel.isTelephoneNumber(et_phone.getContents()) -> {
+                et_phone.failed(getString(R.string.error_phone))
+                return
+            }
         }
-
-        //TODO check identity card
 
         //TODO upload image
 
@@ -101,8 +107,7 @@ class SignUpActivity : AppCompatActivity() {
             et_username.getContents(),
             et_password.getContents(),
             et_identity_card.getContents(),
-            et_phone.getContents(),
-            ""
+            et_phone.getContents()
         )
     }
 }

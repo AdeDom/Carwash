@@ -17,8 +17,7 @@ interface AuthApi {
         @Field("username") username: String,
         @Field("password") password: String,
         @Field("identityCard") identityCard: String,
-        @Field("phone") phone: String,
-        @Field("image") image: String
+        @Field("phone") phone: String
     ): Response<SignUpResponse>
 
     companion object {

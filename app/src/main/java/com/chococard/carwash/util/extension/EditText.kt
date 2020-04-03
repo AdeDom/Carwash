@@ -13,8 +13,17 @@ fun EditText.isEmpty(error: String = ""): Boolean {
     return false
 }
 
-fun EditText.isLength(length: Int, error: String = ""): Boolean {
+fun EditText.isMinLength(length: Int, error: String = ""): Boolean {
     if (this.getContents().length < length) {
+        this.requestFocus()
+        this.error = error
+        return true
+    }
+    return false
+}
+
+fun EditText.isEqualLength(length: Int, error: String = ""): Boolean {
+    if (this.getContents().length != length) {
         this.requestFocus()
         this.error = error
         return true
@@ -29,4 +38,11 @@ fun EditText.isMatching(editText: EditText, error: String = ""): Boolean {
         return true
     }
     return false
+}
+
+fun EditText.failed(message: String = "") {
+    this.apply {
+        requestFocus()
+        error = message
+    }
 }

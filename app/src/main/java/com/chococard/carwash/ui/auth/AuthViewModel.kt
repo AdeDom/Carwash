@@ -21,13 +21,36 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
         username: String,
         password: String,
         identityCard: String,
-        phone: String,
-        image: String
+        phone: String
     ) {
         job = Coroutines.main {
-            val response = repository.signUp(name, username, password, identityCard, phone, image)
+            val response = repository.signUp(name, username, password, identityCard, phone)
             _signUpResponse.value = response
         }
+    }
+
+    fun isIdentityCard(identityCard: String): Boolean {
+        val ic = identityCard.substring(0, 12)
+        var sumIdentityCard = 0
+        ic.forEachIndexed { index, c ->
+            sumIdentityCard += (13 - index) * c.toString().toInt()
+        }
+        val digit = (11 - (sumIdentityCard % 11)) % 10
+        val realIdentityCard = ic + digit
+        return realIdentityCard != identityCard
+    }
+
+    fun isTelephoneNumber(phone: String): Boolean {
+        val tel = listOf("06", "08", "09")
+        val p = phone.substring(0, 2)
+        var isPhone = true
+        tel.forEach {
+            if (it == p) {
+                isPhone = false
+                return@forEach
+            }
+        }
+        return isPhone
     }
 
     override fun onCleared() {

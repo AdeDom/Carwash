@@ -10,8 +10,7 @@ class AuthRepository(private val api: AuthApi) : SafeApiRequest() {
         username: String,
         password: String,
         identityCard: String,
-        phone: String,
-        image: String
-    ) = apiRequest { api.signUp(name, username, password, identityCard, phone, image) }
+        phone: String
+    ) = apiRequest { api.signUp(name, username, password, identityCard, phone) }
 
 }

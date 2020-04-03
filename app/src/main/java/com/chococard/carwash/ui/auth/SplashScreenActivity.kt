@@ -21,7 +21,7 @@ class SplashScreenActivity : AppCompatActivity() {
             val token = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE)
                 .getString(getString(R.string.token), "") ?: ""
             if (token.isEmpty()) {
-                Intent(baseContext, AuthenticationActivity::class.java).also {
+                Intent(baseContext, AuthActivity::class.java).also {
                     startActivity(it)
                 }
             } else {
