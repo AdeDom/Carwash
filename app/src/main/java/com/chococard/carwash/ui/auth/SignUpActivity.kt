@@ -17,10 +17,6 @@ import kotlinx.android.synthetic.main.activity_sign_up.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.io.File
 
 class SignUpActivity : AppCompatActivity() {
@@ -68,6 +64,10 @@ class SignUpActivity : AppCompatActivity() {
             }
         })
 
+        viewModel.uploadResponse.observe(this, Observer {
+            progress_bar.hide()
+        })
+
         //exception
         viewModel.exception = {
             progress_bar.hide()
@@ -101,17 +101,8 @@ class SignUpActivity : AppCompatActivity() {
         val descriptionString = "hello, this is description speaking"
         val description = RequestBody.create(MultipartBody.FORM, descriptionString)
 
-        val interceptor = NetworkConnectionInterceptor(baseContext)
-        val call: Call<ResponseBody> = AuthApi.invoke(interceptor).upload(description, body)
-        call.enqueue(object : Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                toast(t.message!!)
-            }
-
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                toast("Success")
-            }
-        })
+        progress_bar.show()
+        viewModel.uploadImageFile(body, description)
     }
 
     private fun signUp() {
@@ -137,8 +128,6 @@ class SignUpActivity : AppCompatActivity() {
                 return
             }
         }
-
-        //TODO upload image
 
         progress_bar.show()
         viewModel.signUp(

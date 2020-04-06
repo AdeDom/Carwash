@@ -10,6 +10,9 @@ import com.chococard.carwash.util.ApiException
 import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.NoInternetException
 import kotlinx.coroutines.Job
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
 
 class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
 
@@ -24,6 +27,10 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
     private val _signInResponse = MutableLiveData<SignInResponse>()
     val signInResponse: LiveData<SignInResponse>
         get() = _signInResponse
+
+    private val _uploadResponse = MutableLiveData<ResponseBody>()
+    val uploadResponse: LiveData<ResponseBody>
+        get() = _uploadResponse
 
     fun signUp(
         name: String,
@@ -49,6 +56,19 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
             try {
                 val response = repository.signIn(username, password)
                 _signInResponse.value = response
+            } catch (e: ApiException) {
+                exception?.invoke(e.message!!)
+            } catch (e: NoInternetException) {
+                exception?.invoke(e.message!!)
+            }
+        }
+    }
+
+    fun uploadImageFile(file: MultipartBody.Part, description: RequestBody) {
+        job = Coroutines.main {
+            try {
+                val response = repository.uploadImageFile(file, description)
+                _uploadResponse.value = response
             } catch (e: ApiException) {
                 exception?.invoke(e.message!!)
             } catch (e: NoInternetException) {
