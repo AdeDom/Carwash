@@ -2,6 +2,7 @@ package com.chococard.carwash.ui.auth
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -10,9 +11,17 @@ import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.AuthApi
 import com.chococard.carwash.data.networks.NetworkConnectionInterceptor
 import com.chococard.carwash.data.repositories.AuthRepository
+import com.chococard.carwash.util.FileUtils
 import com.chococard.carwash.util.extension.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -75,11 +84,34 @@ class SignUpActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
-            val uri = data.data!!
-            val mediaType = MediaType.parse(contentResolver.getType(uri))
-            iv_photo.loadCircle(uri.toString())
-            toast("$uri , $mediaType")
+            val fileUri = data.data!!
+            iv_photo.loadCircle(fileUri.toString())
+            uploadFile(fileUri)
         }
+    }
+
+    private fun uploadFile(fileUri: Uri) {
+        val file: File? = FileUtils.getFile(this, fileUri)
+
+        val requestFile = RequestBody
+            .create(MediaType.parse(contentResolver.getType(fileUri)), file)
+
+        val body = MultipartBody.Part.createFormData("uploaded_file", file?.name, requestFile)
+
+        val descriptionString = "hello, this is description speaking"
+        val description = RequestBody.create(MultipartBody.FORM, descriptionString)
+
+        val interceptor = NetworkConnectionInterceptor(baseContext)
+        val call: Call<ResponseBody> = AuthApi.invoke(interceptor).upload(description, body)
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                toast(t.message!!)
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                toast("Success")
+            }
+        })
     }
 
     private fun signUp() {

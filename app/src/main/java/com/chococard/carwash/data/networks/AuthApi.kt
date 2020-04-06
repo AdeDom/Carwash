@@ -6,6 +6,7 @@ import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -31,11 +32,11 @@ interface AuthApi {
     ): Response<SignInResponse>
 
     @Multipart
-    @POST("upload-image")
-    suspend fun uploadImage(
+    @POST("upload.php")
+    fun upload(
         @Part("description") description: RequestBody,
-        @Part imagePath: MultipartBody.Part
-    ): Response<ResponseBody>
+        @Part file: MultipartBody.Part
+    ): Call<ResponseBody>
 
     companion object {
         operator fun invoke(
