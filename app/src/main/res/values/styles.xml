@@ -44,10 +44,17 @@
     </style>
 
     <style name="ButtonBlueShort">
+        <item name="textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:layout_width">@dimen/bt_short_width</item>
         <item name="android:layout_height">@dimen/bt_short_height</item>
         <item name="background">@drawable/shape_bt_blue</item>
         <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ButtonWhiteShort" parent="ButtonBlueShort">
+        <item name="background">@drawable/shape_bt_white</item>
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
     <style name="ButtonBlueLong" parent="ButtonBlueShort">
@@ -55,6 +62,8 @@
     </style>
 
     <style name="ButtonTransparent">
+        <item name="textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:layout_width">@dimen/bt_short_width</item>
         <item name="android:layout_height">@dimen/bt_short_height</item>
         <item name="background">@drawable/shape_bt_transparent</item>

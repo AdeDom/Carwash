@@ -3,7 +3,7 @@
     android:shape="oval">
 
     <stroke
-        android:width="@dimen/base_pow_one"
+        android:width="@dimen/base_one"
         android:color="@color/colorEditTextStroke" />
 
 </shape>

@@ -8,6 +8,6 @@
 
     <stroke
         android:width="@dimen/base_one"
-        android:color="@color/colorNavigation" />
+        android:color="@color/colorAccent" />
 
 </shape>

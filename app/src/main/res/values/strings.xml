@@ -32,5 +32,7 @@
     <string name="change_password">Change password</string>
     <string name="contact_admin">Contact admin</string>
     <string name="logout">Logout</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
 
 </resources>

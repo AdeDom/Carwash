@@ -5,7 +5,7 @@
     <solid android:color="@color/colorEditTextSolid" />
 
     <stroke
-        android:width="@dimen/base_pow_one"
+        android:width="@dimen/base_one"
         android:color="@color/colorEditTextStroke" />
 
     <corners android:radius="@dimen/base_pow_three" />
