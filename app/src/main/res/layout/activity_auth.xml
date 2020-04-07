@@ -13,11 +13,8 @@
         android:layout_marginTop="@dimen/base_hundred" />
 
     <LinearLayout
-        style="@style/MatchWrap"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/base_hundred"
-        android:gravity="center"
-        android:orientation="horizontal">
+        style="@style/LinearLayoutButtonPair"
+        android:layout_marginBottom="@dimen/base_hundred">
 
         <Button
             android:id="@+id/bt_sign_up"

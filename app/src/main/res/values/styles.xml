@@ -28,6 +28,13 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
+    <style name="LinearLayoutButtonPair" parent="MatchWrap">
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_marginBottom">@dimen/base_pow_five</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
     <style name="TextViewMediumGray" parent="WrapWrap">
         <item name="android:textSize">@dimen/text_medium</item>
         <item name="android:textColor">@color/colorTextGray</item>
