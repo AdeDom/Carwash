@@ -28,5 +28,9 @@
     <string name="map">Map</string>
     <string name="wallet">Wallet</string>
     <string name="history">History</string>
+    <string name="change_profile">Change profile</string>
+    <string name="change_password">Change password</string>
+    <string name="contact_admin">Contact admin</string>
+    <string name="logout">Logout</string>
 
 </resources>

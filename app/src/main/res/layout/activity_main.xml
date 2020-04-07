@@ -35,6 +35,6 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/base_pow_three"
         android:background="@drawable/shape_navigation"
-        app:menu="@menu/menu_main" />
+        app:menu="@menu/menu_nav" />
 
 </RelativeLayout>
