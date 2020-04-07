@@ -90,6 +90,11 @@
         <item name="android:background">@drawable/shape_img</item>
     </style>
 
+    <style name="ImageViewPhotoSub" parent="ImageViewPhoto">
+        <item name="android:layout_width">@dimen/img_photo_sub</item>
+        <item name="android:layout_height">@dimen/img_photo_sub</item>
+    </style>
+
     <style name="ImageViewCamera">
         <item name="android:layout_width">@dimen/ic_camera</item>
         <item name="android:layout_height">@dimen/ic_camera</item>
@@ -114,6 +119,13 @@
     <style name="ProgressBar" parent="WrapWrap">
         <item name="android:layout_centerInParent">true</item>
         <item name="android:visibility">invisible</item>
+    </style>
+
+    <style name="FloatingActionButton" parent="WrapWrap">
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_marginEnd">@dimen/base_pow_four</item>
+        <item name="android:layout_marginBottom">@dimen/base_hundred</item>
     </style>
 
 </resources>

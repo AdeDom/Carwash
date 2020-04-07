@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWrap"
+    android:layout_marginStart="@dimen/base_pow_five"
+    android:layout_marginTop="@dimen/base_pow_five"
+    android:layout_marginEnd="@dimen/base_pow_five"
+    app:cardCornerRadius="@dimen/base_pow_three"
+    app:cardElevation="@dimen/base_pow_four"
+    app:contentPadding="@dimen/base_pow_four">
+
+    <RelativeLayout style="@style/MatchWrap">
+
+        <GridLayout
+            style="@style/WrapWrap"
+            android:columnCount="2"
+            android:rowCount="6">
+
+            <ImageView
+                android:layout_width="@dimen/ic_history"
+                android:layout_height="@dimen/ic_history"
+                android:src="@drawable/ic_person_gray" />
+
+            <TextView
+                style="@style/TextViewMediumBlack"
+                android:layout_marginStart="@dimen/base_pow_three"
+                android:text="@string/name" />
+
+            <ImageView
+                android:layout_width="@dimen/ic_history"
+                android:layout_height="@dimen/ic_history"
+                android:src="@drawable/ic_list_job_gray" />
+
+            <TextView
+                style="@style/TextViewMediumBlack"
+                android:layout_marginStart="@dimen/base_pow_three"
+                android:text="@string/job" />
+
+            <ImageView
+                android:layout_width="@dimen/ic_history"
+                android:layout_height="@dimen/ic_history"
+                android:src="@drawable/ic_location_gray" />
+
+            <TextView
+                style="@style/TextViewMediumBlack"
+                android:layout_marginStart="@dimen/base_pow_three"
+                android:text="@string/location" />
+
+            <ImageView
+                android:layout_width="@dimen/ic_history"
+                android:layout_height="@dimen/ic_history"
+                android:src="@drawable/ic_car_gray" />
+
+            <TextView
+                style="@style/TextViewMediumBlack"
+                android:layout_marginStart="@dimen/base_pow_three"
+                android:text="@string/vehicle_registration" />
+
+            <ImageView
+                android:layout_width="@dimen/ic_history"
+                android:layout_height="@dimen/ic_history"
+                android:src="@drawable/ic_baht" />
+
+            <TextView
+                style="@style/TextViewMediumBlack"
+                android:layout_marginStart="@dimen/base_pow_three"
+                android:text="@string/price" />
+
+            <ImageView
+                android:layout_width="@dimen/ic_history"
+                android:layout_height="@dimen/ic_history"
+                android:src="@drawable/ic_time_gray" />
+
+            <TextView
+                style="@style/TextViewMediumBlack"
+                android:layout_marginStart="@dimen/base_pow_three"
+                android:text="@string/date_time" />
+
+        </GridLayout>
+
+        <ImageView
+            style="@style/ImageViewPhotoSub"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

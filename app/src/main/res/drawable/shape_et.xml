@@ -6,7 +6,7 @@
 
     <stroke
         android:width="@dimen/base_one"
-        android:color="@color/colorEditTextStroke" />
+        android:color="@color/colorStroke" />
 
     <corners android:radius="@dimen/base_pow_three" />
 

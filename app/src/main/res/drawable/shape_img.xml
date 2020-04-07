@@ -4,6 +4,6 @@
 
     <stroke
         android:width="@dimen/base_one"
-        android:color="@color/colorEditTextStroke" />
+        android:color="@color/colorStroke" />
 
 </shape>

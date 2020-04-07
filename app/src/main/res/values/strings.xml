@@ -36,5 +36,10 @@
     <string name="confirm">Confirm</string>
     <string name="old_password">Old password</string>
     <string name="new_password">New password</string>
+    <string name="date_time">Date time</string>
+    <string name="price">Price</string>
+    <string name="vehicle_registration">Vehicle registration</string>
+    <string name="location">Location</string>
+    <string name="job">Job</string>
 
 </resources>
