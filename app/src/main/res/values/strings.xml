@@ -25,4 +25,8 @@
     <string name="error_matching">Please enter the password to match</string>
     <string name="error_identity_card">Please enter the correct Identity card</string>
     <string name="error_phone">Please enter the correct phone number</string>
+    <string name="map">Map</string>
+    <string name="wallet">Wallet</string>
+    <string name="history">History</string>
+
 </resources>

@@ -10,4 +10,5 @@
     <color name="colorEditTextSolid">#F1F0F0</color>
     <color name="colorSplashScreenTop">#2A5298</color>
     <color name="colorSplashScreenBottom">#1E3C72</color>
+    <color name="colorNavigation">#E9EBEE</color>
 </resources>

@@ -2,13 +2,39 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/MatchMatch"
     tools:context=".ui.main.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello world" />
+    <RelativeLayout
+        android:id="@+id/layout_toolbar"
+        style="@style/MatchWrap">
+
+        <androidx.appcompat.widget.Toolbar
+            style="@style/MatchWrap"
+            android:background="@color/colorPrimary" />
+
+        <ImageView
+            android:id="@+id/iv_arrow_back"
+            style="@style/ImageViewArrowBack"
+            android:visibility="invisible" />
+
+        <ImageView
+            style="@style/ImageViewToolbar"
+            android:src="@drawable/ic_car_wash" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        style="@style/MatchMatch"
+        android:layout_below="@id/layout_toolbar" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        style="@style/MatchWrap"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/base_pow_three"
+        android:background="@drawable/shape_navigation"
+        app:menu="@menu/menu_main" />
 
 </RelativeLayout>
