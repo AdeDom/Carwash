@@ -17,8 +17,8 @@
             android:rowCount="6">
 
             <ImageView
-                android:layout_width="@dimen/ic_history"
-                android:layout_height="@dimen/ic_history"
+                android:layout_width="@dimen/ic_base"
+                android:layout_height="@dimen/ic_base"
                 android:src="@drawable/ic_person_gray" />
 
             <TextView
@@ -27,8 +27,8 @@
                 android:text="@string/name" />
 
             <ImageView
-                android:layout_width="@dimen/ic_history"
-                android:layout_height="@dimen/ic_history"
+                android:layout_width="@dimen/ic_base"
+                android:layout_height="@dimen/ic_base"
                 android:src="@drawable/ic_list_job_gray" />
 
             <TextView
@@ -37,8 +37,8 @@
                 android:text="@string/job" />
 
             <ImageView
-                android:layout_width="@dimen/ic_history"
-                android:layout_height="@dimen/ic_history"
+                android:layout_width="@dimen/ic_base"
+                android:layout_height="@dimen/ic_base"
                 android:src="@drawable/ic_location_gray" />
 
             <TextView
@@ -47,8 +47,8 @@
                 android:text="@string/location" />
 
             <ImageView
-                android:layout_width="@dimen/ic_history"
-                android:layout_height="@dimen/ic_history"
+                android:layout_width="@dimen/ic_base"
+                android:layout_height="@dimen/ic_base"
                 android:src="@drawable/ic_car_gray" />
 
             <TextView
@@ -57,8 +57,8 @@
                 android:text="@string/vehicle_registration" />
 
             <ImageView
-                android:layout_width="@dimen/ic_history"
-                android:layout_height="@dimen/ic_history"
+                android:layout_width="@dimen/ic_base"
+                android:layout_height="@dimen/ic_base"
                 android:src="@drawable/ic_baht" />
 
             <TextView
@@ -67,8 +67,8 @@
                 android:text="@string/price" />
 
             <ImageView
-                android:layout_width="@dimen/ic_history"
-                android:layout_height="@dimen/ic_history"
+                android:layout_width="@dimen/ic_base"
+                android:layout_height="@dimen/ic_base"
                 android:src="@drawable/ic_time_gray" />
 
             <TextView

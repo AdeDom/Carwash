@@ -5,14 +5,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        style="@style/MatchMatch"
-        android:clipToPadding="false"
-        android:paddingBottom="@dimen/base_hundred"
+        style="@style/RecyclerView"
         tools:listitem="@layout/item_history" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         style="@style/FloatingActionButton"
-        android:src="@drawable/ic_calendar" />
+        android:src="@drawable/ic_calendar_white" />
 
 </RelativeLayout>

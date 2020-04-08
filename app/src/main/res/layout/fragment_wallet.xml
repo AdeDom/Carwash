@@ -1,7 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#3F51B5">
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MatchMatch">
+
+    <LinearLayout
+        style="@style/MatchMatch"
+        android:layout_marginTop="@dimen/base_pow_four"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextViewWallet"
+            android:text="@string/balance" />
+
+        <TextView
+            style="@style/TextViewWallet"
+            android:layout_marginTop="@dimen/base_pow_four"
+            android:text="@string/amount" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base_one"
+            android:layout_marginStart="@dimen/base_fifty"
+            android:layout_marginTop="@dimen/base_pow_four"
+            android:layout_marginEnd="@dimen/base_fifty"
+            android:layout_marginBottom="@dimen/base_pow_four"
+            android:background="@color/colorAccent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            style="@style/RecyclerView"
+            android:layout_marginStart="@dimen/base_hundred"
+            android:layout_marginEnd="@dimen/base_hundred"
+            tools:listitem="@layout/item_wallet" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/ic_base"
+        android:layout_height="@dimen/ic_base"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/base_hundred"
+        android:layout_marginEnd="@dimen/base_pow_four"
+        android:src="@drawable/ic_calendar_blue" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        style="@style/FloatingActionButton"
+        android:src="@drawable/ic_add_white" />
 
 </RelativeLayout>

@@ -45,6 +45,12 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
 
+    <style name="TextViewWallet" parent="WrapWrap">
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextInputLayout">
         <item name="android:layout_width">@dimen/et_width</item>
         <item name="android:layout_height">@dimen/et_height</item>
@@ -103,8 +109,8 @@
     </style>
 
     <style name="ImageViewArrowBack">
-        <item name="android:layout_width">@dimen/ic_toolbar</item>
-        <item name="android:layout_height">@dimen/ic_toolbar</item>
+        <item name="android:layout_width">@dimen/ic_base</item>
+        <item name="android:layout_height">@dimen/ic_base</item>
         <item name="android:src">@drawable/ic_arrow_back_white</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_marginStart">@dimen/base_pow_four</item>
@@ -112,13 +118,18 @@
 
     <style name="ImageViewToolbar">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">@dimen/ic_toolbar</item>
+        <item name="android:layout_height">@dimen/ic_base</item>
         <item name="android:layout_centerInParent">true</item>
     </style>
 
     <style name="ProgressBar" parent="WrapWrap">
         <item name="android:layout_centerInParent">true</item>
         <item name="android:visibility">invisible</item>
+    </style>
+
+    <style name="RecyclerView" parent="MatchMatch">
+        <item name="android:clipToPadding">false</item>
+        <item name="android:paddingBottom">@dimen/base_hundred</item>
     </style>
 
     <style name="FloatingActionButton" parent="WrapWrap">
