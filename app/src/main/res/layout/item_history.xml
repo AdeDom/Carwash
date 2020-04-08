@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/MatchWrap"
-    android:layout_marginStart="@dimen/base_pow_five"
-    android:layout_marginTop="@dimen/base_pow_five"
-    android:layout_marginEnd="@dimen/base_pow_five"
+    style="@style/StyleCardView"
     app:cardCornerRadius="@dimen/base_pow_three"
     app:cardElevation="@dimen/base_pow_four"
     app:contentPadding="@dimen/base_pow_four">
@@ -34,7 +31,7 @@
             <TextView
                 style="@style/TextViewMediumBlack"
                 android:layout_marginStart="@dimen/base_pow_three"
-                android:text="@string/job" />
+                android:text="@string/service" />
 
             <ImageView
                 android:layout_width="@dimen/ic_base"
