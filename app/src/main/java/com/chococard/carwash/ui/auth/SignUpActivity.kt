@@ -11,13 +11,15 @@ import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.AuthApi
 import com.chococard.carwash.data.networks.NetworkConnectionInterceptor
 import com.chococard.carwash.data.repositories.AuthRepository
-import com.chococard.carwash.util.FileUtils
 import com.chococard.carwash.util.extension.*
+import com.chococard.carwash.util.getFileName
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -75,9 +77,10 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun selectImage() = Intent().apply {
+    private fun selectImage() = Intent(Intent.ACTION_PICK).apply {
         type = "image/*"
-        action = Intent.ACTION_GET_CONTENT
+        val mimeTypes = arrayOf("image/jpeg", "image/png")
+        putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
         startActivityForResult(this, REQUEST_CODE)
     }
 
@@ -91,7 +94,12 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun uploadFile(fileUri: Uri) {
-        val file: File? = FileUtils.getFile(this, fileUri)
+        val parcelFileDescriptor = contentResolver.openFileDescriptor(fileUri, "r", null) ?: return
+
+        val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
+        val file = File(cacheDir, contentResolver.getFileName(fileUri))
+        val outputStream = FileOutputStream(file)
+        inputStream.copyTo(outputStream)
 
         val requestFile = RequestBody
             .create(MediaType.parse(contentResolver.getType(fileUri)), file)

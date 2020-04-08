@@ -17,8 +17,6 @@ class SplashScreenActivity : AppCompatActivity() {
     private val GRANTED = PackageManager.PERMISSION_GRANTED
     private val ACCESS_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
     private val ACCESS_COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION
-    private val READ_EXTERNAL_STORAGE = Manifest.permission.READ_EXTERNAL_STORAGE
-    private val WRITE_EXTERNAL_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE
     private val REQUEST_CODE_PERMISSION: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,16 +25,12 @@ class SplashScreenActivity : AppCompatActivity() {
 
         if (
             ContextCompat.checkSelfPermission(baseContext, ACCESS_FINE_LOCATION) != GRANTED ||
-            ContextCompat.checkSelfPermission(baseContext, ACCESS_COARSE_LOCATION) != GRANTED ||
-            ContextCompat.checkSelfPermission(baseContext, READ_EXTERNAL_STORAGE) != GRANTED ||
-            ContextCompat.checkSelfPermission(baseContext, WRITE_EXTERNAL_STORAGE) != GRANTED
+            ContextCompat.checkSelfPermission(baseContext, ACCESS_COARSE_LOCATION) != GRANTED
         ) {
             requestPermissions(
                 arrayOf(
                     ACCESS_FINE_LOCATION,
-                    ACCESS_COARSE_LOCATION,
-                    READ_EXTERNAL_STORAGE,
-                    WRITE_EXTERNAL_STORAGE
+                    ACCESS_COARSE_LOCATION
                 ), REQUEST_CODE_PERMISSION
             )
         } else {
@@ -54,9 +48,7 @@ class SplashScreenActivity : AppCompatActivity() {
         if (requestCode == REQUEST_CODE_PERMISSION) {
             if (
                 grantResults[0] != GRANTED ||
-                grantResults[1] != GRANTED ||
-                grantResults[2] != GRANTED ||
-                grantResults[3] != GRANTED
+                grantResults[1] != GRANTED
             ) {
                 finish()
             } else {
