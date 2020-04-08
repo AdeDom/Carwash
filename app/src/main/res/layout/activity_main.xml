@@ -10,13 +10,9 @@
         style="@style/MatchWrap">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             style="@style/MatchWrap"
             android:background="@color/colorPrimary" />
-
-        <ImageView
-            android:id="@+id/iv_arrow_back"
-            style="@style/ImageViewArrowBack"
-            android:visibility="invisible" />
 
         <ImageView
             style="@style/ImageViewToolbar"

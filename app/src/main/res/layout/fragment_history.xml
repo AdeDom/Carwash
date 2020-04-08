@@ -11,6 +11,7 @@
         tools:listitem="@layout/item_history" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
         style="@style/FloatingActionButton"
         android:src="@drawable/ic_calendar" />
 
