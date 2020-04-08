@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <TextView
-        style="@style/TextViewWallet"
+        style="@style/TextViewLarge"
         android:text="@string/date" />
 
     <RelativeLayout
@@ -13,11 +13,11 @@
         android:gravity="center_horizontal">
 
         <TextView
-            style="@style/TextViewWallet"
+            style="@style/TextViewLarge"
             android:text="@string/time" />
 
         <TextView
-            style="@style/TextViewWallet"
+            style="@style/TextViewLarge"
             android:layout_alignParentEnd="true"
             android:text="@string/baht" />
 

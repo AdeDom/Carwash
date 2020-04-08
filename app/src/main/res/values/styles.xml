@@ -56,7 +56,7 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
 
-    <style name="TextViewWallet" parent="WrapWrap">
+    <style name="TextViewLarge" parent="WrapWrap">
         <item name="android:textSize">@dimen/text_large</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textStyle">bold</item>

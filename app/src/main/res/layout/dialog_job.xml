@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MatchWrap"
+    android:padding="@dimen/base_pow_four">
+
+    <ImageView
+        android:id="@+id/iv_photo"
+        style="@style/ImageViewPhotoSub"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/shape_img" />
+
+    <TextView
+        style="@style/TextViewLarge"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/shape_count_job"
+        tools:text="8" />
+
+    <GridLayout
+        android:id="@+id/layout_job"
+        style="@style/WrapWrap"
+        android:layout_below="@id/iv_photo"
+        android:layout_marginStart="@dimen/base_pow_five"
+        android:layout_marginTop="@dimen/base_pow_three"
+        android:columnCount="2"
+        android:rowCount="4">
+
+        <ImageView
+            android:layout_width="@dimen/ic_base"
+            android:layout_height="@dimen/ic_base"
+            android:src="@drawable/ic_person_gray" />
+
+        <TextView
+            style="@style/TextViewMediumBlack"
+            android:layout_marginStart="@dimen/base_pow_three"
+            android:text="@string/name" />
+
+        <ImageView
+            android:layout_width="@dimen/ic_base"
+            android:layout_height="@dimen/ic_base"
+            android:src="@drawable/ic_list_job_gray" />
+
+        <TextView
+            style="@style/TextViewMediumBlack"
+            android:layout_marginStart="@dimen/base_pow_three"
+            android:text="@string/service" />
+
+        <ImageView
+            android:layout_width="@dimen/ic_base"
+            android:layout_height="@dimen/ic_base"
+            android:src="@drawable/ic_location_gray" />
+
+        <TextView
+            style="@style/TextViewMediumBlack"
+            android:layout_marginStart="@dimen/base_pow_three"
+            android:text="@string/location" />
+
+        <ImageView
+            android:layout_width="@dimen/ic_base"
+            android:layout_height="@dimen/ic_base"
+            android:src="@drawable/ic_phone_gray" />
+
+        <TextView
+            style="@style/TextViewMediumBlack"
+            android:layout_marginStart="@dimen/base_pow_three"
+            android:text="@string/phone" />
+
+    </GridLayout>
+
+    <LinearLayout
+        style="@style/LinearLayoutButtonPair"
+        android:layout_below="@id/layout_job"
+        android:layout_alignParentBottom="false"
+        android:layout_marginTop="@dimen/base_pow_four">
+
+        <Button
+            style="@style/ButtonWhiteShort"
+            android:background="@drawable/shape_bt_white"
+            android:text="@string/cancel" />
+
+        <Button
+            style="@style/ButtonBlueShort"
+            android:layout_marginStart="@dimen/base_pow_three"
+            android:background="@drawable/shape_bt_blue"
+            android:text="@string/confirm" />
+
+    </LinearLayout>
+
+</RelativeLayout>

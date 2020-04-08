@@ -10,11 +10,11 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/TextViewWallet"
+            style="@style/TextViewLarge"
             android:text="@string/balance" />
 
         <TextView
-            style="@style/TextViewWallet"
+            style="@style/TextViewLarge"
             android:layout_marginTop="@dimen/base_pow_four"
             android:text="@string/amount" />
 
