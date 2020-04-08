@@ -42,9 +42,10 @@
     <string name="location">Location</string>
     <string name="job">Job</string>
     <string name="balance">ยอดเงินคงเหลือ</string>
-    <string name="amount">฿ 170.00</string>
+    <string name="amount">Amount</string>
     <string name="date">25/03/2020</string>
     <string name="time">14:39</string>
     <string name="baht">+฿ 200.00</string>
+    <string name="upload_image">Upload image</string>
 
 </resources>

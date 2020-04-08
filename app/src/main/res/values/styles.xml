@@ -28,6 +28,17 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
+    <style name="RelativeLayout" parent="MatchMatch">
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+    </style>
+
+    <style name="LinearLayoutVertical" parent="WrapWrap">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">@dimen/base_pow_four</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
     <style name="LinearLayoutButtonPair" parent="MatchWrap">
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_marginBottom">@dimen/base_pow_five</item>

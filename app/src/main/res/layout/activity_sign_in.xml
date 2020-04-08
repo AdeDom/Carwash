@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/MatchMatch"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    style="@style/RelativeLayout">
 
     <RelativeLayout style="@style/MatchWrap">
 
@@ -21,9 +19,8 @@
     </RelativeLayout>
 
     <LinearLayout
-        style="@style/WrapWrap"
-        android:layout_centerInParent="true"
-        android:orientation="vertical">
+        style="@style/LinearLayoutVertical"
+        android:layout_centerInParent="true">
 
         <ImageView
             style="@style/ImageViewLogo"

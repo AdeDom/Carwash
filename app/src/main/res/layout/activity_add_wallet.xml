@@ -16,7 +16,7 @@
 
         <ImageView
             style="@style/ImageViewToolbar"
-            android:src="@drawable/ic_change_password" />
+            android:src="@drawable/ic_add_wallet" />
 
     </RelativeLayout>
 
@@ -24,38 +24,37 @@
         style="@style/LinearLayoutVertical"
         android:layout_below="@+id/layout_toolbar">
 
-        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+        <LinearLayout style="@style/MatchWrap">
 
-            <EditText
-                style="@style/MatchMatch"
-                android:background="@drawable/shape_et"
-                android:drawableStart="@drawable/ic_key_gray"
-                android:hint="@string/old_password"
-                android:inputType="textPassword" />
+            <ImageView
+                android:layout_width="@dimen/ic_base"
+                android:layout_height="@dimen/ic_base"
+                android:src="@drawable/ic_person_gray" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                style="@style/TextViewMediumBlack"
+                android:layout_marginStart="@dimen/base_pow_three"
+                android:text="@string/name" />
 
-        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
-
-            <EditText
-                style="@style/MatchMatch"
-                android:background="@drawable/shape_et"
-                android:drawableStart="@drawable/ic_key_gray_new"
-                android:hint="@string/new_password"
-                android:inputType="textPassword" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
             <EditText
                 style="@style/MatchMatch"
                 android:background="@drawable/shape_et"
-                android:drawableStart="@drawable/ic_key_gray_new"
-                android:hint="@string/re_password"
-                android:inputType="textPassword" />
+                android:drawableStart="@drawable/ic_baht"
+                android:hint="@string/amount"
+                android:inputType="number" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            style="@style/ButtonWhiteShort"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/base_pow_three"
+            android:background="@drawable/shape_bt_white"
+            android:text="@string/upload_image" />
 
     </LinearLayout>
 
