@@ -10,4 +10,7 @@ class ChangeRepository(private val api: ChangeApi) : SafeApiRequest() {
     suspend fun uploadImageFile(file: MultipartBody.Part, description: RequestBody) =
         apiRequest { api.uploadImageFile(file, description) }
 
+    suspend fun changeProfile(name: String, identityCard: String, phone: String) =
+        apiRequest { api.changeProfile(name, identityCard, phone) }
+
 }

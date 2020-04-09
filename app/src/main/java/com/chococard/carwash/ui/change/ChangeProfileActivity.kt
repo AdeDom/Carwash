@@ -61,6 +61,12 @@ class ChangeProfileActivity : BaseActivity<ChangeViewModel>() {
             progress_bar.hide()
         })
 
+        viewModel.changeProfile.observe(this, Observer { response ->
+            progress_bar.hide()
+            response.message?.let { toast(it) }
+            if (response.success) finish()
+        })
+
         //exception
         viewModel.exception = {
             progress_bar.hide()
@@ -106,7 +112,28 @@ class ChangeProfileActivity : BaseActivity<ChangeViewModel>() {
     }
 
     private fun changeProfile() {
-        toast("Confirm")
+        when {
+            et_full_name.isEmpty(getString(R.string.error_empty_name)) -> return
+            et_identity_card.isEmpty(getString(R.string.error_empty_identity_card)) -> return
+            et_identity_card.isEqualLength(13, getString(R.string.error_equal_length, 13)) -> return
+            viewModel.isIdentityCard(et_identity_card.getContents()) -> {
+                et_identity_card.failed(getString(R.string.error_identity_card))
+                return
+            }
+            et_phone.isEmpty(getString(R.string.error_empty_phone)) -> return
+            et_phone.isEqualLength(10, getString(R.string.error_equal_length, 10)) -> return
+            viewModel.isTelephoneNumber(et_phone.getContents()) -> {
+                et_phone.failed(getString(R.string.error_phone))
+                return
+            }
+        }
+
+        progress_bar.show()
+        viewModel.changeProfile(
+            et_full_name.getContents(),
+            et_identity_card.getContents(),
+            et_phone.getContents()
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
