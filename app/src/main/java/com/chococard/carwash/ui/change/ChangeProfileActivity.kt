@@ -24,6 +24,7 @@ import java.io.FileOutputStream
 
 class ChangeProfileActivity : BaseActivity<ChangeViewModel>() {
 
+    private var mUser: User? = null
     private val REQUEST_CODE = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +36,7 @@ class ChangeProfileActivity : BaseActivity<ChangeViewModel>() {
     }
 
     private fun init() {
-        val user = intent.getParcelableExtra<User>(getString(R.string.user))
+        mUser = intent.getParcelableExtra(getString(R.string.user))
 
         val factory =
             ChangeFactory(ChangeRepository(ChangeApi.invoke(networkConnectionInterceptor)))
@@ -44,10 +45,10 @@ class ChangeProfileActivity : BaseActivity<ChangeViewModel>() {
         setToolbar(toolbar)
 
         //set widgets
-        et_full_name.setText(user?.fullName)
-        et_identity_card.setText(user?.idCard)
-        et_phone.setText(user?.phone)
-        user?.image?.let { iv_photo.loadCircle(it) }
+        et_full_name.setText(mUser?.fullName)
+        et_identity_card.setText(mUser?.idCard)
+        et_phone.setText(mUser?.phone)
+        mUser?.image?.let { iv_photo.loadCircle(it) }
 
         //set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
@@ -138,7 +139,13 @@ class ChangeProfileActivity : BaseActivity<ChangeViewModel>() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.option_change_password -> toast("option_change_password")
+            R.id.option_change_password -> {
+                Intent(baseContext, ChangePasswordActivity::class.java).apply {
+                    putExtra(getString(R.string.user), mUser)
+                    startActivity(this)
+                    finish()
+                }
+            }
             R.id.option_contact_admin -> contactAdmin()
             R.id.option_logout -> logout()
         }

@@ -2,6 +2,7 @@ package com.chococard.carwash.ui.change
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.chococard.carwash.data.networks.response.ChangePasswordResponse
 import com.chococard.carwash.data.networks.response.ChangeProfileResponse
 import com.chococard.carwash.data.repositories.ChangeRepository
 import com.chococard.carwash.util.ApiException
@@ -22,6 +23,10 @@ class ChangeViewModel(private val repository: ChangeRepository) : BaseViewModel(
     val changeProfile: LiveData<ChangeProfileResponse>
         get() = _changeProfile
 
+    private val _changePassword = MutableLiveData<ChangePasswordResponse>()
+    val changePassword: LiveData<ChangePasswordResponse>
+        get() = _changePassword
+
     fun uploadImageFile(file: MultipartBody.Part, description: RequestBody) {
         job = Coroutines.main {
             try {
@@ -39,6 +44,18 @@ class ChangeViewModel(private val repository: ChangeRepository) : BaseViewModel(
         job = Coroutines.main {
             try {
                 _changeProfile.value = repository.changeProfile(name, identityCard, phone)
+            } catch (e: ApiException) {
+                exception?.invoke(e.message!!)
+            } catch (e: NoInternetException) {
+                exception?.invoke(e.message!!)
+            }
+        }
+    }
+
+    fun changePassword(oldPassword: String, newPassword: String) {
+        job = Coroutines.main {
+            try {
+                _changePassword.value = repository.changePassword(oldPassword, newPassword)
             } catch (e: ApiException) {
                 exception?.invoke(e.message!!)
             } catch (e: NoInternetException) {

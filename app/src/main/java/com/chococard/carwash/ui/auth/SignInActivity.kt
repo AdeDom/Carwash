@@ -66,8 +66,6 @@ class SignInActivity : BaseActivity<AuthViewModel>() {
             et_password.isMinLength(8, getString(R.string.error_least_length, 8)) -> return
         }
 
-        //TODO set enable sign in
-
         progress_bar.show()
         viewModel.signIn(et_username.getContents(), et_password.getContents())
 

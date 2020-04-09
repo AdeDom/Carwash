@@ -134,8 +134,6 @@ class SignUpActivity : BaseActivity<AuthViewModel>() {
             }
         }
 
-        //TODO set enable sign up
-
         progress_bar.show()
         viewModel.signUp(
             et_full_name.getContents(),

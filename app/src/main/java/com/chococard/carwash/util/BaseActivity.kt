@@ -49,14 +49,18 @@ abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
             dialog.dismiss()
         }
         setNegativeButton(android.R.string.ok) { dialog, which ->
-            writePref(R.string.token, "")
-            Intent(baseContext, SignInActivity::class.java).apply {
-                finishAffinity()
-                startActivity(this)
-            }
+            goToSignIn()
         }
         setCancelable(false)
         show()
+    }
+
+    fun goToSignIn() {
+        writePref(R.string.token, "")
+        Intent(baseContext, SignInActivity::class.java).apply {
+            finishAffinity()
+            startActivity(this)
+        }
     }
 
 }

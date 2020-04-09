@@ -10,6 +10,7 @@ import com.chococard.carwash.R
 import com.chococard.carwash.data.models.User
 import com.chococard.carwash.data.networks.UserApi
 import com.chococard.carwash.data.repositories.UserRepository
+import com.chococard.carwash.ui.change.ChangePasswordActivity
 import com.chococard.carwash.ui.change.ChangeProfileActivity
 import com.chococard.carwash.ui.main.history.HistoryFragment
 import com.chococard.carwash.ui.main.map.MapFragment
@@ -76,7 +77,12 @@ class MainActivity : BaseActivity<MainViewModel>(),
                     startActivity(this)
                 }
             }
-            R.id.option_change_password -> toast("option_change_password")
+            R.id.option_change_password -> {
+                Intent(baseContext, ChangePasswordActivity::class.java).apply {
+                    putExtra(getString(R.string.user), mUser)
+                    startActivity(this)
+                }
+            }
             R.id.option_contact_admin -> contactAdmin()
             R.id.option_logout -> logout()
         }

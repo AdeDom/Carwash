@@ -1,5 +1,6 @@
 package com.chococard.carwash.data.networks
 
+import com.chococard.carwash.data.networks.response.ChangePasswordResponse
 import com.chococard.carwash.data.networks.response.ChangeProfileResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -23,6 +24,13 @@ interface ChangeApi {
         @Field("identityCard") identityCard: String,
         @Field("phone") phone: String
     ): Response<ChangeProfileResponse>
+
+    @FormUrlEncoded
+    @POST("5e8f01383000007e0064c01b")
+    suspend fun changePassword(
+        @Field("old_password") oldPassword: String,
+        @Field("new_password") newPassword: String
+    ): Response<ChangePasswordResponse>
 
     companion object {
         operator fun invoke(
