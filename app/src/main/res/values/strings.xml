@@ -49,5 +49,6 @@
     <string name="tax_invoice">Tax invoice</string>
     <string name="service">Service</string>
     <string name="user">User</string>
+    <string name="do_you_really_want_to_log_out">Do you really want to log out?</string>
 
 </resources>

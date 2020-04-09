@@ -3,6 +3,7 @@ package com.chococard.carwash.ui.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -10,15 +11,13 @@ import com.chococard.carwash.R
 import com.chococard.carwash.data.models.User
 import com.chococard.carwash.data.networks.UserApi
 import com.chococard.carwash.data.repositories.UserRepository
+import com.chococard.carwash.ui.auth.SignInActivity
 import com.chococard.carwash.ui.change.ChangeProfileActivity
 import com.chococard.carwash.ui.main.history.HistoryFragment
 import com.chococard.carwash.ui.main.map.MapFragment
 import com.chococard.carwash.ui.main.wallet.WalletFragment
 import com.chococard.carwash.util.BaseActivity
-import com.chococard.carwash.util.extension.hide
-import com.chococard.carwash.util.extension.setToolbar
-import com.chococard.carwash.util.extension.show
-import com.chococard.carwash.util.extension.toast
+import com.chococard.carwash.util.extension.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -78,9 +77,26 @@ class MainActivity : BaseActivity<MainViewModel>(),
             }
             R.id.option_change_password -> toast("option_change_password")
             R.id.option_contact_admin -> toast("option_contact_admin")
-            R.id.option_logout -> toast("option_logout")
+            R.id.option_logout -> logout()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun logout() = AlertDialog.Builder(this).apply {
+        setTitle(R.string.logout)
+        setMessage(R.string.do_you_really_want_to_log_out)
+        setPositiveButton(android.R.string.cancel) { dialog, which ->
+            dialog.dismiss()
+        }
+        setNegativeButton(android.R.string.ok) { dialog, which ->
+            writePref(R.string.token, "")
+            Intent(baseContext, SignInActivity::class.java).apply {
+                finishAffinity()
+                startActivity(this)
+            }
+        }
+        setCancelable(false)
+        show()
     }
 
 }

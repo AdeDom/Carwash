@@ -6,7 +6,7 @@ import retrofit2.http.GET
 
 interface UserApi {
 
-    @GET("5e8ecb913000007c0064bd9d")
+    @GET("5e8ef2dc30000066bf64bf82")
     suspend fun fetchUser(): Response<UserResponse>
 
     companion object {
