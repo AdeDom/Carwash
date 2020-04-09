@@ -139,8 +139,8 @@ class ChangeProfileActivity : BaseActivity<ChangeViewModel>() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.option_change_password -> toast("option_change_password")
-            R.id.option_contact_admin -> toast("option_contact_admin")
-            R.id.option_logout -> toast("option_logout")
+            R.id.option_contact_admin -> contactAdmin()
+            R.id.option_logout -> logout()
         }
         return super.onOptionsItemSelected(item)
     }

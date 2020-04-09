@@ -50,5 +50,7 @@
     <string name="service">Service</string>
     <string name="user">User</string>
     <string name="do_you_really_want_to_log_out">Do you really want to log out?</string>
+    <string name="contact_system_administrator">Contact system administrator?</string>
+    <string name="contact_admin_tel">tel:0834254372</string>
 
 </resources>
