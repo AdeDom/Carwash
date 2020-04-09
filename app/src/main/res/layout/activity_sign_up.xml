@@ -60,6 +60,7 @@
             <EditText
                 android:id="@+id/et_username"
                 style="@style/MatchMatch"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
                 android:background="@drawable/shape_et"
                 android:drawableStart="@drawable/ic_account_gray"
                 android:hint="@string/username" />
@@ -71,6 +72,7 @@
             <EditText
                 android:id="@+id/et_password"
                 style="@style/MatchMatch"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
                 android:background="@drawable/shape_et"
                 android:drawableStart="@drawable/ic_key_gray"
                 android:hint="@string/password"

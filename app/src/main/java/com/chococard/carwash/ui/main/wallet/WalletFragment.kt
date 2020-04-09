@@ -1,18 +1,15 @@
 package com.chococard.carwash.ui.main.wallet
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
+import com.chococard.carwash.util.BaseFragment
 
-class WalletFragment : Fragment() {
+class WalletFragment : BaseFragment<WalletViewModel>({ R.layout.fragment_wallet }) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_wallet, container, false)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(WalletViewModel::class.java)
+    }
 
 }

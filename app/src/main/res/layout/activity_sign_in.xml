@@ -38,6 +38,7 @@
                 android:id="@+id/et_username"
                 style="@style/MatchMatch"
                 android:background="@drawable/shape_et"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
                 android:drawableStart="@drawable/ic_account_gray"
                 android:hint="@string/username" />
 
@@ -49,6 +50,7 @@
                 android:id="@+id/et_password"
                 style="@style/MatchMatch"
                 android:background="@drawable/shape_et"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
                 android:drawableStart="@drawable/ic_key_gray"
                 android:hint="@string/password"
                 android:inputType="textPassword" />

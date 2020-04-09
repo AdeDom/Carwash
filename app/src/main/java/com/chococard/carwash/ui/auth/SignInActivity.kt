@@ -2,18 +2,17 @@ package com.chococard.carwash.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.AuthApi
-import com.chococard.carwash.data.networks.NetworkConnectionInterceptor
 import com.chococard.carwash.data.repositories.AuthRepository
 import com.chococard.carwash.ui.main.MainActivity
+import com.chococard.carwash.util.BaseActivity
 import com.chococard.carwash.util.extension.*
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
-class SignInActivity : AppCompatActivity() {
+class SignInActivity : BaseActivity() {
 
     private lateinit var viewModel: AuthViewModel
 
@@ -25,7 +24,6 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        val networkConnectionInterceptor = NetworkConnectionInterceptor(baseContext)
         val factory = AuthFactory(AuthRepository(AuthApi.invoke(networkConnectionInterceptor)))
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
@@ -69,6 +67,8 @@ class SignInActivity : AppCompatActivity() {
             et_password.isEmpty(getString(R.string.error_empty_password)) -> return
             et_password.isMinLength(8, getString(R.string.error_least_length, 8)) -> return
         }
+
+        //TODO set enable sign in
 
         progress_bar.show()
         viewModel.signIn(et_username.getContents(), et_password.getContents())

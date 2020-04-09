@@ -2,23 +2,18 @@ package com.chococard.carwash.ui.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.chococard.carwash.data.networks.response.SignInResponse
 import com.chococard.carwash.data.networks.response.SignUpResponse
 import com.chococard.carwash.data.repositories.AuthRepository
 import com.chococard.carwash.util.ApiException
+import com.chococard.carwash.util.BaseViewModel
 import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.NoInternetException
-import kotlinx.coroutines.Job
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 
-class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
-
-    private lateinit var job: Job
-
-    var exception: ((String) -> Unit)? = null
+class AuthViewModel(private val repository: AuthRepository) : BaseViewModel() {
 
     private val _signUpResponse = MutableLiveData<SignUpResponse>()
     val signUpResponse: LiveData<SignUpResponse>
@@ -99,11 +94,6 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
             }
         }
         return isPhone
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        if (::job.isInitialized) job.cancel()
     }
 
 }

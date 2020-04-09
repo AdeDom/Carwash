@@ -7,7 +7,7 @@
     <color name="colorBgTransparent">#66000000</color>
     <color name="colorIconCamera">#4cda64</color>
     <color name="colorStroke">#707070</color>
-    <color name="colorEditTextSolid">#F1F0F0</color>
+    <color name="colorSolid">#F1F0F0</color>
     <color name="colorSplashScreenTop">#2A5298</color>
     <color name="colorSplashScreenBottom">#1E3C72</color>
     <color name="colorNavigation">#E9EBEE</color>

@@ -4,13 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.AuthApi
-import com.chococard.carwash.data.networks.NetworkConnectionInterceptor
 import com.chococard.carwash.data.repositories.AuthRepository
+import com.chococard.carwash.util.BaseActivity
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.util.getFileName
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -21,7 +20,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : BaseActivity() {
 
     private lateinit var viewModel: AuthViewModel
     private val REQUEST_CODE = 1
@@ -34,7 +33,6 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        val networkConnectionInterceptor = NetworkConnectionInterceptor(baseContext)
         val factory = AuthFactory(AuthRepository(AuthApi.invoke(networkConnectionInterceptor)))
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
@@ -136,6 +134,8 @@ class SignUpActivity : AppCompatActivity() {
                 return
             }
         }
+
+        //TODO set enable sign up
 
         progress_bar.show()
         viewModel.signUp(
