@@ -7,6 +7,7 @@
         style="@style/MatchWrap">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             style="@style/MatchWrap"
             android:background="@color/colorPrimary" />
 
@@ -47,11 +48,11 @@
             android:layout_marginTop="@dimen/base_pow_four">
 
             <EditText
-                android:id="@+id/et_name"
+                android:id="@+id/et_full_name"
                 style="@style/MatchMatch"
                 android:background="@drawable/shape_et"
                 android:drawableStart="@drawable/ic_person_gray"
-                android:hint="@string/name" />
+                android:hint="@string/full_name" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,16 +85,22 @@
     <LinearLayout style="@style/LinearLayoutButtonPair">
 
         <Button
+            android:id="@+id/bt_cancel"
             style="@style/ButtonWhiteShort"
             android:background="@drawable/shape_bt_white"
             android:text="@string/cancel" />
 
         <Button
+            android:id="@+id/bt_confirm"
             style="@style/ButtonBlueShort"
             android:layout_marginStart="@dimen/base_pow_three"
             android:background="@drawable/shape_bt_blue"
             android:text="@string/confirm" />
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/ProgressBar" />
 
 </RelativeLayout>

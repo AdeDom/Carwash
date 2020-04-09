@@ -53,12 +53,12 @@
 
             <TextView
                 style="@style/TextViewMediumBlack"
-                android:text="@string/name" />
+                android:text="@string/full_name" />
 
             <TextView
                 style="@style/TextViewMediumBlack"
                 android:layout_gravity="end"
-                android:text="@string/name" />
+                android:text="@string/full_name" />
 
             <TextView
                 style="@style/TextViewMediumBlack"

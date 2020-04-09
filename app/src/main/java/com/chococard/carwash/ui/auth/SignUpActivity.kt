@@ -112,7 +112,7 @@ class SignUpActivity : BaseActivity<AuthViewModel>() {
 
     private fun signUp() {
         when {
-            et_name.isEmpty(getString(R.string.error_empty_name)) -> return
+            et_full_name.isEmpty(getString(R.string.error_empty_name)) -> return
             et_username.isEmpty(getString(R.string.error_empty_username)) -> return
             et_username.isMinLength(4, getString(R.string.error_least_length, 4)) -> return
             et_password.isEmpty(getString(R.string.error_empty_password)) -> return
@@ -138,7 +138,7 @@ class SignUpActivity : BaseActivity<AuthViewModel>() {
 
         progress_bar.show()
         viewModel.signUp(
-            et_name.getContents(),
+            et_full_name.getContents(),
             et_username.getContents(),
             et_password.getContents(),
             et_identity_card.getContents(),

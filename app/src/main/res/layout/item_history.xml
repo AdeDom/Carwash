@@ -21,7 +21,7 @@
             <TextView
                 style="@style/TextViewMediumBlack"
                 android:layout_marginStart="@dimen/base_pow_three"
-                android:text="@string/name" />
+                android:text="@string/full_name" />
 
             <ImageView
                 android:layout_width="@dimen/ic_base"

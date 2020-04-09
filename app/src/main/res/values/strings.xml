@@ -5,7 +5,7 @@
     <string name="sign_up_to_join">Sign up to join</string>
     <string name="have_an_account">Have an account?</string>
     <string name="password">Password</string>
-    <string name="name">Name</string>
+    <string name="full_name">Full name</string>
     <string name="username">Username</string>
     <string name="re_password">Re-password</string>
     <string name="identity_card">Identity card</string>
@@ -48,5 +48,6 @@
     <string name="upload_image">Upload image</string>
     <string name="tax_invoice">Tax invoice</string>
     <string name="service">Service</string>
+    <string name="user">User</string>
 
 </resources>

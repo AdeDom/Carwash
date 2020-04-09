@@ -33,4 +33,8 @@
         android:background="@drawable/shape_navigation"
         app:menu="@menu/menu_nav" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/ProgressBar" />
+
 </RelativeLayout>
