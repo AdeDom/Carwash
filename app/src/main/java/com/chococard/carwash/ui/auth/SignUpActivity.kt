@@ -20,9 +20,8 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
-class SignUpActivity : BaseActivity() {
+class SignUpActivity : BaseActivity<AuthViewModel>() {
 
-    private lateinit var viewModel: AuthViewModel
     private val REQUEST_CODE = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {

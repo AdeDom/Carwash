@@ -12,9 +12,7 @@ import com.chococard.carwash.util.BaseActivity
 import com.chococard.carwash.util.extension.*
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
-class SignInActivity : BaseActivity() {
-
-    private lateinit var viewModel: AuthViewModel
+class SignInActivity : BaseActivity<AuthViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -12,7 +12,7 @@ import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.extension.readPref
 import kotlinx.coroutines.delay
 
-class SplashScreenActivity : BaseActivity() {
+class SplashScreenActivity : BaseActivity<AuthViewModel>() {
 
     private val GRANTED = PackageManager.PERMISSION_GRANTED
     private val ACCESS_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION

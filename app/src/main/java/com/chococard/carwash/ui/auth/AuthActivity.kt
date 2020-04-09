@@ -6,7 +6,7 @@ import com.chococard.carwash.R
 import com.chococard.carwash.util.BaseActivity
 import kotlinx.android.synthetic.main.activity_auth.*
 
-class AuthActivity : BaseActivity() {
+class AuthActivity : BaseActivity<AuthViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

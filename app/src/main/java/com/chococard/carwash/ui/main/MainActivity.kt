@@ -2,10 +2,15 @@ package com.chococard.carwash.ui.main
 
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
+import com.chococard.carwash.data.networks.UserApi
+import com.chococard.carwash.data.repositories.UserRepository
 import com.chococard.carwash.ui.main.history.HistoryFragment
 import com.chococard.carwash.ui.main.map.MapFragment
 import com.chococard.carwash.ui.main.wallet.WalletFragment
@@ -14,11 +19,17 @@ import com.chococard.carwash.util.extension.toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity<MainViewModel>(),
+    BottomNavigationView.OnNavigationItemSelectedListener {
+
+    val TAG = "MyTAG"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val factory = MainFactory(UserRepository(UserApi.invoke(networkConnectionInterceptor)))
+        viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
         toolbar.title = ""
         setSupportActionBar(toolbar)
@@ -29,6 +40,12 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
         bottom_navigation.setOnNavigationItemSelectedListener(this)
         if (savedInstanceState == null) replaceFragment(MapFragment())
+
+        viewModel.fetchUser()
+
+        viewModel.user.observe(this, Observer {
+            Log.d(TAG, ">>$it")
+        })
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
