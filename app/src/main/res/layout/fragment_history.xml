@@ -13,4 +13,8 @@
         style="@style/FloatingActionButton"
         android:src="@drawable/ic_calendar_white" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/ProgressBar" />
+
 </RelativeLayout>
