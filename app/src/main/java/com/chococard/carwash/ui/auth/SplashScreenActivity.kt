@@ -8,9 +8,11 @@ import androidx.core.content.ContextCompat
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.util.BaseActivity
-import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.extension.readPref
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SplashScreenActivity : BaseActivity<AuthViewModel>() {
 
@@ -58,7 +60,7 @@ class SplashScreenActivity : BaseActivity<AuthViewModel>() {
     }
 
     private fun authByCheckToken() {
-        Coroutines.main {
+        CoroutineScope(Dispatchers.Main).launch {
             delay(2000)
 
             val token = readPref(R.string.token)

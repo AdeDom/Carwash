@@ -17,7 +17,6 @@ import com.chococard.carwash.ui.main.map.MapFragment
 import com.chococard.carwash.ui.main.wallet.WalletFragment
 import com.chococard.carwash.util.BaseActivity
 import com.chococard.carwash.util.extension.hide
-import com.chococard.carwash.util.extension.setToolbar
 import com.chococard.carwash.util.extension.show
 import com.chococard.carwash.util.extension.toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -45,8 +44,11 @@ class MainActivity : BaseActivity<MainViewModel>(),
 
         viewModel.user.observe(this, Observer { response ->
             progress_bar.hide()
-            response.message?.let { toast(it) }
-            if (response.success) mUser = response.user
+            if (response.success) {
+                mUser = response.user
+            } else {
+                response.message?.let { toast(it) }
+            }
         })
 
         viewModel.exception = {

@@ -2,7 +2,6 @@ package com.chococard.carwash.ui.auth
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,18 +10,9 @@ import com.chococard.carwash.data.networks.AuthApi
 import com.chococard.carwash.data.repositories.AuthRepository
 import com.chococard.carwash.util.BaseActivity
 import com.chococard.carwash.util.extension.*
-import com.chococard.carwash.util.getFileName
 import kotlinx.android.synthetic.main.activity_sign_up.*
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
 
 class SignUpActivity : BaseActivity<AuthViewModel>() {
-
-    private val REQUEST_CODE = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +42,7 @@ class SignUpActivity : BaseActivity<AuthViewModel>() {
         }
 
         //observe
-        viewModel.signUpResponse.observe(this, Observer { response ->
+        viewModel.signUp.observe(this, Observer { response ->
             progress_bar.hide()
             response.message?.let { toast(it) }
             if (response.success) {
@@ -63,7 +53,7 @@ class SignUpActivity : BaseActivity<AuthViewModel>() {
             }
         })
 
-        viewModel.uploadResponse.observe(this, Observer {
+        viewModel.upload.observe(this, Observer {
             progress_bar.hide()
         })
 
@@ -74,40 +64,16 @@ class SignUpActivity : BaseActivity<AuthViewModel>() {
         }
     }
 
-    private fun selectImage() = Intent(Intent.ACTION_PICK).apply {
-        type = "image/*"
-        val mimeTypes = arrayOf("image/jpeg", "image/png")
-        putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
-        startActivityForResult(this, REQUEST_CODE)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == REQUEST_CODE_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
             val fileUri = data.data!!
             iv_photo.loadCircle(fileUri.toString())
-            uploadFile(fileUri)
+            uploadFile(fileUri) { body, description ->
+                progress_bar.show()
+                viewModel.uploadImageFile(body, description)
+            }
         }
-    }
-
-    private fun uploadFile(fileUri: Uri) {
-        val parcelFileDescriptor = contentResolver.openFileDescriptor(fileUri, "r", null) ?: return
-
-        val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
-        val file = File(cacheDir, contentResolver.getFileName(fileUri))
-        val outputStream = FileOutputStream(file)
-        inputStream.copyTo(outputStream)
-
-        val requestFile = RequestBody
-            .create(MediaType.parse(contentResolver.getType(fileUri)), file)
-
-        val body = MultipartBody.Part.createFormData("uploaded_file", file?.name, requestFile)
-
-        val descriptionString = "hello, this is description speaking"
-        val description = RequestBody.create(MultipartBody.FORM, descriptionString)
-
-        progress_bar.show()
-        viewModel.uploadImageFile(body, description)
     }
 
     private fun signUp() {
@@ -143,4 +109,5 @@ class SignUpActivity : BaseActivity<AuthViewModel>() {
             et_phone.getContents()
         )
     }
+
 }

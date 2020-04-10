@@ -38,15 +38,16 @@ class SignInActivity : BaseActivity<AuthViewModel>() {
         }
 
         //observe
-        viewModel.signInResponse.observe(this, Observer { response ->
+        viewModel.signIn.observe(this, Observer { response ->
             progress_bar.hide()
-            response.message?.let { toast(it) }
             if (response.success) {
                 response.token?.let { writePref(R.string.token, it) }
                 Intent(baseContext, MainActivity::class.java).also {
                     startActivity(it)
                     finishAffinity()
                 }
+            } else {
+                response.message?.let { toast(it) }
             }
         })
 
@@ -55,7 +56,6 @@ class SignInActivity : BaseActivity<AuthViewModel>() {
             progress_bar.hide()
             toast(it)
         }
-
     }
 
     private fun signIn() {
@@ -68,7 +68,6 @@ class SignInActivity : BaseActivity<AuthViewModel>() {
 
         progress_bar.show()
         viewModel.signIn(et_username.getContents(), et_password.getContents())
-
     }
 
 }

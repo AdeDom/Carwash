@@ -9,7 +9,7 @@ class WalletFragment : BaseFragment<WalletViewModel>({ R.layout.fragment_wallet 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(WalletViewModel::class.java)
+//        viewModel = ViewModelProvider(this).get(WalletViewModel::class.java)
     }
 
 }

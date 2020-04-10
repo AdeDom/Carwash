@@ -11,7 +11,7 @@ class HistoryFragment : BaseFragment<HistoryViewModel>({ R.layout.fragment_histo
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
+//        viewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
 
         fab.setOnClickListener {
             context?.toast("hello")

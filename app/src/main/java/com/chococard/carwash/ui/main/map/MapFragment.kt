@@ -9,7 +9,7 @@ class MapFragment : BaseFragment<MapViewModel>({ R.layout.fragment_map }) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MapViewModel::class.java)
+//        viewModel = ViewModelProvider(this).get(MapViewModel::class.java)
     }
 
 }
