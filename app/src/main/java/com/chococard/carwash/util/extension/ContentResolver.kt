@@ -1,4 +1,4 @@
-package com.chococard.carwash.util
+package com.chococard.carwash.util.extension
 
 import android.content.ContentResolver
 import android.net.Uri
