@@ -1,5 +1,6 @@
 package com.chococard.carwash.data.networks
 
+import android.content.Context
 import com.chococard.carwash.data.networks.response.BaseResponse
 import retrofit2.Response
 import retrofit2.http.Field
@@ -25,9 +26,9 @@ interface ChangeApi : BaseApi {
 
     companion object {
         operator fun invoke(
-            networkConnectionInterceptor: NetworkConnectionInterceptor
+            context: Context
         ): ChangeApi {
-            return RetrofitClient.instance(networkConnectionInterceptor)
+            return RetrofitClient.instance(context)
                 .create(ChangeApi::class.java)
         }
     }

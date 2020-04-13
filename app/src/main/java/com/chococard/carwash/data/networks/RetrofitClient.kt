@@ -1,5 +1,6 @@
 package com.chococard.carwash.data.networks
 
+import android.content.Context
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -14,11 +15,23 @@ object RetrofitClient {
             .addInterceptor(networkConnectionInterceptor)
             .build()
 
-        return Retrofit.Builder()
-            .client(okHttpClient)
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        return retrofit(okHttpClient)
     }
+
+    fun instance(context: Context): Retrofit {
+        val networkConnectionInterceptor = NetworkConnectionInterceptor(context)
+
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(networkConnectionInterceptor)
+            .build()
+
+        return retrofit(okHttpClient)
+    }
+
+    private fun retrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
+        .client(okHttpClient)
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
 
 }

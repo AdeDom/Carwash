@@ -31,7 +31,7 @@ class MainActivity : BaseActivity<MainViewModel>(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val factory = MainFactory(UserRepository(UserApi.invoke(networkConnectionInterceptor)))
+        val factory = MainFactory(UserRepository(UserApi.invoke(baseContext)))
         viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
         setToolbar(toolbar)

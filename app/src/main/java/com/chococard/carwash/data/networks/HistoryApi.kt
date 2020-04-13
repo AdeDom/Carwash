@@ -1,5 +1,6 @@
 package com.chococard.carwash.data.networks
 
+import android.content.Context
 import com.chococard.carwash.data.networks.response.HistoryResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -15,9 +16,9 @@ interface HistoryApi : BaseApi {
 
     companion object {
         operator fun invoke(
-            networkConnectionInterceptor: NetworkConnectionInterceptor
+            context: Context
         ): HistoryApi {
-            return RetrofitClient.instance(networkConnectionInterceptor)
+            return RetrofitClient.instance(context)
                 .create(HistoryApi::class.java)
         }
     }

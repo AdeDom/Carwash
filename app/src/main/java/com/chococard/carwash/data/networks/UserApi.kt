@@ -1,5 +1,6 @@
 package com.chococard.carwash.data.networks
 
+import android.content.Context
 import com.chococard.carwash.data.networks.response.UserResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -11,9 +12,9 @@ interface UserApi : BaseApi {
 
     companion object {
         operator fun invoke(
-            networkConnectionInterceptor: NetworkConnectionInterceptor
+            context: Context
         ): UserApi {
-            return RetrofitClient.instance(networkConnectionInterceptor)
+            return RetrofitClient.instance(context)
                 .create(UserApi::class.java)
         }
     }

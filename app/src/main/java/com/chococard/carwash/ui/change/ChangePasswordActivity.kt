@@ -28,8 +28,7 @@ class ChangePasswordActivity : BaseActivity<ChangeViewModel>() {
     private fun init() {
         mUser = intent.getParcelableExtra(getString(R.string.user))
 
-        val factory =
-            ChangeFactory(ChangeRepository(ChangeApi.invoke(networkConnectionInterceptor)))
+        val factory = ChangeFactory(ChangeRepository(ChangeApi.invoke(baseContext)))
         viewModel = ViewModelProvider(this, factory).get(ChangeViewModel::class.java)
 
         setToolbar(toolbar)

@@ -12,16 +12,10 @@ abstract class BaseFragment<VM : BaseViewModel>(
 ) : Fragment() {
 
     lateinit var viewModel: VM
-    lateinit var networkConnectionInterceptor: NetworkConnectionInterceptor
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(layout, container, false)
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        networkConnectionInterceptor = NetworkConnectionInterceptor(requireContext())
-    }
 
 }

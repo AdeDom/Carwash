@@ -26,8 +26,7 @@ class HistoryFragment : BaseFragment<HistoryViewModel>(R.layout.fragment_history
     }
 
     private fun init() {
-        val factory =
-            HistoryFactory(HistoryRepository(HistoryApi.invoke(networkConnectionInterceptor)))
+        val factory = HistoryFactory(HistoryRepository(HistoryApi.invoke(requireContext())))
         viewModel = ViewModelProvider(this, factory).get(HistoryViewModel::class.java)
 
         val adt = HistoryAdapter()
