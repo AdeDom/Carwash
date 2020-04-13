@@ -19,6 +19,7 @@ abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
     lateinit var networkConnectionInterceptor: NetworkConnectionInterceptor
 
     val REQUEST_CODE_IMAGE = 1
+    val REQUEST_CODE_LOCATION = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,7 +1,12 @@
 package com.chococard.carwash.ui.main
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.location.LocationManager
 import android.os.Bundle
+import android.provider.Settings
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -25,6 +30,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : BaseActivity<MainViewModel>(),
     BottomNavigationView.OnNavigationItemSelectedListener {
 
+    private lateinit var mBroadcastReceiver: BroadcastReceiver
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -33,6 +40,7 @@ class MainActivity : BaseActivity<MainViewModel>(),
         viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
         setToolbar(toolbar)
+        setReceiverLocation()
 
         bottom_navigation.setOnNavigationItemSelectedListener(this)
         if (savedInstanceState == null) replaceFragment(MapFragment())
@@ -87,6 +95,73 @@ class MainActivity : BaseActivity<MainViewModel>(),
             R.id.option_logout -> logout()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setReceiverLocation() {
+        mBroadcastReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                if (LocationManager.PROVIDERS_CHANGED_ACTION == intent.action) {
+                    val locationManager =
+                        context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                    val isGpsEnabled =
+                        locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) //NETWORK_PROVIDER
+
+                    if (!isGpsEnabled) {
+                        settingLocation()
+                    }
+                }
+            }
+        }
+
+        settingLocation()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //Register receiver.
+        broadcastReceiver(true)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        //Unregister receiver.
+        broadcastReceiver(false)
+    }
+
+    // When location is not enabled, the application will end.
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val isLocationProviderEnabled = Settings.Secure.isLocationProviderEnabled(
+            baseContext.contentResolver,
+            LocationManager.GPS_PROVIDER
+        )
+        if (!isLocationProviderEnabled && requestCode == REQUEST_CODE_LOCATION) {
+            finishAffinity()
+        }
+    }
+
+    // Set up receiver register & unregister.
+    private fun broadcastReceiver(isReceiver: Boolean) {
+        if (isReceiver) {
+            val filter = IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
+            filter.addAction(Intent.ACTION_PROVIDER_CHANGED)
+            registerReceiver(mBroadcastReceiver, filter)
+        } else {
+            unregisterReceiver(mBroadcastReceiver)
+        }
+    }
+
+    // If location off give on setting on.
+    private fun settingLocation() {
+        val isLocationProviderEnabled = Settings.Secure.isLocationProviderEnabled(
+            baseContext.contentResolver,
+            LocationManager.GPS_PROVIDER
+        )
+        if (!isLocationProviderEnabled) {
+            Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).apply {
+                startActivityForResult(this, REQUEST_CODE_LOCATION)
+            }
+        }
     }
 
     companion object {

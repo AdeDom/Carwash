@@ -3,6 +3,7 @@ package com.chococard.carwash.ui.auth
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import com.chococard.carwash.R
@@ -25,16 +26,20 @@ class SplashScreenActivity : BaseActivity<AuthViewModel>() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
-        if (
-            ContextCompat.checkSelfPermission(baseContext, ACCESS_FINE_LOCATION) != GRANTED ||
-            ContextCompat.checkSelfPermission(baseContext, ACCESS_COARSE_LOCATION) != GRANTED
-        ) {
-            requestPermissions(
-                arrayOf(
-                    ACCESS_FINE_LOCATION,
-                    ACCESS_COARSE_LOCATION
-                ), REQUEST_CODE_PERMISSION
-            )
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
+            if (
+                ContextCompat.checkSelfPermission(baseContext, ACCESS_FINE_LOCATION) != GRANTED ||
+                ContextCompat.checkSelfPermission(baseContext, ACCESS_COARSE_LOCATION) != GRANTED
+            ) {
+                requestPermissions(
+                    arrayOf(
+                        ACCESS_FINE_LOCATION,
+                        ACCESS_COARSE_LOCATION
+                    ), REQUEST_CODE_PERMISSION
+                )
+            } else {
+                authByCheckToken()
+            }
         } else {
             authByCheckToken()
         }
