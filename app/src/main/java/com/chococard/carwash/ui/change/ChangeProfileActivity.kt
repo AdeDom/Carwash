@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.User
 import com.chococard.carwash.data.networks.ChangeApi
@@ -14,9 +13,13 @@ import com.chococard.carwash.util.base.BaseActivity
 import com.chococard.carwash.util.extension.*
 import kotlinx.android.synthetic.main.activity_change_profile.*
 
-class ChangeProfileActivity : BaseActivity<ChangeViewModel>() {
+class ChangeProfileActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
 
     private var mUser: User? = null
+
+    override fun viewModel() = ChangeViewModel::class.java
+
+    override fun factory() = ChangeFactory(ChangeRepository(ChangeApi.invoke(baseContext)))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,9 +30,6 @@ class ChangeProfileActivity : BaseActivity<ChangeViewModel>() {
 
     private fun init() {
         mUser = intent.getParcelableExtra(getString(R.string.user))
-
-        val factory = ChangeFactory(ChangeRepository(ChangeApi.invoke(baseContext)))
-        viewModel = ViewModelProvider(this, factory).get(ChangeViewModel::class.java)
 
         setToolbar(toolbar)
 

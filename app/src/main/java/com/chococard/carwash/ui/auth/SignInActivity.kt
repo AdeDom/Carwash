@@ -3,7 +3,6 @@ package com.chococard.carwash.ui.auth
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.AuthApi
 import com.chococard.carwash.data.repositories.AuthRepository
@@ -12,7 +11,11 @@ import com.chococard.carwash.util.base.BaseActivity
 import com.chococard.carwash.util.extension.*
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
-class SignInActivity : BaseActivity<AuthViewModel>() {
+class SignInActivity : BaseActivity<AuthViewModel, AuthFactory>() {
+
+    override fun viewModel() = AuthViewModel::class.java
+
+    override fun factory() = AuthFactory(AuthRepository(AuthApi.invoke(interceptor)))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,9 +25,6 @@ class SignInActivity : BaseActivity<AuthViewModel>() {
     }
 
     private fun init() {
-        val factory = AuthFactory(AuthRepository(AuthApi.invoke(networkConnectionInterceptor)))
-        viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
-
         //event
         iv_arrow_back.setOnClickListener { onBackPressed() }
 

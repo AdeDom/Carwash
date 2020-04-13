@@ -7,6 +7,8 @@ import android.os.Build
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import com.chococard.carwash.R
+import com.chococard.carwash.data.networks.AuthApi
+import com.chococard.carwash.data.repositories.AuthRepository
 import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.util.base.BaseActivity
 import com.chococard.carwash.util.extension.readPref
@@ -15,12 +17,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SplashScreenActivity : BaseActivity<AuthViewModel>() {
+class SplashScreenActivity : BaseActivity<AuthViewModel, AuthFactory>() {
 
     private val GRANTED = PackageManager.PERMISSION_GRANTED
     private val ACCESS_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
     private val ACCESS_COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION
     private val REQUEST_CODE_PERMISSION: Int = 1
+
+    override fun viewModel() = AuthViewModel::class.java
+
+    override fun factory() = AuthFactory(AuthRepository(AuthApi.invoke(interceptor)))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

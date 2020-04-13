@@ -1,7 +1,6 @@
 package com.chococard.carwash.ui.main.wallet
 
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.User
 import com.chococard.carwash.data.networks.MainApi
@@ -10,7 +9,11 @@ import com.chococard.carwash.util.base.BaseActivity
 import com.chococard.carwash.util.extension.toast
 import kotlinx.android.synthetic.main.activity_add_wallet.*
 
-class AddWalletActivity : BaseActivity<WalletViewModel>() {
+class AddWalletActivity : BaseActivity<WalletViewModel, WalletFactory>() {
+
+    override fun viewModel() = WalletViewModel::class.java
+
+    override fun factory() = WalletFactory(MainRepository(MainApi.invoke(baseContext)))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,9 +24,6 @@ class AddWalletActivity : BaseActivity<WalletViewModel>() {
 
     private fun init() {
         val user = intent.getParcelableExtra<User>(getString(R.string.user))
-
-        val factory = WalletFactory(MainRepository(MainApi.invoke(baseContext)))
-        viewModel = ViewModelProvider(this, factory).get(WalletViewModel::class.java)
 
         // set widgets
         tv_full_name.text = user.fullName

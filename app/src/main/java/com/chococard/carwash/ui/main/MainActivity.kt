@@ -10,7 +10,6 @@ import android.provider.Settings
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.User
 import com.chococard.carwash.data.networks.MainApi
@@ -27,17 +26,18 @@ import com.chococard.carwash.util.extension.toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity<MainViewModel>(),
+class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
     BottomNavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var mBroadcastReceiver: BroadcastReceiver
 
+    override fun viewModel() = MainViewModel::class.java
+
+    override fun factory() = MainFactory(MainRepository(MainApi.invoke(baseContext)))
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val factory = MainFactory(MainRepository(MainApi.invoke(baseContext)))
-        viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
         setToolbar(toolbar)
         setReceiverLocation()
