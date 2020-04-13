@@ -3,7 +3,6 @@ package com.chococard.carwash.ui.main.map
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.MainApi
 import com.chococard.carwash.data.repositories.MainRepository
@@ -14,10 +13,16 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 
-class MapFragment : BaseFragment<MapViewModel>(R.layout.fragment_map), OnMapReadyCallback {
+class MapFragment : BaseFragment<MapViewModel, MapFactory>(
+    R.layout.fragment_map
+), OnMapReadyCallback {
 
     private var mGoogleMap: GoogleMap? = null
     private var mMapView: MapView? = null
+
+    override fun viewModel() = MapViewModel::class.java
+
+    override fun factory() = MapFactory(MainRepository(MainApi.invoke(requireContext())))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,8 +41,7 @@ class MapFragment : BaseFragment<MapViewModel>(R.layout.fragment_map), OnMapRead
     }
 
     private fun init() {
-        val factory = MapFactory(MainRepository(MainApi.invoke(requireContext())))
-        viewModel = ViewModelProvider(this, factory).get(MapViewModel::class.java)
+
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {

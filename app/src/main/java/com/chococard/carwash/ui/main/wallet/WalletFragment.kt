@@ -3,7 +3,6 @@ package com.chococard.carwash.ui.main.wallet
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.MainApi
 import com.chococard.carwash.data.repositories.MainRepository
@@ -15,7 +14,11 @@ import com.chococard.carwash.util.extension.show
 import com.chococard.carwash.util.extension.toast
 import kotlinx.android.synthetic.main.fragment_wallet.*
 
-class WalletFragment : BaseFragment<WalletViewModel>(R.layout.fragment_wallet) {
+class WalletFragment : BaseFragment<WalletViewModel, WalletFactory>(R.layout.fragment_wallet) {
+
+    override fun viewModel() = WalletViewModel::class.java
+
+    override fun factory() = WalletFactory(MainRepository(MainApi.invoke(requireContext())))
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -24,9 +27,6 @@ class WalletFragment : BaseFragment<WalletViewModel>(R.layout.fragment_wallet) {
     }
 
     private fun init() {
-        val factory = WalletFactory(MainRepository(MainApi.invoke(requireContext())))
-        viewModel = ViewModelProvider(this, factory).get(WalletViewModel::class.java)
-
         // set event
         iv_calendar.setOnClickListener {
             activity?.dialogDatePicker { begin ->

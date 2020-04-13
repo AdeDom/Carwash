@@ -2,7 +2,6 @@ package com.chococard.carwash.ui.main.history
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.MainApi
@@ -14,7 +13,11 @@ import com.chococard.carwash.util.extension.show
 import com.chococard.carwash.util.extension.toast
 import kotlinx.android.synthetic.main.fragment_history.*
 
-class HistoryFragment : BaseFragment<HistoryViewModel>(R.layout.fragment_history) {
+class HistoryFragment : BaseFragment<HistoryViewModel, HistoryFactory>(R.layout.fragment_history) {
+
+    override fun viewModel() = HistoryViewModel::class.java
+
+    override fun factory() = HistoryFactory(MainRepository(MainApi.invoke(requireContext())))
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -23,9 +26,6 @@ class HistoryFragment : BaseFragment<HistoryViewModel>(R.layout.fragment_history
     }
 
     private fun init() {
-        val factory = HistoryFactory(MainRepository(MainApi.invoke(requireContext())))
-        viewModel = ViewModelProvider(this, factory).get(HistoryViewModel::class.java)
-
         val adt = HistoryAdapter()
         recycler_view.apply {
             layoutManager = LinearLayoutManager(context)
