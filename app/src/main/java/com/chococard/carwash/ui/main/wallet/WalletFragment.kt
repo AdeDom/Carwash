@@ -1,11 +1,13 @@
 package com.chococard.carwash.ui.main.wallet
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.MainApi
 import com.chococard.carwash.data.repositories.MainRepository
+import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.util.base.BaseFragment
 import com.chococard.carwash.util.extension.dialogDatePicker
 import com.chococard.carwash.util.extension.hide
@@ -25,6 +27,7 @@ class WalletFragment : BaseFragment<WalletViewModel>(R.layout.fragment_wallet) {
         val factory = WalletFactory(MainRepository(MainApi.invoke(requireContext())))
         viewModel = ViewModelProvider(this, factory).get(WalletViewModel::class.java)
 
+        // set event
         iv_calendar.setOnClickListener {
             activity?.dialogDatePicker { begin ->
                 val (bDayOfMonth, bMonth, bYear) = begin
@@ -37,6 +40,13 @@ class WalletFragment : BaseFragment<WalletViewModel>(R.layout.fragment_wallet) {
                     progress_bar.show()
                     viewModel.fetchWallet(dateBegin, dateEnd)
                 }
+            }
+        }
+
+        fab.setOnClickListener {
+            Intent(context, AddWalletActivity::class.java).apply {
+                putExtra(getString(R.string.user), MainActivity.mUser)
+                startActivity(this)
             }
         }
 

@@ -25,8 +25,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : BaseActivity<MainViewModel>(),
     BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private var mUser: User? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -89,6 +87,10 @@ class MainActivity : BaseActivity<MainViewModel>(),
             R.id.option_logout -> logout()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        var mUser: User? = null
     }
 
 }
