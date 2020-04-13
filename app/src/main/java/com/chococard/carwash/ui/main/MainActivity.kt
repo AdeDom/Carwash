@@ -8,8 +8,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.User
-import com.chococard.carwash.data.networks.UserApi
-import com.chococard.carwash.data.repositories.UserRepository
+import com.chococard.carwash.data.networks.MainApi
+import com.chococard.carwash.data.repositories.MainRepository
 import com.chococard.carwash.ui.change.ChangePasswordActivity
 import com.chococard.carwash.ui.change.ChangeProfileActivity
 import com.chococard.carwash.ui.main.history.HistoryFragment
@@ -31,7 +31,7 @@ class MainActivity : BaseActivity<MainViewModel>(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val factory = MainFactory(UserRepository(UserApi.invoke(baseContext)))
+        val factory = MainFactory(MainRepository(MainApi.invoke(baseContext)))
         viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
         setToolbar(toolbar)

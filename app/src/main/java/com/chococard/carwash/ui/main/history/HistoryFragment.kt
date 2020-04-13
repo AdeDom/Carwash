@@ -5,8 +5,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chococard.carwash.R
-import com.chococard.carwash.data.networks.HistoryApi
-import com.chococard.carwash.data.repositories.HistoryRepository
+import com.chococard.carwash.data.networks.MainApi
+import com.chococard.carwash.data.repositories.MainRepository
 import com.chococard.carwash.util.base.BaseFragment
 import com.chococard.carwash.util.extension.dialogDatePicker
 import com.chococard.carwash.util.extension.hide
@@ -23,7 +23,7 @@ class HistoryFragment : BaseFragment<HistoryViewModel>(R.layout.fragment_history
     }
 
     private fun init() {
-        val factory = HistoryFactory(HistoryRepository(HistoryApi.invoke(requireContext())))
+        val factory = HistoryFactory(MainRepository(MainApi.invoke(requireContext())))
         viewModel = ViewModelProvider(this, factory).get(HistoryViewModel::class.java)
 
         val adt = HistoryAdapter()
