@@ -16,9 +16,6 @@ import kotlinx.android.synthetic.main.fragment_history.*
 
 class HistoryFragment : BaseFragment<HistoryViewModel>(R.layout.fragment_history) {
 
-    private lateinit var mDateBegin: String
-    private lateinit var mDateEnd: String
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -36,24 +33,23 @@ class HistoryFragment : BaseFragment<HistoryViewModel>(R.layout.fragment_history
         }
 
         fab.setOnClickListener {
-            activity?.dialogDatePicker { year, month, dayOfMonth ->
-                mDateBegin = "$dayOfMonth/$month/$year"
+            activity?.dialogDatePicker { begin ->
+                val (bDayOfMonth, bMonth, bYear) = begin
+                val dateBegin = "$bDayOfMonth/$bMonth/$bYear"
 
-                activity?.dialogDatePicker { year, month, dayOfMonth ->
-                    mDateEnd = "$dayOfMonth/$month/$year"
-
-                    val mDateBetween = "$mDateBegin - $mDateEnd"
-                    context?.toast(mDateBetween)
+                activity?.dialogDatePicker { end ->
+                    val (eDayOfMonth, eMonth, eYear) = end
+                    val dateEnd = "$eDayOfMonth/$eMonth/$eYear"
 
                     progress_bar.show()
-                    viewModel.fetchHistory(mDateBegin, mDateEnd)
+                    viewModel.fetchHistory(dateBegin, dateEnd)
                 }
             }
         }
 
         // call api
         progress_bar.show()
-        viewModel.fetchHistory("", "")
+        viewModel.fetchHistory()
 
         // observe
         viewModel.history.observe(viewLifecycleOwner, Observer { response ->
