@@ -36,6 +36,7 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/iv_calendar"
         android:layout_width="@dimen/ic_base"
         android:layout_height="@dimen/ic_base"
         android:layout_alignParentEnd="true"
@@ -47,5 +48,9 @@
         android:id="@+id/fab"
         style="@style/FloatingActionButton"
         android:src="@drawable/ic_add_white" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/ProgressBar" />
 
 </RelativeLayout>
