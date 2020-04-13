@@ -1,9 +1,11 @@
-package com.chococard.carwash.util
+package com.chococard.carwash.util.base
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.chococard.carwash.data.repositories.BaseRepository
+import com.chococard.carwash.util.ApiException
+import com.chococard.carwash.util.NoInternetException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

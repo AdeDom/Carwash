@@ -19,6 +19,7 @@
                 android:src="@drawable/ic_person_gray" />
 
             <TextView
+                android:id="@+id/tv_full_name"
                 style="@style/TextViewMediumBlack"
                 android:layout_marginStart="@dimen/base_pow_three"
                 android:text="@string/full_name" />
@@ -29,6 +30,7 @@
                 android:src="@drawable/ic_list_job_gray" />
 
             <TextView
+                android:id="@+id/tv_service"
                 style="@style/TextViewMediumBlack"
                 android:layout_marginStart="@dimen/base_pow_three"
                 android:text="@string/service" />
@@ -39,6 +41,7 @@
                 android:src="@drawable/ic_location_gray" />
 
             <TextView
+                android:id="@+id/tv_location"
                 style="@style/TextViewMediumBlack"
                 android:layout_marginStart="@dimen/base_pow_three"
                 android:text="@string/location" />
@@ -49,6 +52,7 @@
                 android:src="@drawable/ic_car_gray" />
 
             <TextView
+                android:id="@+id/tv_vehicle_registration"
                 style="@style/TextViewMediumBlack"
                 android:layout_marginStart="@dimen/base_pow_three"
                 android:text="@string/vehicle_registration" />
@@ -59,6 +63,7 @@
                 android:src="@drawable/ic_baht" />
 
             <TextView
+                android:id="@+id/tv_price"
                 style="@style/TextViewMediumBlack"
                 android:layout_marginStart="@dimen/base_pow_three"
                 android:text="@string/price" />
@@ -69,6 +74,7 @@
                 android:src="@drawable/ic_time_gray" />
 
             <TextView
+                android:id="@+id/tv_date_time"
                 style="@style/TextViewMediumBlack"
                 android:layout_marginStart="@dimen/base_pow_three"
                 android:text="@string/date_time" />
@@ -76,6 +82,7 @@
         </GridLayout>
 
         <ImageView
+            android:id="@+id/iv_photo"
             style="@style/ImageViewPhotoSub"
             android:layout_alignParentEnd="true"
             android:background="@drawable/shape_img" />

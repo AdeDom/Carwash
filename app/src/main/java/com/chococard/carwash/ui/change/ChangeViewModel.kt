@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.repositories.ChangeRepository
-import com.chococard.carwash.util.BaseViewModel
+import com.chococard.carwash.util.base.BaseViewModel
 
 class ChangeViewModel(private val repository: ChangeRepository) : BaseViewModel(repository) {
 

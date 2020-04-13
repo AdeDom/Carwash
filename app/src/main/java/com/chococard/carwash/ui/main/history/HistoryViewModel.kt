@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.response.HistoryResponse
 import com.chococard.carwash.data.repositories.HistoryRepository
-import com.chococard.carwash.util.BaseViewModel
+import com.chococard.carwash.util.base.BaseViewModel
 
 class HistoryViewModel(private val repository: HistoryRepository) : BaseViewModel(repository) {
 

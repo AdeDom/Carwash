@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.AuthApi
 import com.chococard.carwash.data.repositories.AuthRepository
-import com.chococard.carwash.util.BaseActivity
+import com.chococard.carwash.util.base.BaseActivity
 import com.chococard.carwash.util.extension.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 

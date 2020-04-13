@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.SignInResponse
 import com.chococard.carwash.data.repositories.AuthRepository
-import com.chococard.carwash.util.BaseViewModel
+import com.chococard.carwash.util.base.BaseViewModel
 
 class AuthViewModel(private val repository: AuthRepository) : BaseViewModel(repository) {
 

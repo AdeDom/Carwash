@@ -1,4 +1,4 @@
-package com.chococard.carwash.util
+package com.chococard.carwash.util.base
 
 import android.content.Intent
 import android.graphics.PorterDuff

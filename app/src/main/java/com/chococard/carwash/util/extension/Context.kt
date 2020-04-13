@@ -1,6 +1,7 @@
 package com.chococard.carwash.util.extension
 
 import android.content.Context
+import android.location.Geocoder
 import android.net.Uri
 import android.widget.Toast
 import com.chococard.carwash.R
@@ -13,6 +14,11 @@ import java.io.FileOutputStream
 
 fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) =
     Toast.makeText(this, message, duration).show()
+
+fun Context.getLocality(latitude: Double, longitude: Double): String {
+    val list = Geocoder(this).getFromLocation(latitude, longitude, 1)
+    return if (list[0].locality != null) list[0].locality else getString(R.string.unknown)
+}
 
 fun Context.writePref(key: Int, values: String) =
     getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE).edit()

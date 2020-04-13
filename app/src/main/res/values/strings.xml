@@ -54,5 +54,6 @@
     <string name="do_you_really_want_to_log_out">Do you really want to log out?</string>
     <string name="contact_system_administrator">Contact system administrator?</string>
     <string name="contact_admin_tel">tel:0834254372</string>
+    <string name="unknown">Unknown</string>
 
 </resources>

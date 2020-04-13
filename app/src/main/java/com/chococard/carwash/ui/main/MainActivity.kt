@@ -15,7 +15,7 @@ import com.chococard.carwash.ui.change.ChangeProfileActivity
 import com.chococard.carwash.ui.main.history.HistoryFragment
 import com.chococard.carwash.ui.main.map.MapFragment
 import com.chococard.carwash.ui.main.wallet.WalletFragment
-import com.chococard.carwash.util.BaseActivity
+import com.chococard.carwash.util.base.BaseActivity
 import com.chococard.carwash.util.extension.hide
 import com.chococard.carwash.util.extension.show
 import com.chococard.carwash.util.extension.toast

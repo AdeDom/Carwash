@@ -1,4 +1,4 @@
-package com.chococard.carwash.util
+package com.chococard.carwash.util.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.chococard.carwash.data.networks.NetworkConnectionInterceptor
 
 abstract class BaseFragment<VM : BaseViewModel>(
-    private val layout: () -> Int
+    private val layout: Int
 ) : Fragment() {
 
     lateinit var viewModel: VM
@@ -17,7 +17,7 @@ abstract class BaseFragment<VM : BaseViewModel>(
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(layout.invoke(), container, false)
+    ): View? = inflater.inflate(layout, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

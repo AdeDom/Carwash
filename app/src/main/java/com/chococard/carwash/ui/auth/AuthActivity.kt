@@ -3,7 +3,7 @@ package com.chococard.carwash.ui.auth
 import android.content.Intent
 import android.os.Bundle
 import com.chococard.carwash.R
-import com.chococard.carwash.util.BaseActivity
+import com.chococard.carwash.util.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_auth.*
 
 class AuthActivity : BaseActivity<AuthViewModel>() {
