@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Car wash</string>
+    <string name="google_maps_key">AIzaSyC_oBci1lxwhE4xClIa4-dXbqc1bRSoKTM</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="sign_up_to_join">Sign up to join</string>
