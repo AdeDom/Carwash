@@ -45,13 +45,10 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         bottom_navigation.setOnNavigationItemSelectedListener(this)
         if (savedInstanceState == null) replaceFragment(MapFragment())
 
-        progress_bar.show()
-        viewModel.fetchUser()
-
         viewModel.user.observe(this, Observer { response ->
             progress_bar.hide()
             if (response.success) {
-                mUser = response.user
+                sUser = response.user
             } else {
                 response.message?.let { toast(it) }
             }
@@ -81,13 +78,11 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         when (item.itemId) {
             R.id.option_change_profile -> {
                 Intent(baseContext, ChangeProfileActivity::class.java).apply {
-                    putExtra(getString(R.string.user), mUser)
                     startActivity(this)
                 }
             }
             R.id.option_change_password -> {
                 Intent(baseContext, ChangePasswordActivity::class.java).apply {
-                    putExtra(getString(R.string.user), mUser)
                     startActivity(this)
                 }
             }
@@ -120,6 +115,10 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         super.onResume()
         //Register receiver.
         broadcastReceiver(true)
+
+        //get user info
+        progress_bar.show()
+        viewModel.fetchUser()
     }
 
     override fun onPause() {
@@ -165,7 +164,7 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
     }
 
     companion object {
-        var mUser: User? = null
+        var sUser: User? = null
     }
 
 }

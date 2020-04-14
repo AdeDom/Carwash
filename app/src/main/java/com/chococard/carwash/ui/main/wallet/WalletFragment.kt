@@ -45,7 +45,6 @@ class WalletFragment : BaseFragment<WalletViewModel, WalletFactory>(R.layout.fra
 
         fab.setOnClickListener {
             Intent(context, AddWalletActivity::class.java).apply {
-                putExtra(getString(R.string.user), MainActivity.mUser)
                 startActivity(this)
             }
         }

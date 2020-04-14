@@ -2,9 +2,9 @@ package com.chococard.carwash.ui.main.wallet
 
 import android.os.Bundle
 import com.chococard.carwash.R
-import com.chococard.carwash.data.models.User
 import com.chococard.carwash.data.networks.MainApi
 import com.chococard.carwash.data.repositories.MainRepository
+import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.util.base.BaseActivity
 import com.chococard.carwash.util.extension.toast
 import kotlinx.android.synthetic.main.activity_add_wallet.*
@@ -23,10 +23,9 @@ class AddWalletActivity : BaseActivity<WalletViewModel, WalletFactory>() {
     }
 
     private fun init() {
-        val user = intent.getParcelableExtra<User>(getString(R.string.user))
-
         // set widgets
-        tv_full_name.text = user.fullName
+        val user = MainActivity.sUser
+        tv_full_name.text = user?.fullName
 
         //set event
         iv_arrow_back.setOnClickListener { onBackPressed() }

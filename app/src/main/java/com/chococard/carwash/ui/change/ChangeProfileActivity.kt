@@ -6,16 +6,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.models.User
 import com.chococard.carwash.data.networks.ChangeApi
 import com.chococard.carwash.data.repositories.ChangeRepository
+import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.util.base.BaseActivity
 import com.chococard.carwash.util.extension.*
 import kotlinx.android.synthetic.main.activity_change_profile.*
 
 class ChangeProfileActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
-
-    private var mUser: User? = null
 
     override fun viewModel() = ChangeViewModel::class.java
 
@@ -29,15 +27,14 @@ class ChangeProfileActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
     }
 
     private fun init() {
-        mUser = intent.getParcelableExtra(getString(R.string.user))
-
         setToolbar(toolbar)
 
         //set widgets
-        et_full_name.setText(mUser?.fullName)
-        et_identity_card.setText(mUser?.idCard)
-        et_phone.setText(mUser?.phone)
-        mUser?.image?.let { iv_photo.loadCircle(it) }
+        val user = MainActivity.sUser
+        et_full_name.setText(user?.fullName)
+        et_identity_card.setText(user?.idCard)
+        et_phone.setText(user?.phone)
+        user?.image?.let { iv_photo.loadCircle(it) }
 
         //set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
@@ -104,7 +101,6 @@ class ChangeProfileActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
         when (item.itemId) {
             R.id.option_change_password -> {
                 Intent(baseContext, ChangePasswordActivity::class.java).apply {
-                    putExtra(getString(R.string.user), mUser)
                     startActivity(this)
                     finish()
                 }

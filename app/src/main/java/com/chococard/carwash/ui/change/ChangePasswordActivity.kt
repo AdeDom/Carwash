@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.models.User
 import com.chococard.carwash.data.networks.ChangeApi
 import com.chococard.carwash.data.repositories.ChangeRepository
 import com.chococard.carwash.ui.auth.SignInActivity
@@ -14,8 +13,6 @@ import com.chococard.carwash.util.extension.*
 import kotlinx.android.synthetic.main.activity_change_password.*
 
 class ChangePasswordActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
-
-    private var mUser: User? = null
 
     override fun viewModel() = ChangeViewModel::class.java
 
@@ -30,8 +27,6 @@ class ChangePasswordActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
     }
 
     private fun init() {
-        mUser = intent.getParcelableExtra(getString(R.string.user))
-
         setToolbar(toolbar)
 
         iv_arrow_back.setOnClickListener { onBackPressed() }
@@ -76,7 +71,6 @@ class ChangePasswordActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
         when (item.itemId) {
             R.id.option_change_profile -> {
                 Intent(baseContext, ChangeProfileActivity::class.java).apply {
-                    putExtra(getString(R.string.user), mUser)
                     startActivity(this)
                     finish()
                 }
