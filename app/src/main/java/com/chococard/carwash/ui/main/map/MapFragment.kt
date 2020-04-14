@@ -1,5 +1,6 @@
 package com.chococard.carwash.ui.main.map
 
+import android.location.Location
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -8,15 +9,12 @@ import com.chococard.carwash.data.networks.MainApi
 import com.chococard.carwash.data.repositories.MainRepository
 import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.util.base.BaseFragment
-import com.chococard.carwash.util.extension.loadCircle
-import com.chococard.carwash.util.extension.setMarker
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.Marker
 
 class MapFragment : BaseFragment<MapViewModel, MapFactory>(
     R.layout.fragment_map
@@ -24,6 +22,7 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
 
     private var mGoogleMap: GoogleMap? = null
     private var mMapView: MapView? = null
+    private var mIsCamera: Boolean = true
 
     override fun viewModel() = MapViewModel::class.java
 
@@ -52,24 +51,22 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
     override fun onMapReady(googleMap: GoogleMap?) {
         mGoogleMap = googleMap
         mGoogleMap?.isMyLocationEnabled = true
+        mGoogleMap?.setMinZoomPreference(12F)
+        mGoogleMap?.setMaxZoomPreference(16F)
+    }
 
-        val latLng = LatLng(13.6024064, 100.7070816)
+    override fun onLocationChanged(location: Location?) {
+        super.onLocationChanged(location)
+        if (location == null) return
+        val latLng = LatLng(location.latitude, location.longitude)
 
-        val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15.0F)
-        mGoogleMap?.animateCamera(cameraUpdate)
-
-        val user = MainActivity.sUser
-        user?.image?.let {
-            context?.loadCircle(it) {
-                mGoogleMap?.addMarker(
-                    MarkerOptions().apply {
-                        position(latLng)
-                        icon(BitmapDescriptorFactory.fromBitmap(context.setMarker(it)))
-                        title(user.fullName)
-                    }
-                )
-            }
+        if (mIsCamera) {
+            mIsCamera = false
+            val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 14F)
+            mGoogleMap?.moveCamera(cameraUpdate)
         }
+
+        MyLocation(requireContext(), mGoogleMap, latLng, MainActivity.sUser)
     }
 
     override fun onResume() {
@@ -90,6 +87,10 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
     override fun onLowMemory() {
         super.onLowMemory()
         mMapView?.onLowMemory()
+    }
+
+    companion object {
+        var sMarkerMyLocation: Marker? = null
     }
 
 }

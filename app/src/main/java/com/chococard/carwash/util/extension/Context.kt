@@ -62,7 +62,7 @@ fun Context.uploadFile(fileUri: Uri, upload: (MultipartBody.Part, RequestBody) -
 }
 
 fun Context.loadCircle(
-    url: String,
+    url: String?,
     onResourceReady: (Bitmap) -> Unit
 ) {
     Glide.with(this)
