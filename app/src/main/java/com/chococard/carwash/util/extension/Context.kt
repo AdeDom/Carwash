@@ -1,9 +1,22 @@
 package com.chococard.carwash.util.extension
 
+import android.app.Activity
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.Drawable
 import android.location.Geocoder
 import android.net.Uri
+import android.util.DisplayMetrics
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.chococard.carwash.R
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -46,4 +59,42 @@ fun Context.uploadFile(fileUri: Uri, upload: (MultipartBody.Part, RequestBody) -
     val description = RequestBody.create(MultipartBody.FORM, descriptionString)
 
     upload.invoke(body, description)
+}
+
+fun Context.loadCircle(
+    url: String,
+    onResourceReady: (Bitmap) -> Unit
+) {
+    Glide.with(this)
+        .asBitmap()
+        .load(url)
+        .apply(RequestOptions.placeholderOf(R.drawable.ic_user))
+        .circleCrop()
+        .into(object : CustomTarget<Bitmap>() {
+            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                onResourceReady.invoke(resource)
+            }
+
+            override fun onLoadCleared(placeholder: Drawable?) {
+            }
+        })
+}
+
+fun Context?.setMarker(image: Bitmap): Bitmap {
+    val inflater = this?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    val view: View = inflater.inflate(R.layout.layout_marker, null)
+    view.findViewById<ImageView>(R.id.iv_photo).setImageBitmap(image)
+    val displayMetrics = DisplayMetrics()
+    (this as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
+    view.layoutParams = ViewGroup.LayoutParams(100, ViewGroup.LayoutParams.WRAP_CONTENT)
+    view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels)
+    view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels)
+    view.buildDrawingCache()
+    val bitmap = Bitmap.createBitmap(
+        view.measuredWidth,
+        view.measuredHeight,
+        Bitmap.Config.ARGB_8888
+    )
+    view.draw(Canvas(bitmap))
+    return bitmap
 }

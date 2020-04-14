@@ -6,12 +6,17 @@ import android.view.WindowManager
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.MainApi
 import com.chococard.carwash.data.repositories.MainRepository
+import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.util.base.BaseFragment
+import com.chococard.carwash.util.extension.loadCircle
+import com.chococard.carwash.util.extension.setMarker
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 
 class MapFragment : BaseFragment<MapViewModel, MapFactory>(
     R.layout.fragment_map
@@ -48,8 +53,23 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
         mGoogleMap = googleMap
         mGoogleMap?.isMyLocationEnabled = true
 
-        val cameraUpdate = CameraUpdateFactory.newLatLngZoom(LatLng(13.6970213, 100.6083957), 15.0F)
+        val latLng = LatLng(13.6024064, 100.7070816)
+
+        val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15.0F)
         mGoogleMap?.animateCamera(cameraUpdate)
+
+        val user = MainActivity.sUser
+        user?.image?.let {
+            context?.loadCircle(it) {
+                mGoogleMap?.addMarker(
+                    MarkerOptions().apply {
+                        position(latLng)
+                        icon(BitmapDescriptorFactory.fromBitmap(context.setMarker(it)))
+                        title(user.fullName)
+                    }
+                )
+            }
+        }
     }
 
     override fun onResume() {
