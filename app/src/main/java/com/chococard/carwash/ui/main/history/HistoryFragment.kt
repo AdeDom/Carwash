@@ -62,11 +62,10 @@ class HistoryFragment : BaseFragment<HistoryViewModel, HistoryFactory>(R.layout.
             }
         })
 
-        // exception
-        viewModel.exception = {
+        viewModel.exception.observe(viewLifecycleOwner, Observer {
             progress_bar.hide()
             context?.toast(it)
-        }
+        })
     }
 
 }

@@ -79,18 +79,14 @@ abstract class BaseActivity<VM : ViewModel, F : ViewModelProvider.NewInstanceFac
             dialog.dismiss()
         }
         setNegativeButton(android.R.string.ok) { dialog, which ->
-            goToSignIn()
+            writePref(R.string.token, "")
+            Intent(baseContext, SignInActivity::class.java).apply {
+                finishAffinity()
+                startActivity(this)
+            }
         }
         setCancelable(false)
         show()
-    }
-
-    fun goToSignIn() {
-        writePref(R.string.token, "")
-        Intent(baseContext, SignInActivity::class.java).apply {
-            finishAffinity()
-            startActivity(this)
-        }
     }
 
 }

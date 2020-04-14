@@ -57,10 +57,10 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
             }
         })
 
-        viewModel.exception = {
+        viewModel.exception.observe(this, Observer {
             progress_bar.hide()
             toast(it)
-        }
+        })
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

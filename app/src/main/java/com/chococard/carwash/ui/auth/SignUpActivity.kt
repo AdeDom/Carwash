@@ -57,11 +57,10 @@ class SignUpActivity : BaseActivity<AuthViewModel, AuthFactory>() {
             progress_bar.hide()
         })
 
-        //exception
-        viewModel.exception = {
+        viewModel.exception.observe(this, Observer {
             progress_bar.hide()
             toast(it)
-        }
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

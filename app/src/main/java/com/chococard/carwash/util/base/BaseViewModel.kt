@@ -18,7 +18,9 @@ abstract class BaseViewModel(private val repository: BaseRepository) : ViewModel
 
     lateinit var job: Job
 
-    var exception: ((String) -> Unit)? = null
+    private val _exception = MutableLiveData<String>()
+    val exception: LiveData<String>
+        get() = _exception
 
     private val _upload = MutableLiveData<ResponseBody>()
     val upload: LiveData<ResponseBody>
@@ -34,9 +36,9 @@ abstract class BaseViewModel(private val repository: BaseRepository) : ViewModel
             try {
                 work.invoke()
             } catch (e: ApiException) {
-                exception?.invoke(e.message!!)
+                _exception.value = e.message
             } catch (e: NoInternetException) {
-                exception?.invoke(e.message!!)
+                _exception.value = e.message
             }
         }
     }

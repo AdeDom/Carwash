@@ -8,6 +8,7 @@ import com.chococard.carwash.R
 import com.chococard.carwash.data.models.User
 import com.chococard.carwash.data.networks.ChangeApi
 import com.chococard.carwash.data.repositories.ChangeRepository
+import com.chococard.carwash.ui.auth.SignInActivity
 import com.chococard.carwash.util.base.BaseActivity
 import com.chococard.carwash.util.extension.*
 import kotlinx.android.synthetic.main.activity_change_password.*
@@ -41,15 +42,19 @@ class ChangePasswordActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
         viewModel.changePassword.observe(this, Observer { response ->
             progress_bar.hide()
             response.message?.let { toast(it) }
-            if (response.success) goToSignIn()
+            if (response.success) {
+                writePref(R.string.token, "")
+                Intent(baseContext, SignInActivity::class.java).apply {
+                    finishAffinity()
+                    startActivity(this)
+                }
+            }
         })
 
-        //exception
-        viewModel.exception = {
+        viewModel.exception.observe(this, Observer {
             progress_bar.hide()
             toast(it)
-        }
-
+        })
     }
 
     private fun changePassword() {

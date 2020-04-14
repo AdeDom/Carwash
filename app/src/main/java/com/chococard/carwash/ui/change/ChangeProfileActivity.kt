@@ -57,11 +57,10 @@ class ChangeProfileActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
             if (response.success) finish()
         })
 
-        //exception
-        viewModel.exception = {
+        viewModel.exception.observe(this, Observer {
             progress_bar.hide()
             toast(it)
-        }
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

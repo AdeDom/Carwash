@@ -51,11 +51,10 @@ class SignInActivity : BaseActivity<AuthViewModel, AuthFactory>() {
             }
         })
 
-        //exception
-        viewModel.exception = {
+        viewModel.exception.observe(this, Observer {
             progress_bar.hide()
             toast(it)
-        }
+        })
     }
 
     private fun signIn() {
