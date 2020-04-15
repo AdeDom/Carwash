@@ -119,6 +119,11 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         super.onResume()
         //Register receiver.
         broadcastReceiver(true)
+
+        //TODO fetchUser keep in PREF by json
+        //get user info
+        progress_bar.show()
+        viewModel.fetchUser()
     }
 
     override fun onPause() {
@@ -137,11 +142,6 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         if (!isLocationProviderEnabled && requestCode == REQUEST_CODE_LOCATION) {
             finishAffinity()
         }
-
-        //TODO fetchUser
-        //get user info
-        progress_bar.show()
-        viewModel.fetchUser()
     }
 
     // Set up receiver register & unregister.
