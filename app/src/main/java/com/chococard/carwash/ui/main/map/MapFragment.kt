@@ -6,7 +6,6 @@ import android.view.View
 import android.view.WindowManager
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.models.EmployeeLocation
 import com.chococard.carwash.data.networks.MainApi
 import com.chococard.carwash.data.repositories.MainRepository
 import com.chococard.carwash.ui.main.MainActivity
@@ -52,7 +51,7 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
         viewModel.employeeLocation.observe(viewLifecycleOwner, Observer { response ->
             val (success, message, employeeLocation) = response
             if (success) {
-                employeeLocation(employeeLocation)
+                employeeLocation?.let { Employee(requireContext(), mGoogleMap, it) }
             } else {
                 message?.let { context?.toast(it) }
             }
@@ -61,10 +60,6 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
         viewModel.exception.observe(viewLifecycleOwner, Observer {
             context?.toast(it)
         })
-    }
-
-    private fun employeeLocation(location: List<EmployeeLocation>?) {
-        context?.toast(location.toString())
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {
@@ -114,6 +109,7 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
 
     companion object {
         var sMarkerMyLocation: Marker? = null
+        val sMarkerEmployee = ArrayList<Marker>()
     }
 
 }

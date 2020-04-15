@@ -3,7 +3,7 @@ package com.chococard.carwash.ui.main.map
 import android.content.Context
 import com.chococard.carwash.data.models.User
 import com.chococard.carwash.util.extension.loadCircle
-import com.chococard.carwash.util.extension.setMarker
+import com.chococard.carwash.util.extension.setMyLocation
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
@@ -24,7 +24,7 @@ class MyLocation(
                 MapFragment.sMarkerMyLocation = googleMap.addMarker(
                     MarkerOptions().apply {
                         position(latLng)
-                        icon(BitmapDescriptorFactory.fromBitmap(context.setMarker(it)))
+                        icon(BitmapDescriptorFactory.fromBitmap(context.setMyLocation(it)))
                         title(user?.fullName)
                     }
                 )

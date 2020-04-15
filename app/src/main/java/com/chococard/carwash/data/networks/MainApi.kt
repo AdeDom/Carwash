@@ -17,7 +17,7 @@ interface MainApi : BaseApi {
     suspend fun fetchUser(): Response<UserResponse>
 
     @FormUrlEncoded
-    @POST("5e968c302f0000b074025acc")
+    @POST("5e96ae473000005100b6d655")
     suspend fun setLocation(
         @Field("latitude") latitude: Double,
         @Field("longitude") longitude: Double

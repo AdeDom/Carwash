@@ -13,7 +13,7 @@
         android:layout_height="@dimen/base_pow_six"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/base_pow_three"
-        android:background="@drawable/shape_marker"
+        android:background="@drawable/shape_my_location"
         android:padding="@dimen/base_pow_one">
 
         <ImageView

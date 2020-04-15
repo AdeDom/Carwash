@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/WrapWrap">
+
+    <ImageView
+        android:layout_width="@dimen/ic_base"
+        android:layout_height="@dimen/base_pow_five"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_location" />
+
+    <TextView
+        style="@style/WrapWrap"
+        android:background="@drawable/shape_employee_location"
+        android:text="@string/app_name" />
+
+</RelativeLayout>

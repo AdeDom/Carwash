@@ -80,10 +80,28 @@ fun Context.loadCircle(
         })
 }
 
-fun Context?.setMarker(image: Bitmap): Bitmap {
+fun Context?.setMyLocation(image: Bitmap): Bitmap {
     val inflater = this?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    val view: View = inflater.inflate(R.layout.layout_marker, null)
+    val view: View = inflater.inflate(R.layout.layout_my_location, null)
     view.findViewById<ImageView>(R.id.iv_photo).setImageBitmap(image)
+    val displayMetrics = DisplayMetrics()
+    (this as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
+    view.layoutParams = ViewGroup.LayoutParams(100, ViewGroup.LayoutParams.WRAP_CONTENT)
+    view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels)
+    view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels)
+    view.buildDrawingCache()
+    val bitmap = Bitmap.createBitmap(
+        view.measuredWidth,
+        view.measuredHeight,
+        Bitmap.Config.ARGB_8888
+    )
+    view.draw(Canvas(bitmap))
+    return bitmap
+}
+
+fun Context?.setEmployeeLocation(): Bitmap {
+    val inflater = this?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    val view: View = inflater.inflate(R.layout.layout_employee_location, null)
     val displayMetrics = DisplayMetrics()
     (this as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
     view.layoutParams = ViewGroup.LayoutParams(100, ViewGroup.LayoutParams.WRAP_CONTENT)
