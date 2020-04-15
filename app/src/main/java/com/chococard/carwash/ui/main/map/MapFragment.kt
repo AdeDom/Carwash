@@ -47,7 +47,15 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
     }
 
     private fun init() {
+        // observe
+        viewModel.setLocation.observe(viewLifecycleOwner, Observer { response ->
+            val (success, message) = response
+            if (!success) message?.let { context?.toast(it) }
+        })
 
+        viewModel.exception.observe(viewLifecycleOwner, Observer {
+            context?.toast(it)
+        })
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {
@@ -72,15 +80,6 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
 
         // call api
         viewModel.setLocation(latLng.latitude, latLng.longitude)
-
-        viewModel.setLocation.observe(viewLifecycleOwner, Observer { response ->
-            val (success, message) = response
-            if (!success) message?.let { context?.toast(it) }
-        })
-
-        viewModel.exception.observe(viewLifecycleOwner, Observer {
-            context?.toast(it)
-        })
 
     }
 
