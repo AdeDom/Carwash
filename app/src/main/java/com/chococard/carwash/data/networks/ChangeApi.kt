@@ -25,9 +25,7 @@ interface ChangeApi : BaseApi {
     ): Response<BaseResponse>
 
     companion object {
-        operator fun invoke(
-            context: Context
-        ): ChangeApi {
+        operator fun invoke(context: Context): ChangeApi {
             return RetrofitClient.instance(context)
                 .create(ChangeApi::class.java)
         }

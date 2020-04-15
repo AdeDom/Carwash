@@ -27,9 +27,7 @@ interface AuthApi : BaseApi {
     ): Response<SignInResponse>
 
     companion object {
-        operator fun invoke(
-            networkConnectionInterceptor: NetworkConnectionInterceptor
-        ): AuthApi {
+        operator fun invoke(networkConnectionInterceptor: NetworkConnectionInterceptor): AuthApi {
             return RetrofitClient.instance(networkConnectionInterceptor)
                 .create(AuthApi::class.java)
         }

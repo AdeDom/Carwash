@@ -38,9 +38,7 @@ interface MainApi : BaseApi {
     ): Response<HistoryResponse>
 
     companion object {
-        operator fun invoke(
-            context: Context
-        ): MainApi {
+        operator fun invoke(context: Context): MainApi {
             return RetrofitClient.instance(context)
                 .create(MainApi::class.java)
         }
