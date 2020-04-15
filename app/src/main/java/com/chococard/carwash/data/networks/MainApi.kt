@@ -1,12 +1,15 @@
 package com.chococard.carwash.data.networks
 
 import android.content.Context
-import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.HistoryResponse
+import com.chococard.carwash.data.networks.response.LocationResponse
 import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.data.networks.response.WalletResponse
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
+import retrofit2.http.POST
 
 interface MainApi : BaseApi {
 
@@ -14,11 +17,11 @@ interface MainApi : BaseApi {
     suspend fun fetchUser(): Response<UserResponse>
 
     @FormUrlEncoded
-    @POST("5e966d732f00006900025a1e")
+    @POST("5e968c302f0000b074025acc")
     suspend fun setLocation(
         @Field("latitude") latitude: Double,
         @Field("longitude") longitude: Double
-    ): Response<BaseResponse>
+    ): Response<LocationResponse>
 
     @FormUrlEncoded
     @POST("5e94072631000082005e2d04")
