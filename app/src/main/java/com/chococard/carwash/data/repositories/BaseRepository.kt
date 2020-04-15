@@ -7,6 +7,8 @@ import okhttp3.RequestBody
 
 abstract class BaseRepository(private val api: BaseApi) : SafeApiRequest() {
 
+    suspend fun fetchUser() = apiRequest { api.fetchUser() }
+
     suspend fun uploadImageFile(file: MultipartBody.Part, description: RequestBody) =
         apiRequest { api.uploadImageFile(file, description) }
 

@@ -3,6 +3,7 @@ package com.chococard.carwash.util.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.data.repositories.BaseRepository
 import com.chococard.carwash.util.ApiException
 import com.chococard.carwash.util.NoInternetException
@@ -21,6 +22,10 @@ abstract class BaseViewModel(private val repository: BaseRepository) : ViewModel
     private val _exception = MutableLiveData<String>()
     val exception: LiveData<String>
         get() = _exception
+
+    private val _user = MutableLiveData<UserResponse>()
+    val user: LiveData<UserResponse>
+        get() = _user
 
     private val _upload = MutableLiveData<ResponseBody>()
     val upload: LiveData<ResponseBody>
@@ -41,6 +46,10 @@ abstract class BaseViewModel(private val repository: BaseRepository) : ViewModel
                 _exception.value = e.message
             }
         }
+    }
+
+    fun fetchUser() = launch {
+        _user.value = repository.fetchUser()
     }
 
     fun uploadImageFile(file: MultipartBody.Part, description: RequestBody) = launch {

@@ -3,6 +3,7 @@ package com.chococard.carwash.ui.change
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.ChangeApi
@@ -48,7 +49,7 @@ class ChangePasswordActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
 
         viewModel.exception.observe(this, Observer {
             progress_bar.hide()
-            toast(it)
+            toast(it, Toast.LENGTH_LONG)
         })
     }
 

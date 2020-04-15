@@ -19,7 +19,7 @@ abstract class BaseActivity<VM : ViewModel, F : ViewModelProvider.NewInstanceFac
     AppCompatActivity() {
 
     protected lateinit var viewModel: VM
-    lateinit var interceptor: NetworkConnectionInterceptor
+    protected lateinit var interceptor: NetworkConnectionInterceptor
 
     val REQUEST_CODE_IMAGE = 1
     val REQUEST_CODE_LOCATION = 2

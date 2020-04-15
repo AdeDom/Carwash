@@ -1,6 +1,7 @@
 package com.chococard.carwash.ui.main.history
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chococard.carwash.R
@@ -58,13 +59,13 @@ class HistoryFragment : BaseFragment<HistoryViewModel, HistoryFactory>(R.layout.
             if (success) {
                 listHistory?.let { adt.setList(it) }
             } else {
-                message?.let { context?.toast(it) }
+                message?.let { context?.toast(it, Toast.LENGTH_LONG) }
             }
         })
 
         viewModel.exception.observe(viewLifecycleOwner, Observer {
             progress_bar.hide()
-            context?.toast(it)
+            context?.toast(it, Toast.LENGTH_LONG)
         })
     }
 

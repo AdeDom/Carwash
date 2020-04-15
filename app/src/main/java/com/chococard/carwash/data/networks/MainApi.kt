@@ -13,9 +13,6 @@ import retrofit2.http.POST
 
 interface MainApi : BaseApi {
 
-    @GET("5e8ef2dc30000066bf64bf82")
-    suspend fun fetchUser(): Response<UserResponse>
-
     @FormUrlEncoded
     @POST("5e96ae473000005100b6d655")
     suspend fun setLocation(

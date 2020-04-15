@@ -8,6 +8,7 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
@@ -29,7 +30,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
     BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private lateinit var mBroadcastReceiver: BroadcastReceiver
+    private var mBroadcastReceiver: BroadcastReceiver? = null
 
     override fun viewModel() = MainViewModel::class.java
 
@@ -38,6 +39,8 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        sUser = intent.getParcelableExtra(getString(R.string.user))
 
         setToolbar(toolbar)
         setReceiverLocation()
@@ -50,13 +53,13 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
             if (response.success) {
                 sUser = response.user
             } else {
-                response.message?.let { toast(it) }
+                response.message?.let { toast(it, Toast.LENGTH_LONG) }
             }
         })
 
         viewModel.exception.observe(this, Observer {
             progress_bar.hide()
-            toast(it)
+            toast(it, Toast.LENGTH_LONG)
         })
     }
 
@@ -115,10 +118,6 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         super.onResume()
         //Register receiver.
         broadcastReceiver(true)
-
-        //get user info
-        progress_bar.show()
-        viewModel.fetchUser()
     }
 
     override fun onPause() {
@@ -137,6 +136,11 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         if (!isLocationProviderEnabled && requestCode == REQUEST_CODE_LOCATION) {
             finishAffinity()
         }
+
+        //TODO fetchUser
+        //get user info
+        progress_bar.show()
+        viewModel.fetchUser()
     }
 
     // Set up receiver register & unregister.

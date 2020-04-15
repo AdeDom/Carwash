@@ -5,17 +5,19 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.AuthApi
 import com.chococard.carwash.data.repositories.AuthRepository
 import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.util.base.BaseActivity
+import com.chococard.carwash.util.extension.hide
 import com.chococard.carwash.util.extension.readPref
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.chococard.carwash.util.extension.show
+import com.chococard.carwash.util.extension.toast
+import kotlinx.android.synthetic.main.activity_splash_screen.*
 
 class SplashScreenActivity : BaseActivity<AuthViewModel, AuthFactory>() {
 
@@ -32,6 +34,11 @@ class SplashScreenActivity : BaseActivity<AuthViewModel, AuthFactory>() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
+        init()
+    }
+
+    private fun init() {
+        // check permission location
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
             if (
                 ContextCompat.checkSelfPermission(baseContext, ACCESS_FINE_LOCATION) != GRANTED ||
@@ -50,6 +57,25 @@ class SplashScreenActivity : BaseActivity<AuthViewModel, AuthFactory>() {
             authByCheckToken()
         }
 
+        // observe
+        viewModel.user.observe(this, Observer { response ->
+            val (success, message, user) = response
+            progress_bar.hide()
+            if (success) {
+                Intent(baseContext, MainActivity::class.java).apply {
+                    putExtra(getString(R.string.user), user)
+                    startActivity(this)
+                    finish()
+                }
+            } else {
+                message?.let { toast(it, Toast.LENGTH_LONG) }
+            }
+        })
+
+        viewModel.exception.observe(this, Observer {
+            progress_bar.hide()
+            toast(it, Toast.LENGTH_LONG)
+        })
     }
 
     override fun onRequestPermissionsResult(
@@ -71,21 +97,15 @@ class SplashScreenActivity : BaseActivity<AuthViewModel, AuthFactory>() {
     }
 
     private fun authByCheckToken() {
-        CoroutineScope(Dispatchers.Main).launch {
-            delay(2000)
-
-            val token = readPref(R.string.token)
-            if (token.isEmpty()) {
-                Intent(baseContext, AuthActivity::class.java).also {
-                    startActivity(it)
-                }
-            } else {
-                Intent(baseContext, MainActivity::class.java).also {
-                    startActivity(it)
-                }
+        val token = readPref(R.string.token)
+        if (token.isEmpty()) {
+            Intent(baseContext, AuthActivity::class.java).also {
+                startActivity(it)
+                finish()
             }
-
-            finish()
+        } else {
+            progress_bar.show()
+            viewModel.fetchUser()
         }
     }
 

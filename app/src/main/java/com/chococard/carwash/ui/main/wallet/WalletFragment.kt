@@ -2,6 +2,7 @@ package com.chococard.carwash.ui.main.wallet
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.MainApi
@@ -56,7 +57,7 @@ class WalletFragment : BaseFragment<WalletViewModel, WalletFactory>(R.layout.fra
 
         viewModel.exception.observe(viewLifecycleOwner, Observer {
             progress_bar.hide()
-            context?.toast(it)
+            context?.toast(it, Toast.LENGTH_LONG)
         })
     }
 

@@ -2,6 +2,7 @@ package com.chococard.carwash.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.AuthApi
@@ -42,18 +43,30 @@ class SignInActivity : BaseActivity<AuthViewModel, AuthFactory>() {
             progress_bar.hide()
             if (response.success) {
                 response.token?.let { writePref(R.string.token, it) }
-                Intent(baseContext, MainActivity::class.java).also {
-                    startActivity(it)
+                progress_bar.show()
+                viewModel.fetchUser()
+            } else {
+                response.message?.let { toast(it, Toast.LENGTH_LONG) }
+            }
+        })
+
+        viewModel.user.observe(this, Observer { response ->
+            val (success, message, user) = response
+            progress_bar.hide()
+            if (success) {
+                Intent(baseContext, MainActivity::class.java).apply {
+                    putExtra(getString(R.string.user), user)
+                    startActivity(this)
                     finishAffinity()
                 }
             } else {
-                response.message?.let { toast(it) }
+                message?.let { toast(it) }
             }
         })
 
         viewModel.exception.observe(this, Observer {
             progress_bar.hide()
-            toast(it)
+            toast(it, Toast.LENGTH_LONG)
         })
     }
 

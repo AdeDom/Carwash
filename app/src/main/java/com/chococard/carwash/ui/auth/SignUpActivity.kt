@@ -3,6 +3,7 @@ package com.chococard.carwash.ui.auth
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.AuthApi
@@ -59,7 +60,7 @@ class SignUpActivity : BaseActivity<AuthViewModel, AuthFactory>() {
 
         viewModel.exception.observe(this, Observer {
             progress_bar.hide()
-            toast(it)
+            toast(it, Toast.LENGTH_LONG)
         })
     }
 

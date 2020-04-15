@@ -4,6 +4,7 @@ import android.location.Location
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.MainApi
@@ -53,12 +54,12 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
             if (success) {
                 employeeLocation?.let { Employee(requireContext(), mGoogleMap, it) }
             } else {
-                message?.let { context?.toast(it) }
+                message?.let { context?.toast(it, Toast.LENGTH_LONG) }
             }
         })
 
         viewModel.exception.observe(viewLifecycleOwner, Observer {
-            context?.toast(it)
+            context?.toast(it, Toast.LENGTH_LONG)
         })
     }
 

@@ -4,8 +4,6 @@ import com.chococard.carwash.data.networks.MainApi
 
 class MainRepository(private val api: MainApi) : BaseRepository(api) {
 
-    suspend fun fetchUser() = apiRequest { api.fetchUser() }
-
     suspend fun setLocation(latitude: Double, longitude: Double) =
         apiRequest { api.setLocation(latitude, longitude) }
 
