@@ -40,13 +40,14 @@ class SignInActivity : BaseActivity<AuthViewModel, AuthFactory>() {
 
         //observe
         viewModel.signIn.observe(this, Observer { response ->
+            val (success, message, token) = response
             progress_bar.hide()
-            if (response.success) {
-                response.token?.let { writePref(R.string.token, it) }
+            if (success) {
+                token?.let { writePref(R.string.token, it) }
                 progress_bar.show()
                 viewModel.fetchUser()
             } else {
-                response.message?.let { toast(it, Toast.LENGTH_LONG) }
+                message?.let { toast(it, Toast.LENGTH_LONG) }
             }
         })
 

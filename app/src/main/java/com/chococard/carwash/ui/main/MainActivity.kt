@@ -49,11 +49,12 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         if (savedInstanceState == null) replaceFragment(MapFragment())
 
         viewModel.user.observe(this, Observer { response ->
+            val (success, message, user) = response
             progress_bar.hide()
-            if (response.success) {
-                sUser = response.user
+            if (success) {
+                sUser = user
             } else {
-                response.message?.let { toast(it, Toast.LENGTH_LONG) }
+                message?.let { toast(it, Toast.LENGTH_LONG) }
             }
         })
 

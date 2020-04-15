@@ -36,9 +36,10 @@ class ChangePasswordActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
 
         //observe
         viewModel.changePassword.observe(this, Observer { response ->
+            val (success, message) = response
             progress_bar.hide()
-            response.message?.let { toast(it) }
-            if (response.success) {
+            message?.let { toast(it) }
+            if (success) {
                 writePref(R.string.token, "")
                 Intent(baseContext, SignInActivity::class.java).apply {
                     finishAffinity()

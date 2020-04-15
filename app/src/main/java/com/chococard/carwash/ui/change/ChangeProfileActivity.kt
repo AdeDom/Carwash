@@ -50,9 +50,10 @@ class ChangeProfileActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
         })
 
         viewModel.changeProfile.observe(this, Observer { response ->
+            val (success, message) = response
             progress_bar.hide()
-            response.message?.let { toast(it) }
-            if (response.success) finish()
+            message?.let { toast(it) }
+            if (success) finish()
         })
 
         viewModel.exception.observe(this, Observer {

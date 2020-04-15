@@ -44,9 +44,10 @@ class SignUpActivity : BaseActivity<AuthViewModel, AuthFactory>() {
 
         //observe
         viewModel.signUp.observe(this, Observer { response ->
+            val (success, message) = response
             progress_bar.hide()
-            response.message?.let { toast(it) }
-            if (response.success) {
+            message?.let { toast(it) }
+            if (success) {
                 Intent(baseContext, SignInActivity::class.java).also {
                     startActivity(it)
                     finish()
