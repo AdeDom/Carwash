@@ -6,7 +6,6 @@ import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.MainApi
 import com.chococard.carwash.data.repositories.MainRepository
-import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.util.base.BaseFragment
 import com.chococard.carwash.util.extension.dialogDatePicker
 import com.chococard.carwash.util.extension.hide
@@ -49,10 +48,6 @@ class WalletFragment : BaseFragment<WalletViewModel, WalletFactory>(R.layout.fra
             }
         }
 
-        // call api
-        progress_bar.show()
-        viewModel.fetchWallet()
-
         // observe
         viewModel.wallet.observe(viewLifecycleOwner, Observer {
             progress_bar.hide()
@@ -63,6 +58,14 @@ class WalletFragment : BaseFragment<WalletViewModel, WalletFactory>(R.layout.fra
             progress_bar.hide()
             context?.toast(it)
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // call api
+        progress_bar.show()
+        viewModel.fetchWallet()
     }
 
 }
