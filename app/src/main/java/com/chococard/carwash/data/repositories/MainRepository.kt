@@ -6,6 +6,9 @@ class MainRepository(private val api: MainApi) : BaseRepository(api) {
 
     suspend fun fetchUser() = apiRequest { api.fetchUser() }
 
+    suspend fun setLocation(latitude: Double, longitude: Double) =
+        apiRequest { api.setLocation(latitude, longitude) }
+
     suspend fun fetchWallet(dateBegin: String, dateEnd: String) =
         apiRequest { api.fetchWallet(dateBegin, dateEnd) }
 

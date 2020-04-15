@@ -4,11 +4,13 @@ import android.location.Location
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.MainApi
 import com.chococard.carwash.data.repositories.MainRepository
 import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.util.base.BaseFragment
+import com.chococard.carwash.util.extension.toast
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -67,6 +69,19 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
         }
 
         MyLocation(requireContext(), mGoogleMap, latLng, MainActivity.sUser)
+
+        // call api
+        viewModel.setLocation(latLng.latitude, latLng.longitude)
+
+        viewModel.setLocation.observe(viewLifecycleOwner, Observer { response ->
+            val (success, message) = response
+            if (!success) message?.let { context?.toast(it) }
+        })
+
+        viewModel.exception.observe(viewLifecycleOwner, Observer {
+            context?.toast(it)
+        })
+
     }
 
     override fun onResume() {
