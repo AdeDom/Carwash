@@ -9,14 +9,26 @@
         android:id="@+id/iv_photo"
         style="@style/ImageViewPhotoSub"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/base_pow_four"
         android:background="@drawable/shape_img" />
 
-    <TextView
-        android:id="@+id/tv_count_time"
-        style="@style/TextViewLarge"
+    <RelativeLayout
+        android:layout_width="@dimen/base_fifty"
+        android:layout_height="@dimen/base_fifty"
         android:layout_alignParentEnd="true"
-        android:background="@drawable/shape_count_job"
-        android:text="@string/fifteen" />
+        android:layout_marginTop="@dimen/base_pow_four"
+        android:background="@drawable/shape_count_job">
+
+        <TextView
+            android:id="@+id/tv_count_time"
+            style="@style/WrapWrap"
+            android:layout_centerInParent="true"
+            android:text="@string/fifteen"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_small"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
 
     <GridLayout
         android:id="@+id/layout_job"

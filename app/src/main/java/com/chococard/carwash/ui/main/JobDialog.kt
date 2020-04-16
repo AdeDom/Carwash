@@ -1,29 +1,21 @@
 package com.chococard.carwash.ui.main
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.Job
+import com.chococard.carwash.data.networks.MainApi
+import com.chococard.carwash.data.repositories.MainRepository
+import com.chococard.carwash.util.base.BaseDialog
 import com.chococard.carwash.util.extension.getLocality
 import com.chococard.carwash.util.extension.loadCircle
 import com.chococard.carwash.util.extension.toast
 import kotlinx.android.synthetic.main.dialog_job.*
 
-class JobDialog : DialogFragment() {
+class JobDialog : BaseDialog<MainViewModel, MainFactory>(R.layout.dialog_job) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(STYLE_NO_TITLE, android.R.style.Theme_DeviceDefault_Light_Dialog_MinWidth)
-    }
+    override fun viewModel() = MainViewModel::class.java
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.dialog_job, container, false)
+    override fun factory() = MainFactory(MainRepository(MainApi.invoke(requireContext())))
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
