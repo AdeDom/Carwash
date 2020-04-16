@@ -7,11 +7,12 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
+import com.chococard.carwash.data.models.User
 import com.chococard.carwash.data.networks.ChangeApi
 import com.chococard.carwash.data.repositories.ChangeRepository
-import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.util.base.BaseActivity
 import com.chococard.carwash.util.extension.*
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_change_profile.*
 
 class ChangeProfileActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
@@ -31,11 +32,12 @@ class ChangeProfileActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
         setToolbar(toolbar)
 
         //set widgets
-        val user = MainActivity.sUser
-        et_full_name.setText(user?.fullName)
-        et_identity_card.setText(user?.idCard)
-        et_phone.setText(user?.phone)
-        user?.image?.let { iv_photo.loadCircle(it) }
+        val user = Gson().fromJson(readPref(R.string.user), User::class.java)
+        val (_, fullName, idCard, phone, _, image) = user
+        et_full_name.setText(fullName)
+        et_identity_card.setText(idCard)
+        et_phone.setText(phone)
+        image?.let { iv_photo.loadCircle(it) }
 
         //set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
@@ -53,7 +55,20 @@ class ChangeProfileActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
             val (success, message) = response
             progress_bar.hide()
             message?.let { toast(it) }
-            if (success) finish()
+            if (success) {
+                progress_bar.show()
+                viewModel.fetchUser()
+            }
+        })
+
+        viewModel.user.observe(this, Observer { response ->
+            val (success, message, user) = response
+            if (success) {
+                writePref(R.string.user, Gson().toJson(user))
+                finish()
+            } else {
+                message?.let { toast(it) }
+            }
         })
 
         viewModel.exception.observe(this, Observer {

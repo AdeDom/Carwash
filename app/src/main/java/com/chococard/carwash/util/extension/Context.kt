@@ -34,9 +34,10 @@ fun Context.getLocality(latitude: Double, longitude: Double): String {
 }
 
 fun Context.writePref(key: Int, values: String) =
-    getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE).edit()
-        .putString(getString(key), values)
-        .apply()
+    getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE).edit().apply {
+        putString(getString(key), values)
+        apply()
+    }
 
 fun Context.readPref(key: Int) =
     getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE)

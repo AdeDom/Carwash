@@ -10,6 +10,7 @@ import com.chococard.carwash.data.repositories.AuthRepository
 import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.util.base.BaseActivity
 import com.chococard.carwash.util.extension.*
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
 class SignInActivity : BaseActivity<AuthViewModel, AuthFactory>() {
@@ -55,8 +56,8 @@ class SignInActivity : BaseActivity<AuthViewModel, AuthFactory>() {
             val (success, message, user) = response
             progress_bar.hide()
             if (success) {
+                writePref(R.string.user, Gson().toJson(user))
                 Intent(baseContext, MainActivity::class.java).apply {
-                    putExtra(getString(R.string.user), user)
                     startActivity(this)
                     finishAffinity()
                 }

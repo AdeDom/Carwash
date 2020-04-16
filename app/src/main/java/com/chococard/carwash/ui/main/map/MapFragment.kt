@@ -7,10 +7,11 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
+import com.chococard.carwash.data.models.User
 import com.chococard.carwash.data.networks.MainApi
 import com.chococard.carwash.data.repositories.MainRepository
-import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.util.base.BaseFragment
+import com.chococard.carwash.util.extension.readPref
 import com.chococard.carwash.util.extension.toast
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -18,6 +19,7 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
+import com.google.gson.Gson
 
 class MapFragment : BaseFragment<MapViewModel, MapFactory>(
     R.layout.fragment_map
@@ -81,7 +83,8 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
             mGoogleMap?.moveCamera(cameraUpdate)
         }
 
-        MyLocation(requireContext(), mGoogleMap, latLng, MainActivity.sUser)
+        val user = Gson().fromJson(context?.readPref(R.string.user), User::class.java)
+        MyLocation(requireContext(), mGoogleMap, latLng, user)
 
         // call api
         viewModel.setLocation(latLng.latitude, latLng.longitude)

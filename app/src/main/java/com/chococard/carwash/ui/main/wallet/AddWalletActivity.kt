@@ -2,11 +2,13 @@ package com.chococard.carwash.ui.main.wallet
 
 import android.os.Bundle
 import com.chococard.carwash.R
+import com.chococard.carwash.data.models.User
 import com.chococard.carwash.data.networks.MainApi
 import com.chococard.carwash.data.repositories.MainRepository
-import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.util.base.BaseActivity
+import com.chococard.carwash.util.extension.readPref
 import com.chococard.carwash.util.extension.toast
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_add_wallet.*
 
 class AddWalletActivity : BaseActivity<WalletViewModel, WalletFactory>() {
@@ -24,7 +26,7 @@ class AddWalletActivity : BaseActivity<WalletViewModel, WalletFactory>() {
 
     private fun init() {
         // set widgets
-        val user = MainActivity.sUser
+        val user = Gson().fromJson(readPref(R.string.user), User::class.java)
         tv_full_name.text = user?.fullName
 
         //set event

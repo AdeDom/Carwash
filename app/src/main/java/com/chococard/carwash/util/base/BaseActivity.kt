@@ -80,6 +80,7 @@ abstract class BaseActivity<VM : ViewModel, F : ViewModelProvider.NewInstanceFac
         }
         setNegativeButton(android.R.string.ok) { dialog, which ->
             writePref(R.string.token, "")
+            writePref(R.string.user, "")
             Intent(baseContext, SignInActivity::class.java).apply {
                 finishAffinity()
                 startActivity(this)

@@ -41,6 +41,7 @@ class ChangePasswordActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
             message?.let { toast(it) }
             if (success) {
                 writePref(R.string.token, "")
+                writePref(R.string.user, "")
                 Intent(baseContext, SignInActivity::class.java).apply {
                     finishAffinity()
                     startActivity(this)
