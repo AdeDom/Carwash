@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     style="@style/MatchWrap"
-    android:padding="@dimen/base_pow_four">
+    android:layout_marginTop="@dimen/base_pow_four"
+    android:paddingStart="@dimen/base_pow_four"
+    android:paddingEnd="@dimen/base_pow_four">
 
     <ImageView
         android:id="@+id/iv_photo"
@@ -11,10 +12,11 @@
         android:background="@drawable/shape_img" />
 
     <TextView
+        android:id="@+id/tv_count_time"
         style="@style/TextViewLarge"
         android:layout_alignParentEnd="true"
         android:background="@drawable/shape_count_job"
-        tools:text="8" />
+        android:text="@string/fifteen" />
 
     <GridLayout
         android:id="@+id/layout_job"
@@ -31,6 +33,7 @@
             android:src="@drawable/ic_person_gray" />
 
         <TextView
+            android:id="@+id/tv_full_name"
             style="@style/TextViewMediumBlack"
             android:layout_marginStart="@dimen/base_pow_three"
             android:text="@string/full_name" />
@@ -41,6 +44,7 @@
             android:src="@drawable/ic_list_job_gray" />
 
         <TextView
+            android:id="@+id/tv_service"
             style="@style/TextViewMediumBlack"
             android:layout_marginStart="@dimen/base_pow_three"
             android:text="@string/service" />
@@ -51,19 +55,10 @@
             android:src="@drawable/ic_location_gray" />
 
         <TextView
+            android:id="@+id/tv_location"
             style="@style/TextViewMediumBlack"
             android:layout_marginStart="@dimen/base_pow_three"
             android:text="@string/location" />
-
-        <ImageView
-            android:layout_width="@dimen/ic_base"
-            android:layout_height="@dimen/ic_base"
-            android:src="@drawable/ic_phone_gray" />
-
-        <TextView
-            style="@style/TextViewMediumBlack"
-            android:layout_marginStart="@dimen/base_pow_three"
-            android:text="@string/phone" />
 
     </GridLayout>
 
@@ -71,14 +66,16 @@
         style="@style/LinearLayoutButtonPair"
         android:layout_below="@id/layout_job"
         android:layout_alignParentBottom="false"
-        android:layout_marginTop="@dimen/base_pow_four">
+        android:layout_marginTop="@dimen/base_pow_five">
 
         <Button
+            android:id="@+id/bt_cancel"
             style="@style/ButtonWhiteShort"
             android:background="@drawable/shape_bt_white"
             android:text="@string/cancel" />
 
         <Button
+            android:id="@+id/bt_confirm"
             style="@style/ButtonBlueShort"
             android:layout_marginStart="@dimen/base_pow_three"
             android:background="@drawable/shape_bt_blue"

@@ -1,14 +1,13 @@
 package com.chococard.carwash.data.networks
 
 import android.content.Context
+import com.chococard.carwash.data.networks.request.JobRequest
 import com.chococard.carwash.data.networks.response.HistoryResponse
 import com.chococard.carwash.data.networks.response.LocationResponse
-import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.data.networks.response.WalletResponse
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface MainApi : BaseApi {
@@ -33,6 +32,9 @@ interface MainApi : BaseApi {
         @Field("date_begin") dateBegin: String,
         @Field("date_end") dateEnd: String
     ): Response<HistoryResponse>
+
+    @POST("5e97ff1d3500001100c47d1b")
+    suspend fun jobRequest(): Response<JobRequest>
 
     companion object {
         operator fun invoke(context: Context): MainApi {

@@ -13,4 +13,6 @@ class MainRepository(private val api: MainApi) : BaseRepository(api) {
     suspend fun fetchHistory(dateBegin: String, dateEnd: String) =
         apiRequest { api.fetchHistory(dateBegin, dateEnd) }
 
+    suspend fun jobRequest() = apiRequest { api.jobRequest() }
+
 }

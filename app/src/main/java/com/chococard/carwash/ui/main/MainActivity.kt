@@ -8,7 +8,9 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.MainApi
 import com.chococard.carwash.data.repositories.MainRepository
@@ -18,6 +20,7 @@ import com.chococard.carwash.ui.main.history.HistoryFragment
 import com.chococard.carwash.ui.main.map.MapFragment
 import com.chococard.carwash.ui.main.wallet.WalletFragment
 import com.chococard.carwash.util.base.BaseActivity
+import com.chococard.carwash.util.extension.toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -39,6 +42,29 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
 
         bottom_navigation.setOnNavigationItemSelectedListener(this)
         if (savedInstanceState == null) replaceFragment(MapFragment())
+
+        bt_has_job.setOnClickListener {
+            viewModel.jobRequest()
+        }
+
+        viewModel.jobRequest.observe(this, Observer { request ->
+            val (success, message, job) = request
+
+            if (success) {
+                val bundle = Bundle()
+                bundle.putParcelable(getString(R.string.job), job)
+
+                val jobDialog = JobDialog()
+                jobDialog.arguments = bundle
+                jobDialog.show(supportFragmentManager, null)
+            } else {
+                message?.let { toast(it) }
+            }
+        })
+
+        viewModel.exception.observe(this, Observer {
+            toast(it, Toast.LENGTH_LONG)
+        })
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

@@ -33,4 +33,10 @@
         android:background="@drawable/shape_navigation"
         app:menu="@menu/menu_nav" />
 
+    <Button
+        android:id="@+id/bt_has_job"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Has job" />
+
 </RelativeLayout>

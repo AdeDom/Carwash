@@ -63,6 +63,7 @@ class ChangeProfileActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
 
         viewModel.user.observe(this, Observer { response ->
             val (success, message, user) = response
+            progress_bar.hide()
             if (success) {
                 writePref(R.string.user, Gson().toJson(user))
                 finish()

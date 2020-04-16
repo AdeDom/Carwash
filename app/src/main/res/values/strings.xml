@@ -57,5 +57,7 @@
     <string name="contact_admin_tel">tel:0834254372</string>
     <string name="unknown">Unknown</string>
     <string name="car_wash">CAR WASH</string>
+    <string name="job">Job</string>
+    <string name="fifteen">15</string>
 
 </resources>
