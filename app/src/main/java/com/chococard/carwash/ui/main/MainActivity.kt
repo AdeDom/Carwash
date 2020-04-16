@@ -58,8 +58,13 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
                 jobDialog.arguments = bundle
                 jobDialog.show(supportFragmentManager, null)
             } else {
-                message?.let { toast(it) }
+                message?.let { toast(it, Toast.LENGTH_LONG) }
             }
+        })
+
+        viewModel.setStatus.observe(this, Observer { response ->
+            val (success, message) = response
+            if (!success) message?.let { toast(it, Toast.LENGTH_LONG) }
         })
 
         viewModel.exception.observe(this, Observer {
@@ -122,12 +127,18 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         super.onResume()
         //Register receiver.
         broadcastReceiver(true)
+
+        // set status
+        viewModel.setStatus(getString(R.string.active))
     }
 
     override fun onPause() {
         super.onPause()
         //Unregister receiver.
         broadcastReceiver(false)
+
+        // set status
+        viewModel.setStatus(getString(R.string.inactive))
     }
 
     // When location is not enabled, the application will end.

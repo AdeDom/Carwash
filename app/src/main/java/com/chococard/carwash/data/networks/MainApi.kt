@@ -2,6 +2,7 @@ package com.chococard.carwash.data.networks
 
 import android.content.Context
 import com.chococard.carwash.data.networks.request.JobRequest
+import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.HistoryResponse
 import com.chococard.carwash.data.networks.response.LocationResponse
 import com.chococard.carwash.data.networks.response.WalletResponse
@@ -35,6 +36,12 @@ interface MainApi : BaseApi {
 
     @POST("5e97ff1d3500001100c47d1b")
     suspend fun jobRequest(): Response<JobRequest>
+
+    @FormUrlEncoded
+    @POST("5e9813e93500006000c47e21")
+    suspend fun setStatus(
+        @Field("status") status: String
+    ): Response<BaseResponse>
 
     companion object {
         operator fun invoke(context: Context): MainApi {
