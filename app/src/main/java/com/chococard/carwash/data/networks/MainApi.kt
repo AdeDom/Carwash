@@ -2,10 +2,7 @@ package com.chococard.carwash.data.networks
 
 import android.content.Context
 import com.chococard.carwash.data.networks.request.JobRequest
-import com.chococard.carwash.data.networks.response.BaseResponse
-import com.chococard.carwash.data.networks.response.HistoryResponse
-import com.chococard.carwash.data.networks.response.LocationResponse
-import com.chococard.carwash.data.networks.response.WalletResponse
+import com.chococard.carwash.data.networks.response.*
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -38,9 +35,15 @@ interface MainApi : BaseApi {
     suspend fun jobRequest(): Response<JobRequest>
 
     @FormUrlEncoded
+    @POST("5e9960c833000062007b2077")
+    suspend fun jobResponse(
+        @Field("job_status") jobStatus: String
+    ): Response<JobResponse>
+
+    @FormUrlEncoded
     @POST("5e9813e93500006000c47e21")
-    suspend fun setStatus(
-        @Field("status") status: String
+    suspend fun setActiveStatus(
+        @Field("activity_status") activityStatus: String
     ): Response<BaseResponse>
 
     companion object {

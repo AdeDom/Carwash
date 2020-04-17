@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
+import com.chococard.carwash.data.models.Job
 import com.chococard.carwash.data.networks.MainApi
 import com.chococard.carwash.data.repositories.MainRepository
 import com.chococard.carwash.ui.change.ChangePasswordActivity
@@ -20,8 +21,10 @@ import com.chococard.carwash.ui.main.history.HistoryFragment
 import com.chococard.carwash.ui.main.map.MapFragment
 import com.chococard.carwash.ui.main.wallet.WalletFragment
 import com.chococard.carwash.util.base.BaseActivity
+import com.chococard.carwash.util.extension.readPref
 import com.chococard.carwash.util.extension.toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
@@ -37,6 +40,15 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val flag = readPref(R.string.flag)
+        val job = Gson().fromJson(readPref(R.string.job), Job::class.java)
+        if (flag == "1" && job.toString().isNotBlank()) {
+            Intent(baseContext, PaymentActivity::class.java).apply {
+                putExtra(getString(R.string.job), job)
+                startActivity(this)
+            }
+        }
+
         setToolbar(toolbar)
         setReceiverLocation()
 
@@ -48,11 +60,10 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         }
 
         viewModel.jobRequest.observe(this, Observer { request ->
-            val (success, message, job) = request
-
+            val (success, message, jobRequest) = request
             if (success) {
                 val bundle = Bundle()
-                bundle.putParcelable(getString(R.string.job), job)
+                bundle.putParcelable(getString(R.string.job), jobRequest)
 
                 val jobDialog = JobDialog()
                 jobDialog.arguments = bundle
@@ -62,7 +73,7 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
             }
         })
 
-        viewModel.setStatus.observe(this, Observer { response ->
+        viewModel.activeStatus.observe(this, Observer { response ->
             val (success, message) = response
             if (!success) message?.let { toast(it, Toast.LENGTH_LONG) }
         })
@@ -129,7 +140,7 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         broadcastReceiver(true)
 
         // set status
-        viewModel.setStatus(getString(R.string.active))
+        viewModel.setActiveStatus(getString(R.string.active))
     }
 
     override fun onPause() {
@@ -138,7 +149,7 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         broadcastReceiver(false)
 
         // set status
-        viewModel.setStatus(getString(R.string.inactive))
+        viewModel.setActiveStatus(getString(R.string.inactive))
     }
 
     // When location is not enabled, the application will end.

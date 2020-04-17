@@ -6,11 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.data.repositories.BaseRepository
 import com.chococard.carwash.util.ApiException
+import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.NoInternetException
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -37,7 +35,7 @@ abstract class BaseViewModel(private val repository: BaseRepository) : ViewModel
     }
 
     fun launch(work: suspend (() -> Unit)) {
-        job = CoroutineScope(Dispatchers.Main).launch {
+        job = Coroutines.main {
             try {
                 work.invoke()
             } catch (e: ApiException) {

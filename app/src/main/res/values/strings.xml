@@ -14,7 +14,7 @@
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="sign_in_to_continue">Sign in to continue</string>
     <string name="pref_file">PREF_FILE</string>
-    <string name="token">Token</string>
+    <string name="token">token</string>
     <string name="error_empty_name">Please enter name</string>
     <string name="error_empty_username">Please enter username</string>
     <string name="error_empty_password">Please enter password</string>
@@ -51,7 +51,7 @@
     <string name="upload_image">Upload image</string>
     <string name="tax_invoice">Tax invoice</string>
     <string name="service">Service</string>
-    <string name="user">User</string>
+    <string name="user">user</string>
     <string name="do_you_really_want_to_log_out">Do you really want to log out?</string>
     <string name="contact_system_administrator">Contact system administrator?</string>
     <string name="contact_admin_tel">tel:0834254372</string>
@@ -61,5 +61,8 @@
     <string name="fifteen">15</string>
     <string name="active">active</string>
     <string name="inactive">inactive</string>
+    <string name="receive">receive</string>
+    <string name="reject">reject</string>
+    <string name="flag">flag</string>
 
 </resources>
