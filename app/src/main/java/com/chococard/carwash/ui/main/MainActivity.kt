@@ -20,6 +20,7 @@ import com.chococard.carwash.ui.change.ChangeProfileActivity
 import com.chococard.carwash.ui.main.history.HistoryFragment
 import com.chococard.carwash.ui.main.map.MapFragment
 import com.chococard.carwash.ui.main.wallet.WalletFragment
+import com.chococard.carwash.util.Commons
 import com.chococard.carwash.util.base.BaseActivity
 import com.chococard.carwash.util.extension.readPref
 import com.chococard.carwash.util.extension.toast
@@ -40,11 +41,11 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val flag = readPref(R.string.flag)
-        val job = Gson().fromJson(readPref(R.string.job), Job::class.java)
-        if (flag == "1" && job.toString().isNotBlank()) {
+        val flag = readPref(Commons.JOB_FLAG)
+        val job = Gson().fromJson(readPref(Commons.JOB), Job::class.java)
+        if (flag == Commons.JOB_FLAG_ON && job.toString().isNotBlank()) {
             Intent(baseContext, PaymentActivity::class.java).apply {
-                putExtra(getString(R.string.job), job)
+                putExtra(Commons.JOB, job)
                 startActivity(this)
             }
         }
@@ -63,7 +64,7 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
             val (success, message, jobRequest) = request
             if (success) {
                 val bundle = Bundle()
-                bundle.putParcelable(getString(R.string.job), jobRequest)
+                bundle.putParcelable(Commons.JOB, jobRequest)
 
                 val jobDialog = JobDialog()
                 jobDialog.arguments = bundle
@@ -140,7 +141,7 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         broadcastReceiver(true)
 
         // set status
-        viewModel.setActiveStatus(getString(R.string.active))
+        viewModel.setActiveStatus(Commons.STATUS_ACTIVE)
     }
 
     override fun onPause() {
@@ -149,7 +150,7 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         broadcastReceiver(false)
 
         // set status
-        viewModel.setActiveStatus(getString(R.string.inactive))
+        viewModel.setActiveStatus(Commons.STATUS_INACTIVE)
     }
 
     // When location is not enabled, the application will end.

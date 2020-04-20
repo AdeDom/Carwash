@@ -10,6 +10,7 @@ import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.AuthApi
 import com.chococard.carwash.data.repositories.AuthRepository
 import com.chococard.carwash.ui.main.MainActivity
+import com.chococard.carwash.util.Commons
 import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.base.BaseActivity
 import com.chococard.carwash.util.extension.readPref
@@ -76,7 +77,7 @@ class SplashScreenActivity : BaseActivity<AuthViewModel, AuthFactory>() {
         Coroutines.main {
             delay(2000)
 
-            val token = readPref(R.string.token)
+            val token = readPref(Commons.TOKEN)
             if (token.isEmpty()) {
                 Intent(baseContext, AuthActivity::class.java).also {
                     startActivity(it)

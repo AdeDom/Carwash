@@ -18,6 +18,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.chococard.carwash.R
+import com.chococard.carwash.util.Commons
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -25,7 +26,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
-fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) =
+fun Context?.toast(message: String, duration: Int = Toast.LENGTH_SHORT) =
     Toast.makeText(this, message, duration).show()
 
 fun Context.getLocality(latitude: Double, longitude: Double): String {
@@ -33,15 +34,15 @@ fun Context.getLocality(latitude: Double, longitude: Double): String {
     return if (list[0].locality != null) list[0].locality else getString(R.string.unknown)
 }
 
-fun Context.writePref(key: Int, values: String) =
-    getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE).edit().apply {
-        putString(getString(key), values)
+fun Context.writePref(key: String, values: String) =
+    getSharedPreferences(Commons.PREF_FILE, Context.MODE_PRIVATE).edit().apply {
+        putString(key, values)
         apply()
     }
 
-fun Context.readPref(key: Int) =
-    getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE)
-        .getString(getString(key), "") ?: ""
+fun Context.readPref(key: String) =
+    getSharedPreferences(Commons.PREF_FILE, Context.MODE_PRIVATE)
+        .getString(key, "") ?: ""
 
 fun Context.uploadFile(fileUri: Uri, upload: (MultipartBody.Part, RequestBody) -> Unit) {
     val parcelFileDescriptor = contentResolver.openFileDescriptor(fileUri, "r", null) ?: return

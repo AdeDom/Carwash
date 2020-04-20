@@ -10,6 +10,7 @@ import com.chococard.carwash.R
 import com.chococard.carwash.data.models.User
 import com.chococard.carwash.data.networks.MainApi
 import com.chococard.carwash.data.repositories.MainRepository
+import com.chococard.carwash.util.Commons
 import com.chococard.carwash.util.base.BaseFragment
 import com.chococard.carwash.util.extension.readPref
 import com.chococard.carwash.util.extension.toast
@@ -56,12 +57,12 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
             if (success) {
                 employeeLocation?.let { Employee(requireContext(), mGoogleMap, it) }
             } else {
-                message?.let { context?.toast(it, Toast.LENGTH_LONG) }
+                message?.let { context.toast(it, Toast.LENGTH_LONG) }
             }
         })
 
         viewModel.exception.observe(viewLifecycleOwner, Observer {
-            context?.toast(it, Toast.LENGTH_LONG)
+            context.toast(it, Toast.LENGTH_LONG)
         })
     }
 
@@ -83,7 +84,7 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
             mGoogleMap?.moveCamera(cameraUpdate)
         }
 
-        val user = Gson().fromJson(context?.readPref(R.string.user), User::class.java)
+        val user = Gson().fromJson(context?.readPref(Commons.USER), User::class.java)
         MyLocation(requireContext(), mGoogleMap, latLng, user)
 
         // call api

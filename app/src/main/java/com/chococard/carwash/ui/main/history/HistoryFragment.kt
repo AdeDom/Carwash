@@ -59,13 +59,13 @@ class HistoryFragment : BaseFragment<HistoryViewModel, HistoryFactory>(R.layout.
             if (success) {
                 listHistory?.let { adt.setList(it) }
             } else {
-                message?.let { context?.toast(it, Toast.LENGTH_LONG) }
+                message?.let { context.toast(it, Toast.LENGTH_LONG) }
             }
         })
 
         viewModel.exception.observe(viewLifecycleOwner, Observer {
             progress_bar.hide()
-            context?.toast(it, Toast.LENGTH_LONG)
+            context.toast(it, Toast.LENGTH_LONG)
         })
     }
 

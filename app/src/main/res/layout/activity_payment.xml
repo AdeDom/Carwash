@@ -8,6 +8,7 @@
         style="@style/MatchWrap">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             style="@style/MatchWrap"
             android:background="@color/colorPrimary" />
 
@@ -22,6 +23,7 @@
     </RelativeLayout>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/layout_card"
         style="@style/StyleCardView"
         android:layout_below="@id/layout_toolbar"
         app:cardCornerRadius="@dimen/base_pow_three"
@@ -31,22 +33,22 @@
         <GridLayout
             style="@style/MatchWrap"
             android:columnCount="2"
-            android:rowCount="5">
+            android:rowCount="6">
 
-            <TextView
-                style="@style/TextViewMediumBlack"
-                android:text="@string/tax_invoice" />
-
-            <TextView
-                style="@style/TextViewMediumBlack"
-                android:layout_gravity="end"
-                android:text="@string/tax_invoice" />
+            <ImageView
+                android:id="@+id/iv_photo"
+                style="@style/ImageViewPhoto"
+                android:layout_columnSpan="2"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/base_pow_four"
+                android:background="@drawable/shape_img" />
 
             <TextView
                 style="@style/TextViewMediumBlack"
                 android:text="@string/date_time" />
 
             <TextView
+                android:id="@+id/tv_date_time"
                 style="@style/TextViewMediumBlack"
                 android:layout_gravity="end"
                 android:text="@string/date_time" />
@@ -56,6 +58,7 @@
                 android:text="@string/full_name" />
 
             <TextView
+                android:id="@+id/tv_full_name"
                 style="@style/TextViewMediumBlack"
                 android:layout_gravity="end"
                 android:text="@string/full_name" />
@@ -65,36 +68,41 @@
                 android:text="@string/service" />
 
             <TextView
+                android:id="@+id/tv_service"
                 style="@style/TextViewMediumBlack"
                 android:layout_gravity="end"
                 android:text="@string/service" />
 
             <TextView
                 style="@style/TextViewMediumBlack"
-                android:text="@string/amount" />
+                android:text="@string/price" />
 
             <TextView
+                android:id="@+id/tv_price"
                 style="@style/TextViewMediumBlack"
                 android:layout_gravity="end"
-                android:text="@string/amount" />
+                android:text="@string/price" />
 
         </GridLayout>
 
     </androidx.cardview.widget.CardView>
 
-    <LinearLayout style="@style/LinearLayoutButtonPair">
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        style="@style/WrapWrap"
+        android:layout_below="@+id/layout_card"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/base_pow_four"
+        android:layout_marginEnd="@dimen/base_pow_five"
+        android:src="@drawable/ic_navigation_white" />
 
-        <Button
-            style="@style/ButtonWhiteShort"
-            android:background="@drawable/shape_bt_white"
-            android:text="@string/cancel" />
-
-        <Button
-            style="@style/ButtonBlueShort"
-            android:layout_marginStart="@dimen/base_pow_three"
-            android:background="@drawable/shape_bt_blue"
-            android:text="@string/confirm" />
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/bt_payment"
+        style="@style/ButtonBlueLong"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/base_pow_five"
+        android:background="@drawable/shape_bt_blue"
+        android:text="@string/payment" />
 
 </RelativeLayout>

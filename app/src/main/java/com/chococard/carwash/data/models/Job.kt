@@ -12,8 +12,10 @@ data class Job(
     @SerializedName("package_id") val packageId: String? = null,
     val service: String? = null,
     val price: String? = null,
-    val latitude: Double? = null,
-    val longitude: Double? = null,
+    @SerializedName("begin_latitude") val beginLatitude: Double? = null,
+    @SerializedName("begin_longitude") val beginLongitude: Double? = null,
+    @SerializedName("end_latitude") val endLatitude: Double? = null,
+    @SerializedName("end_longitude") val endLongitude: Double? = null,
     @SerializedName("car_id") val carId: String? = null,
     @SerializedName("vehicle_registration") val vehicleRegistration: String? = null,
     @SerializedName("date_time") val dateTime: String? = null
@@ -26,6 +28,8 @@ data class Job(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
+        parcel.readValue(Double::class.java.classLoader) as? Double,
+        parcel.readValue(Double::class.java.classLoader) as? Double,
         parcel.readValue(Double::class.java.classLoader) as? Double,
         parcel.readValue(Double::class.java.classLoader) as? Double,
         parcel.readString(),
@@ -41,8 +45,10 @@ data class Job(
         parcel.writeString(packageId)
         parcel.writeString(service)
         parcel.writeString(price)
-        parcel.writeValue(latitude)
-        parcel.writeValue(longitude)
+        parcel.writeValue(beginLatitude)
+        parcel.writeValue(beginLongitude)
+        parcel.writeValue(endLatitude)
+        parcel.writeValue(endLongitude)
         parcel.writeString(carId)
         parcel.writeString(vehicleRegistration)
         parcel.writeString(dateTime)

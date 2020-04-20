@@ -17,6 +17,7 @@ abstract class BaseDialog<VM : ViewModel, F : ViewModelProvider.NewInstanceFacto
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NO_TITLE, android.R.style.Theme_DeviceDefault_Light_Dialog_MinWidth)
+        isCancelable = false
     }
 
     override fun onCreateView(

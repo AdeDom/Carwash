@@ -7,6 +7,7 @@ import com.chococard.carwash.R
 import com.chococard.carwash.data.models.Job
 import com.chococard.carwash.data.networks.MainApi
 import com.chococard.carwash.data.repositories.MainRepository
+import com.chococard.carwash.util.Commons
 import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.base.BaseDialog
 import com.chococard.carwash.util.extension.getLocality
@@ -28,14 +29,18 @@ class JobDialog : BaseDialog<MainViewModel, MainFactory>(R.layout.dialog_job) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val job = arguments?.getParcelable(getString(R.string.job)) as Job?
+        init()
+    }
+
+    private fun init() {
+        val job = arguments?.getParcelable(Commons.JOB) as Job?
 
         // set widgets
-        val (_, fullName, image, _, _, service, _, latitude, longitude, _, _, _) = job as Job
+        val (_, fullName, image, _, _, service, _, _, _, endLat, endLong, _, _, _) = job as Job
         tv_full_name.text = fullName
         tv_service.text = service
-        if (latitude != null && longitude != null)
-            tv_location.text = context?.getLocality(latitude, longitude)
+        if (endLat != null && endLong != null)
+            tv_location.text = context?.getLocality(endLat, endLong)
         image?.let { iv_photo.loadCircle(it) }
 
         setCountTime()
@@ -48,17 +53,17 @@ class JobDialog : BaseDialog<MainViewModel, MainFactory>(R.layout.dialog_job) {
             val (success, message, jobFlag) = response
             if (success) {
                 if (jobFlag) {
-                    context?.writePref(R.string.flag, "1")
-                    context?.writePref(R.string.job, Gson().toJson(job))
+                    context?.writePref(Commons.JOB_FLAG, Commons.JOB_FLAG_ON)
+                    context?.writePref(Commons.JOB, Gson().toJson(job))
                     Intent(context, PaymentActivity::class.java).apply {
-                        putExtra(getString(R.string.job), job)
+                        putExtra(Commons.JOB, job)
                         startActivity(this)
                     }
                 } else {
-                    context?.writePref(R.string.flag, "0")
+                    context?.writePref(Commons.JOB_FLAG, Commons.JOB_FLAG_OFF)
                 }
             } else {
-                message?.let { context?.toast(it) }
+                message?.let { context.toast(it) }
             }
             dialog?.dismiss()
         })
@@ -77,18 +82,18 @@ class JobDialog : BaseDialog<MainViewModel, MainFactory>(R.layout.dialog_job) {
                 }
             }
 
-            viewModel.jobResponse(getString(R.string.reject))
+            viewModel.jobResponse(Commons.JOB_REJECT)
         }
     }
 
     private fun receiveJob() {
         mIsTimer = false
-        viewModel.jobResponse(getString(R.string.receive))
+        viewModel.jobResponse(Commons.JOB_RECEIVE)
     }
 
     private fun rejectJob() {
         mIsTimer = false
-        viewModel.jobResponse(getString(R.string.reject))
+        viewModel.jobResponse(Commons.JOB_REJECT)
     }
 
 }

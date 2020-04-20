@@ -5,6 +5,7 @@ import com.chococard.carwash.R
 import com.chococard.carwash.data.models.User
 import com.chococard.carwash.data.networks.MainApi
 import com.chococard.carwash.data.repositories.MainRepository
+import com.chococard.carwash.util.Commons
 import com.chococard.carwash.util.base.BaseActivity
 import com.chococard.carwash.util.extension.readPref
 import com.chococard.carwash.util.extension.toast
@@ -26,7 +27,7 @@ class AddWalletActivity : BaseActivity<WalletViewModel, WalletFactory>() {
 
     private fun init() {
         // set widgets
-        val user = Gson().fromJson(readPref(R.string.user), User::class.java)
+        val user = Gson().fromJson(readPref(Commons.USER), User::class.java)
         tv_full_name.text = user?.fullName
 
         //set event

@@ -9,6 +9,7 @@ import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.ChangeApi
 import com.chococard.carwash.data.repositories.ChangeRepository
 import com.chococard.carwash.ui.auth.SignInActivity
+import com.chococard.carwash.util.Commons
 import com.chococard.carwash.util.base.BaseActivity
 import com.chococard.carwash.util.extension.*
 import kotlinx.android.synthetic.main.activity_change_password.*
@@ -40,8 +41,8 @@ class ChangePasswordActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
             progress_bar.hide()
             message?.let { toast(it) }
             if (success) {
-                writePref(R.string.token, "")
-                writePref(R.string.user, "")
+                writePref(Commons.TOKEN, "")
+                writePref(Commons.USER, "")
                 Intent(baseContext, SignInActivity::class.java).apply {
                     finishAffinity()
                     startActivity(this)

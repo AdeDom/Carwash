@@ -52,12 +52,12 @@ class WalletFragment : BaseFragment<WalletViewModel, WalletFactory>(R.layout.fra
         // observe
         viewModel.wallet.observe(viewLifecycleOwner, Observer {
             progress_bar.hide()
-            context?.toast(it.toString())
+            context.toast(it.toString())
         })
 
         viewModel.exception.observe(viewLifecycleOwner, Observer {
             progress_bar.hide()
-            context?.toast(it, Toast.LENGTH_LONG)
+            context.toast(it, Toast.LENGTH_LONG)
         })
     }
 

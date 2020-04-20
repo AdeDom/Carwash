@@ -8,6 +8,7 @@ import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.AuthApi
 import com.chococard.carwash.data.repositories.AuthRepository
 import com.chococard.carwash.ui.main.MainActivity
+import com.chococard.carwash.util.Commons
 import com.chococard.carwash.util.base.BaseActivity
 import com.chococard.carwash.util.extension.*
 import com.google.gson.Gson
@@ -27,6 +28,10 @@ class SignInActivity : BaseActivity<AuthViewModel, AuthFactory>() {
     }
 
     private fun init() {
+        //set widget
+        val username = readPref(Commons.USERNAME)
+        et_username.setText(username)
+
         //event
         iv_arrow_back.setOnClickListener { onBackPressed() }
 
@@ -44,7 +49,7 @@ class SignInActivity : BaseActivity<AuthViewModel, AuthFactory>() {
             val (success, message, token) = response
             progress_bar.hide()
             if (success) {
-                token?.let { writePref(R.string.token, it) }
+                token?.let { writePref(Commons.TOKEN, it) }
                 progress_bar.show()
                 viewModel.fetchUser()
             } else {
@@ -56,7 +61,8 @@ class SignInActivity : BaseActivity<AuthViewModel, AuthFactory>() {
             val (success, message, user) = response
             progress_bar.hide()
             if (success) {
-                writePref(R.string.user, Gson().toJson(user))
+                writePref(Commons.USERNAME, et_username.getContents())
+                writePref(Commons.USER, Gson().toJson(user))
                 Intent(baseContext, MainActivity::class.java).apply {
                     startActivity(this)
                     finishAffinity()

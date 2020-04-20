@@ -10,6 +10,7 @@ import com.chococard.carwash.R
 import com.chococard.carwash.data.models.User
 import com.chococard.carwash.data.networks.ChangeApi
 import com.chococard.carwash.data.repositories.ChangeRepository
+import com.chococard.carwash.util.Commons
 import com.chococard.carwash.util.base.BaseActivity
 import com.chococard.carwash.util.extension.*
 import com.google.gson.Gson
@@ -32,7 +33,7 @@ class ChangeProfileActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
         setToolbar(toolbar)
 
         //set widgets
-        val user = Gson().fromJson(readPref(R.string.user), User::class.java)
+        val user = Gson().fromJson(readPref(Commons.USER), User::class.java)
         val (_, fullName, idCard, phone, _, image) = user
         et_full_name.setText(fullName)
         et_identity_card.setText(idCard)
@@ -62,10 +63,10 @@ class ChangeProfileActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
         })
 
         viewModel.user.observe(this, Observer { response ->
-            val (success, message, user) = response
+            val (success, message, userInfo) = response
             progress_bar.hide()
             if (success) {
-                writePref(R.string.user, Gson().toJson(user))
+                writePref(Commons.USER, Gson().toJson(userInfo))
                 finish()
             } else {
                 message?.let { toast(it) }

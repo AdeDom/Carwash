@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.NetworkConnectionInterceptor
 import com.chococard.carwash.ui.auth.SignInActivity
+import com.chococard.carwash.util.Commons
 import com.chococard.carwash.util.extension.writePref
 
 abstract class BaseActivity<VM : ViewModel, F : ViewModelProvider.NewInstanceFactory> :
@@ -79,8 +80,8 @@ abstract class BaseActivity<VM : ViewModel, F : ViewModelProvider.NewInstanceFac
             dialog.dismiss()
         }
         setNegativeButton(android.R.string.ok) { dialog, which ->
-            writePref(R.string.token, "")
-            writePref(R.string.user, "")
+            writePref(Commons.TOKEN, "")
+            writePref(Commons.USER, "")
             Intent(baseContext, SignInActivity::class.java).apply {
                 finishAffinity()
                 startActivity(this)

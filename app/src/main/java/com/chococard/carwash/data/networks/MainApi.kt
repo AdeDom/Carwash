@@ -31,7 +31,7 @@ interface MainApi : BaseApi {
         @Field("date_end") dateEnd: String
     ): Response<HistoryResponse>
 
-    @POST("5e97ff1d3500001100c47d1b")
+    @POST("5e9d389f300000eb120a8195")
     suspend fun jobRequest(): Response<JobRequest>
 
     @FormUrlEncoded
