@@ -52,20 +52,20 @@ class JobDialog : BaseDialog(R.layout.dialog_job) {
             }
 
             listener.onAttach(Commons.JOB_REJECT)
-            dialog?.dismiss()
+            dismiss()
         }
     }
 
     private fun receiveJob() {
         mIsTimer = false
         listener.onAttach(Commons.JOB_RECEIVE)
-        dialog?.dismiss()
+        dismiss()
     }
 
     private fun rejectJob() {
         mIsTimer = false
         listener.onAttach(Commons.JOB_REJECT)
-        dialog?.dismiss()
+        dismiss()
     }
 
 }

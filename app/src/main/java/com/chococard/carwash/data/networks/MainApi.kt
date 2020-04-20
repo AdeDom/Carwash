@@ -41,6 +41,12 @@ interface MainApi : BaseApi {
     ): Response<JobResponse>
 
     @FormUrlEncoded
+    @POST("5e9d65ad34000011006ee5b5")
+    suspend fun payment(
+        @Field("payment_status") paymentStatus: String
+    ): Response<BaseResponse>
+
+    @FormUrlEncoded
     @POST("5e9813e93500006000c47e21")
     suspend fun setActiveStatus(
         @Field("activity_status") activityStatus: String

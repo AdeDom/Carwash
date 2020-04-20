@@ -17,6 +17,8 @@ class MainRepository(private val api: MainApi) : BaseRepository(api) {
 
     suspend fun jobResponse(jobStatus: String) = apiRequest { api.jobResponse(jobStatus) }
 
+    suspend fun payment(paymentStatus: String) = apiRequest { api.payment(paymentStatus) }
+
     suspend fun setActiveStatus(activityStatus: String) =
         apiRequest { api.setActiveStatus(activityStatus) }
 

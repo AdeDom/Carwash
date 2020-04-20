@@ -18,6 +18,10 @@ class MainViewModel(private val repository: MainRepository) : BaseViewModel(repo
     val jobResponse: LiveData<JobResponse>
         get() = _jobResponse
 
+    private val _payment = MutableLiveData<BaseResponse>()
+    val payment: LiveData<BaseResponse>
+        get() = _payment
+
     private val _activeStatus = MutableLiveData<BaseResponse>()
     val activeStatus: LiveData<BaseResponse>
         get() = _activeStatus
@@ -28,6 +32,10 @@ class MainViewModel(private val repository: MainRepository) : BaseViewModel(repo
 
     fun jobResponse(jobStatus: String) = launch {
         _jobResponse.value = repository.jobResponse(jobStatus)
+    }
+
+    fun payment(paymentStatus: String) = launch {
+        _payment.value = repository.payment(paymentStatus)
     }
 
     fun setActiveStatus(activityStatus: String) = launch {

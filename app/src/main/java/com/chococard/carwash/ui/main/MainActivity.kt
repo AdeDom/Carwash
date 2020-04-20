@@ -209,6 +209,6 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         }
     }
 
-    override fun onAttach(jobResult: String) = viewModel.jobResponse(jobResult)
+    override fun onAttach(data: String) = viewModel.jobResponse(data)
 
 }

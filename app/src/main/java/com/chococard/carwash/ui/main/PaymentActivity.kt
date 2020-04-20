@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.Job
 import com.chococard.carwash.data.networks.MainApi
@@ -12,12 +13,10 @@ import com.chococard.carwash.data.repositories.MainRepository
 import com.chococard.carwash.ui.change.ChangeProfileActivity
 import com.chococard.carwash.util.Commons
 import com.chococard.carwash.util.base.BaseActivity
-import com.chococard.carwash.util.extension.loadCircle
-import com.chococard.carwash.util.extension.toast
-import com.chococard.carwash.util.extension.writePref
+import com.chococard.carwash.util.extension.*
 import kotlinx.android.synthetic.main.activity_payment.*
 
-class PaymentActivity : BaseActivity<MainViewModel, MainFactory>() {
+class PaymentActivity : BaseActivity<MainViewModel, MainFactory>(), OnAttachListener {
 
     override fun viewModel() = MainViewModel::class.java
 
@@ -44,10 +43,25 @@ class PaymentActivity : BaseActivity<MainViewModel, MainFactory>() {
         fab.setOnClickListener { navigation(beginLat, beginLong, endLat, endLong) }
 
         bt_payment.setOnClickListener {
-            writePref(Commons.JOB_FLAG, Commons.JOB_FLAG_OFF)
-            finish()
+            PaymentDialog().show(supportFragmentManager, null)
         }
 
+        //observe
+        viewModel.payment.observe(this, Observer { response ->
+            progress_bar.hide()
+            val (success, message) = response
+            if (success) {
+                writePref(Commons.JOB_FLAG, Commons.JOB_FLAG_OFF)
+                finish()
+            } else {
+                message?.let { toast(it) }
+            }
+        })
+
+        viewModel.exception.observe(this, Observer {
+            progress_bar.hide()
+            toast(it, Toast.LENGTH_LONG)
+        })
     }
 
     private fun navigation(
@@ -83,5 +97,10 @@ class PaymentActivity : BaseActivity<MainViewModel, MainFactory>() {
     }
 
     override fun onBackPressed() = toast(getString(R.string.not_available), Toast.LENGTH_LONG)
+
+    override fun onAttach(data: String) {
+        progress_bar.show()
+        viewModel.payment(data)
+    }
 
 }

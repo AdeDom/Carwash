@@ -105,4 +105,8 @@
         android:background="@drawable/shape_bt_blue"
         android:text="@string/payment" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/ProgressBar" />
+
 </RelativeLayout>

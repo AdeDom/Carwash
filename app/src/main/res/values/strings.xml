@@ -57,5 +57,7 @@
     <string name="payment">Payment</string>
     <string name="not_available">Not available at this time</string>
     <string name="google_maps_navigation">http://maps.google.com/maps?saddr=%1$f,%2$f&amp;daddr=%3$f,%4$f</string>
+    <string name="report">Report</string>
+    <string name="payment_received">Payment received?</string>
 
 </resources>

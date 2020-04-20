@@ -14,5 +14,7 @@ object Commons {
     const val JOB_REJECT = "reject"
     const val STATUS_ACTIVE = "active"
     const val STATUS_INACTIVE = "inactive"
+    const val PAYMENT_REPORT = "report"
+    const val PAYMENT_CONFIRM = "confirm"
 
 }
