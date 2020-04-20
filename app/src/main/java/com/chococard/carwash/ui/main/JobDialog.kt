@@ -1,30 +1,19 @@
 package com.chococard.carwash.ui.main
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.Job
-import com.chococard.carwash.data.networks.MainApi
-import com.chococard.carwash.data.repositories.MainRepository
 import com.chococard.carwash.util.Commons
 import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.base.BaseDialog
 import com.chococard.carwash.util.extension.getLocality
 import com.chococard.carwash.util.extension.loadCircle
-import com.chococard.carwash.util.extension.toast
-import com.chococard.carwash.util.extension.writePref
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.dialog_job.*
 import kotlinx.coroutines.delay
 
-class JobDialog : BaseDialog<MainViewModel, MainFactory>(R.layout.dialog_job) {
+class JobDialog : BaseDialog(R.layout.dialog_job) {
 
     private var mIsTimer: Boolean = true
-
-    override fun viewModel() = MainViewModel::class.java
-
-    override fun factory() = MainFactory(MainRepository(MainApi.invoke(requireContext())))
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -48,26 +37,6 @@ class JobDialog : BaseDialog<MainViewModel, MainFactory>(R.layout.dialog_job) {
         // set event
         bt_cancel.setOnClickListener { rejectJob() }
         bt_confirm.setOnClickListener { receiveJob() }
-
-        viewModel.jobResponse.observe(viewLifecycleOwner, Observer { response ->
-            val (success, message, jobFlag) = response
-            if (success) {
-                if (jobFlag) {
-                    context?.writePref(Commons.JOB_FLAG, Commons.JOB_FLAG_ON)
-                    context?.writePref(Commons.JOB, Gson().toJson(job))
-                    Intent(context, PaymentActivity::class.java).apply {
-                        putExtra(Commons.JOB, job)
-                        startActivity(this)
-                    }
-                } else {
-                    context?.writePref(Commons.JOB_FLAG, Commons.JOB_FLAG_OFF)
-                }
-            } else {
-                message?.let { context.toast(it) }
-            }
-            dialog?.dismiss()
-        })
-
     }
 
     private fun setCountTime() {
@@ -82,18 +51,21 @@ class JobDialog : BaseDialog<MainViewModel, MainFactory>(R.layout.dialog_job) {
                 }
             }
 
-            viewModel.jobResponse(Commons.JOB_REJECT)
+            listener.onAttach(Commons.JOB_REJECT)
+            dialog?.dismiss()
         }
     }
 
     private fun receiveJob() {
         mIsTimer = false
-        viewModel.jobResponse(Commons.JOB_RECEIVE)
+        listener.onAttach(Commons.JOB_RECEIVE)
+        dialog?.dismiss()
     }
 
     private fun rejectJob() {
         mIsTimer = false
-        viewModel.jobResponse(Commons.JOB_REJECT)
+        listener.onAttach(Commons.JOB_REJECT)
+        dialog?.dismiss()
     }
 
 }

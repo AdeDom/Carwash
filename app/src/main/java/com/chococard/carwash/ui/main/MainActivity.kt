@@ -24,12 +24,14 @@ import com.chococard.carwash.util.Commons
 import com.chococard.carwash.util.base.BaseActivity
 import com.chococard.carwash.util.extension.readPref
 import com.chococard.carwash.util.extension.toast
+import com.chococard.carwash.util.extension.writePref
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
-    BottomNavigationView.OnNavigationItemSelectedListener {
+    BottomNavigationView.OnNavigationItemSelectedListener,
+    OnAttachListener {
 
     private var mBroadcastReceiver: BroadcastReceiver? = null
 
@@ -69,6 +71,24 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
                 val jobDialog = JobDialog()
                 jobDialog.arguments = bundle
                 jobDialog.show(supportFragmentManager, null)
+            } else {
+                message?.let { toast(it, Toast.LENGTH_LONG) }
+            }
+        })
+
+        viewModel.jobResponse.observe(this, Observer { response ->
+            val (success, message, jobFlag) = response
+            if (success) {
+                if (jobFlag) {
+                    writePref(Commons.JOB_FLAG, Commons.JOB_FLAG_ON)
+                    writePref(Commons.JOB, Gson().toJson(job))
+                    Intent(baseContext, PaymentActivity::class.java).apply {
+                        putExtra(Commons.JOB, job)
+                        startActivity(this)
+                    }
+                } else {
+                    writePref(Commons.JOB_FLAG, Commons.JOB_FLAG_OFF)
+                }
             } else {
                 message?.let { toast(it, Toast.LENGTH_LONG) }
             }
@@ -188,5 +208,7 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
             }
         }
     }
+
+    override fun onAttach(jobResult: String) = viewModel.jobResponse(jobResult)
 
 }
