@@ -12,8 +12,8 @@ fun Activity.dialogDatePicker(date: (Triple<Int, Int, Int>) -> Unit) {
 
     val dpd = DatePickerDialog(
         this,
-        DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-            date.invoke(Triple(dayOfMonth, month + 1, year))
+        DatePickerDialog.OnDateSetListener { view, yy, MM, dd ->
+            date.invoke(Triple(dd, MM + 1, yy))
         },
         year,
         month,

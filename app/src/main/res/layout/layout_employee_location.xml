@@ -3,8 +3,8 @@
     style="@style/WrapWrap">
 
     <ImageView
-        android:layout_width="@dimen/base_pow_six"
-        android:layout_height="@dimen/base_pow_six"
+        android:layout_width="@dimen/base_fifty"
+        android:layout_height="@dimen/base_fifty"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ic_location" />
 
@@ -12,7 +12,6 @@
         style="@style/TextViewMediumBlack"
         android:background="@drawable/shape_employee_location"
         android:text="@string/car_wash"
-        android:layout_marginTop="@dimen/base_pow_four"
         android:textColor="@android:color/black" />
 
 </RelativeLayout>

@@ -15,28 +15,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.main.PaymentActivity"
+            android:name=".ui.payment.PaymentActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.wallet.AddWalletActivity"
+            android:name=".ui.addwallet.AddWalletActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.change.ChangePasswordActivity"
+            android:name=".ui.changepassword.ChangePasswordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.change.ChangeProfileActivity"
+            android:name=".ui.changeprofile.ChangeProfileActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.auth.AuthActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.auth.SignUpActivity"
+            android:name=".ui.signup.SignUpActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.auth.SignInActivity"
+            android:name=".ui.signin.SignInActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.auth.SplashScreenActivity"
+            android:name=".ui.splashscreen.SplashScreenActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

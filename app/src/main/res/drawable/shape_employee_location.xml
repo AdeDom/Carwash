@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
+    android:shape="rectangle">
 
     <solid android:color="@android:color/white" />
 
@@ -12,6 +12,6 @@
         android:left="@dimen/base_pow_four"
         android:right="@dimen/base_pow_four" />
 
-    <corners android:radius="@dimen/base_pow_two" />
+    <corners android:radius="@dimen/base_pow_four" />
 
 </shape>
