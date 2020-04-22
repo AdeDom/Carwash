@@ -2,23 +2,24 @@ package com.chococard.carwash.data.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.chococard.carwash.data.networks.ApiConstant
 import com.google.gson.annotations.SerializedName
 
 data class Job(
-    @SerializedName("user_id") val userId: String? = null,
-    @SerializedName("full_name") val fullName: String? = null,
-    val image: String? = null,
-    @SerializedName("job_id") val jobId: String? = null,
-    @SerializedName("package_id") val packageId: String? = null,
-    val service: String? = null,
-    val price: String? = null,
-    @SerializedName("begin_latitude") val beginLatitude: Double? = null,
-    @SerializedName("begin_longitude") val beginLongitude: Double? = null,
-    @SerializedName("end_latitude") val endLatitude: Double? = null,
-    @SerializedName("end_longitude") val endLongitude: Double? = null,
-    @SerializedName("car_id") val carId: String? = null,
-    @SerializedName("vehicle_registration") val vehicleRegistration: String? = null,
-    @SerializedName("date_time") val dateTime: String? = null
+    @SerializedName(ApiConstant.USER_ID) val userId: String? = null,
+    @SerializedName(ApiConstant.FULL_NAME) val fullName: String? = null,
+    @SerializedName(ApiConstant.IMAGE) val image: String? = null,
+    @SerializedName(ApiConstant.JOB_ID) val jobId: String? = null,
+    @SerializedName(ApiConstant.PACKAGE_ID) val packageId: String? = null,
+    @SerializedName(ApiConstant.SERVICE) val service: String? = null,
+    @SerializedName(ApiConstant.PRICE) val price: String? = null,
+    @SerializedName(ApiConstant.BEGIN_LATITUDE) val beginLatitude: Double? = null,
+    @SerializedName(ApiConstant.BEGIN_LONGITUDE) val beginLongitude: Double? = null,
+    @SerializedName(ApiConstant.END_LATITUDE) val endLatitude: Double? = null,
+    @SerializedName(ApiConstant.END_LONGITUDE) val endLongitude: Double? = null,
+    @SerializedName(ApiConstant.CAR_ID) val carId: String? = null,
+    @SerializedName(ApiConstant.VEHICLE_REGISTRATION) val vehicleRegistration: String? = null,
+    @SerializedName(ApiConstant.DATE_TIME) val dateTime: String? = null
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
