@@ -1,4 +1,4 @@
-package com.chococard.carwash.ui.auth
+package com.chococard.carwash.ui.splashscreen
 
 import android.Manifest
 import android.content.Intent
@@ -7,25 +7,27 @@ import android.os.Build
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import com.chococard.carwash.R
-import com.chococard.carwash.data.networks.AuthApi
-import com.chococard.carwash.data.repositories.AuthRepository
+import com.chococard.carwash.data.networks.AppService
+import com.chococard.carwash.factory.SplashScreenFactory
+import com.chococard.carwash.repositories.BaseRepository
+import com.chococard.carwash.ui.auth.AuthActivity
+import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.main.MainActivity
-import com.chococard.carwash.util.Commons
+import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.Coroutines
-import com.chococard.carwash.util.base.BaseActivity
 import com.chococard.carwash.util.extension.readPref
+import com.chococard.carwash.viewmodel.SplashScreenViewModel
 import kotlinx.coroutines.delay
 
-class SplashScreenActivity : BaseActivity<AuthViewModel, AuthFactory>() {
+class SplashScreenActivity : BaseActivity<SplashScreenViewModel, SplashScreenFactory>() {
 
     private val GRANTED = PackageManager.PERMISSION_GRANTED
     private val ACCESS_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
     private val ACCESS_COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION
-    private val REQUEST_CODE_PERMISSION: Int = 1
 
-    override fun viewModel() = AuthViewModel::class.java
+    override fun viewModel() = SplashScreenViewModel::class.java
 
-    override fun factory() = AuthFactory(AuthRepository(AuthApi.invoke(interceptor)))
+    override fun factory() = SplashScreenFactory(BaseRepository(AppService.invoke(interceptor)))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +47,7 @@ class SplashScreenActivity : BaseActivity<AuthViewModel, AuthFactory>() {
                     arrayOf(
                         ACCESS_FINE_LOCATION,
                         ACCESS_COARSE_LOCATION
-                    ), REQUEST_CODE_PERMISSION
+                    ), CommonsConstant.REQUEST_CODE_PERMISSION
                 )
             } else {
                 authByCheckToken()
@@ -61,7 +63,7 @@ class SplashScreenActivity : BaseActivity<AuthViewModel, AuthFactory>() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_CODE_PERMISSION) {
+        if (requestCode == CommonsConstant.REQUEST_CODE_PERMISSION) {
             if (
                 grantResults[0] != GRANTED ||
                 grantResults[1] != GRANTED
@@ -77,7 +79,7 @@ class SplashScreenActivity : BaseActivity<AuthViewModel, AuthFactory>() {
         Coroutines.main {
             delay(2000)
 
-            val token = readPref(Commons.TOKEN)
+            val token = readPref(CommonsConstant.TOKEN)
             if (token.isEmpty()) {
                 Intent(baseContext, AuthActivity::class.java).also {
                     startActivity(it)

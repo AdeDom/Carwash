@@ -1,4 +1,4 @@
-package com.chococard.carwash.util.base
+package com.chococard.carwash.ui
 
 import android.view.LayoutInflater
 import android.view.View

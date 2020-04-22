@@ -1,4 +1,4 @@
-package com.chococard.carwash.util.base
+package com.chococard.carwash.ui.base
 
 import android.content.Intent
 import android.graphics.PorterDuff
@@ -12,8 +12,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.NetworkConnectionInterceptor
-import com.chococard.carwash.ui.auth.SignInActivity
-import com.chococard.carwash.util.Commons
+import com.chococard.carwash.ui.signin.SignInActivity
+import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.writePref
 
 abstract class BaseActivity<VM : ViewModel, F : ViewModelProvider.NewInstanceFactory> :
@@ -21,9 +21,6 @@ abstract class BaseActivity<VM : ViewModel, F : ViewModelProvider.NewInstanceFac
 
     protected lateinit var viewModel: VM
     protected lateinit var interceptor: NetworkConnectionInterceptor
-
-    val REQUEST_CODE_IMAGE = 1
-    val REQUEST_CODE_LOCATION = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,13 +47,6 @@ abstract class BaseActivity<VM : ViewModel, F : ViewModelProvider.NewInstanceFac
         )
     }
 
-    fun selectImage() = Intent(Intent.ACTION_PICK).apply {
-        type = "image/*"
-        val mimeTypes = arrayOf("image/jpeg", "image/png")
-        putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
-        startActivityForResult(this, REQUEST_CODE_IMAGE)
-    }
-
     fun contactAdmin() = AlertDialog.Builder(this).apply {
         setTitle(R.string.contact_admin)
         setMessage(R.string.contact_system_administrator)
@@ -80,8 +70,8 @@ abstract class BaseActivity<VM : ViewModel, F : ViewModelProvider.NewInstanceFac
             dialog.dismiss()
         }
         setNegativeButton(android.R.string.ok) { dialog, which ->
-            writePref(Commons.TOKEN, "")
-            writePref(Commons.USER, "")
+            writePref(CommonsConstant.TOKEN, "")
+            writePref(CommonsConstant.USER, "")
             Intent(baseContext, SignInActivity::class.java).apply {
                 finishAffinity()
                 startActivity(this)

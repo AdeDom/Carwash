@@ -1,4 +1,4 @@
-package com.chococard.carwash.ui.main.map
+package com.chococard.carwash.ui.map
 
 import android.content.Context
 import com.chococard.carwash.data.models.User

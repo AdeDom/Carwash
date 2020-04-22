@@ -1,8 +1,8 @@
-package com.chococard.carwash.ui.main.history
+package com.chococard.carwash.ui.history
 
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.History
-import com.chococard.carwash.util.base.BaseRecyclerView
+import com.chococard.carwash.ui.BaseRecyclerView
 import com.chococard.carwash.util.extension.getLocality
 import com.chococard.carwash.util.extension.loadCircle
 import kotlinx.android.synthetic.main.item_history.view.*

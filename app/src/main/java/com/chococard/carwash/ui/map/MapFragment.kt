@@ -1,4 +1,4 @@
-package com.chococard.carwash.ui.main.map
+package com.chococard.carwash.ui.map
 
 import android.location.Location
 import android.os.Bundle
@@ -8,12 +8,19 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.User
-import com.chococard.carwash.data.networks.MainApi
-import com.chococard.carwash.data.repositories.MainRepository
-import com.chococard.carwash.util.Commons
-import com.chococard.carwash.util.base.BaseFragment
+import com.chococard.carwash.data.networks.AppService
+import com.chococard.carwash.factory.MapFactory
+import com.chococard.carwash.repositories.BaseRepository
+import com.chococard.carwash.ui.base.BaseFragment
+import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.readPref
 import com.chococard.carwash.util.extension.toast
+import com.chococard.carwash.viewmodel.MapViewModel
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.location.LocationListener
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -24,15 +31,20 @@ import com.google.gson.Gson
 
 class MapFragment : BaseFragment<MapViewModel, MapFactory>(
     R.layout.fragment_map
-), OnMapReadyCallback {
+), OnMapReadyCallback,
+    GoogleApiClient.ConnectionCallbacks,
+    GoogleApiClient.OnConnectionFailedListener,
+    LocationListener {
 
+    private lateinit var mGoogleApiClient: GoogleApiClient
+    private lateinit var mLocationRequest: LocationRequest
     private var mGoogleMap: GoogleMap? = null
     private var mMapView: MapView? = null
     private var mIsCamera: Boolean = true
 
     override fun viewModel() = MapViewModel::class.java
 
-    override fun factory() = MapFactory(MainRepository(MainApi.invoke(requireContext())))
+    override fun factory() = MapFactory(BaseRepository(AppService.invoke(requireContext())))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,8 +63,10 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
     }
 
     private fun init() {
+        setRequestLocation()
+
         // observe
-        viewModel.employeeLocation.observe(viewLifecycleOwner, Observer { response ->
+        viewModel.getEmployeeLocation.observe(viewLifecycleOwner, Observer { response ->
             val (success, message, employeeLocation) = response
             if (success) {
                 employeeLocation?.let { Employee(requireContext(), mGoogleMap, it) }
@@ -61,7 +75,7 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
             }
         })
 
-        viewModel.exception.observe(viewLifecycleOwner, Observer {
+        viewModel.getError.observe(viewLifecycleOwner, Observer {
             context.toast(it, Toast.LENGTH_LONG)
         })
     }
@@ -74,7 +88,6 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
     }
 
     override fun onLocationChanged(location: Location?) {
-        super.onLocationChanged(location)
         if (location == null) return
         val latLng = LatLng(location.latitude, location.longitude)
 
@@ -84,22 +97,25 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
             mGoogleMap?.moveCamera(cameraUpdate)
         }
 
-        val user = Gson().fromJson(context?.readPref(Commons.USER), User::class.java)
+        val user = Gson().fromJson(context?.readPref(CommonsConstant.USER), User::class.java)
         MyLocation(requireContext(), mGoogleMap, latLng, user)
 
         // call api
-        viewModel.setLocation(latLng.latitude, latLng.longitude)
-
+        viewModel.callSetLocation(latLng.latitude, latLng.longitude)
     }
 
     override fun onResume() {
         super.onResume()
         mMapView?.onResume()
+        mGoogleApiClient.connect()
+        if (mGoogleApiClient.isConnected) startLocationUpdate()
     }
 
     override fun onPause() {
         super.onPause()
         mMapView?.onPause()
+        if (mGoogleApiClient.isConnected) stopLocationUpdate()
+        if (mGoogleApiClient.isConnected) mGoogleApiClient.disconnect()
     }
 
     override fun onDestroy() {
@@ -111,6 +127,37 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
         super.onLowMemory()
         mMapView?.onLowMemory()
     }
+
+    private fun setRequestLocation() {
+        mGoogleApiClient = GoogleApiClient.Builder(requireContext())
+            .addApi(LocationServices.API)
+            .addConnectionCallbacks(this)
+            .addOnConnectionFailedListener(this)
+            .build()
+        mGoogleApiClient.connect()
+
+        mLocationRequest = LocationRequest()
+            .setInterval(10_000)
+            .setFastestInterval(8_000)
+            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+    }
+
+    private fun startLocationUpdate() {
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+            mGoogleApiClient,
+            mLocationRequest,
+            this
+        )
+    }
+
+    private fun stopLocationUpdate() =
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this)
+
+    override fun onConnected(p0: Bundle?) = startLocationUpdate()
+
+    override fun onConnectionSuspended(p0: Int) = mGoogleApiClient.connect()
+
+    override fun onConnectionFailed(p0: ConnectionResult) {}
 
     companion object {
         var sMarkerMyLocation: Marker? = null

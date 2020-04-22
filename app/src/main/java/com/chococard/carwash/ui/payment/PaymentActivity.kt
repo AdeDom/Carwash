@@ -1,4 +1,4 @@
-package com.chococard.carwash.ui.main
+package com.chococard.carwash.ui.payment
 
 import android.content.Intent
 import android.net.Uri
@@ -8,25 +8,29 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.Job
-import com.chococard.carwash.data.networks.MainApi
-import com.chococard.carwash.data.repositories.MainRepository
-import com.chococard.carwash.ui.change.ChangeProfileActivity
-import com.chococard.carwash.util.Commons
-import com.chococard.carwash.util.base.BaseActivity
+import com.chococard.carwash.data.networks.AppService
+import com.chococard.carwash.factory.PaymentFactory
+import com.chococard.carwash.repositories.BaseRepository
+import com.chococard.carwash.ui.base.BaseActivity
+import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
+import com.chococard.carwash.ui.OnAttachListener
+import com.chococard.carwash.util.CommonsConstant
+import com.chococard.carwash.util.JobFlag
 import com.chococard.carwash.util.extension.*
+import com.chococard.carwash.viewmodel.PaymentViewModel
 import kotlinx.android.synthetic.main.activity_payment.*
 
-class PaymentActivity : BaseActivity<MainViewModel, MainFactory>(), OnAttachListener {
+class PaymentActivity : BaseActivity<PaymentViewModel, PaymentFactory>(), OnAttachListener {
 
-    override fun viewModel() = MainViewModel::class.java
+    override fun viewModel() = PaymentViewModel::class.java
 
-    override fun factory() = MainFactory(MainRepository(MainApi.invoke(baseContext)))
+    override fun factory() = PaymentFactory(BaseRepository(AppService.invoke(baseContext)))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
 
-        val job = intent.getParcelableExtra(Commons.JOB) as Job
+        val job = intent.getParcelableExtra(CommonsConstant.JOB) as Job
 
         setToolbar(toolbar)
 
@@ -47,18 +51,18 @@ class PaymentActivity : BaseActivity<MainViewModel, MainFactory>(), OnAttachList
         }
 
         //observe
-        viewModel.payment.observe(this, Observer { response ->
+        viewModel.getPayment.observe(this, Observer { response ->
             progress_bar.hide()
             val (success, message) = response
             if (success) {
-                writePref(Commons.JOB_FLAG, Commons.JOB_FLAG_OFF)
+                writePref(CommonsConstant.JOB_FLAG, JobFlag.JOB_FLAG_OFF.toString())
                 finish()
             } else {
                 message?.let { toast(it) }
             }
         })
 
-        viewModel.exception.observe(this, Observer {
+        viewModel.getError.observe(this, Observer {
             progress_bar.hide()
             toast(it, Toast.LENGTH_LONG)
         })
@@ -98,9 +102,9 @@ class PaymentActivity : BaseActivity<MainViewModel, MainFactory>(), OnAttachList
 
     override fun onBackPressed() = toast(getString(R.string.not_available), Toast.LENGTH_LONG)
 
-    override fun onAttach(data: String) {
+    override fun onAttach(data: Int) {
         progress_bar.show()
-        viewModel.payment(data)
+        viewModel.callPayment(data)
     }
 
 }

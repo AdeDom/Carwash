@@ -1,4 +1,4 @@
-package com.chococard.carwash.ui.change
+package com.chococard.carwash.ui.changepassword
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,19 +6,22 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.networks.ChangeApi
-import com.chococard.carwash.data.repositories.ChangeRepository
-import com.chococard.carwash.ui.auth.SignInActivity
-import com.chococard.carwash.util.Commons
-import com.chococard.carwash.util.base.BaseActivity
+import com.chococard.carwash.data.networks.AppService
+import com.chococard.carwash.factory.ChangePasswordFactory
+import com.chococard.carwash.repositories.BaseRepository
+import com.chococard.carwash.ui.base.BaseActivity
+import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
+import com.chococard.carwash.ui.signin.SignInActivity
+import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
+import com.chococard.carwash.viewmodel.ChangePasswordViewModel
 import kotlinx.android.synthetic.main.activity_change_password.*
 
-class ChangePasswordActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
+class ChangePasswordActivity : BaseActivity<ChangePasswordViewModel, ChangePasswordFactory>() {
 
-    override fun viewModel() = ChangeViewModel::class.java
+    override fun viewModel() = ChangePasswordViewModel::class.java
 
-    override fun factory() = ChangeFactory(ChangeRepository(ChangeApi.invoke(baseContext)))
+    override fun factory() = ChangePasswordFactory(BaseRepository(AppService.invoke(baseContext)))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,13 +39,13 @@ class ChangePasswordActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
         bt_confirm.setOnClickListener { changePassword() }
 
         //observe
-        viewModel.changePassword.observe(this, Observer { response ->
+        viewModel.getChangePassword.observe(this, Observer { response ->
             val (success, message) = response
             progress_bar.hide()
             message?.let { toast(it) }
             if (success) {
-                writePref(Commons.TOKEN, "")
-                writePref(Commons.USER, "")
+                writePref(CommonsConstant.TOKEN, "")
+                writePref(CommonsConstant.USER, "")
                 Intent(baseContext, SignInActivity::class.java).apply {
                     finishAffinity()
                     startActivity(this)
@@ -50,7 +53,7 @@ class ChangePasswordActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
             }
         })
 
-        viewModel.exception.observe(this, Observer {
+        viewModel.getError.observe(this, Observer {
             progress_bar.hide()
             toast(it, Toast.LENGTH_LONG)
         })
@@ -68,7 +71,7 @@ class ChangePasswordActivity : BaseActivity<ChangeViewModel, ChangeFactory>() {
         }
 
         progress_bar.show()
-        viewModel.changePassword(et_old_password.getContents(), et_new_password.getContents())
+        viewModel.callChangePassword(et_old_password.getContents(), et_new_password.getContents())
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -1,24 +1,27 @@
-package com.chococard.carwash.ui.auth
+package com.chococard.carwash.ui.signin
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.networks.AuthApi
-import com.chococard.carwash.data.repositories.AuthRepository
+import com.chococard.carwash.data.networks.AppService
+import com.chococard.carwash.factory.SignInFactory
+import com.chococard.carwash.repositories.BaseRepository
+import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.main.MainActivity
-import com.chococard.carwash.util.Commons
-import com.chococard.carwash.util.base.BaseActivity
+import com.chococard.carwash.ui.signup.SignUpActivity
+import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
+import com.chococard.carwash.viewmodel.SignInViewModel
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
-class SignInActivity : BaseActivity<AuthViewModel, AuthFactory>() {
+class SignInActivity : BaseActivity<SignInViewModel, SignInFactory>() {
 
-    override fun viewModel() = AuthViewModel::class.java
+    override fun viewModel() = SignInViewModel::class.java
 
-    override fun factory() = AuthFactory(AuthRepository(AuthApi.invoke(interceptor)))
+    override fun factory() = SignInFactory(BaseRepository(AppService.invoke(interceptor)))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +32,7 @@ class SignInActivity : BaseActivity<AuthViewModel, AuthFactory>() {
 
     private fun init() {
         //set widget
-        val username = readPref(Commons.USERNAME)
+        val username = readPref(CommonsConstant.USERNAME)
         et_username.setText(username)
 
         //event
@@ -45,24 +48,24 @@ class SignInActivity : BaseActivity<AuthViewModel, AuthFactory>() {
         }
 
         //observe
-        viewModel.signIn.observe(this, Observer { response ->
+        viewModel.getSignIn.observe(this, Observer { response ->
             val (success, message, token) = response
             progress_bar.hide()
             if (success) {
-                token?.let { writePref(Commons.TOKEN, it) }
+                token?.let { writePref(CommonsConstant.TOKEN, it) }
                 progress_bar.show()
-                viewModel.fetchUser()
+                viewModel.callFetchUser()
             } else {
                 message?.let { toast(it, Toast.LENGTH_LONG) }
             }
         })
 
-        viewModel.user.observe(this, Observer { response ->
+        viewModel.getUser.observe(this, Observer { response ->
             val (success, message, user) = response
             progress_bar.hide()
             if (success) {
-                writePref(Commons.USERNAME, et_username.getContents())
-                writePref(Commons.USER, Gson().toJson(user))
+                writePref(CommonsConstant.USERNAME, et_username.getContents())
+                writePref(CommonsConstant.USER, Gson().toJson(user))
                 Intent(baseContext, MainActivity::class.java).apply {
                     startActivity(this)
                     finishAffinity()
@@ -72,7 +75,7 @@ class SignInActivity : BaseActivity<AuthViewModel, AuthFactory>() {
             }
         })
 
-        viewModel.exception.observe(this, Observer {
+        viewModel.getError.observe(this, Observer {
             progress_bar.hide()
             toast(it, Toast.LENGTH_LONG)
         })
@@ -87,7 +90,7 @@ class SignInActivity : BaseActivity<AuthViewModel, AuthFactory>() {
         }
 
         progress_bar.show()
-        viewModel.signIn(et_username.getContents(), et_password.getContents())
+        viewModel.callSignIn(et_username.getContents(), et_password.getContents())
     }
 
 }

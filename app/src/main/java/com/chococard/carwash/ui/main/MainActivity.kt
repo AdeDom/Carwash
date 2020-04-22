@@ -13,18 +13,24 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.Job
-import com.chococard.carwash.data.networks.MainApi
-import com.chococard.carwash.data.repositories.MainRepository
-import com.chococard.carwash.ui.change.ChangePasswordActivity
-import com.chococard.carwash.ui.change.ChangeProfileActivity
-import com.chococard.carwash.ui.main.history.HistoryFragment
-import com.chococard.carwash.ui.main.map.MapFragment
-import com.chococard.carwash.ui.main.wallet.WalletFragment
-import com.chococard.carwash.util.Commons
-import com.chococard.carwash.util.base.BaseActivity
+import com.chococard.carwash.data.networks.AppService
+import com.chococard.carwash.factory.MainFactory
+import com.chococard.carwash.repositories.BaseRepository
+import com.chococard.carwash.ui.OnAttachListener
+import com.chococard.carwash.ui.base.BaseActivity
+import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
+import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
+import com.chococard.carwash.ui.history.HistoryFragment
+import com.chococard.carwash.ui.map.MapFragment
+import com.chococard.carwash.ui.payment.PaymentActivity
+import com.chococard.carwash.ui.wallet.WalletFragment
+import com.chococard.carwash.util.CommonsConstant
+import com.chococard.carwash.util.FlagConstant
+import com.chococard.carwash.util.JobFlag
 import com.chococard.carwash.util.extension.readPref
 import com.chococard.carwash.util.extension.toast
 import com.chococard.carwash.util.extension.writePref
+import com.chococard.carwash.viewmodel.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,17 +43,17 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
 
     override fun viewModel() = MainViewModel::class.java
 
-    override fun factory() = MainFactory(MainRepository(MainApi.invoke(baseContext)))
+    override fun factory() = MainFactory(BaseRepository(AppService.invoke(baseContext)))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val flag = readPref(Commons.JOB_FLAG)
-        val job = Gson().fromJson(readPref(Commons.JOB), Job::class.java)
-        if (flag == Commons.JOB_FLAG_ON && job.toString().isNotBlank()) {
+        val flag = readPref(CommonsConstant.JOB_FLAG)
+        if (flag == JobFlag.JOB_FLAG_ON.toString()) {
+            val job = Gson().fromJson(readPref(CommonsConstant.JOB), Job::class.java)
             Intent(baseContext, PaymentActivity::class.java).apply {
-                putExtra(Commons.JOB, job)
+                putExtra(CommonsConstant.JOB, job)
                 startActivity(this)
             }
         }
@@ -59,14 +65,16 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         if (savedInstanceState == null) replaceFragment(MapFragment())
 
         bt_has_job.setOnClickListener {
-            viewModel.jobRequest()
+            viewModel.callJobRequest()
         }
 
-        viewModel.jobRequest.observe(this, Observer { request ->
+        viewModel.getJobRequest.observe(this, Observer { request ->
             val (success, message, jobRequest) = request
             if (success) {
+                writePref(CommonsConstant.JOB, Gson().toJson(jobRequest))
+
                 val bundle = Bundle()
-                bundle.putParcelable(Commons.JOB, jobRequest)
+                bundle.putParcelable(CommonsConstant.JOB, jobRequest)
 
                 val jobDialog = JobDialog()
                 jobDialog.arguments = bundle
@@ -76,30 +84,30 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
             }
         })
 
-        viewModel.jobResponse.observe(this, Observer { response ->
+        viewModel.getJobResponse.observe(this, Observer { response ->
             val (success, message, jobFlag) = response
             if (success) {
                 if (jobFlag) {
-                    writePref(Commons.JOB_FLAG, Commons.JOB_FLAG_ON)
-                    writePref(Commons.JOB, Gson().toJson(job))
+                    writePref(CommonsConstant.JOB_FLAG, JobFlag.JOB_FLAG_ON.toString())
+                    val job = Gson().fromJson(readPref(CommonsConstant.JOB), Job::class.java)
                     Intent(baseContext, PaymentActivity::class.java).apply {
-                        putExtra(Commons.JOB, job)
+                        putExtra(CommonsConstant.JOB, job)
                         startActivity(this)
                     }
                 } else {
-                    writePref(Commons.JOB_FLAG, Commons.JOB_FLAG_OFF)
+                    writePref(CommonsConstant.JOB_FLAG, JobFlag.JOB_FLAG_OFF.toString())
                 }
             } else {
                 message?.let { toast(it, Toast.LENGTH_LONG) }
             }
         })
 
-        viewModel.activeStatus.observe(this, Observer { response ->
+        viewModel.getActiveStatus.observe(this, Observer { response ->
             val (success, message) = response
             if (!success) message?.let { toast(it, Toast.LENGTH_LONG) }
         })
 
-        viewModel.exception.observe(this, Observer {
+        viewModel.getError.observe(this, Observer {
             toast(it, Toast.LENGTH_LONG)
         })
     }
@@ -161,7 +169,7 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         broadcastReceiver(true)
 
         // set status
-        viewModel.setActiveStatus(Commons.STATUS_ACTIVE)
+        viewModel.callSetActiveState(FlagConstant.STATE_ONLINE)
     }
 
     override fun onPause() {
@@ -170,7 +178,7 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         broadcastReceiver(false)
 
         // set status
-        viewModel.setActiveStatus(Commons.STATUS_INACTIVE)
+        viewModel.callSetActiveState(FlagConstant.STATE_OFFLINE)
     }
 
     // When location is not enabled, the application will end.
@@ -180,7 +188,7 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
             baseContext.contentResolver,
             LocationManager.GPS_PROVIDER
         )
-        if (!isLocationProviderEnabled && requestCode == REQUEST_CODE_LOCATION) {
+        if (!isLocationProviderEnabled && requestCode == CommonsConstant.REQUEST_CODE_LOCATION) {
             finishAffinity()
         }
     }
@@ -204,11 +212,11 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         )
         if (!isLocationProviderEnabled) {
             Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).apply {
-                startActivityForResult(this, REQUEST_CODE_LOCATION)
+                startActivityForResult(this, CommonsConstant.REQUEST_CODE_LOCATION)
             }
         }
     }
 
-    override fun onAttach(data: String) = viewModel.jobResponse(data)
+    override fun onAttach(data: Int) = viewModel.callJobResponse(data)
 
 }
