@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.chococard.carwash.data.networks.NetworkHeaderInterceptor
 
 abstract class BaseFragment<VM : ViewModel, F : ViewModelProvider.NewInstanceFactory>(
     private val layout: Int
 ) : Fragment() {
 
     protected lateinit var viewModel: VM
+    protected lateinit var headerInterceptor: NetworkHeaderInterceptor
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,6 +23,8 @@ abstract class BaseFragment<VM : ViewModel, F : ViewModelProvider.NewInstanceFac
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        headerInterceptor = NetworkHeaderInterceptor(requireContext())
+
         viewModel = ViewModelProvider(this, factory()).get(viewModel())
     }
 

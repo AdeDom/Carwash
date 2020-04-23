@@ -24,7 +24,7 @@ class PaymentActivity : BaseActivity<PaymentViewModel, PaymentFactory>(), OnAtta
 
     override fun viewModel() = PaymentViewModel::class.java
 
-    override fun factory() = PaymentFactory(BaseRepository(AppService.invoke(baseContext)))
+    override fun factory() = PaymentFactory(BaseRepository(AppService.invoke(headerInterceptor)))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

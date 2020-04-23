@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.NetworkConnectionInterceptor
+import com.chococard.carwash.data.networks.NetworkHeaderInterceptor
 import com.chococard.carwash.ui.signin.SignInActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.writePref
@@ -20,11 +21,13 @@ abstract class BaseActivity<VM : ViewModel, F : ViewModelProvider.NewInstanceFac
     AppCompatActivity() {
 
     protected lateinit var viewModel: VM
-    protected lateinit var interceptor: NetworkConnectionInterceptor
+    protected lateinit var connectionInterceptor: NetworkConnectionInterceptor
+    protected lateinit var headerInterceptor: NetworkHeaderInterceptor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        interceptor = NetworkConnectionInterceptor(baseContext)
+        connectionInterceptor = NetworkConnectionInterceptor(baseContext)
+        headerInterceptor = NetworkHeaderInterceptor(baseContext)
 
         viewModel = ViewModelProvider(this, factory()).get(viewModel())
     }

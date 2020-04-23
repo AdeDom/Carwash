@@ -34,6 +34,7 @@ import com.chococard.carwash.viewmodel.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
     BottomNavigationView.OnNavigationItemSelectedListener,
@@ -43,7 +44,7 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
 
     override fun viewModel() = MainViewModel::class.java
 
-    override fun factory() = MainFactory(BaseRepository(AppService.invoke(baseContext)))
+    override fun factory() = MainFactory(BaseRepository(AppService.invoke(headerInterceptor)))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +68,19 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         bt_has_job.setOnClickListener {
             viewModel.callJobRequest()
         }
+
+        //call api
+        val logsKeys = UUID.randomUUID().toString().replace("-", "")
+        writePref(CommonsConstant.LOGS_KEYS, logsKeys)
+        viewModel.callSetLogsActive(FlagConstant.LOGS_STATUS_ACTIVE, logsKeys)
+
+        //observe
+        viewModel.getLogsActive.observe(this, Observer { response ->
+            val (success, message) = response
+            if (!success) {
+                message?.let { toast(it, Toast.LENGTH_LONG) }
+            }
+        })
 
         viewModel.getJobRequest.observe(this, Observer { request ->
             val (success, message, jobRequest) = request
@@ -179,6 +193,10 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
 
         // set status
         viewModel.callSetActiveState(FlagConstant.STATE_OFFLINE)
+
+        // set user logs active
+        val logsKeys = readPref(CommonsConstant.LOGS_KEYS)
+        viewModel.callSetLogsActive(FlagConstant.LOGS_STATUS_INACTIVE, logsKeys)
     }
 
     // When location is not enabled, the application will end.

@@ -16,7 +16,7 @@ class AuthActivity : BaseActivity<AuthViewModel, AuthFactory>() {
 
     override fun viewModel() = AuthViewModel::class.java
 
-    override fun factory() = AuthFactory(BaseRepository(AppService.invoke(interceptor)))
+    override fun factory() = AuthFactory(BaseRepository(AppService.invoke(connectionInterceptor)))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

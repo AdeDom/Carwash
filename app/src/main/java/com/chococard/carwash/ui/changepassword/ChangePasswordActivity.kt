@@ -21,7 +21,7 @@ class ChangePasswordActivity : BaseActivity<ChangePasswordViewModel, ChangePassw
 
     override fun viewModel() = ChangePasswordViewModel::class.java
 
-    override fun factory() = ChangePasswordFactory(BaseRepository(AppService.invoke(baseContext)))
+    override fun factory() = ChangePasswordFactory(BaseRepository(AppService.invoke(headerInterceptor)))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

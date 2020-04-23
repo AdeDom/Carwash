@@ -47,5 +47,7 @@ object ApiConstant {
     const val USER = "User"
     const val WALLET = "Wallet"
     const val WALLET_LOGS = "WalletLogs"
+    const val LOGS_STATUS = "LogsStatus"
+    const val LOGS_KEYS = "LogsKeys"
 
 }

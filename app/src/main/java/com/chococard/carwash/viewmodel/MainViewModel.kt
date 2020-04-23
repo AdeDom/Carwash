@@ -21,6 +21,10 @@ class MainViewModel(private val repository: BaseRepository) : BaseViewModel() {
     val getActiveStatus: LiveData<BaseResponse>
         get() = activeStatus
 
+    private val logsActive = MutableLiveData<BaseResponse>()
+    val getLogsActive: LiveData<BaseResponse>
+        get() = logsActive
+
     fun callJobRequest() = launch {
         jobRequest.value = repository.callJobRequest()
     }
@@ -31,6 +35,10 @@ class MainViewModel(private val repository: BaseRepository) : BaseViewModel() {
 
     fun callSetActiveState(activityState: Int) = launch {
         activeStatus.value = repository.callSetActiveState(activityState)
+    }
+
+    fun callSetLogsActive(status: Int, keys: String) = launch {
+        logsActive.value = repository.callSetLogsActive(status, keys)
     }
 
 }

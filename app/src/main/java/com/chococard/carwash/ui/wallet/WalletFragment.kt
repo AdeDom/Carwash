@@ -21,7 +21,7 @@ class WalletFragment : BaseFragment<WalletViewModel, WalletFactory>(R.layout.fra
 
     override fun viewModel() = WalletViewModel::class.java
 
-    override fun factory() = WalletFactory(BaseRepository(AppService.invoke(requireContext())))
+    override fun factory() = WalletFactory(BaseRepository(AppService.invoke(headerInterceptor)))
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

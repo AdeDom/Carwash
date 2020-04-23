@@ -1,6 +1,5 @@
 package com.chococard.carwash.data.networks
 
-import android.content.Context
 import com.chococard.carwash.data.networks.request.JobRequest
 import com.chococard.carwash.data.networks.response.*
 import com.chococard.carwash.util.FlagConstant
@@ -115,7 +114,14 @@ interface AppService {
         @Field(ApiConstant.ACTIVITY_STATE) activityState: Int
     ): Response<BaseResponse>
 
-    //TODO client
+    //set user logs active & inactive using application.
+    @FormUrlEncoded
+    @POST("v2/5ea025ac320000700094ac16")
+    suspend fun callSetLogsActive(
+        @Field(ApiConstant.LOGS_STATUS) status: Int,
+        @Field(ApiConstant.LOGS_KEYS) keys: String
+    ): Response<BaseResponse>
+
     companion object {
         const val BASE_URL = "http://www.mocky.io/"
 //        const val BASE_URL = "http://192.168.1.15/upload/"
@@ -133,11 +139,9 @@ interface AppService {
             }.build().create(AppService::class.java)
         }
 
-        operator fun invoke(context: Context): AppService {
-            val networkConnectionInterceptor = NetworkConnectionInterceptor(context)
-
+        operator fun invoke(networkHeaderInterceptor: NetworkHeaderInterceptor): AppService {
             val okHttpClient = OkHttpClient.Builder()
-                .addInterceptor(networkConnectionInterceptor)
+                .addInterceptor(networkHeaderInterceptor)
                 .build()
 
             return Retrofit.Builder().apply {

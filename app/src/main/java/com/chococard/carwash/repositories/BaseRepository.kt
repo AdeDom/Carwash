@@ -47,4 +47,7 @@ class BaseRepository(private val api: AppService) : SafeApiRequest() {
     suspend fun callSetActiveState(activityState: Int) =
         apiRequest { api.callSetActiveState(activityState) }
 
+    suspend fun callSetLogsActive(status: Int, keys: String) =
+        apiRequest { api.callSetLogsActive(status, keys) }
+
 }

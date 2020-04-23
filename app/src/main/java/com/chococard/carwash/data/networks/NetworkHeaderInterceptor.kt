@@ -3,15 +3,33 @@ package com.chococard.carwash.data.networks
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.NoInternetException
+import com.chococard.carwash.util.extension.readPref
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class NetworkConnectionInterceptor(private val context: Context) : Interceptor {
+class NetworkHeaderInterceptor(private val context: Context) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         if (!isInternetAvailable())
             throw NoInternetException("Make sure you have an active data connection")
+
+        val token = context.readPref(CommonsConstant.TOKEN)
+
+//        val httpUrl = chain.request()
+//            .url()
+//            .newBuilder()
+//            .addQueryParameter("access_key", token)
+//            .build()
+//
+//        val request = chain.request()
+//            .newBuilder()
+//            .url(httpUrl)
+//            .build()
+//
+//        return chain.proceed(request)
+
         return chain.proceed(chain.request())
     }
 

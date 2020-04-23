@@ -20,7 +20,7 @@ class SignUpActivity : BaseActivity<SignUpViewModel, SignUpFactory>() {
 
     override fun viewModel() = SignUpViewModel::class.java
 
-    override fun factory() = SignUpFactory(BaseRepository(AppService.invoke(interceptor)))
+    override fun factory() = SignUpFactory(BaseRepository(AppService.invoke(connectionInterceptor)))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

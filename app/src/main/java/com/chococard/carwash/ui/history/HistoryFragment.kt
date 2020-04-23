@@ -20,7 +20,7 @@ class HistoryFragment : BaseFragment<HistoryViewModel, HistoryFactory>(R.layout.
 
     override fun viewModel() = HistoryViewModel::class.java
 
-    override fun factory() = HistoryFactory(BaseRepository(AppService.invoke(requireContext())))
+    override fun factory() = HistoryFactory(BaseRepository(AppService.invoke(headerInterceptor)))
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

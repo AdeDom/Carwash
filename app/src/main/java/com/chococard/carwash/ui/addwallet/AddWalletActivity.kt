@@ -19,7 +19,7 @@ class AddWalletActivity : BaseActivity<AddWalletViewModel, AddWalletFactory>() {
 
     override fun viewModel() = AddWalletViewModel::class.java
 
-    override fun factory() = AddWalletFactory(BaseRepository(AppService.invoke(baseContext)))
+    override fun factory() = AddWalletFactory(BaseRepository(AppService.invoke(headerInterceptor)))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
