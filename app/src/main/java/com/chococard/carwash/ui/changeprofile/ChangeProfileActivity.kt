@@ -23,7 +23,7 @@ class ChangeProfileActivity : BaseActivity<ChangeProfileViewModel, ChangeProfile
 
     override fun viewModel() = ChangeProfileViewModel::class.java
 
-    override fun factory() = ChangeProfileFactory(BaseRepository(AppService.invoke(headerInterceptor)))
+    override fun factory() = ChangeProfileFactory(repositoryHeader)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

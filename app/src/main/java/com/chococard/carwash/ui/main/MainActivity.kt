@@ -43,7 +43,7 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
 
     override fun viewModel() = MainViewModel::class.java
 
-    override fun factory() = MainFactory(BaseRepository(AppService.invoke(headerInterceptor)))
+    override fun factory() = MainFactory(repositoryHeader)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -25,7 +25,7 @@ class SplashScreenActivity : BaseActivity<SplashScreenViewModel, SplashScreenFac
 
     override fun viewModel() = SplashScreenViewModel::class.java
 
-    override fun factory() = SplashScreenFactory(BaseRepository(AppService.invoke(connectionInterceptor)))
+    override fun factory() = SplashScreenFactory(repositoryConnection)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -44,7 +44,7 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
 
     override fun viewModel() = MapViewModel::class.java
 
-    override fun factory() = MapFactory(BaseRepository(AppService.invoke(headerInterceptor)))
+    override fun factory() = MapFactory(repositoryHeader)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -11,8 +11,10 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
+import com.chococard.carwash.data.networks.AppService
 import com.chococard.carwash.data.networks.NetworkConnectionInterceptor
 import com.chococard.carwash.data.networks.NetworkHeaderInterceptor
+import com.chococard.carwash.repositories.BaseRepository
 import com.chococard.carwash.ui.signin.SignInActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.writePref
@@ -21,15 +23,17 @@ abstract class BaseActivity<VM : ViewModel, F : ViewModelProvider.NewInstanceFac
     AppCompatActivity() {
 
     protected lateinit var viewModel: VM
-    protected lateinit var connectionInterceptor: NetworkConnectionInterceptor
-    protected lateinit var headerInterceptor: NetworkHeaderInterceptor
+    protected lateinit var repositoryConnection: BaseRepository
+    protected lateinit var repositoryHeader: BaseRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //TODO create repository to base
 
-        connectionInterceptor = NetworkConnectionInterceptor(baseContext)
-        headerInterceptor = NetworkHeaderInterceptor(baseContext)
+        val connectionInterceptor = NetworkConnectionInterceptor(baseContext)
+        val headerInterceptor = NetworkHeaderInterceptor(baseContext)
+
+        repositoryConnection = BaseRepository(AppService.invoke(connectionInterceptor))
+        repositoryHeader = BaseRepository(AppService.invoke(headerInterceptor))
 
         viewModel = ViewModelProvider(this, factory()).get(viewModel())
     }

@@ -9,14 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
+import com.chococard.carwash.data.networks.AppService
 import com.chococard.carwash.data.networks.NetworkHeaderInterceptor
+import com.chococard.carwash.repositories.BaseRepository
 
 abstract class BaseFragment<VM : ViewModel, F : ViewModelProvider.NewInstanceFactory>(
     private val layout: Int
 ) : Fragment() {
 
     protected lateinit var viewModel: VM
-    protected lateinit var headerInterceptor: NetworkHeaderInterceptor
+    protected lateinit var repositoryHeader: BaseRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,9 +27,9 @@ abstract class BaseFragment<VM : ViewModel, F : ViewModelProvider.NewInstanceFac
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //TODO create repository to base
 
-        headerInterceptor = NetworkHeaderInterceptor(requireContext())
+        val headerInterceptor = NetworkHeaderInterceptor(requireContext())
+        repositoryHeader = BaseRepository(AppService.invoke(headerInterceptor))
 
         viewModel = ViewModelProvider(this, factory()).get(viewModel())
     }
