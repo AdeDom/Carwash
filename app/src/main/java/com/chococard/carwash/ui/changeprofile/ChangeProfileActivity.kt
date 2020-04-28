@@ -106,16 +106,10 @@ class ChangeProfileActivity : BaseActivity<ChangeProfileViewModel, ChangeProfile
             et_full_name.isEmpty(getString(R.string.error_empty_name)) -> return
             et_identity_card.isEmpty(getString(R.string.error_empty_identity_card)) -> return
             et_identity_card.isEqualLength(13, getString(R.string.error_equal_length, 13)) -> return
-            et_identity_card.getContents().isVerifyIdentityCard() -> {
-                et_identity_card.setWarning(getString(R.string.error_identity_card))
-                return
-            }
+            et_identity_card.isVerifyIdentityCard(getString(R.string.error_identity_card)) -> return
             et_phone.isEmpty(getString(R.string.error_empty_phone)) -> return
             et_phone.isEqualLength(10, getString(R.string.error_equal_length, 10)) -> return
-            et_phone.getContents().isVerifyPhone() -> {
-                et_phone.setWarning(getString(R.string.error_phone))
-                return
-            }
+            et_phone.isVerifyPhone(getString(R.string.error_phone)) -> return
         }
 
         progress_bar.show()

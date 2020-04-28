@@ -3,7 +3,6 @@ package com.chococard.carwash.ui.signup
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.AppService
@@ -100,16 +99,10 @@ class SignUpActivity : BaseActivity<SignUpViewModel, SignUpFactory>() {
             et_password.isMatched(et_re_password, getString(R.string.error_matched)) -> return
             et_identity_card.isEmpty(getString(R.string.error_empty_identity_card)) -> return
             et_identity_card.isEqualLength(13, getString(R.string.error_equal_length, 13)) -> return
-            et_identity_card.getContents().isVerifyIdentityCard() -> {
-                et_identity_card.setWarning(getString(R.string.error_identity_card))
-                return
-            }
+            et_identity_card.isVerifyIdentityCard(getString(R.string.error_identity_card)) -> return
             et_phone.isEmpty(getString(R.string.error_empty_phone)) -> return
             et_phone.isEqualLength(10, getString(R.string.error_equal_length, 10)) -> return
-            et_phone.getContents().isVerifyPhone() -> {
-                et_phone.setWarning(getString(R.string.error_phone))
-                return
-            }
+            et_phone.isVerifyPhone(getString(R.string.error_phone)) -> return
         }
 
         progress_bar.show()
