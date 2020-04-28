@@ -16,7 +16,6 @@ import com.chococard.carwash.data.models.Job
 import com.chococard.carwash.data.networks.AppService
 import com.chococard.carwash.factory.MainFactory
 import com.chococard.carwash.repositories.BaseRepository
-import com.chococard.carwash.ui.OnAttachListener
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
@@ -38,7 +37,7 @@ import java.util.*
 
 class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
     BottomNavigationView.OnNavigationItemSelectedListener,
-    OnAttachListener {
+    FlagJobListener {
 
     private var mBroadcastReceiver: BroadcastReceiver? = null
 
@@ -122,7 +121,7 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         })
 
         viewModel.getError.observe(this, Observer {
-            toast(it, Toast.LENGTH_LONG)
+            dialogError(it)
         })
     }
 
@@ -152,8 +151,8 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
                     startActivity(this)
                 }
             }
-            R.id.option_contact_admin -> contactAdmin()
-            R.id.option_logout -> logout()
+            R.id.option_contact_admin -> dialogContactAdmin()
+            R.id.option_logout -> dialogLogout()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -235,6 +234,6 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         }
     }
 
-    override fun onAttach(data: Int) = viewModel.callJobResponse(data)
+    override fun onFlag(flag: Int) = viewModel.callJobResponse(flag)
 
 }

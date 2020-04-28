@@ -3,7 +3,6 @@ package com.chococard.carwash.ui.changepassword
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.AppService
@@ -55,7 +54,7 @@ class ChangePasswordActivity : BaseActivity<ChangePasswordViewModel, ChangePassw
 
         viewModel.getError.observe(this, Observer {
             progress_bar.hide()
-            toast(it, Toast.LENGTH_LONG)
+            dialogError(it)
         })
     }
 
@@ -67,7 +66,7 @@ class ChangePasswordActivity : BaseActivity<ChangePasswordViewModel, ChangePassw
             et_old_password.isMinLength(8, getString(R.string.error_least_length, 8)) -> return
             et_new_password.isMinLength(8, getString(R.string.error_least_length, 8)) -> return
             et_re_password.isMinLength(8, getString(R.string.error_least_length, 8)) -> return
-            et_new_password.isMatching(et_re_password, getString(R.string.error_matching)) -> return
+            et_new_password.isMatched(et_re_password, getString(R.string.error_matched)) -> return
         }
 
         progress_bar.show()
@@ -82,8 +81,8 @@ class ChangePasswordActivity : BaseActivity<ChangePasswordViewModel, ChangePassw
                     finish()
                 }
             }
-            R.id.option_contact_admin -> contactAdmin()
-            R.id.option_logout -> logout()
+            R.id.option_contact_admin -> dialogContactAdmin()
+            R.id.option_logout -> dialogLogout()
         }
         return super.onOptionsItemSelected(item)
     }

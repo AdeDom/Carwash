@@ -64,7 +64,8 @@
                 android:background="@drawable/shape_et"
                 android:drawableStart="@drawable/ic_identity_card"
                 android:hint="@string/identity_card"
-                android:inputType="number" />
+                android:inputType="number"
+                android:maxLength="13" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -76,7 +77,8 @@
                 android:background="@drawable/shape_et"
                 android:drawableStart="@drawable/ic_phone_gray"
                 android:hint="@string/phone"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:maxLength="10" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

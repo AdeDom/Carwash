@@ -40,7 +40,7 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
     private lateinit var mLocationRequest: LocationRequest
     private var mGoogleMap: GoogleMap? = null
     private var mMapView: MapView? = null
-    private var mIsCamera: Boolean = true
+    private var mIsFlagMoveCamera: Boolean = true
 
     override fun viewModel() = MapViewModel::class.java
 
@@ -76,7 +76,7 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
         })
 
         viewModel.getError.observe(viewLifecycleOwner, Observer {
-            context.toast(it, Toast.LENGTH_LONG)
+            dialogError(it)
         })
     }
 
@@ -91,8 +91,8 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
         if (location == null) return
         val latLng = LatLng(location.latitude, location.longitude)
 
-        if (mIsCamera) {
-            mIsCamera = false
+        if (mIsFlagMoveCamera) {
+            mIsFlagMoveCamera = false
             val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 14F)
             mGoogleMap?.moveCamera(cameraUpdate)
         }

@@ -65,6 +65,7 @@
     <style name="TextInputLayout">
         <item name="android:layout_width">@dimen/et_width</item>
         <item name="android:layout_height">@dimen/et_height</item>
+        <item name="android:layout_marginTop">@dimen/base_pow_two</item>
     </style>
 
     <style name="ButtonBlueShort">

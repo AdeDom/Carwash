@@ -2,7 +2,6 @@ package com.chococard.carwash.ui.wallet
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.AppService
@@ -10,7 +9,6 @@ import com.chococard.carwash.factory.WalletFactory
 import com.chococard.carwash.repositories.BaseRepository
 import com.chococard.carwash.ui.addwallet.AddWalletActivity
 import com.chococard.carwash.ui.base.BaseFragment
-import com.chococard.carwash.util.extension.dialogDatePicker
 import com.chococard.carwash.util.extension.hide
 import com.chococard.carwash.util.extension.show
 import com.chococard.carwash.util.extension.toast
@@ -32,18 +30,7 @@ class WalletFragment : BaseFragment<WalletViewModel, WalletFactory>(R.layout.fra
     private fun init() {
         // set event
         iv_calendar.setOnClickListener {
-            activity?.dialogDatePicker { begin ->
-                val (bDayOfMonth, bMonth, bYear) = begin
-                val dateBegin = "$bDayOfMonth/$bMonth/$bYear"
-
-                activity?.dialogDatePicker { end ->
-                    val (eDayOfMonth, eMonth, eYear) = end
-                    val dateEnd = "$eDayOfMonth/$eMonth/$eYear"
-
-                    progress_bar.show()
-                    viewModel.callFetchWallet(dateBegin, dateEnd)
-                }
-            }
+            context?.toast("Coming soon")
         }
 
         fab.setOnClickListener {
@@ -60,7 +47,7 @@ class WalletFragment : BaseFragment<WalletViewModel, WalletFactory>(R.layout.fra
 
         viewModel.getError.observe(viewLifecycleOwner, Observer {
             progress_bar.hide()
-            context.toast(it, Toast.LENGTH_LONG)
+            dialogError(it)
         })
     }
 

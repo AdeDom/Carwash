@@ -65,7 +65,7 @@ class SignUpActivity : BaseActivity<SignUpViewModel, SignUpFactory>() {
 
         viewModel.getError.observe(this, Observer {
             progress_bar.hide()
-            toast(it, Toast.LENGTH_LONG)
+            dialogError(it)
         })
     }
 
@@ -80,7 +80,7 @@ class SignUpActivity : BaseActivity<SignUpViewModel, SignUpFactory>() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CommonsConstant.REQUEST_CODE_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
             val fileUri = data.data!!
-            iv_photo.loadCircle(fileUri.toString())
+            iv_photo.setImageCircle(fileUri.toString())
             uploadFile(fileUri) { body, description ->
                 progress_bar.show()
                 viewModel.callUploadImageFile(body, description)
@@ -97,17 +97,17 @@ class SignUpActivity : BaseActivity<SignUpViewModel, SignUpFactory>() {
             et_password.isMinLength(8, getString(R.string.error_least_length, 8)) -> return
             et_re_password.isEmpty(getString(R.string.error_empty_re_password)) -> return
             et_re_password.isMinLength(8, getString(R.string.error_least_length, 8)) -> return
-            et_password.isMatching(et_re_password, getString(R.string.error_matching)) -> return
+            et_password.isMatched(et_re_password, getString(R.string.error_matched)) -> return
             et_identity_card.isEmpty(getString(R.string.error_empty_identity_card)) -> return
             et_identity_card.isEqualLength(13, getString(R.string.error_equal_length, 13)) -> return
             et_identity_card.getContents().isVerifyIdentityCard() -> {
-                et_identity_card.failed(getString(R.string.error_identity_card))
+                et_identity_card.setWarning(getString(R.string.error_identity_card))
                 return
             }
             et_phone.isEmpty(getString(R.string.error_empty_phone)) -> return
             et_phone.isEqualLength(10, getString(R.string.error_equal_length, 10)) -> return
             et_phone.getContents().isVerifyPhone() -> {
-                et_phone.failed(getString(R.string.error_phone))
+                et_phone.setWarning(getString(R.string.error_phone))
                 return
             }
         }

@@ -5,26 +5,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseRecyclerView<E>(
-    private val layout: Int,
-    private val bindView: (view: View, entity: E) -> Unit
-) : RecyclerView.Adapter<BaseRecyclerView<E>.BaseHolder>() {
+abstract class BaseRecyclerView<T : Any> : RecyclerView.Adapter<BaseRecyclerView<T>.BaseHolder>() {
 
-    private var list = ArrayList<E>()
+    private var list = mutableListOf<T>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder =
         BaseHolder(
             LayoutInflater.from(parent.context)
-                .inflate(layout, parent, false)
+                .inflate(getLayout(), parent, false)
         )
 
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: BaseHolder, position: Int) =
-        bindView.invoke(holder.itemView, list[position])
+        onBindViewHolder(holder.itemView, list[position])
 
-    fun setList(list: List<E>) {
-        this.list = list as ArrayList<E>
+    abstract fun getLayout(): Int
+
+    abstract fun onBindViewHolder(view: View, entity: T)
+
+    fun setList(list: List<T>) {
+        this.list = list as MutableList<T>
         notifyDataSetChanged()
     }
 

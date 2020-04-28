@@ -23,7 +23,7 @@
     <string name="error_empty_phone">Please enter phone</string>
     <string name="error_least_length">Please enter at least %1$d characters</string>
     <string name="error_equal_length">Please enter a total of %1$d characters</string>
-    <string name="error_matching">Please enter the password to match</string>
+    <string name="error_matched">Please enter the password to match</string>
     <string name="error_identity_card">Please enter the correct Identity card</string>
     <string name="error_phone">Please enter the correct phone number</string>
     <string name="map">Map</string>
@@ -43,7 +43,7 @@
     <string name="location">Location</string>
     <string name="balance">ยอดเงินคงเหลือ</string>
     <string name="amount">Amount</string>
-    <string name="date">25/03/2020</string>
+    <string name="date_example">25/03/2020</string>
     <string name="time">14:39</string>
     <string name="baht">+฿ 200.00</string>
     <string name="upload_image">Upload image</string>
@@ -59,5 +59,11 @@
     <string name="google_maps_navigation">http://maps.google.com/maps?saddr=%1$f,%2$f&amp;daddr=%3$f,%4$f</string>
     <string name="report">Report</string>
     <string name="payment_received">Payment received?</string>
+    <string name="error">Error</string>
+    <string name="date_format">0000/00/00</string>
+    <string name="date_begin">Begin</string>
+    <string name="date_end">End</string>
+    <string name="date">Date</string>
+    <string name="filter_date">Filter date</string>
 
 </resources>

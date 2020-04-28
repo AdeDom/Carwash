@@ -8,6 +8,7 @@ import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.NoInternetException
 import kotlinx.coroutines.Job
 
+//TODO implement CoroutineScope
 abstract class BaseViewModel : ViewModel() {
 
     private lateinit var job: Job

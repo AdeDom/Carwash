@@ -1,22 +1,21 @@
 package com.chococard.carwash.ui.main
 
-import android.content.Context
 import android.os.Bundle
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.Job
 import com.chococard.carwash.ui.BaseDialog
-import com.chococard.carwash.ui.OnAttachListener
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.getLocality
-import com.chococard.carwash.util.extension.loadCircle
+import com.chococard.carwash.util.extension.setImageCircle
 import kotlinx.android.synthetic.main.dialog_job.*
 import kotlinx.coroutines.delay
 
 class JobDialog : BaseDialog(R.layout.dialog_job) {
 
-    private lateinit var listener: OnAttachListener
+    private lateinit var listener: FlagJobListener
+    private var mFlagJob: Int = 0
     private var mIsTimer: Boolean = true
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -25,12 +24,9 @@ class JobDialog : BaseDialog(R.layout.dialog_job) {
         init()
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        listener = context as OnAttachListener
-    }
-
     private fun init() {
+        listener = context as FlagJobListener
+
         val job = arguments?.getParcelable(CommonsConstant.JOB) as Job?
 
         // set widgets
@@ -39,7 +35,7 @@ class JobDialog : BaseDialog(R.layout.dialog_job) {
         tv_service.text = service
         if (endLat != null && endLong != null)
             tv_location.text = context?.getLocality(endLat, endLong)
-        image?.let { iv_photo.loadCircle(it) }
+        image?.let { iv_photo.setImageCircle(it) }
 
         setCountTime()
 
@@ -60,21 +56,25 @@ class JobDialog : BaseDialog(R.layout.dialog_job) {
                 }
             }
 
-            listener.onAttach(FlagConstant.JOB_REJECT)
-            dismiss()
+            rejectJob()
         }
     }
 
     private fun receiveJob() {
         mIsTimer = false
-        listener.onAttach(FlagConstant.JOB_RECEIVE)
+        mFlagJob = FlagConstant.JOB_RECEIVE
         dismiss()
     }
 
     private fun rejectJob() {
         mIsTimer = false
-        listener.onAttach(FlagConstant.JOB_REJECT)
+        mFlagJob = FlagConstant.JOB_REJECT
         dismiss()
+    }
+
+    override fun dismiss() {
+        listener.onFlag(mFlagJob)
+        super.dismiss()
     }
 
 }

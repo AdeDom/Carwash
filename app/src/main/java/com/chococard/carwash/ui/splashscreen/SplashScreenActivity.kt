@@ -14,10 +14,8 @@ import com.chococard.carwash.ui.auth.AuthActivity
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.util.CommonsConstant
-import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.extension.readPref
 import com.chococard.carwash.viewmodel.SplashScreenViewModel
-import kotlinx.coroutines.delay
 
 class SplashScreenActivity : BaseActivity<SplashScreenViewModel, SplashScreenFactory>() {
 
@@ -38,7 +36,7 @@ class SplashScreenActivity : BaseActivity<SplashScreenViewModel, SplashScreenFac
 
     private fun init() {
         // check permission location
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (
                 ContextCompat.checkSelfPermission(baseContext, ACCESS_FINE_LOCATION) != GRANTED ||
                 ContextCompat.checkSelfPermission(baseContext, ACCESS_COARSE_LOCATION) != GRANTED
@@ -76,20 +74,16 @@ class SplashScreenActivity : BaseActivity<SplashScreenViewModel, SplashScreenFac
     }
 
     private fun authByCheckToken() {
-        Coroutines.main {
-            delay(2000)
-
-            val token = readPref(CommonsConstant.TOKEN)
-            if (token.isEmpty()) {
-                Intent(baseContext, AuthActivity::class.java).also {
-                    startActivity(it)
-                    finish()
-                }
-            } else {
-                Intent(baseContext, MainActivity::class.java).apply {
-                    startActivity(this)
-                    finish()
-                }
+        val token = readPref(CommonsConstant.TOKEN)
+        if (token.isEmpty()) {
+            Intent(baseContext, AuthActivity::class.java).also {
+                startActivity(it)
+                finish()
+            }
+        } else {
+            Intent(baseContext, MainActivity::class.java).apply {
+                startActivity(this)
+                finish()
             }
         }
     }

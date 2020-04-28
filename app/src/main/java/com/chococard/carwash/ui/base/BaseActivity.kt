@@ -26,6 +26,8 @@ abstract class BaseActivity<VM : ViewModel, F : ViewModelProvider.NewInstanceFac
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //TODO create repository to base
+
         connectionInterceptor = NetworkConnectionInterceptor(baseContext)
         headerInterceptor = NetworkHeaderInterceptor(baseContext)
 
@@ -50,7 +52,7 @@ abstract class BaseActivity<VM : ViewModel, F : ViewModelProvider.NewInstanceFac
         )
     }
 
-    fun contactAdmin() = AlertDialog.Builder(this).apply {
+    fun dialogContactAdmin() = AlertDialog.Builder(this).apply {
         setTitle(R.string.contact_admin)
         setMessage(R.string.contact_system_administrator)
         setNegativeButton(android.R.string.cancel) { dialog, which ->
@@ -66,7 +68,7 @@ abstract class BaseActivity<VM : ViewModel, F : ViewModelProvider.NewInstanceFac
         show()
     }
 
-    fun logout() = AlertDialog.Builder(this).apply {
+    fun dialogLogout() = AlertDialog.Builder(this).apply {
         setTitle(R.string.logout)
         setMessage(R.string.do_you_really_want_to_log_out)
         setPositiveButton(android.R.string.cancel) { dialog, which ->
@@ -79,6 +81,16 @@ abstract class BaseActivity<VM : ViewModel, F : ViewModelProvider.NewInstanceFac
                 finishAffinity()
                 startActivity(this)
             }
+        }
+        setCancelable(false)
+        show()
+    }
+
+    fun dialogError(message: String) = AlertDialog.Builder(this).apply {
+        setTitle(R.string.error)
+        setMessage(message)
+        setPositiveButton(android.R.string.ok) { dialog, which ->
+            dialog.dismiss()
         }
         setCancelable(false)
         show()

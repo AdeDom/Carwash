@@ -1,13 +1,13 @@
 package com.chococard.carwash.util.extension
 
 fun String.isVerifyIdentityCard(): Boolean {
-    val ic = this.substring(0, 12)
+    val identityCard = this.substring(0, 12)
     var sumIdentityCard = 0
-    ic.forEachIndexed { index, c ->
+    identityCard.forEachIndexed { index, c ->
         sumIdentityCard += (13 - index) * c.toString().toInt()
     }
     val digit = (11 - (sumIdentityCard % 11)) % 10
-    val realIdentityCard = ic + digit
+    val realIdentityCard = identityCard + digit
     return realIdentityCard != this
 }
 

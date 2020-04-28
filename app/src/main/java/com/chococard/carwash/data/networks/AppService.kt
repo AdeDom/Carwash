@@ -12,12 +12,16 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
+//todo re-check method get or post
+//TODO User, History, Job keep to room database
 interface AppService {
 
+    //TODO concern header & no header
     //get user info from data base keep to shared preferences.
     @GET("v2/5e9eb5eb3400002ab56eeec4")
     suspend fun callFetchUser(): Response<UserResponse>
 
+    //TODO concern header & no header
     //upload image from android to server when selected image.
     @Multipart
     @POST("upload.php")

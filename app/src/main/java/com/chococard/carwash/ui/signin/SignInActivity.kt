@@ -71,13 +71,13 @@ class SignInActivity : BaseActivity<SignInViewModel, SignInFactory>() {
                     finishAffinity()
                 }
             } else {
-                message?.let { toast(it) }
+                message?.let { toast(it, Toast.LENGTH_LONG) }
             }
         })
 
         viewModel.getError.observe(this, Observer {
             progress_bar.hide()
-            toast(it, Toast.LENGTH_LONG)
+            dialogError(it)
         })
     }
 

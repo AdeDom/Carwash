@@ -41,7 +41,7 @@ class ChangeProfileActivity : BaseActivity<ChangeProfileViewModel, ChangeProfile
         et_full_name.setText(fullName)
         et_identity_card.setText(idCard)
         et_phone.setText(phone)
-        image?.let { iv_photo.loadCircle(it) }
+        image?.let { iv_photo.setImageCircle(it) }
 
         //set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
@@ -72,13 +72,13 @@ class ChangeProfileActivity : BaseActivity<ChangeProfileViewModel, ChangeProfile
                 writePref(CommonsConstant.USER, Gson().toJson(userInfo))
                 finish()
             } else {
-                message?.let { toast(it) }
+                message?.let { toast(it, Toast.LENGTH_LONG) }
             }
         })
 
         viewModel.getError.observe(this, Observer {
             progress_bar.hide()
-            toast(it, Toast.LENGTH_LONG)
+            dialogError(it)
         })
     }
 
@@ -93,7 +93,7 @@ class ChangeProfileActivity : BaseActivity<ChangeProfileViewModel, ChangeProfile
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CommonsConstant.REQUEST_CODE_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
             val fileUri = data.data!!
-            iv_photo.loadCircle(fileUri.toString())
+            iv_photo.setImageCircle(fileUri.toString())
             uploadFile(fileUri) { body, description ->
                 progress_bar.show()
                 viewModel.callUploadImageFile(body, description)
@@ -107,13 +107,13 @@ class ChangeProfileActivity : BaseActivity<ChangeProfileViewModel, ChangeProfile
             et_identity_card.isEmpty(getString(R.string.error_empty_identity_card)) -> return
             et_identity_card.isEqualLength(13, getString(R.string.error_equal_length, 13)) -> return
             et_identity_card.getContents().isVerifyIdentityCard() -> {
-                et_identity_card.failed(getString(R.string.error_identity_card))
+                et_identity_card.setWarning(getString(R.string.error_identity_card))
                 return
             }
             et_phone.isEmpty(getString(R.string.error_empty_phone)) -> return
             et_phone.isEqualLength(10, getString(R.string.error_equal_length, 10)) -> return
             et_phone.getContents().isVerifyPhone() -> {
-                et_phone.failed(getString(R.string.error_phone))
+                et_phone.setWarning(getString(R.string.error_phone))
                 return
             }
         }
@@ -134,8 +134,8 @@ class ChangeProfileActivity : BaseActivity<ChangeProfileViewModel, ChangeProfile
                     finish()
                 }
             }
-            R.id.option_contact_admin -> contactAdmin()
-            R.id.option_logout -> logout()
+            R.id.option_contact_admin -> dialogContactAdmin()
+            R.id.option_logout -> dialogLogout()
         }
         return super.onOptionsItemSelected(item)
     }

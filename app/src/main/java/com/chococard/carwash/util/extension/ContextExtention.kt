@@ -63,7 +63,7 @@ fun Context.uploadFile(fileUri: Uri, upload: (MultipartBody.Part, RequestBody) -
     upload.invoke(body, description)
 }
 
-fun Context.loadCircle(
+fun Context.setImageCircle(
     url: String?,
     onResourceReady: (Bitmap) -> Unit
 ) {

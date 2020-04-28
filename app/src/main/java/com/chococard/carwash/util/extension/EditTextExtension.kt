@@ -2,6 +2,7 @@ package com.chococard.carwash.util.extension
 
 import android.widget.EditText
 
+//TODO create edit text extension isIdCard, Phone, Password
 fun EditText.getContents() = this.text.toString().trim()
 
 fun EditText.isEmpty(error: String = ""): Boolean {
@@ -31,7 +32,7 @@ fun EditText.isEqualLength(length: Int, error: String = ""): Boolean {
     return false
 }
 
-fun EditText.isMatching(editText: EditText, error: String = ""): Boolean {
+fun EditText.isMatched(editText: EditText, error: String = ""): Boolean {
     if (this.getContents() != editText.getContents()) {
         editText.requestFocus()
         editText.error = error
@@ -40,7 +41,7 @@ fun EditText.isMatching(editText: EditText, error: String = ""): Boolean {
     return false
 }
 
-fun EditText.failed(message: String = "") {
+fun EditText.setWarning(message: String = "") {
     this.apply {
         requestFocus()
         error = message

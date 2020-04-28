@@ -6,7 +6,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.chococard.carwash.R
 
-fun ImageView.loadCircle(url: String) {
+fun ImageView.setImageCircle(url: String) {
     Glide.with(this)
         .load(url)
         .apply(RequestOptions.placeholderOf(R.drawable.ic_user))
@@ -14,7 +14,7 @@ fun ImageView.loadCircle(url: String) {
         .into(this)
 }
 
-fun ImageView.loadCircle(bitmap: Bitmap?) {
+fun ImageView.setImageCircle(bitmap: Bitmap?) {
     Glide.with(this)
         .load(bitmap)
         .apply(RequestOptions.placeholderOf(R.drawable.ic_user))

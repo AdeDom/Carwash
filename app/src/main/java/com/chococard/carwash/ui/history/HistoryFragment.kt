@@ -9,7 +9,6 @@ import com.chococard.carwash.data.networks.AppService
 import com.chococard.carwash.factory.HistoryFactory
 import com.chococard.carwash.repositories.BaseRepository
 import com.chococard.carwash.ui.base.BaseFragment
-import com.chococard.carwash.util.extension.dialogDatePicker
 import com.chococard.carwash.util.extension.hide
 import com.chococard.carwash.util.extension.show
 import com.chococard.carwash.util.extension.toast
@@ -35,20 +34,7 @@ class HistoryFragment : BaseFragment<HistoryViewModel, HistoryFactory>(R.layout.
             adapter = adt
         }
 
-        fab.setOnClickListener {
-            activity?.dialogDatePicker { begin ->
-                val (bDayOfMonth, bMonth, bYear) = begin
-                val dateBegin = "$bDayOfMonth/$bMonth/$bYear"
-
-                activity?.dialogDatePicker { end ->
-                    val (eDayOfMonth, eMonth, eYear) = end
-                    val dateEnd = "$eDayOfMonth/$eMonth/$eYear"
-
-                    progress_bar.show()
-                    viewModel.callFetchHistory(dateBegin, dateEnd)
-                }
-            }
-        }
+        fab.setOnClickListener { filterDate() }
 
         // call api
         progress_bar.show()
@@ -67,8 +53,17 @@ class HistoryFragment : BaseFragment<HistoryViewModel, HistoryFactory>(R.layout.
 
         viewModel.getError.observe(viewLifecycleOwner, Observer {
             progress_bar.hide()
-            context.toast(it, Toast.LENGTH_LONG)
+            dialogError(it)
         })
+    }
+
+    private fun filterDate() = activity?.supportFragmentManager?.let { fragmentManager ->
+        HistoryDialog(object : FilterDateListener {
+            override fun onFilterDate(dateBegin: String, dateEnd: String) {
+                progress_bar.show()
+                viewModel.callFetchHistory(dateBegin, dateEnd)
+            }
+        }).show(fragmentManager, null)
     }
 
 }

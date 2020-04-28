@@ -13,14 +13,14 @@ import com.chococard.carwash.factory.PaymentFactory
 import com.chococard.carwash.repositories.BaseRepository
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
-import com.chococard.carwash.ui.OnAttachListener
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.JobFlag
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.PaymentViewModel
 import kotlinx.android.synthetic.main.activity_payment.*
 
-class PaymentActivity : BaseActivity<PaymentViewModel, PaymentFactory>(), OnAttachListener {
+class PaymentActivity : BaseActivity<PaymentViewModel, PaymentFactory>(),
+    FlagPaymentListener {
 
     override fun viewModel() = PaymentViewModel::class.java
 
@@ -40,7 +40,7 @@ class PaymentActivity : BaseActivity<PaymentViewModel, PaymentFactory>(), OnAtta
         tv_full_name.text = fullName
         tv_service.text = service
         tv_price.text = price
-        image?.let { iv_photo.loadCircle(it) }
+        image?.let { iv_photo.setImageCircle(it) }
 
         // set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
@@ -58,13 +58,13 @@ class PaymentActivity : BaseActivity<PaymentViewModel, PaymentFactory>(), OnAtta
                 writePref(CommonsConstant.JOB_FLAG, JobFlag.JOB_FLAG_OFF.toString())
                 finish()
             } else {
-                message?.let { toast(it) }
+                message?.let { toast(it, Toast.LENGTH_LONG) }
             }
         })
 
         viewModel.getError.observe(this, Observer {
             progress_bar.hide()
-            toast(it, Toast.LENGTH_LONG)
+            dialogError(it)
         })
     }
 
@@ -94,7 +94,7 @@ class PaymentActivity : BaseActivity<PaymentViewModel, PaymentFactory>(), OnAtta
                 }
             }
             R.id.option_change_password -> toast(getString(R.string.not_available))
-            R.id.option_contact_admin -> contactAdmin()
+            R.id.option_contact_admin -> dialogContactAdmin()
             R.id.option_logout -> toast(getString(R.string.not_available))
         }
         return super.onOptionsItemSelected(item)
@@ -102,9 +102,9 @@ class PaymentActivity : BaseActivity<PaymentViewModel, PaymentFactory>(), OnAtta
 
     override fun onBackPressed() = toast(getString(R.string.not_available), Toast.LENGTH_LONG)
 
-    override fun onAttach(data: Int) {
+    override fun onFlag(flag: Int) {
         progress_bar.show()
-        viewModel.callPayment(data)
+        viewModel.callPayment(flag)
     }
 
 }

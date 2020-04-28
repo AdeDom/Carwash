@@ -6,7 +6,7 @@
 
     <TextView
         style="@style/TextViewLarge"
-        android:text="@string/date" />
+        android:text="@string/date_example" />
 
     <RelativeLayout
         style="@style/MatchWrap"

@@ -2,7 +2,7 @@ package com.chococard.carwash.ui.map
 
 import android.content.Context
 import com.chococard.carwash.data.models.User
-import com.chococard.carwash.util.extension.loadCircle
+import com.chococard.carwash.util.extension.setImageCircle
 import com.chococard.carwash.util.extension.setMyLocation
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -19,7 +19,7 @@ class MyLocation(
     init {
         MapFragment.sMarkerMyLocation?.remove()
 
-        context.loadCircle(user?.image) {
+        context.setImageCircle(user?.image) {
             if (googleMap != null) {
                 MapFragment.sMarkerMyLocation = googleMap.addMarker(
                     MarkerOptions().apply {
