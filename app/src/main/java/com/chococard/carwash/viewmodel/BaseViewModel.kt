@@ -4,14 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.chococard.carwash.util.ApiException
-import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.NoInternetException
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
-//TODO implement CoroutineScope
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel : ViewModel(), CoroutineScope {
 
-    private lateinit var job: Job
+    private var job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = job + Dispatchers.Main
 
     private val error = MutableLiveData<String>()
     val getError: LiveData<String>
@@ -19,13 +21,16 @@ abstract class BaseViewModel : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        if (::job.isInitialized) job.cancel()
+        job.cancel()
     }
 
-    fun launch(work: suspend (() -> Unit)) {
-        job = Coroutines.main {
+    protected fun <T : Any> ioThenMain(work: suspend () -> T?, callback: suspend (T?) -> Unit) {
+        launch {
             try {
-                work.invoke()
+                val data = CoroutineScope(Dispatchers.IO).async rt@{
+                    return@rt work.invoke()
+                }.await()
+                callback(data)
             } catch (e: ApiException) {
                 error.value = e.message
             } catch (e: NoInternetException) {

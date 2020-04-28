@@ -16,12 +16,17 @@ class SignInViewModel(private val repository: BaseRepository) : BaseViewModel() 
     val getSignIn: LiveData<SignInResponse>
         get() = signIn
 
-    fun callFetchUser() = launch {
-        user.value = repository.callFetchUser()
-    }
+    fun callFetchUser() = ioThenMain(
+        { repository.callFetchUser() },
+        { user.value = it }
+    )
 
-    fun callSignIn(username: String, password: String) = launch {
-        signIn.value = repository.callSignIn(username, password)
-    }
+    fun callSignIn(
+        username: String,
+        password: String
+    ) = ioThenMain(
+        { repository.callSignIn(username, password) },
+        { signIn.value = it }
+    )
 
 }

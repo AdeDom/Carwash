@@ -11,8 +11,11 @@ class PaymentViewModel(private val repository: BaseRepository) : BaseViewModel()
     val getPayment: LiveData<BaseResponse>
         get() = payment
 
-    fun callPayment(paymentStatus: Int) = launch {
-        payment.value = repository.callPayment(paymentStatus)
-    }
+    fun callPayment(
+        paymentStatus: Int
+    ) = ioThenMain(
+        { repository.callPayment(paymentStatus) },
+        { payment.value = it }
+    )
 
 }

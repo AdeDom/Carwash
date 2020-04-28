@@ -5,14 +5,18 @@ import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.repositories.BaseRepository
 
-class ChangePasswordViewModel (private val repository: BaseRepository) : BaseViewModel() {
+class ChangePasswordViewModel(private val repository: BaseRepository) : BaseViewModel() {
 
     private val changePassword = MutableLiveData<BaseResponse>()
     val getChangePassword: LiveData<BaseResponse>
         get() = changePassword
 
-    fun callChangePassword(oldPassword: String, newPassword: String) = launch {
-        changePassword.value = repository.callChangePassword(oldPassword, newPassword)
-    }
+    fun callChangePassword(
+        oldPassword: String,
+        newPassword: String
+    ) = ioThenMain(
+        { repository.callChangePassword(oldPassword, newPassword) },
+        { changePassword.value = it }
+    )
 
 }

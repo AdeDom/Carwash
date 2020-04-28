@@ -25,20 +25,31 @@ class MainViewModel(private val repository: BaseRepository) : BaseViewModel() {
     val getLogsActive: LiveData<BaseResponse>
         get() = logsActive
 
-    fun callJobRequest() = launch {
-        jobRequest.value = repository.callJobRequest()
-    }
+    fun callJobRequest() = ioThenMain(
+        { repository.callJobRequest() },
+        { jobRequest.value = it }
+    )
 
-    fun callJobResponse(jobStatus: Int) = launch {
-        jobResponse.value = repository.callJobResponse(jobStatus)
-    }
+    fun callJobResponse(
+        jobStatus: Int
+    ) = ioThenMain(
+        { repository.callJobResponse(jobStatus) },
+        { jobResponse.value = it }
+    )
 
-    fun callSetActiveState(activityState: Int) = launch {
-        activeStatus.value = repository.callSetActiveState(activityState)
-    }
+    fun callSetActiveState(
+        activityState: Int
+    ) = ioThenMain(
+        { repository.callSetActiveState(activityState) },
+        { activeStatus.value = it }
+    )
 
-    fun callSetLogsActive(status: Int, keys: String) = launch {
-        logsActive.value = repository.callSetLogsActive(status, keys)
-    }
+    fun callSetLogsActive(
+        status: Int,
+        keys: String
+    ) = ioThenMain(
+        { repository.callSetLogsActive(status, keys) },
+        { logsActive.value = it }
+    )
 
 }

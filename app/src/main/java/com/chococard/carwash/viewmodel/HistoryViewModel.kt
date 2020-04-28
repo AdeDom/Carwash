@@ -11,8 +11,12 @@ class HistoryViewModel(private val repository: BaseRepository) : BaseViewModel()
     val getHistory: LiveData<HistoryResponse>
         get() = history
 
-    fun callFetchHistory(dateBegin: String = "", dateEnd: String = "") = launch {
-        history.value = repository.callFetchHistory(dateBegin, dateEnd)
-    }
+    fun callFetchHistory(
+        dateBegin: String = "",
+        dateEnd: String = ""
+    ) = ioThenMain(
+        { repository.callFetchHistory(dateBegin, dateEnd) },
+        { history.value = it }
+    )
 
 }
