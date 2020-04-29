@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.networks.AppService
 import com.chococard.carwash.factory.ChangePasswordFactory
-import com.chococard.carwash.repositories.BaseRepository
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
 import com.chococard.carwash.ui.signin.SignInActivity

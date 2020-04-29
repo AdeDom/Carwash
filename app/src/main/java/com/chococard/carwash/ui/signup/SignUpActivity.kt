@@ -5,9 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.networks.AppService
 import com.chococard.carwash.factory.SignUpFactory
-import com.chococard.carwash.repositories.BaseRepository
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.signin.SignInActivity
 import com.chococard.carwash.util.CommonsConstant

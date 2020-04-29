@@ -8,9 +8,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.User
-import com.chococard.carwash.data.networks.AppService
 import com.chococard.carwash.factory.MapFactory
-import com.chococard.carwash.repositories.BaseRepository
 import com.chococard.carwash.ui.base.BaseFragment
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.readPref

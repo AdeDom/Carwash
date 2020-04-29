@@ -4,9 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.networks.AppService
 import com.chococard.carwash.factory.WalletFactory
-import com.chococard.carwash.repositories.BaseRepository
 import com.chococard.carwash.ui.addwallet.AddWalletActivity
 import com.chococard.carwash.ui.base.BaseFragment
 import com.chococard.carwash.util.extension.hide

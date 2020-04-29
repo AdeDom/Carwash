@@ -7,9 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import com.chococard.carwash.R
-import com.chococard.carwash.data.networks.AppService
 import com.chococard.carwash.factory.SplashScreenFactory
-import com.chococard.carwash.repositories.BaseRepository
 import com.chococard.carwash.ui.auth.AuthActivity
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.main.MainActivity

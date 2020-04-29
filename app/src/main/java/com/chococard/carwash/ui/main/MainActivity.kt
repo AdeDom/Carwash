@@ -13,9 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.Job
-import com.chococard.carwash.data.networks.AppService
 import com.chococard.carwash.factory.MainFactory
-import com.chococard.carwash.repositories.BaseRepository
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
