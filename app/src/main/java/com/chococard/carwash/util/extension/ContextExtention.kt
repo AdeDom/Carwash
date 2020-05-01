@@ -25,13 +25,18 @@ import okhttp3.RequestBody
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.io.IOException
 
 fun Context?.toast(message: String, duration: Int = Toast.LENGTH_SHORT) =
     Toast.makeText(this, message, duration).show()
 
 fun Context.getLocality(latitude: Double, longitude: Double): String {
-    val list = Geocoder(this).getFromLocation(latitude, longitude, 1)
-    return if (list[0].locality != null) list[0].locality else getString(R.string.unknown)
+    return try {
+        val list = Geocoder(this).getFromLocation(latitude, longitude, 1)
+        if (list[0].locality != null) list[0].locality else getString(R.string.unknown)
+    } catch (e: IOException) {
+        getString(R.string.unknown)
+    }
 }
 
 fun Context.writePref(key: String, values: String) =
