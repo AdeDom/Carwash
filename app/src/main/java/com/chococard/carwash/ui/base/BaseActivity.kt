@@ -74,7 +74,7 @@ abstract class BaseActivity<VM : ViewModel, F : ViewModelProvider.NewInstanceFac
         show()
     }
 
-    fun dialogLogout() = AlertDialog.Builder(this).apply {
+    fun dialogLogout(logout: () -> Unit) = AlertDialog.Builder(this).apply {
         setTitle(R.string.logout)
         setMessage(R.string.do_you_really_want_to_log_out)
         setPositiveButton(android.R.string.cancel) { dialog, which ->
@@ -82,7 +82,7 @@ abstract class BaseActivity<VM : ViewModel, F : ViewModelProvider.NewInstanceFac
         }
         setNegativeButton(android.R.string.ok) { dialog, which ->
             writePref(CommonsConstant.TOKEN, "")
-            writePref(CommonsConstant.USER, "")
+            logout.invoke()
             Intent(baseContext, SignInActivity::class.java).apply {
                 finishAffinity()
                 startActivity(this)

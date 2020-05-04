@@ -16,4 +16,7 @@ interface UserDao {
     @Query("SELECT * FROM user")
     fun getUser(): LiveData<User>
 
+    @Query("DELETE FROM user")
+    suspend fun deleteUser()
+
 }

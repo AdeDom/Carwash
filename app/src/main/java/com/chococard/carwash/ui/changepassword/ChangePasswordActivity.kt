@@ -80,7 +80,9 @@ class ChangePasswordActivity : BaseActivity<ChangePasswordViewModel, ChangePassw
                 }
             }
             R.id.option_contact_admin -> dialogContactAdmin()
-            R.id.option_logout -> dialogLogout()
+            R.id.option_logout -> dialogLogout {
+                viewModel.deleteUser()
+            }
         }
         return super.onOptionsItemSelected(item)
     }

@@ -7,6 +7,7 @@ import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.repositories.BaseRepository
+import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: BaseRepository) : BaseViewModel() {
 
@@ -37,6 +38,10 @@ class MainViewModel(private val repository: BaseRepository) : BaseViewModel() {
             response?.user?.let { repository.saveUser(it) }
         }
     )
+
+    fun deleteUser() = launch {
+        repository.deleteUser()
+    }
 
     fun callJobRequest() = ioThenMain(
         { repository.callJobRequest() },

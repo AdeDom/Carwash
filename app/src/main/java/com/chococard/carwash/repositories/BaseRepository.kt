@@ -16,6 +16,7 @@ class BaseRepository(
     suspend fun callFetchUser() = apiRequest { api.callFetchUser() }
     suspend fun saveUser(user: User) = db.getUserDao().saveUser(user)
     fun getUser() = db.getUserDao().getUser()
+    suspend fun deleteUser() = db.getUserDao().deleteUser()
 
     suspend fun callUploadImageFile(file: MultipartBody.Part, description: RequestBody) =
         apiRequest { api.callUploadImageFile(file, description) }

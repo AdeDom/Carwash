@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.repositories.BaseRepository
+import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -40,6 +41,10 @@ class ChangeProfileViewModel(private val repository: BaseRepository) : BaseViewM
         { repository.callUploadImageFile(file, description) },
         { upload.value = it }
     )
+
+    fun deleteUser() = launch {
+        repository.deleteUser()
+    }
 
     fun callChangeProfile(
         name: String,
