@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
+import com.chococard.carwash.data.db.AppDatabase
 import com.chococard.carwash.data.networks.AppService
 import com.chococard.carwash.data.networks.NetworkConnectionInterceptor
 import com.chococard.carwash.data.networks.NetworkHeaderInterceptor
@@ -32,8 +33,9 @@ abstract class BaseActivity<VM : ViewModel, F : ViewModelProvider.NewInstanceFac
         val connectionInterceptor = NetworkConnectionInterceptor(baseContext)
         val headerInterceptor = NetworkHeaderInterceptor(baseContext)
 
-        repositoryConnection = BaseRepository(AppService.invoke(connectionInterceptor))
-        repositoryHeader = BaseRepository(AppService.invoke(headerInterceptor))
+        val db = AppDatabase(baseContext)
+        repositoryConnection = BaseRepository(AppService.invoke(connectionInterceptor), db)
+        repositoryHeader = BaseRepository(AppService.invoke(headerInterceptor), db)
 
         viewModel = ViewModelProvider(this, factory()).get(viewModel())
     }

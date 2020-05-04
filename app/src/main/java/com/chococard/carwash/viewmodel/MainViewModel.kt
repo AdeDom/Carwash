@@ -5,9 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.request.JobRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.JobResponse
+import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.repositories.BaseRepository
 
 class MainViewModel(private val repository: BaseRepository) : BaseViewModel() {
+
+    private val user = MutableLiveData<UserResponse>()
+    val getUser: LiveData<UserResponse>
+        get() = user
 
     private val jobRequest = MutableLiveData<JobRequest>()
     val getJobRequest: LiveData<JobRequest>
@@ -24,6 +29,14 @@ class MainViewModel(private val repository: BaseRepository) : BaseViewModel() {
     private val logsActive = MutableLiveData<BaseResponse>()
     val getLogsActive: LiveData<BaseResponse>
         get() = logsActive
+
+    fun callFetchUser() = ioThenMain(
+        { repository.callFetchUser() },
+        { response ->
+            user.value = response
+            response?.user?.let { repository.saveUser(it) }
+        }
+    )
 
     fun callJobRequest() = ioThenMain(
         { repository.callJobRequest() },

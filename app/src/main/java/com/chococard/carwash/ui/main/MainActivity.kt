@@ -71,7 +71,18 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         writePref(CommonsConstant.LOGS_KEYS, logsKeys)
         viewModel.callSetLogsActive(FlagConstant.LOGS_STATUS_ACTIVE, logsKeys)
 
+        // fetch user info
+        viewModel.callFetchUser()
+
         //observe
+        viewModel.getUser.observe(this, Observer { response ->
+            val (success, message, _) = response
+            if (!success) {
+                finishAffinity()
+                message?.let { toast(it) }
+            }
+        })
+
         viewModel.getLogsActive.observe(this, Observer { response ->
             val (success, message) = response
             if (!success) {

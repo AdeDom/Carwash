@@ -1,13 +1,21 @@
 package com.chococard.carwash.repositories
 
+import com.chococard.carwash.data.db.AppDatabase
+import com.chococard.carwash.data.db.entities.User
 import com.chococard.carwash.data.networks.AppService
 import com.chococard.carwash.data.networks.SafeApiRequest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
-class BaseRepository(private val api: AppService) : SafeApiRequest() {
+class BaseRepository(
+    private val api: AppService,
+    private val db: AppDatabase
+) : SafeApiRequest() {
 
+    // user
     suspend fun callFetchUser() = apiRequest { api.callFetchUser() }
+    suspend fun saveUser(user: User) = db.getUserDao().saveUser(user)
+    fun getUser() = db.getUserDao().getUser()
 
     suspend fun callUploadImageFile(file: MultipartBody.Part, description: RequestBody) =
         apiRequest { api.callUploadImageFile(file, description) }

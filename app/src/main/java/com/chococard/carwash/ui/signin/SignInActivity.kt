@@ -12,7 +12,6 @@ import com.chococard.carwash.ui.signup.SignUpActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.SignInViewModel
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
 class SignInActivity : BaseActivity<SignInViewModel, SignInFactory>() {
@@ -51,19 +50,7 @@ class SignInActivity : BaseActivity<SignInViewModel, SignInFactory>() {
             progress_bar.hide()
             if (success) {
                 token?.let { writePref(CommonsConstant.TOKEN, it) }
-                progress_bar.show()
-                viewModel.callFetchUser()
-            } else {
-                message?.let { toast(it, Toast.LENGTH_LONG) }
-            }
-        })
-
-        viewModel.getUser.observe(this, Observer { response ->
-            val (success, message, user) = response
-            progress_bar.hide()
-            if (success) {
                 writePref(CommonsConstant.USERNAME, et_username.getContents())
-                writePref(CommonsConstant.USER, Gson().toJson(user))
                 Intent(baseContext, MainActivity::class.java).apply {
                     startActivity(this)
                     finishAffinity()

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
+import com.chococard.carwash.data.db.AppDatabase
 import com.chococard.carwash.data.networks.AppService
 import com.chococard.carwash.data.networks.NetworkHeaderInterceptor
 import com.chococard.carwash.repositories.BaseRepository
@@ -28,8 +29,9 @@ abstract class BaseFragment<VM : ViewModel, F : ViewModelProvider.NewInstanceFac
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        val db = AppDatabase(requireContext())
         val headerInterceptor = NetworkHeaderInterceptor(requireContext())
-        repositoryHeader = BaseRepository(AppService.invoke(headerInterceptor))
+        repositoryHeader = BaseRepository(AppService.invoke(headerInterceptor), db)
 
         viewModel = ViewModelProvider(this, factory()).get(viewModel())
     }
