@@ -1,6 +1,6 @@
 package com.chococard.carwash.data.networks.request
 
-import com.chococard.carwash.data.models.Job
+import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.networks.ApiConstant
 import com.google.gson.annotations.SerializedName
 

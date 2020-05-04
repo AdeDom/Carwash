@@ -2,7 +2,7 @@ package com.chococard.carwash.ui.main
 
 import android.os.Bundle
 import com.chococard.carwash.R
-import com.chococard.carwash.data.models.Job
+import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.ui.BaseDialog
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.Coroutines

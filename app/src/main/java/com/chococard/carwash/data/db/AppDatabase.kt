@@ -4,13 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.chococard.carwash.data.db.dao.JobDao
 import com.chococard.carwash.data.db.dao.UserDao
+import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.db.entities.User
 
-@Database(entities = [User::class], version = 1)
+@Database(entities = [User::class, Job::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getUserDao(): UserDao
+    abstract fun getJobDao(): JobDao
 
     companion object {
         @Volatile
