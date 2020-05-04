@@ -3,7 +3,7 @@ package com.chococard.carwash.ui.addwallet
 import android.content.Intent
 import android.os.Bundle
 import com.chococard.carwash.R
-import com.chococard.carwash.data.models.User
+import com.chococard.carwash.data.db.entities.User
 import com.chococard.carwash.factory.AddWalletFactory
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.util.CommonsConstant

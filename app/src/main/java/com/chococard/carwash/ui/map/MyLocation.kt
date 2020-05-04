@@ -1,7 +1,7 @@
 package com.chococard.carwash.ui.map
 
 import android.content.Context
-import com.chococard.carwash.data.models.User
+import com.chococard.carwash.data.db.entities.User
 import com.chococard.carwash.util.extension.setImageCircle
 import com.chococard.carwash.util.extension.setMyLocation
 import com.google.android.gms.maps.GoogleMap
