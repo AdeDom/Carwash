@@ -24,9 +24,7 @@ import com.chococard.carwash.ui.wallet.WalletFragment
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.JobFlag
-import com.chococard.carwash.util.extension.readPref
-import com.chococard.carwash.util.extension.toast
-import com.chococard.carwash.util.extension.writePref
+import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
@@ -72,14 +70,16 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         viewModel.callSetLogsActive(FlagConstant.LOGS_STATUS_ACTIVE, logsKeys)
 
         // fetch user info
+        progress_bar.show()
         viewModel.callFetchUser()
 
         //observe
         viewModel.getUser.observe(this, Observer { response ->
+            progress_bar.hide()
             val (success, message, _) = response
             if (!success) {
                 finishAffinity()
-                message?.let { toast(it) }
+                message?.let { toast(it, Toast.LENGTH_LONG) }
             }
         })
 

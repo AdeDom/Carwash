@@ -11,6 +11,8 @@ import okhttp3.ResponseBody
 
 class ChangeProfileViewModel(private val repository: BaseRepository) : BaseViewModel() {
 
+    val getDbUser = repository.getUser()
+
     private val user = MutableLiveData<UserResponse>()
     val getUser: LiveData<UserResponse>
         get() = user
@@ -25,7 +27,10 @@ class ChangeProfileViewModel(private val repository: BaseRepository) : BaseViewM
 
     fun callFetchUser() = ioThenMain(
         { repository.callFetchUser() },
-        { user.value = it }
+        { response ->
+            user.value = response
+            response?.user?.let { repository.saveUser(it) }
+        }
     )
 
     fun callUploadImageFile(

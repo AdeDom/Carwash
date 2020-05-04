@@ -39,4 +39,8 @@
         android:layout_height="wrap_content"
         android:text="Has job" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/ProgressBar" />
+
 </RelativeLayout>

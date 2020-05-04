@@ -7,14 +7,12 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.db.entities.User
 import com.chococard.carwash.factory.ChangeProfileFactory
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.ChangeProfileViewModel
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_change_profile.*
 
 class ChangeProfileActivity : BaseActivity<ChangeProfileViewModel, ChangeProfileFactory>() {
@@ -34,12 +32,13 @@ class ChangeProfileActivity : BaseActivity<ChangeProfileViewModel, ChangeProfile
         setToolbar(toolbar)
 
         //set widgets
-        val user = Gson().fromJson(readPref(CommonsConstant.USER), User::class.java)
-        val (_, fullName, idCard, phone, _, image) = user
-        et_full_name.setText(fullName)
-        et_identity_card.setText(idCard)
-        et_phone.setText(phone)
-        image?.let { iv_photo.setImageCircle(it) }
+        viewModel.getDbUser.observe(this, Observer { user ->
+            val (_, fullName, idCard, phone, _, image) = user
+            et_full_name.setText(fullName)
+            et_identity_card.setText(idCard)
+            et_phone.setText(phone)
+            image?.let { iv_photo.setImageCircle(it) }
+        })
 
         //set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
@@ -64,12 +63,12 @@ class ChangeProfileActivity : BaseActivity<ChangeProfileViewModel, ChangeProfile
         })
 
         viewModel.getUser.observe(this, Observer { response ->
-            val (success, message, userInfo) = response
+            val (success, message, _) = response
             progress_bar.hide()
             if (success) {
-                writePref(CommonsConstant.USER, Gson().toJson(userInfo))
                 finish()
             } else {
+                finishAffinity()
                 message?.let { toast(it, Toast.LENGTH_LONG) }
             }
         })
