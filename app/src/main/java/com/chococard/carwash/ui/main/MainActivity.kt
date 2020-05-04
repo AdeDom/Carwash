@@ -43,8 +43,7 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val flag = readPref(CommonsConstant.JOB_FLAG)
-        if (flag == JobFlag.JOB_FLAG_ON.toString()) {
+        if (readJobFlag() == JobFlag.JOB_FLAG_ON.toString()) {
             Intent(baseContext, PaymentActivity::class.java).apply {
                 startActivity(this)
             }
@@ -104,12 +103,12 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
             val (success, message, jobFlag) = response
             if (success) {
                 if (jobFlag) {
-                    writePref(CommonsConstant.JOB_FLAG, JobFlag.JOB_FLAG_ON.toString())
+                    writeJobFlag(JobFlag.JOB_FLAG_ON)
                     Intent(baseContext, PaymentActivity::class.java).apply {
                         startActivity(this)
                     }
                 } else {
-                    writePref(CommonsConstant.JOB_FLAG, JobFlag.JOB_FLAG_OFF.toString())
+                    writeJobFlag(JobFlag.JOB_FLAG_OFF)
                 }
             } else {
                 message?.let { toast(it, Toast.LENGTH_LONG) }

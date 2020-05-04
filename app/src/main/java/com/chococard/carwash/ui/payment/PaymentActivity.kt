@@ -10,7 +10,6 @@ import com.chococard.carwash.R
 import com.chococard.carwash.factory.PaymentFactory
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
-import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.JobFlag
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.PaymentViewModel
@@ -51,7 +50,8 @@ class PaymentActivity : BaseActivity<PaymentViewModel, PaymentFactory>(),
             progress_bar.hide()
             val (success, message) = response
             if (success) {
-                writePref(CommonsConstant.JOB_FLAG, JobFlag.JOB_FLAG_OFF.toString())
+                writeJobFlag(JobFlag.JOB_FLAG_OFF)
+                viewModel.deleteJob()
                 finish()
             } else {
                 message?.let { toast(it, Toast.LENGTH_LONG) }

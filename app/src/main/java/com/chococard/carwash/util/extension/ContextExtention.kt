@@ -19,6 +19,7 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.chococard.carwash.R
 import com.chococard.carwash.util.CommonsConstant
+import com.chococard.carwash.util.JobFlag
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -48,6 +49,16 @@ fun Context.writePref(key: String, values: String) =
 fun Context.readPref(key: String) =
     getSharedPreferences(CommonsConstant.PREF_FILE, Context.MODE_PRIVATE)
         .getString(key, "") ?: ""
+
+fun Context.writeJobFlag(flag: JobFlag) =
+    getSharedPreferences(CommonsConstant.PREF_FILE, Context.MODE_PRIVATE).edit().apply {
+        putString(CommonsConstant.JOB_FLAG, flag.toString())
+        apply()
+    }
+
+fun Context.readJobFlag() =
+    getSharedPreferences(CommonsConstant.PREF_FILE, Context.MODE_PRIVATE)
+        .getString(CommonsConstant.JOB_FLAG, "") ?: ""
 
 fun Context.uploadFile(fileUri: Uri, upload: (MultipartBody.Part, RequestBody) -> Unit) {
     val parcelFileDescriptor = contentResolver.openFileDescriptor(fileUri, "r", null) ?: return
