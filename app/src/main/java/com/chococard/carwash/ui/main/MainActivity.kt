@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.factory.MainFactory
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
@@ -27,7 +26,6 @@ import com.chococard.carwash.util.JobFlag
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -47,9 +45,7 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
 
         val flag = readPref(CommonsConstant.JOB_FLAG)
         if (flag == JobFlag.JOB_FLAG_ON.toString()) {
-            val job = Gson().fromJson(readPref(CommonsConstant.JOB), Job::class.java)
             Intent(baseContext, PaymentActivity::class.java).apply {
-                putExtra(CommonsConstant.JOB, job)
                 startActivity(this)
             }
         }
@@ -93,8 +89,6 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
         viewModel.getJobRequest.observe(this, Observer { request ->
             val (success, message, jobRequest) = request
             if (success) {
-                writePref(CommonsConstant.JOB, Gson().toJson(jobRequest))
-
                 val bundle = Bundle()
                 bundle.putParcelable(CommonsConstant.JOB, jobRequest)
 
@@ -111,9 +105,7 @@ class MainActivity : BaseActivity<MainViewModel, MainFactory>(),
             if (success) {
                 if (jobFlag) {
                     writePref(CommonsConstant.JOB_FLAG, JobFlag.JOB_FLAG_ON.toString())
-                    val job = Gson().fromJson(readPref(CommonsConstant.JOB), Job::class.java)
                     Intent(baseContext, PaymentActivity::class.java).apply {
-                        putExtra(CommonsConstant.JOB, job)
                         startActivity(this)
                     }
                 } else {

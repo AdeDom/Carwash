@@ -7,6 +7,8 @@ import com.chococard.carwash.repositories.BaseRepository
 
 class PaymentViewModel(private val repository: BaseRepository) : BaseViewModel() {
 
+    val getDbJob = repository.getJob()
+
     private val payment = MutableLiveData<BaseResponse>()
     val getPayment: LiveData<BaseResponse>
         get() = payment

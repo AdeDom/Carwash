@@ -45,7 +45,10 @@ class MainViewModel(private val repository: BaseRepository) : BaseViewModel() {
 
     fun callJobRequest() = ioThenMain(
         { repository.callJobRequest() },
-        { jobRequest.value = it }
+        { response ->
+            jobRequest.value = response
+            response?.job?.let { repository.saveJob(it) }
+        }
     )
 
     fun callJobResponse(

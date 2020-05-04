@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.factory.PaymentFactory
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
@@ -28,22 +27,21 @@ class PaymentActivity : BaseActivity<PaymentViewModel, PaymentFactory>(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
 
-        val job = intent.getParcelableExtra(CommonsConstant.JOB) as Job
-
         setToolbar(toolbar)
 
-        // set widget
-        val (_, fullName, image, _, _, service, price, beginLat, beginLong, endLat, endLong, _, _, dateTime) = job
-        tv_date_time.text = dateTime
-        tv_full_name.text = fullName
-        tv_service.text = service
-        tv_price.text = price
-        image?.let { iv_photo.setImageCircle(it) }
+        viewModel.getDbJob.observe(this, Observer { job ->
+            if (job == null) return@Observer
+            val (_, fullName, image, _, _, service, price, beginLat, beginLong, endLat, endLong, _, _, dateTime) = job
+            tv_date_time.text = dateTime
+            tv_full_name.text = fullName
+            tv_service.text = service
+            tv_price.text = price
+            image?.let { iv_photo.setImageCircle(it) }
 
-        // set event
+            fab.setOnClickListener { navigation(beginLat, beginLong, endLat, endLong) }
+        })
+
         iv_arrow_back.setOnClickListener { onBackPressed() }
-        fab.setOnClickListener { navigation(beginLat, beginLong, endLat, endLong) }
-
         bt_payment.setOnClickListener {
             PaymentDialog().show(supportFragmentManager, null)
         }
