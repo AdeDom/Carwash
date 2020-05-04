@@ -2,15 +2,13 @@ package com.chococard.carwash.ui.addwallet
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.db.entities.User
 import com.chococard.carwash.factory.AddWalletFactory
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.util.CommonsConstant
-import com.chococard.carwash.util.extension.readPref
 import com.chococard.carwash.util.extension.toast
 import com.chococard.carwash.viewmodel.AddWalletViewModel
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_add_wallet.*
 
 class AddWalletActivity : BaseActivity<AddWalletViewModel, AddWalletFactory>() {
@@ -30,8 +28,10 @@ class AddWalletActivity : BaseActivity<AddWalletViewModel, AddWalletFactory>() {
         setToolbar(toolbar)
 
         // set widgets
-        val user = Gson().fromJson(readPref(CommonsConstant.USER), User::class.java)
-        tv_full_name.text = user?.fullName
+        viewModel.getDbUser.observe(this, Observer { user ->
+            if (user == null) return@Observer
+            tv_full_name.text = user?.fullName
+        })
 
         //set event
         iv_arrow_back.setOnClickListener { onBackPressed() }

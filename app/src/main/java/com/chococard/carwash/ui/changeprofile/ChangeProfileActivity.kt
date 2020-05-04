@@ -33,6 +33,7 @@ class ChangeProfileActivity : BaseActivity<ChangeProfileViewModel, ChangeProfile
 
         //set widgets
         viewModel.getDbUser.observe(this, Observer { user ->
+            if (user == null) return@Observer
             val (_, fullName, idCard, phone, _, image) = user
             et_full_name.setText(fullName)
             et_identity_card.setText(idCard)

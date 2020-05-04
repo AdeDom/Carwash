@@ -7,6 +7,8 @@ import com.chococard.carwash.repositories.BaseRepository
 
 class MapViewModel(private val repository: BaseRepository) : BaseViewModel() {
 
+    val getDbUser = repository.getUser()
+
     private val employeeLocation = MutableLiveData<LocationResponse>()
     val getEmployeeLocation: LiveData<LocationResponse>
         get() = employeeLocation

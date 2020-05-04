@@ -7,11 +7,8 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.db.entities.User
 import com.chococard.carwash.factory.MapFactory
 import com.chococard.carwash.ui.base.BaseFragment
-import com.chococard.carwash.util.CommonsConstant
-import com.chococard.carwash.util.extension.readPref
 import com.chococard.carwash.util.extension.toast
 import com.chococard.carwash.viewmodel.MapViewModel
 import com.google.android.gms.common.ConnectionResult
@@ -25,7 +22,6 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
-import com.google.gson.Gson
 
 class MapFragment : BaseFragment<MapViewModel, MapFactory>(
     R.layout.fragment_map
@@ -95,8 +91,10 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
             mGoogleMap?.moveCamera(cameraUpdate)
         }
 
-        val user = Gson().fromJson(context?.readPref(CommonsConstant.USER), User::class.java)
-        MyLocation(requireContext(), mGoogleMap, latLng, user)
+        viewModel.getDbUser.observe(viewLifecycleOwner, Observer { user ->
+            if (user == null) return@Observer
+            MyLocation(requireContext(), mGoogleMap, latLng, user)
+        })
 
         // call api
         viewModel.callSetLocation(latLng.latitude, latLng.longitude)

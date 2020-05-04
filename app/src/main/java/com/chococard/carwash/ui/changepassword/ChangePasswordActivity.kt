@@ -42,7 +42,7 @@ class ChangePasswordActivity : BaseActivity<ChangePasswordViewModel, ChangePassw
             message?.let { toast(it) }
             if (success) {
                 writePref(CommonsConstant.TOKEN, "")
-                writePref(CommonsConstant.USER, "")
+                viewModel.deleteUser()
                 Intent(baseContext, SignInActivity::class.java).apply {
                     finishAffinity()
                     startActivity(this)

@@ -8,7 +8,6 @@ object CommonsConstant {
 
     const val PREF_FILE = "pref_file"
     const val TOKEN = "token"
-    const val USER = "user"
     const val USERNAME = "username"
     const val JOB = "job"
     const val JOB_FLAG = "flag"
