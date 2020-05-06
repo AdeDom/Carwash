@@ -3,6 +3,7 @@ package com.chococard.carwash.repositories
 import com.chococard.carwash.data.db.AppDatabase
 import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.db.entities.User
+import com.chococard.carwash.data.models.SignIn
 import com.chococard.carwash.data.networks.AppService
 import com.chococard.carwash.data.networks.SafeApiRequest
 import okhttp3.MultipartBody
@@ -30,8 +31,7 @@ class BaseRepository(
         phone: String
     ) = apiRequest { api.callSignUp(name, username, password, identityCard, phone) }
 
-    suspend fun callSignIn(username: String, password: String) =
-        apiRequest { api.callSignIn(username, password) }
+    suspend fun callSignIn(signIn: SignIn) = apiRequest { api.callSignIn(signIn) }
 
     suspend fun callChangeProfile(name: String, identityCard: String, phone: String) =
         apiRequest { api.callChangeProfile(name, identityCard, phone) }

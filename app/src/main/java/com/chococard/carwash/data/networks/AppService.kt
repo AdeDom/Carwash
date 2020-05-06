@@ -1,5 +1,6 @@
 package com.chococard.carwash.data.networks
 
+import com.chococard.carwash.data.models.SignIn
 import com.chococard.carwash.data.networks.request.JobRequest
 import com.chococard.carwash.data.networks.response.*
 import com.chococard.carwash.util.FlagConstant
@@ -44,12 +45,9 @@ interface AppService {
     ): Response<BaseResponse>
 
     //login for want token from server.
-    @FormUrlEncoded
     @POST("v2/5e9ebaab2d00006900cb767f")
-    suspend fun callSignIn(
-        @Field(ApiConstant.USERNAME) username: String,
-        @Field(ApiConstant.PASSWORD) password: String
-    ): Response<SignInResponse>
+//    @POST("api/account/Login/")
+    suspend fun callSignIn(@Body signIn: SignIn): Response<SignInResponse>
 
     //change data profile name, id card, phone etc.
     @FormUrlEncoded
