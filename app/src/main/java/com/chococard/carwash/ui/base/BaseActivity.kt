@@ -3,46 +3,21 @@ package com.chococard.carwash.ui.base
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.net.Uri
-import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.chococard.carwash.R
-import com.chococard.carwash.data.db.AppDatabase
-import com.chococard.carwash.data.networks.AppService
-import com.chococard.carwash.data.networks.NetworkConnectionInterceptor
-import com.chococard.carwash.data.networks.NetworkHeaderInterceptor
-import com.chococard.carwash.repositories.BaseRepository
 import com.chococard.carwash.ui.signin.SignInActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.writePref
 
-abstract class BaseActivity<VM : ViewModel, F : ViewModelProvider.NewInstanceFactory> :
-    AppCompatActivity() {
+abstract class BaseActivity<VM : ViewModel> : AppCompatActivity() {
 
     protected lateinit var viewModel: VM
-    protected lateinit var repositoryConnection: BaseRepository
-    protected lateinit var repositoryHeader: BaseRepository
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val connectionInterceptor = NetworkConnectionInterceptor(baseContext)
-        val headerInterceptor = NetworkHeaderInterceptor(baseContext)
-
-        val db = AppDatabase(baseContext)
-        repositoryConnection = BaseRepository(AppService.invoke(connectionInterceptor), db)
-        repositoryHeader = BaseRepository(AppService.invoke(headerInterceptor), db)
-
-        viewModel = ViewModelProvider(this, factory()).get(viewModel())
-    }
 
     abstract fun viewModel(): Class<VM>
-
-    abstract fun factory(): F
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_option, menu)

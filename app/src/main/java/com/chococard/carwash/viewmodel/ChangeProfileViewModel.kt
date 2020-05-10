@@ -26,33 +26,26 @@ class ChangeProfileViewModel(private val repository: BaseRepository) : BaseViewM
     val getChangeProfile: LiveData<BaseResponse>
         get() = changeProfile
 
-    fun callFetchUser() = ioThenMain(
-        { repository.callFetchUser() },
-        { response ->
+    fun callFetchUser() = launchCallApi(
+        request = { repository.callFetchUser() },
+        response = { response ->
             user.value = response
             response?.user?.let { repository.saveUser(it) }
         }
     )
 
-    fun callUploadImageFile(
-        file: MultipartBody.Part,
-        description: RequestBody
-    ) = ioThenMain(
-        { repository.callUploadImageFile(file, description) },
-        { upload.value = it }
+    fun callUploadImageFile(file: MultipartBody.Part, description: RequestBody) = launchCallApi(
+        request = { repository.callUploadImageFile(file, description) },
+        response = { upload.value = it }
     )
 
     fun deleteUser() = launch {
         repository.deleteUser()
     }
 
-    fun callChangeProfile(
-        name: String,
-        identityCard: String,
-        phone: String
-    ) = ioThenMain(
-        { repository.callChangeProfile(name, identityCard, phone) },
-        { changeProfile.value = it }
+    fun callChangeProfile(name: String, identityCard: String, phone: String) = launchCallApi(
+        request = { repository.callChangeProfile(name, identityCard, phone) },
+        response = { changeProfile.value = it }
     )
 
 }

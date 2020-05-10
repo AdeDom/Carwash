@@ -14,11 +14,9 @@ class PaymentViewModel(private val repository: BaseRepository) : BaseViewModel()
     val getPayment: LiveData<BaseResponse>
         get() = payment
 
-    fun callPayment(
-        paymentStatus: Int
-    ) = ioThenMain(
-        { repository.callPayment(paymentStatus) },
-        { payment.value = it }
+    fun callPayment(paymentStatus: Int) = launchCallApi(
+        request = { repository.callPayment(paymentStatus) },
+        response = { payment.value = it }
     )
 
     fun deleteJob() = launch {

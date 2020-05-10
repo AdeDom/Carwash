@@ -5,19 +5,16 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.factory.SignUpFactory
-import com.chococard.carwash.ui.base.BaseActivity
+import com.chococard.carwash.ui.base.BaseNormalActivity
 import com.chococard.carwash.ui.signin.SignInActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.SignUpViewModel
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
-class SignUpActivity : BaseActivity<SignUpViewModel, SignUpFactory>() {
+class SignUpActivity : BaseNormalActivity<SignUpViewModel>() {
 
     override fun viewModel() = SignUpViewModel::class.java
-
-    override fun factory() = SignUpFactory(repositoryConnection)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

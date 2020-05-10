@@ -12,9 +12,9 @@ class SignInViewModel(private val repository: BaseRepository) : BaseViewModel() 
     val getSignIn: LiveData<SignInResponse>
         get() = signInResponse
 
-    fun callSignIn(signIn: SignIn) = ioThenMain(
-        { repository.callSignIn(signIn) },
-        { signInResponse.value = it }
+    fun callSignIn(signIn: SignIn) = launchCallApi(
+        request = { repository.callSignIn(signIn) },
+        response = { signInResponse.value = it }
     )
 
 }

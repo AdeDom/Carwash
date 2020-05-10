@@ -7,7 +7,6 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.factory.MapFactory
 import com.chococard.carwash.ui.base.BaseFragment
 import com.chococard.carwash.util.extension.toast
 import com.chococard.carwash.viewmodel.MapViewModel
@@ -23,9 +22,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 
-class MapFragment : BaseFragment<MapViewModel, MapFactory>(
-    R.layout.fragment_map
-), OnMapReadyCallback,
+class MapFragment : BaseFragment<MapViewModel>(R.layout.fragment_map), OnMapReadyCallback,
     GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener,
     LocationListener {
@@ -37,8 +34,6 @@ class MapFragment : BaseFragment<MapViewModel, MapFactory>(
     private var mIsFlagMoveCamera: Boolean = true
 
     override fun viewModel() = MapViewModel::class.java
-
-    override fun factory() = MapFactory(repositoryHeader)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

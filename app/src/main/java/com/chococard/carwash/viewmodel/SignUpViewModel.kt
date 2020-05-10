@@ -18,12 +18,9 @@ class SignUpViewModel(private val repository: BaseRepository) : BaseViewModel() 
     val getSignUp: LiveData<BaseResponse>
         get() = signUp
 
-    fun callUploadImageFile(
-        file: MultipartBody.Part,
-        description: RequestBody
-    ) = ioThenMain(
-        { repository.callUploadImageFile(file, description) },
-        { upload.value = it }
+    fun callUploadImageFile(file: MultipartBody.Part, description: RequestBody) = launchCallApi(
+        request = { repository.callUploadImageFile(file, description) },
+        response = { upload.value = it }
     )
 
     fun callSignUp(
@@ -32,9 +29,9 @@ class SignUpViewModel(private val repository: BaseRepository) : BaseViewModel() 
         password: String,
         identityCard: String,
         phone: String
-    ) = ioThenMain(
-        { repository.callSignUp(name, username, password, identityCard, phone) },
-        { signUp.value = it }
+    ) = launchCallApi(
+        request = { repository.callSignUp(name, username, password, identityCard, phone) },
+        response = { signUp.value = it }
     )
 
 }

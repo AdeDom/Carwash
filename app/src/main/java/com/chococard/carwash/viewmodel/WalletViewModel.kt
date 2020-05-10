@@ -11,9 +11,9 @@ class WalletViewModel(private val repository: BaseRepository) : BaseViewModel() 
     val getWallet: LiveData<WalletResponse>
         get() = wallet
 
-    fun callFetchWallet(dateBegin: String = "", dateEnd: String = "") = ioThenMain(
-        { repository.callFetchWallet(dateBegin, dateEnd) },
-        { wallet.value = it }
+    fun callFetchWallet(dateBegin: String = "", dateEnd: String = "") = launchCallApi(
+        request = { repository.callFetchWallet(dateBegin, dateEnd) },
+        response = { wallet.value = it }
     )
 
 }

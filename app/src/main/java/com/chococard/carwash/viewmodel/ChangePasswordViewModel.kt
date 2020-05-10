@@ -16,12 +16,9 @@ class ChangePasswordViewModel(private val repository: BaseRepository) : BaseView
         repository.deleteUser()
     }
 
-    fun callChangePassword(
-        oldPassword: String,
-        newPassword: String
-    ) = ioThenMain(
-        { repository.callChangePassword(oldPassword, newPassword) },
-        { changePassword.value = it }
+    fun callChangePassword(oldPassword: String, newPassword: String) = launchCallApi(
+        request = { repository.callChangePassword(oldPassword, newPassword) },
+        response = { changePassword.value = it }
     )
 
 }

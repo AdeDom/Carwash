@@ -13,13 +13,11 @@ import com.chococard.carwash.data.db.AppDatabase
 import com.chococard.carwash.data.networks.AppService
 import com.chococard.carwash.data.networks.NetworkHeaderInterceptor
 import com.chococard.carwash.repositories.BaseRepository
+import com.chococard.carwash.viewmodel.BaseViewModelFactory
 
-abstract class BaseFragment<VM : ViewModel, F : ViewModelProvider.NewInstanceFactory>(
-    private val layout: Int
-) : Fragment() {
+abstract class BaseFragment<VM : ViewModel>(private val layout: Int) : Fragment() {
 
     protected lateinit var viewModel: VM
-    protected lateinit var repositoryHeader: BaseRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,16 +27,15 @@ abstract class BaseFragment<VM : ViewModel, F : ViewModelProvider.NewInstanceFac
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val db = AppDatabase(requireContext())
         val headerInterceptor = NetworkHeaderInterceptor(requireContext())
-        repositoryHeader = BaseRepository(AppService.invoke(headerInterceptor), db)
-
-        viewModel = ViewModelProvider(this, factory()).get(viewModel())
+        val api = AppService.invoke(headerInterceptor)
+        val db = AppDatabase(requireContext())
+        val repository = BaseRepository(api, db)
+        val factory = BaseViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, factory).get(viewModel())
     }
 
     abstract fun viewModel(): Class<VM>
-
-    abstract fun factory(): F
 
     fun dialogError(message: String) = context?.let {
         AlertDialog.Builder(it).apply {

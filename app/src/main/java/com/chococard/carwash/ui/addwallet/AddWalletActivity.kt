@@ -4,18 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.factory.AddWalletFactory
-import com.chococard.carwash.ui.base.BaseActivity
+import com.chococard.carwash.ui.base.BaseHeaderActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.toast
 import com.chococard.carwash.viewmodel.AddWalletViewModel
 import kotlinx.android.synthetic.main.activity_add_wallet.*
 
-class AddWalletActivity : BaseActivity<AddWalletViewModel, AddWalletFactory>() {
+class AddWalletActivity : BaseHeaderActivity<AddWalletViewModel>() {
 
     override fun viewModel() = AddWalletViewModel::class.java
-
-    override fun factory() = AddWalletFactory(repositoryHeader)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

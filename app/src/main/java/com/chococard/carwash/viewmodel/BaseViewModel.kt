@@ -24,13 +24,13 @@ abstract class BaseViewModel : ViewModel(), CoroutineScope {
         job.cancel()
     }
 
-    protected fun <T : Any> ioThenMain(work: suspend () -> T?, callback: suspend (T?) -> Unit) {
+    protected fun <T : Any> launchCallApi(request: suspend () -> T?,response: suspend (T?) -> Unit) {
         launch {
             try {
-                val data = CoroutineScope(Dispatchers.IO).async rt@{
-                    return@rt work.invoke()
+                val data = CoroutineScope(Dispatchers.IO).async {
+                    request.invoke()
                 }.await()
-                callback(data)
+                response(data)
             } catch (e: ApiException) {
                 error.value = e.message
             } catch (e: NoInternetException) {

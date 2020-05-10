@@ -13,12 +13,9 @@ class MapViewModel(private val repository: BaseRepository) : BaseViewModel() {
     val getEmployeeLocation: LiveData<LocationResponse>
         get() = employeeLocation
 
-    fun callSetLocation(
-        latitude: Double,
-        longitude: Double
-    ) = ioThenMain(
-        { repository.callSetLocation(latitude, longitude) },
-        { employeeLocation.value = it }
+    fun callSetLocation(latitude: Double, longitude: Double) = launchCallApi(
+        request = { repository.callSetLocation(latitude, longitude) },
+        response = { employeeLocation.value = it }
     )
 
 }

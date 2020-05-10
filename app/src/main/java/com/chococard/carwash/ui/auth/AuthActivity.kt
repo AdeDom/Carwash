@@ -3,18 +3,15 @@ package com.chococard.carwash.ui.auth
 import android.content.Intent
 import android.os.Bundle
 import com.chococard.carwash.R
-import com.chococard.carwash.factory.AuthFactory
-import com.chococard.carwash.ui.base.BaseActivity
+import com.chococard.carwash.ui.base.BaseNormalActivity
 import com.chococard.carwash.ui.signin.SignInActivity
 import com.chococard.carwash.ui.signup.SignUpActivity
 import com.chococard.carwash.viewmodel.AuthViewModel
 import kotlinx.android.synthetic.main.activity_auth.*
 
-class AuthActivity : BaseActivity<AuthViewModel, AuthFactory>() {
+class AuthActivity : BaseNormalActivity<AuthViewModel>() {
 
     override fun viewModel() = AuthViewModel::class.java
-
-    override fun factory() = AuthFactory(repositoryConnection)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

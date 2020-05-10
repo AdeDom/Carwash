@@ -31,9 +31,9 @@ class MainViewModel(private val repository: BaseRepository) : BaseViewModel() {
     val getLogsActive: LiveData<BaseResponse>
         get() = logsActive
 
-    fun callFetchUser() = ioThenMain(
-        { repository.callFetchUser() },
-        { response ->
+    fun callFetchUser() = launchCallApi(
+        request = { repository.callFetchUser() },
+        response = { response ->
             user.value = response
             response?.user?.let { repository.saveUser(it) }
         }
@@ -43,34 +43,27 @@ class MainViewModel(private val repository: BaseRepository) : BaseViewModel() {
         repository.deleteUser()
     }
 
-    fun callJobRequest() = ioThenMain(
-        { repository.callJobRequest() },
-        { response ->
+    fun callJobRequest() = launchCallApi(
+        request = { repository.callJobRequest() },
+        response = { response ->
             jobRequest.value = response
             response?.job?.let { repository.saveJob(it) }
         }
     )
 
-    fun callJobResponse(
-        jobStatus: Int
-    ) = ioThenMain(
-        { repository.callJobResponse(jobStatus) },
-        { jobResponse.value = it }
+    fun callJobResponse(jobStatus: Int) = launchCallApi(
+        request = { repository.callJobResponse(jobStatus) },
+        response = { jobResponse.value = it }
     )
 
-    fun callSetActiveState(
-        activityState: Int
-    ) = ioThenMain(
-        { repository.callSetActiveState(activityState) },
-        { activeStatus.value = it }
+    fun callSetActiveState(activityState: Int) = launchCallApi(
+        request = { repository.callSetActiveState(activityState) },
+        response = { activeStatus.value = it }
     )
 
-    fun callSetLogsActive(
-        status: Int,
-        keys: String
-    ) = ioThenMain(
-        { repository.callSetLogsActive(status, keys) },
-        { logsActive.value = it }
+    fun callSetLogsActive(status: Int, keys: String) = launchCallApi(
+        request = { repository.callSetLogsActive(status, keys) },
+        response = { logsActive.value = it }
     )
 
 }
