@@ -44,10 +44,11 @@ class SignInActivity : BaseNormalActivity<SignInViewModel>() {
 
         //observe
         viewModel.getSignIn.observe(this, Observer { response ->
-            val (success, message, token) = response
+            val (success, message, token, refreshToken) = response
             progress_bar.hide()
             if (success) {
                 token?.let { writePref(CommonsConstant.TOKEN, it) }
+                refreshToken?.let { writePref(CommonsConstant.REFRESH_TOKEN, it) }
                 writePref(CommonsConstant.USERNAME, et_username.getContents())
                 Intent(baseContext, MainActivity::class.java).apply {
                     startActivity(this)

@@ -57,6 +57,7 @@ abstract class BaseActivity<VM : ViewModel> : AppCompatActivity() {
         }
         setNegativeButton(android.R.string.ok) { dialog, which ->
             writePref(CommonsConstant.TOKEN, "")
+            writePref(CommonsConstant.REFRESH_TOKEN, "")
             logout.invoke()
             Intent(baseContext, SignInActivity::class.java).apply {
                 finishAffinity()

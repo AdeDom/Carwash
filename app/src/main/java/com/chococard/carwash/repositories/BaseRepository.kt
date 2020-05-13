@@ -24,14 +24,16 @@ class BaseRepository(
         apiRequest { api.callUploadImageFile(file, description) }
 
     suspend fun callSignUp(
-        name: String,
+        fullName: String,
         username: String,
         password: String,
         identityCard: String,
         phone: String
-    ) = apiRequest { api.callSignUp(name, username, password, identityCard, phone) }
+    ) = apiRequest { api.callSignUp(fullName, username, password, identityCard, phone) }
 
     suspend fun callSignIn(signIn: SignIn) = apiRequest { api.callSignIn(signIn) }
+
+    suspend fun callLogout() = apiRequest { api.callLogout() }
 
     suspend fun callChangeProfile(name: String, identityCard: String, phone: String) =
         apiRequest { api.callChangeProfile(name, identityCard, phone) }

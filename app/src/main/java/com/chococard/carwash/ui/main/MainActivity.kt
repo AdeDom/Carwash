@@ -117,6 +117,13 @@ class MainActivity : BaseHeaderActivity<MainViewModel>(),
             if (!success) message?.let { toast(it, Toast.LENGTH_LONG) }
         })
 
+        viewModel.getLogout.observe(this, Observer { response ->
+            val (success, message) = response
+            if (!success) {
+                message?.let { toast(it, Toast.LENGTH_LONG) }
+            }
+        })
+
         viewModel.getError.observe(this, Observer {
             dialogError(it)
         })
@@ -151,6 +158,7 @@ class MainActivity : BaseHeaderActivity<MainViewModel>(),
             R.id.option_contact_admin -> dialogContactAdmin()
             R.id.option_logout -> dialogLogout {
                 viewModel.deleteUser()
+                viewModel.callLogout()
             }
         }
         return super.onOptionsItemSelected(item)

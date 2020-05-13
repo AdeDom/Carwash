@@ -24,13 +24,13 @@ class SignUpViewModel(private val repository: BaseRepository) : BaseViewModel() 
     )
 
     fun callSignUp(
-        name: String,
+        fullName: String,
         username: String,
         password: String,
         identityCard: String,
         phone: String
     ) = launchCallApi(
-        request = { repository.callSignUp(name, username, password, identityCard, phone) },
+        request = { repository.callSignUp(fullName, username, password, identityCard, phone) },
         response = { signUp.value = it }
     )
 

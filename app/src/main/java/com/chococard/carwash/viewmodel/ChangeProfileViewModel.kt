@@ -26,6 +26,10 @@ class ChangeProfileViewModel(private val repository: BaseRepository) : BaseViewM
     val getChangeProfile: LiveData<BaseResponse>
         get() = changeProfile
 
+    private val logout = MutableLiveData<BaseResponse>()
+    val getLogout: LiveData<BaseResponse>
+        get() = logout
+
     fun callFetchUser() = launchCallApi(
         request = { repository.callFetchUser() },
         response = { response ->
@@ -46,6 +50,11 @@ class ChangeProfileViewModel(private val repository: BaseRepository) : BaseViewM
     fun callChangeProfile(name: String, identityCard: String, phone: String) = launchCallApi(
         request = { repository.callChangeProfile(name, identityCard, phone) },
         response = { changeProfile.value = it }
+    )
+
+    fun callLogout() = launchCallApi(
+        request = { repository.callLogout() },
+        response = { logout.value = it }
     )
 
 }

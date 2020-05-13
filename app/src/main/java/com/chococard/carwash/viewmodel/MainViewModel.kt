@@ -31,6 +31,10 @@ class MainViewModel(private val repository: BaseRepository) : BaseViewModel() {
     val getLogsActive: LiveData<BaseResponse>
         get() = logsActive
 
+    private val logout = MutableLiveData<BaseResponse>()
+    val getLogout: LiveData<BaseResponse>
+        get() = logout
+
     fun callFetchUser() = launchCallApi(
         request = { repository.callFetchUser() },
         response = { response ->
@@ -64,6 +68,11 @@ class MainViewModel(private val repository: BaseRepository) : BaseViewModel() {
     fun callSetLogsActive(status: Int, keys: String) = launchCallApi(
         request = { repository.callSetLogsActive(status, keys) },
         response = { logsActive.value = it }
+    )
+
+    fun callLogout() = launchCallApi(
+        request = { repository.callLogout() },
+        response = { logout.value = it }
     )
 
 }

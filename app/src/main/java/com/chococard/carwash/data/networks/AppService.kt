@@ -34,9 +34,9 @@ interface AppService {
     //register for entire to system car wash.
     @FormUrlEncoded
     @POST("v2/5e9eacad34000099b46eee54")
-//    @POST("api/account/Register/")
+//    @POST("api/account/register/")
     suspend fun callSignUp(
-        @Field(ApiConstant.FULL_NAME) name: String,
+        @Field(ApiConstant.FULL_NAME) fullName: String,
         @Field(ApiConstant.USERNAME) username: String,
         @Field(ApiConstant.PASSWORD) password: String,
         @Field(ApiConstant.ID_CARD_NUMBER) identityCard: String,
@@ -45,9 +45,14 @@ interface AppService {
     ): Response<BaseResponse>
 
     //login for want token from server.
-    @POST("v2/5e9ebaab2d00006900cb767f")
-//    @POST("api/account/Login/")
+    @POST("v2/5ebb9c0d36000026def7e7e2")
+//    @POST("api/account/login/")
     suspend fun callSignIn(@Body signIn: SignIn): Response<SignInResponse>
+
+    //logout
+    @POST("v2/5ebb9ce136000039def7e7ea")
+//    @POST("api/account/logout/")
+    suspend fun callLogout(): Response<BaseResponse>
 
     //change data profile name, id card, phone etc.
     @FormUrlEncoded

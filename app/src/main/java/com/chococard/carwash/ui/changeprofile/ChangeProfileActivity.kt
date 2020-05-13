@@ -71,6 +71,13 @@ class ChangeProfileActivity : BaseHeaderActivity<ChangeProfileViewModel>() {
             }
         })
 
+        viewModel.getLogout.observe(this, Observer { response ->
+            val (success, message) = response
+            if (!success) {
+                message?.let { toast(it, Toast.LENGTH_LONG) }
+            }
+        })
+
         viewModel.getError.observe(this, Observer {
             progress_bar.hide()
             dialogError(it)
@@ -126,6 +133,7 @@ class ChangeProfileActivity : BaseHeaderActivity<ChangeProfileViewModel>() {
             R.id.option_contact_admin -> dialogContactAdmin()
             R.id.option_logout -> dialogLogout {
                 viewModel.deleteUser()
+                viewModel.callLogout()
             }
         }
         return super.onOptionsItemSelected(item)

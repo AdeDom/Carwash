@@ -3,6 +3,7 @@ package com.chococard.carwash.ui.changepassword
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseHeaderActivity
@@ -39,11 +40,19 @@ class ChangePasswordActivity : BaseHeaderActivity<ChangePasswordViewModel>() {
             message?.let { toast(it) }
             if (success) {
                 writePref(CommonsConstant.TOKEN, "")
+                writePref(CommonsConstant.REFRESH_TOKEN, "")
                 viewModel.deleteUser()
                 Intent(baseContext, SignInActivity::class.java).apply {
                     finishAffinity()
                     startActivity(this)
                 }
+            }
+        })
+
+        viewModel.getLogout.observe(this, Observer { response ->
+            val (success, message) = response
+            if (!success) {
+                message?.let { toast(it, Toast.LENGTH_LONG) }
             }
         })
 
@@ -79,6 +88,7 @@ class ChangePasswordActivity : BaseHeaderActivity<ChangePasswordViewModel>() {
             R.id.option_contact_admin -> dialogContactAdmin()
             R.id.option_logout -> dialogLogout {
                 viewModel.deleteUser()
+                viewModel.callLogout()
             }
         }
         return super.onOptionsItemSelected(item)

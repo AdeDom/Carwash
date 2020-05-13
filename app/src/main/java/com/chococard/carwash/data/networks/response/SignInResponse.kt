@@ -6,5 +6,6 @@ import com.google.gson.annotations.SerializedName
 data class SignInResponse(
     @SerializedName(ApiConstant.SUCCESS) val success: Boolean = false,
     @SerializedName(ApiConstant.MESSAGE) val message: String? = null,
-    @SerializedName(ApiConstant.TOKEN) val token: String? = null
+    @SerializedName(ApiConstant.TOKEN) val token: String? = null,
+    @SerializedName(ApiConstant.REFRESH_TOKEN) val refreshToken: String? = null
 )
