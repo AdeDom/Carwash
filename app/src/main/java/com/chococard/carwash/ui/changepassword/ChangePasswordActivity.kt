@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseHeaderActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
-import com.chococard.carwash.ui.signin.SignInActivity
+import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.ChangePasswordViewModel
@@ -42,7 +42,7 @@ class ChangePasswordActivity : BaseHeaderActivity<ChangePasswordViewModel>() {
                 writePref(CommonsConstant.TOKEN, "")
                 writePref(CommonsConstant.REFRESH_TOKEN, "")
                 viewModel.deleteUser()
-                Intent(baseContext, SignInActivity::class.java).apply {
+                Intent(baseContext, SplashScreenActivity::class.java).apply {
                     finishAffinity()
                     startActivity(this)
                 }

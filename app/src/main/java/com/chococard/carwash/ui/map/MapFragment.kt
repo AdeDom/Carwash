@@ -38,7 +38,7 @@ class MapFragment : BaseFragment<MapViewModel>(R.layout.fragment_map), OnMapRead
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activity!!.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         mMapView = view.findViewById(R.id.map_view)
         mMapView?.onCreate(savedInstanceState)

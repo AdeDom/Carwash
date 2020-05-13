@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModel
 import com.chococard.carwash.R
-import com.chococard.carwash.ui.signin.SignInActivity
+import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.writePref
 
@@ -59,7 +59,7 @@ abstract class BaseActivity<VM : ViewModel> : AppCompatActivity() {
             writePref(CommonsConstant.TOKEN, "")
             writePref(CommonsConstant.REFRESH_TOKEN, "")
             logout.invoke()
-            Intent(baseContext, SignInActivity::class.java).apply {
+            Intent(baseContext, SplashScreenActivity::class.java).apply {
                 finishAffinity()
                 startActivity(this)
             }
