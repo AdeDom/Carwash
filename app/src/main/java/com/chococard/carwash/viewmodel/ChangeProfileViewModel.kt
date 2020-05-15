@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.UserResponse
-import com.chococard.carwash.repositories.BaseRepository
+import com.chococard.carwash.repositories.HeaderRepository
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 
-class ChangeProfileViewModel(private val repository: BaseRepository) : BaseViewModel() {
+class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseViewModel() {
 
     val getDbUser = repository.getUser()
 

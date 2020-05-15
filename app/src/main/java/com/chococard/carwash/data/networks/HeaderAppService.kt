@@ -1,21 +1,16 @@
 package com.chococard.carwash.data.networks
 
-import com.chococard.carwash.data.models.SignIn
 import com.chococard.carwash.data.networks.request.JobRequest
 import com.chococard.carwash.data.networks.response.*
-import com.chococard.carwash.util.FlagConstant
 import okhttp3.MultipartBody
-import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 //todo re-check method get or post
 //TODO User, History, Job keep to room database
-interface AppService {
+interface HeaderAppService {
 
     //TODO concern header & no header
     //get user info from data base keep to shared preferences.
@@ -30,24 +25,6 @@ interface AppService {
         @Part file: MultipartBody.Part,
         @Part(ApiConstant.DESCRIPTION) description: RequestBody
     ): Response<ResponseBody>
-
-    //register for entire to system car wash.
-    @FormUrlEncoded
-    @POST("v2/5e9eacad34000099b46eee54")
-//    @POST("api/account/register/")
-    suspend fun callSignUp(
-        @Field(ApiConstant.FULL_NAME) fullName: String,
-        @Field(ApiConstant.USERNAME) username: String,
-        @Field(ApiConstant.PASSWORD) password: String,
-        @Field(ApiConstant.ID_CARD_NUMBER) identityCard: String,
-        @Field(ApiConstant.PHONE) phone: String,
-        @Field(ApiConstant.ROLE) role: Int = FlagConstant.EMPLOYEE
-    ): Response<BaseResponse>
-
-    //login for want token from server.
-    @POST("v2/5ebb9c0d36000026def7e7e2")
-//    @POST("api/account/login/")
-    suspend fun callSignIn(@Body signIn: SignIn): Response<SignInResponse>
 
     //logout
     @POST("v2/5ebb9ce136000039def7e7ea")
@@ -130,33 +107,9 @@ interface AppService {
     ): Response<BaseResponse>
 
     companion object {
-        const val BASE_URL = "http://www.mocky.io/"
-//        const val BASE_URL = "http://192.168.1.15/upload/"
-//        const val BASE_URL = "https://sncarwash.azurewebsites.net/"
-
-        operator fun invoke(networkConnectionInterceptor: NetworkConnectionInterceptor): AppService {
-            val okHttpClient = OkHttpClient.Builder()
-                .addInterceptor(networkConnectionInterceptor)
-                .build()
-
-            return Retrofit.Builder().apply {
-                baseUrl(BASE_URL)
-                client(okHttpClient)
-                addConverterFactory(GsonConverterFactory.create())
-            }.build().create(AppService::class.java)
-        }
-
-        operator fun invoke(networkHeaderInterceptor: NetworkHeaderInterceptor): AppService {
-            val okHttpClient = OkHttpClient.Builder()
-                .addInterceptor(networkHeaderInterceptor)
-                .build()
-
-            return Retrofit.Builder().apply {
-                baseUrl(BASE_URL)
-                client(okHttpClient)
-                addConverterFactory(GsonConverterFactory.create())
-            }.build().create(AppService::class.java)
-        }
+        operator fun invoke(networkHeaderInterceptor: NetworkHeaderInterceptor) =
+            RetrofitClient.instant(networkHeaderInterceptor)
+                .create(HeaderAppService::class.java)
     }
 
 }

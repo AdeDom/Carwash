@@ -7,16 +7,17 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.ui.base.BaseHeaderActivity
+import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
 import com.chococard.carwash.util.JobFlag
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.PaymentViewModel
 import kotlinx.android.synthetic.main.activity_payment.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PaymentActivity : BaseHeaderActivity<PaymentViewModel>(), FlagPaymentListener {
+class PaymentActivity : BaseActivity(), FlagPaymentListener {
 
-    override fun viewModel() = PaymentViewModel::class.java
+    val viewModel: PaymentViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

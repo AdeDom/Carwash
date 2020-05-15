@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.models.SignIn
 import com.chococard.carwash.data.networks.response.SignInResponse
-import com.chococard.carwash.repositories.BaseRepository
+import com.chococard.carwash.repositories.ConnectionRepository
 
-class SignInViewModel(private val repository: BaseRepository) : BaseViewModel() {
+class SignInViewModel(private val repository: ConnectionRepository) : BaseViewModel() {
 
     private val signInResponse = MutableLiveData<SignInResponse>()
     val getSignIn: LiveData<SignInResponse>

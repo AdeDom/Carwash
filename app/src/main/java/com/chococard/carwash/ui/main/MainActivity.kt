@@ -12,7 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.ui.base.BaseHeaderActivity
+import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
 import com.chococard.carwash.ui.history.HistoryFragment
@@ -26,15 +26,16 @@ import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-class MainActivity : BaseHeaderActivity<MainViewModel>(),
+class MainActivity : BaseActivity(),
     BottomNavigationView.OnNavigationItemSelectedListener,
     FlagJobListener {
 
-    private var mBroadcastReceiver: BroadcastReceiver? = null
+    val viewModel: MainViewModel by viewModel()
 
-    override fun viewModel() = MainViewModel::class.java
+    private var mBroadcastReceiver: BroadcastReceiver? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

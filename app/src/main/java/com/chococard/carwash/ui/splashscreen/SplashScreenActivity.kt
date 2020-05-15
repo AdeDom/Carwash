@@ -8,19 +8,16 @@ import android.os.Bundle
 import androidx.core.content.ContextCompat
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.auth.AuthActivity
-import com.chococard.carwash.ui.base.BaseNormalActivity
+import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.readPref
-import com.chococard.carwash.viewmodel.SplashScreenViewModel
 
-class SplashScreenActivity : BaseNormalActivity<SplashScreenViewModel>() {
+class SplashScreenActivity : BaseActivity() {
 
     private val GRANTED = PackageManager.PERMISSION_GRANTED
     private val ACCESS_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
     private val ACCESS_COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION
-
-    override fun viewModel() = SplashScreenViewModel::class.java
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

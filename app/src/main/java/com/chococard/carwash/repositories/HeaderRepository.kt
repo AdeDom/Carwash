@@ -3,14 +3,13 @@ package com.chococard.carwash.repositories
 import com.chococard.carwash.data.db.AppDatabase
 import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.db.entities.User
-import com.chococard.carwash.data.models.SignIn
-import com.chococard.carwash.data.networks.AppService
+import com.chococard.carwash.data.networks.HeaderAppService
 import com.chococard.carwash.data.networks.SafeApiRequest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
-class BaseRepository(
-    private val api: AppService,
+class HeaderRepository(
+    private val api: HeaderAppService,
     private val db: AppDatabase
 ) : SafeApiRequest() {
 
@@ -22,16 +21,6 @@ class BaseRepository(
 
     suspend fun callUploadImageFile(file: MultipartBody.Part, description: RequestBody) =
         apiRequest { api.callUploadImageFile(file, description) }
-
-    suspend fun callSignUp(
-        fullName: String,
-        username: String,
-        password: String,
-        identityCard: String,
-        phone: String
-    ) = apiRequest { api.callSignUp(fullName, username, password, identityCard, phone) }
-
-    suspend fun callSignIn(signIn: SignIn) = apiRequest { api.callSignIn(signIn) }
 
     suspend fun callLogout() = apiRequest { api.callLogout() }
 

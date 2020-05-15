@@ -50,6 +50,7 @@ fun Context.readPref(key: String) =
     getSharedPreferences(CommonsConstant.PREF_FILE, Context.MODE_PRIVATE)
         .getString(key, "") ?: ""
 
+//todo concern user info
 fun Context.writeJobFlag(flag: JobFlag) =
     getSharedPreferences(CommonsConstant.PREF_FILE, Context.MODE_PRIVATE).edit().apply {
         putString(CommonsConstant.JOB_FLAG, flag.toString())

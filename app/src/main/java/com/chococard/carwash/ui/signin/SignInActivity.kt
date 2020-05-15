@@ -6,17 +6,18 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.SignIn
-import com.chococard.carwash.ui.base.BaseNormalActivity
+import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.ui.signup.SignUpActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.SignInViewModel
 import kotlinx.android.synthetic.main.activity_sign_in.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SignInActivity : BaseNormalActivity<SignInViewModel>() {
+class SignInActivity : BaseActivity() {
 
-    override fun viewModel() = SignInViewModel::class.java
+    val viewModel: SignInViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

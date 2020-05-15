@@ -11,10 +11,11 @@ import com.chococard.carwash.util.extension.show
 import com.chococard.carwash.util.extension.toast
 import com.chococard.carwash.viewmodel.HistoryViewModel
 import kotlinx.android.synthetic.main.fragment_history.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HistoryFragment : BaseFragment<HistoryViewModel>(R.layout.fragment_history) {
+class HistoryFragment : BaseFragment(R.layout.fragment_history) {
 
-    override fun viewModel() = HistoryViewModel::class.java
+    val viewModel: HistoryViewModel by viewModel()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

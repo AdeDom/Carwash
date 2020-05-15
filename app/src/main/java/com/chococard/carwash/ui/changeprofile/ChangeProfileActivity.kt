@@ -7,16 +7,17 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.ui.base.BaseHeaderActivity
+import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.ChangeProfileViewModel
 import kotlinx.android.synthetic.main.activity_change_profile.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ChangeProfileActivity : BaseHeaderActivity<ChangeProfileViewModel>() {
+class ChangeProfileActivity : BaseActivity() {
 
-    override fun viewModel() = ChangeProfileViewModel::class.java
+    val viewModel: ChangeProfileViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

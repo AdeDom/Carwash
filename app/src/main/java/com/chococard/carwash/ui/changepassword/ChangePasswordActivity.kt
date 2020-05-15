@@ -6,24 +6,24 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.ui.base.BaseHeaderActivity
+import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
 import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.ChangePasswordViewModel
 import kotlinx.android.synthetic.main.activity_change_password.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ChangePasswordActivity : BaseHeaderActivity<ChangePasswordViewModel>() {
+class ChangePasswordActivity : BaseActivity() {
 
-    override fun viewModel() = ChangePasswordViewModel::class.java
+    val viewModel: ChangePasswordViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_password)
 
         init()
-
     }
 
     private fun init() {

@@ -21,19 +21,20 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MapFragment : BaseFragment<MapViewModel>(R.layout.fragment_map), OnMapReadyCallback,
+class MapFragment : BaseFragment(R.layout.fragment_map), OnMapReadyCallback,
     GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener,
     LocationListener {
+
+    val viewModel: MapViewModel by viewModel()
 
     private lateinit var mGoogleApiClient: GoogleApiClient
     private lateinit var mLocationRequest: LocationRequest
     private var mGoogleMap: GoogleMap? = null
     private var mMapView: MapView? = null
     private var mIsFlagMoveCamera: Boolean = true
-
-    override fun viewModel() = MapViewModel::class.java
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

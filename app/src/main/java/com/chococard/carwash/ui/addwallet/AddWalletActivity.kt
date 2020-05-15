@@ -4,15 +4,16 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.ui.base.BaseHeaderActivity
+import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.toast
 import com.chococard.carwash.viewmodel.AddWalletViewModel
 import kotlinx.android.synthetic.main.activity_add_wallet.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AddWalletActivity : BaseHeaderActivity<AddWalletViewModel>() {
+class AddWalletActivity : BaseActivity() {
 
-    override fun viewModel() = AddWalletViewModel::class.java
+    val viewModel: AddWalletViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +28,7 @@ class AddWalletActivity : BaseHeaderActivity<AddWalletViewModel>() {
         // set widgets
         viewModel.getDbUser.observe(this, Observer { user ->
             if (user == null) return@Observer
-            tv_full_name.text = user?.fullName
+            tv_full_name.text = user.fullName
         })
 
         //set event

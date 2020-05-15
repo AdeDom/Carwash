@@ -7,17 +7,12 @@ import android.view.Menu
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.ViewModel
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.writePref
 
-abstract class BaseActivity<VM : ViewModel> : AppCompatActivity() {
-
-    protected lateinit var viewModel: VM
-
-    abstract fun viewModel(): Class<VM>
+abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_option, menu)

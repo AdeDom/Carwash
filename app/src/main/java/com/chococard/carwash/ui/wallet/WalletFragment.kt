@@ -11,10 +11,11 @@ import com.chococard.carwash.util.extension.show
 import com.chococard.carwash.util.extension.toast
 import com.chococard.carwash.viewmodel.WalletViewModel
 import kotlinx.android.synthetic.main.fragment_wallet.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class WalletFragment : BaseFragment<WalletViewModel>(R.layout.fragment_wallet) {
+class WalletFragment : BaseFragment(R.layout.fragment_wallet) {
 
-    override fun viewModel() = WalletViewModel::class.java
+    val viewModel: WalletViewModel by viewModel()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

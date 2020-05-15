@@ -3,12 +3,12 @@ package com.chococard.carwash.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.response.BaseResponse
-import com.chococard.carwash.repositories.BaseRepository
+import com.chococard.carwash.repositories.ConnectionRepository
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 
-class SignUpViewModel(private val repository: BaseRepository) : BaseViewModel() {
+class SignUpViewModel(private val repository: ConnectionRepository) : BaseViewModel() {
 
     private val upload = MutableLiveData<ResponseBody>()
     val getUpload: LiveData<ResponseBody>

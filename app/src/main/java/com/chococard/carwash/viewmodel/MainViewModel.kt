@@ -6,10 +6,10 @@ import com.chococard.carwash.data.networks.request.JobRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.networks.response.UserResponse
-import com.chococard.carwash.repositories.BaseRepository
+import com.chococard.carwash.repositories.HeaderRepository
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val repository: BaseRepository) : BaseViewModel() {
+class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() {
 
     private val user = MutableLiveData<UserResponse>()
     val getUser: LiveData<UserResponse>
