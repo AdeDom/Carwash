@@ -1,7 +1,6 @@
 package com.chococard.carwash.data.networks
 
 import android.content.Context
-import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -9,6 +8,7 @@ import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.NoInternetException
 import com.chococard.carwash.util.extension.readPref
+import com.chococard.carwash.util.extension.startActivity
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -28,9 +28,7 @@ class NetworkHeaderInterceptor(private val context: Context) : Interceptor {
         val response = chain.proceed(request)
 
         if (response.code() == 401 || response.code() == 403) {
-            Intent(context, SplashScreenActivity::class.java).also {
-                context.startActivity(it)
-            }
+            context.startActivity<SplashScreenActivity>()
         }
 
         return response

@@ -126,8 +126,7 @@ class ChangeProfileActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.option_change_password -> {
-                Intent(baseContext, ChangePasswordActivity::class.java).apply {
-                    startActivity(this)
+                startActivity<ChangePasswordActivity> {
                     finish()
                 }
             }

@@ -2,6 +2,7 @@ package com.chococard.carwash.util.extension
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
@@ -27,6 +28,20 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
+
+inline fun <reified T : Activity> Context.startActivity(noinline intent: (() -> Unit)? = null) {
+    Intent(this, T::class.java).apply {
+        intent?.invoke()
+        startActivity(this)
+    }
+}
+
+fun Context.startActivity(action: String, url: String) {
+    Intent(action).apply {
+        data = Uri.parse(url)
+        startActivity(this)
+    }
+}
 
 fun Context?.toast(message: String, duration: Int = Toast.LENGTH_SHORT) =
     Toast.makeText(this, message, duration).show()

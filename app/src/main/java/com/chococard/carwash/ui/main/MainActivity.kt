@@ -42,9 +42,7 @@ class MainActivity : BaseActivity(),
         setContentView(R.layout.activity_main)
 
         if (readJobFlag() == JobFlag.JOB_FLAG_ON.toString()) {
-            Intent(baseContext, PaymentActivity::class.java).apply {
-                startActivity(this)
-            }
+            startActivity<PaymentActivity>()
         }
 
         setToolbar(toolbar)
@@ -102,9 +100,7 @@ class MainActivity : BaseActivity(),
             if (success) {
                 if (jobFlag) {
                     writeJobFlag(JobFlag.JOB_FLAG_ON)
-                    Intent(baseContext, PaymentActivity::class.java).apply {
-                        startActivity(this)
-                    }
+                    startActivity<PaymentActivity>()
                 } else {
                     writeJobFlag(JobFlag.JOB_FLAG_OFF)
                 }
@@ -147,14 +143,10 @@ class MainActivity : BaseActivity(),
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.option_change_profile -> {
-                Intent(baseContext, ChangeProfileActivity::class.java).apply {
-                    startActivity(this)
-                }
+                startActivity<ChangeProfileActivity>()
             }
             R.id.option_change_password -> {
-                Intent(baseContext, ChangePasswordActivity::class.java).apply {
-                    startActivity(this)
-                }
+                startActivity<ChangePasswordActivity>()
             }
             R.id.option_contact_admin -> dialogContactAdmin()
             R.id.option_logout -> dialogLogout {

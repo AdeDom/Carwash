@@ -1,7 +1,6 @@
 package com.chococard.carwash.ui.splashscreen
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -12,6 +11,7 @@ import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.readPref
+import com.chococard.carwash.util.extension.startActivity
 
 class SplashScreenActivity : BaseActivity() {
 
@@ -68,13 +68,11 @@ class SplashScreenActivity : BaseActivity() {
     private fun authByCheckToken() {
         val token = readPref(CommonsConstant.TOKEN)
         if (token.isEmpty()) {
-            Intent(baseContext, AuthActivity::class.java).also {
-                startActivity(it)
+            startActivity<AuthActivity> {
                 finish()
             }
         } else {
-            Intent(baseContext, MainActivity::class.java).apply {
-                startActivity(this)
+            startActivity<MainActivity> {
                 finish()
             }
         }

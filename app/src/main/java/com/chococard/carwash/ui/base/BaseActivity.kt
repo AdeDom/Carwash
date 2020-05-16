@@ -2,7 +2,6 @@ package com.chococard.carwash.ui.base
 
 import android.content.Intent
 import android.graphics.PorterDuff
-import android.net.Uri
 import android.view.Menu
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +9,7 @@ import androidx.appcompat.widget.Toolbar
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
 import com.chococard.carwash.util.CommonsConstant
+import com.chococard.carwash.util.extension.startActivity
 import com.chococard.carwash.util.extension.writePref
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -35,10 +35,7 @@ abstract class BaseActivity : AppCompatActivity() {
             dialog.dismiss()
         }
         setPositiveButton(android.R.string.ok) { dialog, which ->
-            Intent(Intent.ACTION_DIAL).apply {
-                data = Uri.parse(getString(R.string.contact_admin_tel))
-                startActivity(this)
-            }
+            startActivity(Intent.ACTION_DIAL, getString(R.string.contact_admin_tel))
         }
         setCancelable(false)
         show()
@@ -54,9 +51,8 @@ abstract class BaseActivity : AppCompatActivity() {
             writePref(CommonsConstant.TOKEN, "")
             writePref(CommonsConstant.REFRESH_TOKEN, "")
             logout.invoke()
-            Intent(baseContext, SplashScreenActivity::class.java).apply {
+            startActivity<SplashScreenActivity> {
                 finishAffinity()
-                startActivity(this)
             }
         }
         setCancelable(false)

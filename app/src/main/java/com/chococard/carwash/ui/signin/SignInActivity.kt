@@ -1,6 +1,5 @@
 package com.chococard.carwash.ui.signin
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -37,8 +36,7 @@ class SignInActivity : BaseActivity() {
         bt_sign_in.setOnClickListener { signIn() }
 
         tv_sign_up.setOnClickListener {
-            Intent(baseContext, SignUpActivity::class.java).also {
-                startActivity(it)
+            startActivity<SignUpActivity> {
                 finish()
             }
         }
@@ -51,8 +49,7 @@ class SignInActivity : BaseActivity() {
                 token?.let { writePref(CommonsConstant.TOKEN, it) }
                 refreshToken?.let { writePref(CommonsConstant.REFRESH_TOKEN, it) }
                 writePref(CommonsConstant.USERNAME, et_username.getContents())
-                Intent(baseContext, MainActivity::class.java).apply {
-                    startActivity(this)
+                startActivity<MainActivity> {
                     finishAffinity()
                 }
             } else {

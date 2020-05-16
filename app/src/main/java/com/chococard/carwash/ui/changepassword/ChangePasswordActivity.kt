@@ -1,6 +1,5 @@
 package com.chococard.carwash.ui.changepassword
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
@@ -42,9 +41,8 @@ class ChangePasswordActivity : BaseActivity() {
                 writePref(CommonsConstant.TOKEN, "")
                 writePref(CommonsConstant.REFRESH_TOKEN, "")
                 viewModel.deleteUser()
-                Intent(baseContext, SplashScreenActivity::class.java).apply {
+                startActivity<SplashScreenActivity> {
                     finishAffinity()
-                    startActivity(this)
                 }
             }
         })
@@ -80,8 +78,7 @@ class ChangePasswordActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.option_change_profile -> {
-                Intent(baseContext, ChangeProfileActivity::class.java).apply {
-                    startActivity(this)
+                startActivity<ChangeProfileActivity> {
                     finish()
                 }
             }

@@ -35,8 +35,7 @@ class SignUpActivity : BaseActivity() {
         bt_sign_up.setOnClickListener { signUp() }
 
         tv_sign_in.setOnClickListener {
-            Intent(baseContext, SignInActivity::class.java).also {
-                startActivity(it)
+            startActivity<SignInActivity> {
                 finish()
             }
         }
@@ -47,8 +46,7 @@ class SignUpActivity : BaseActivity() {
             progress_bar.hide()
             message?.let { toast(it) }
             if (success) {
-                Intent(baseContext, SignInActivity::class.java).also {
-                    startActivity(it)
+                startActivity<SignInActivity> {
                     finish()
                 }
             }

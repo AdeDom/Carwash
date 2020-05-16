@@ -1,7 +1,6 @@
 package com.chococard.carwash.ui.payment
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
@@ -66,25 +65,20 @@ class PaymentActivity : BaseActivity(), FlagPaymentListener {
         beginLong: Double?,
         endLat: Double?,
         endLong: Double?
-    ) = Intent(Intent.ACTION_VIEW).apply {
-        data = Uri.parse(
-            getString(
-                R.string.google_maps_navigation,
-                beginLat,
-                beginLong,
-                endLat,
-                endLong
-            )
+    ) = startActivity(
+        Intent.ACTION_VIEW, getString(
+            R.string.google_maps_navigation,
+            beginLat,
+            beginLong,
+            endLat,
+            endLong
         )
-        startActivity(this)
-    }
+    )
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.option_change_profile -> {
-                Intent(baseContext, ChangeProfileActivity::class.java).apply {
-                    startActivity(this)
-                }
+                startActivity<ChangeProfileActivity>()
             }
             R.id.option_change_password -> toast(getString(R.string.not_available))
             R.id.option_contact_admin -> dialogContactAdmin()
