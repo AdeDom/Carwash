@@ -26,7 +26,7 @@ class PaymentActivity : BaseActivity(), FlagPaymentListener {
 
         viewModel.getDbJob.observe(this, Observer { job ->
             if (job == null) return@Observer
-            val (_, fullName, image, _, _, service, price, beginLat, beginLong, endLat, endLong, _, _, dateTime) = job
+            val (fullName, image, _, _, service, price, beginLat, beginLong, endLat, endLong, _, _, dateTime) = job
             tv_date_time.text = dateTime
             tv_full_name.text = fullName
             tv_service.text = service

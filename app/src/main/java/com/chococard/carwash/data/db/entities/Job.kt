@@ -11,7 +11,6 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = DatabaseConstant.JOB)
 data class Job(
-    @SerializedName(ApiConstant.USER_ID) @ColumnInfo(name = DatabaseConstant.USER_ID) val userId: String? = null,
     @SerializedName(ApiConstant.FULL_NAME) @ColumnInfo(name = DatabaseConstant.FULL_NAME) val fullName: String? = null,
     @SerializedName(ApiConstant.IMAGE) @ColumnInfo(name = DatabaseConstant.IMAGE) val image: String? = null,
     @PrimaryKey(autoGenerate = false)
@@ -30,8 +29,7 @@ data class Job(
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
-        parcel.readString(),
-        parcel.readString() as String,
+        parcel.readString() ?: "",
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -45,7 +43,6 @@ data class Job(
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(userId)
         parcel.writeString(fullName)
         parcel.writeString(image)
         parcel.writeString(jobId)

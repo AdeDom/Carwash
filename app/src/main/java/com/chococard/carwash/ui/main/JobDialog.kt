@@ -30,7 +30,7 @@ class JobDialog : BaseDialog(R.layout.dialog_job) {
         val job = arguments?.getParcelable(CommonsConstant.JOB) as Job?
 
         // set widgets
-        val (_, fullName, image, _, _, service, _, _, _, endLat, endLong, _, _, _) = job as Job
+        val (fullName, image, _, _, service, _, _, _, endLat, endLong, _, _, _) = job as Job
         tv_full_name.text = fullName
         tv_service.text = service
         if (endLat != null && endLong != null)
