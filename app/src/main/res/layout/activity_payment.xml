@@ -40,8 +40,7 @@
                 style="@style/ImageViewPhoto"
                 android:layout_columnSpan="2"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/base_pow_four"
-                android:background="@drawable/shape_img" />
+                android:layout_marginBottom="@dimen/base_pow_four" />
 
             <TextView
                 style="@style/TextViewMediumBlack"

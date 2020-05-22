@@ -9,8 +9,7 @@
         android:id="@+id/iv_photo"
         style="@style/ImageViewPhotoSub"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/base_pow_four"
-        android:background="@drawable/shape_img" />
+        android:layout_marginTop="@dimen/base_pow_four" />
 
     <RelativeLayout
         android:layout_width="@dimen/base_fifty"

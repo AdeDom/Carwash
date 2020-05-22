@@ -31,8 +31,7 @@
 
             <ImageView
                 android:id="@+id/iv_photo"
-                style="@style/ImageViewPhoto"
-                android:background="@drawable/shape_img" />
+                style="@style/ImageViewPhoto" />
 
             <ImageView
                 android:id="@+id/iv_camera"

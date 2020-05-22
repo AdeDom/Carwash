@@ -84,8 +84,7 @@
         <ImageView
             android:id="@+id/iv_photo"
             style="@style/ImageViewPhotoSub"
-            android:layout_alignParentEnd="true"
-            android:background="@drawable/shape_img" />
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 
