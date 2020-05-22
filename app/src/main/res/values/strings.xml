@@ -67,5 +67,10 @@
     <string name="filter_date">Filter date</string>
     <string name="enter_phone">Please enter phone number</string>
     <string name="request_otp">Request OTP</string>
+    <string name="please_enter_otp_from_message">Please enter OTP from message</string>
+    <string name="otp">OTP</string>
+    <string name="or">or</string>
+    <string name="verify_phone">Verify Phone</string>
+    <string name="re_send">Re-send</string>
 
 </resources>
