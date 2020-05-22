@@ -4,10 +4,6 @@
 
     <solid android:color="@color/colorSolid" />
 
-    <stroke
-        android:width="@dimen/base_one"
-        android:color="@color/colorStroke" />
-
     <corners android:radius="@dimen/base_pow_three" />
 
     <padding

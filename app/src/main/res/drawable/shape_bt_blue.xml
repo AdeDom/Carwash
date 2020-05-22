@@ -6,8 +6,4 @@
 
     <corners android:radius="@dimen/base_pow_three" />
 
-    <stroke
-        android:width="@dimen/base_one"
-        android:color="@android:color/black" />
-
 </shape>
