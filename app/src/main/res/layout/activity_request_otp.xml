@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/RelativeLayout">
+
+    <RelativeLayout
+        android:id="@+id/layout_toolbar"
+        style="@style/MatchWrap">
+
+        <androidx.appcompat.widget.Toolbar
+            style="@style/MatchWrap"
+            android:background="@color/colorPrimary" />
+
+        <ImageView
+            android:id="@+id/iv_arrow_back"
+            style="@style/ImageViewArrowBack" />
+
+        <ImageView
+            style="@style/ImageViewToolbar"
+            android:src="@drawable/ic_request_otp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        style="@style/MatchWrap"
+        android:layout_below="@+id/layout_toolbar"
+        android:layout_marginTop="@dimen/base_pow_four"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextViewMediumGray"
+            android:text="@string/enter_phone" />
+
+        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+            <EditText
+                android:id="@+id/et_phone"
+                style="@style/MatchMatch"
+                android:background="@drawable/shape_et"
+                android:drawableStart="@drawable/ic_phone_gray"
+                android:hint="@string/phone" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        style="@style/WrapWrap"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_phone_sms" />
+
+    <Button
+        android:id="@+id/bt_request_otp"
+        style="@style/ButtonBlueLong"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/base_pow_five"
+        android:background="@drawable/shape_bt_blue"
+        android:text="@string/request_otp" />
+
+</RelativeLayout>

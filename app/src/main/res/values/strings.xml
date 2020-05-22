@@ -65,5 +65,7 @@
     <string name="date_end">End</string>
     <string name="date">Date</string>
     <string name="filter_date">Filter date</string>
+    <string name="enter_phone">Please enter phone number</string>
+    <string name="request_otp">Request OTP</string>
 
 </resources>
