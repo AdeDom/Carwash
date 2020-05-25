@@ -50,7 +50,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/base_pow_five"
-        android:background="@drawable/shape_bt_blue"
         android:text="@string/request_otp" />
 
 </RelativeLayout>

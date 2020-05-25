@@ -48,7 +48,6 @@
             android:layout_width="@dimen/bt_long_width"
             android:layout_marginTop="@dimen/base_pow_four"
             android:layout_marginBottom="@dimen/base_pow_three"
-            android:background="@drawable/shape_bt_white"
             android:text="@string/re_send" />
 
     </LinearLayout>
@@ -59,7 +58,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/base_pow_five"
-        android:background="@drawable/shape_bt_blue"
         android:text="@string/verify_phone" />
 
 </RelativeLayout>

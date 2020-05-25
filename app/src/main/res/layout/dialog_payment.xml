@@ -41,14 +41,12 @@
         <Button
             android:id="@+id/bt_report"
             style="@style/ButtonWhiteShort"
-            android:background="@drawable/shape_bt_white"
             android:text="@string/report" />
 
         <Button
             android:id="@+id/bt_confirm"
             style="@style/ButtonBlueShort"
             android:layout_marginStart="@dimen/base_pow_three"
-            android:background="@drawable/shape_bt_blue"
             android:text="@string/confirm" />
 
     </LinearLayout>

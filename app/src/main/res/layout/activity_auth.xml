@@ -19,7 +19,6 @@
         <Button
             android:id="@+id/bt_sign_up"
             style="@style/ButtonBlueShort"
-            android:background="@drawable/shape_bt_blue"
             android:text="@string/sign_up" />
 
         <Button

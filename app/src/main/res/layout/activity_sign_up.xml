@@ -39,8 +39,7 @@
                     android:id="@+id/iv_camera"
                     style="@style/ImageViewCamera"
                     android:layout_alignEnd="@+id/iv_photo"
-                    android:layout_alignBottom="@+id/iv_photo"
-                    android:background="@drawable/shape_camera" />
+                    android:layout_alignBottom="@+id/iv_photo" />
 
             </RelativeLayout>
 
@@ -100,7 +99,6 @@
                 android:layout_marginTop="@dimen/base_pow_five"
                 android:layout_marginEnd="@dimen/base_pow_three"
                 android:layout_marginBottom="@dimen/base_pow_three"
-                android:background="@drawable/shape_bt_blue"
                 android:text="@string/sign_up" />
 
         </LinearLayout>

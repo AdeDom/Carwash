@@ -61,7 +61,6 @@
             android:id="@+id/bt_sign_in"
             style="@style/ButtonBlueLong"
             android:layout_marginTop="@dimen/base_pow_four"
-            android:background="@drawable/shape_bt_blue"
             android:text="@string/sign_in" />
 
     </LinearLayout>

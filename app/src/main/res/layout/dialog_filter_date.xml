@@ -61,7 +61,6 @@
             android:layout_width="match_parent"
             android:layout_columnSpan="3"
             android:layout_marginTop="@dimen/base_pow_five"
-            android:background="@drawable/shape_bt_blue"
             android:text="@string/filter_date" />
 
     </GridLayout>

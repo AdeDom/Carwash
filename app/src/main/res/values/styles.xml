@@ -77,18 +77,17 @@
     </style>
 
     <style name="ButtonBlueShort">
-        <item name="textAllCaps">false</item>
+        <item name="android:textAllCaps">false</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_width">@dimen/bt_short_width</item>
         <item name="android:layout_height">@dimen/bt_height</item>
-        <item name="background">@drawable/shape_bt_blue</item>
+        <item name="android:background">@drawable/shape_bt_blue</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:layout_gravity">center_horizontal</item>
-        <item name="android:elevation">@dimen/base_pow_two</item>
     </style>
 
     <style name="ButtonWhiteShort" parent="ButtonBlueShort">
-        <item name="background">@drawable/shape_bt_white</item>
+        <item name="android:background">@drawable/shape_bt_white</item>
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 
@@ -116,7 +115,7 @@
     <style name="ImageViewCamera">
         <item name="android:layout_width">@dimen/ic_camera</item>
         <item name="android:layout_height">@dimen/ic_camera</item>
-        <item name="background">@drawable/shape_camera</item>
+        <item name="android:background">@drawable/shape_camera</item>
         <item name="android:src">@drawable/ic_camera_white</item>
     </style>
 

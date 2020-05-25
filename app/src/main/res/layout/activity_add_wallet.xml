@@ -57,7 +57,6 @@
             style="@style/ButtonWhiteShort"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/base_pow_three"
-            android:background="@drawable/shape_bt_white"
             android:text="@string/upload_image" />
 
     </LinearLayout>
@@ -67,14 +66,12 @@
         <Button
             android:id="@+id/bt_cancel"
             style="@style/ButtonWhiteShort"
-            android:background="@drawable/shape_bt_white"
             android:text="@string/cancel" />
 
         <Button
             android:id="@+id/bt_confirm"
             style="@style/ButtonBlueShort"
             android:layout_marginStart="@dimen/base_pow_three"
-            android:background="@drawable/shape_bt_blue"
             android:text="@string/confirm" />
 
     </LinearLayout>
