@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ui.requestotp.RequestOtpActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.payment.PaymentActivity"
             android:screenOrientation="portrait" />
         <activity

@@ -101,7 +101,6 @@
                 android:layout_marginEnd="@dimen/base_pow_three"
                 android:layout_marginBottom="@dimen/base_pow_three"
                 android:background="@drawable/shape_bt_blue"
-                android:elevation="@dimen/base_pow_two"
                 android:text="@string/sign_up" />
 
         </LinearLayout>
