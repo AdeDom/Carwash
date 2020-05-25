@@ -31,16 +31,11 @@
             style="@style/TextViewMediumGray"
             android:text="@string/please_enter_otp_from_message" />
 
-        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
-
-            <EditText
-                android:id="@+id/et_otp"
-                style="@style/MatchMatch"
-                android:background="@drawable/shape_et"
-                android:drawableStart="@drawable/ic_mail"
-                android:hint="@string/otp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+        <EditText
+            android:id="@+id/et_otp"
+            style="@style/EditText"
+            android:drawableStart="@drawable/ic_mail"
+            android:hint="@string/otp" />
 
         <TextView
             style="@style/TextViewMediumGray"
@@ -52,6 +47,7 @@
             style="@style/ButtonWhiteShort"
             android:layout_width="@dimen/bt_long_width"
             android:layout_marginTop="@dimen/base_pow_four"
+            android:layout_marginBottom="@dimen/base_pow_three"
             android:background="@drawable/shape_bt_white"
             android:text="@string/re_send" />
 
