@@ -25,7 +25,7 @@
         <Button
             android:id="@+id/bt_sign_in"
             android:layout_width="@dimen/bt_short_width"
-            android:layout_height="@dimen/bt_short_height"
+            android:layout_height="@dimen/bt_height"
             android:layout_marginStart="@dimen/base_pow_three"
             android:background="@drawable/shape_bt_transparent"
             android:text="@string/sign_in"

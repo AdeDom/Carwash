@@ -68,13 +68,23 @@
         <item name="android:layout_marginTop">@dimen/base_pow_two</item>
     </style>
 
+    <style name="EditText">
+        <item name="android:layout_width">@dimen/et_width</item>
+        <item name="android:layout_height">@dimen/et_height</item>
+        <item name="android:layout_margin">@dimen/base_pow_three</item>
+        <item name="android:background">@drawable/shape_et</item>
+        <item name="android:elevation">@dimen/base_pow_two</item>
+    </style>
+
     <style name="ButtonBlueShort">
         <item name="textAllCaps">false</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_width">@dimen/bt_short_width</item>
-        <item name="android:layout_height">@dimen/bt_short_height</item>
+        <item name="android:layout_height">@dimen/bt_height</item>
         <item name="background">@drawable/shape_bt_blue</item>
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:elevation">@dimen/base_pow_two</item>
     </style>
 
     <style name="ButtonWhiteShort" parent="ButtonBlueShort">
