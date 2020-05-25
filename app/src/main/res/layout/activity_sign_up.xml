@@ -1,152 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/RelativeLayout">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MatchMatch"
+    android:fillViewport="true">
 
-    <RelativeLayout style="@style/MatchWrap">
+    <RelativeLayout
+        style="@style/RelativeLayout"
+        android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
-            style="@style/MatchWrap"
-            android:background="@color/colorPrimary" />
+        <RelativeLayout style="@style/MatchWrap">
 
-        <ImageView
-            android:id="@+id/iv_arrow_back"
-            style="@style/ImageViewArrowBack" />
-
-        <ImageView
-            style="@style/ImageViewToolbar"
-            android:src="@drawable/ic_sign_up" />
-
-    </RelativeLayout>
-
-    <LinearLayout
-        style="@style/LinearLayoutVertical"
-        android:layout_centerInParent="true">
-
-        <RelativeLayout
-            style="@style/WrapWrap"
-            android:layout_gravity="center_horizontal">
+            <androidx.appcompat.widget.Toolbar
+                style="@style/MatchWrap"
+                android:background="@color/colorPrimary" />
 
             <ImageView
-                android:id="@+id/iv_photo"
-                style="@style/ImageViewPhoto" />
+                android:id="@+id/iv_arrow_back"
+                style="@style/ImageViewArrowBack" />
 
             <ImageView
-                android:id="@+id/iv_camera"
-                style="@style/ImageViewCamera"
-                android:layout_alignEnd="@+id/iv_photo"
-                android:layout_alignBottom="@+id/iv_photo"
-                android:background="@drawable/shape_camera" />
+                style="@style/ImageViewToolbar"
+                android:src="@drawable/ic_sign_up" />
 
         </RelativeLayout>
 
-        <TextView
-            style="@style/TextViewMediumGray"
-            android:text="@string/sign_up_to_join" />
+        <LinearLayout
+            style="@style/LinearLayoutVertical"
+            android:layout_centerInParent="true">
 
-        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+            <RelativeLayout
+                style="@style/WrapWrap"
+                android:layout_gravity="center_horizontal">
 
-            <EditText
-                android:id="@+id/et_full_name"
-                style="@style/MatchMatch"
-                android:background="@drawable/shape_et"
-                android:drawableStart="@drawable/ic_person_gray"
-                android:hint="@string/full_name" />
+                <ImageView
+                    android:id="@+id/iv_photo"
+                    style="@style/ImageViewPhoto" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <ImageView
+                    android:id="@+id/iv_camera"
+                    style="@style/ImageViewCamera"
+                    android:layout_alignEnd="@+id/iv_photo"
+                    android:layout_alignBottom="@+id/iv_photo"
+                    android:background="@drawable/shape_camera" />
 
-        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+            </RelativeLayout>
 
-            <EditText
-                android:id="@+id/et_username"
-                style="@style/MatchMatch"
-                android:background="@drawable/shape_et"
-                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-                android:drawableStart="@drawable/ic_account_gray"
-                android:hint="@string/username" />
+            <TextView
+                style="@style/TextViewMediumGray"
+                android:text="@string/sign_up_to_join" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
-        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+                <EditText
+                    android:id="@+id/et_full_name"
+                    style="@style/MatchMatch"
+                    android:background="@drawable/shape_et"
+                    android:drawableStart="@drawable/ic_person_gray"
+                    android:hint="@string/full_name" />
 
-            <EditText
-                android:id="@+id/et_password"
-                style="@style/MatchMatch"
-                android:background="@drawable/shape_et"
-                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-                android:drawableStart="@drawable/ic_key_gray"
-                android:hint="@string/password"
-                android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
-        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+                <EditText
+                    android:id="@+id/et_username"
+                    style="@style/MatchMatch"
+                    android:background="@drawable/shape_et"
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+                    android:drawableStart="@drawable/ic_account_gray"
+                    android:hint="@string/username" />
 
-            <EditText
-                android:id="@+id/et_re_password"
-                style="@style/MatchMatch"
-                android:background="@drawable/shape_et"
-                android:drawableStart="@drawable/ic_key_gray"
-                android:hint="@string/re_password"
-                android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
-        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+                <EditText
+                    android:id="@+id/et_password"
+                    style="@style/MatchMatch"
+                    android:background="@drawable/shape_et"
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+                    android:drawableStart="@drawable/ic_key_gray"
+                    android:hint="@string/password"
+                    android:inputType="textPassword" />
 
-            <EditText
-                android:id="@+id/et_identity_card"
-                style="@style/MatchMatch"
-                android:background="@drawable/shape_et"
-                android:drawableStart="@drawable/ic_identity_card"
-                android:hint="@string/identity_card"
-                android:inputType="number"
-                android:maxLength="13" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
-        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+                <EditText
+                    android:id="@+id/et_re_password"
+                    style="@style/MatchMatch"
+                    android:background="@drawable/shape_et"
+                    android:drawableStart="@drawable/ic_key_gray"
+                    android:hint="@string/re_password"
+                    android:inputType="textPassword" />
 
-            <EditText
-                android:id="@+id/et_phone"
-                style="@style/MatchMatch"
-                android:background="@drawable/shape_et"
-                android:drawableStart="@drawable/ic_phone_gray"
-                android:hint="@string/phone"
-                android:inputType="phone"
-                android:maxLength="10" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
-        <Button
-            android:id="@+id/bt_sign_up"
-            style="@style/ButtonBlueLong"
-            android:layout_marginTop="@dimen/base_pow_five"
-            android:background="@drawable/shape_bt_blue"
-            android:text="@string/sign_up" />
+                <EditText
+                    android:id="@+id/et_identity_card"
+                    style="@style/MatchMatch"
+                    android:background="@drawable/shape_et"
+                    android:drawableStart="@drawable/ic_identity_card"
+                    android:hint="@string/identity_card"
+                    android:inputType="number"
+                    android:maxLength="13" />
 
-    </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
-        style="@style/WrapWrap"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/base_pow_five"
-        android:orientation="horizontal">
+            <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
-        <TextView
-            style="@style/TextViewMediumGray"
-            android:text="@string/have_an_account" />
+                <EditText
+                    android:id="@+id/et_phone"
+                    style="@style/MatchMatch"
+                    android:background="@drawable/shape_et"
+                    android:drawableStart="@drawable/ic_phone_gray"
+                    android:hint="@string/phone"
+                    android:inputType="phone"
+                    android:maxLength="10" />
 
-        <TextView
-            android:id="@+id/tv_sign_in"
-            style="@style/TextViewMediumBlack"
-            android:layout_marginStart="@dimen/base_pow_two"
-            android:text="@string/sign_in" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/bt_sign_up"
+                style="@style/ButtonBlueLong"
+                android:layout_marginTop="@dimen/base_pow_five"
+                android:background="@drawable/shape_bt_blue"
+                android:text="@string/sign_up" />
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="@style/ProgressBar" />
+        </LinearLayout>
 
-</RelativeLayout>
+        <LinearLayout
+            style="@style/WrapWrap"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/base_pow_five"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TextViewMediumGray"
+                android:text="@string/have_an_account" />
+
+            <TextView
+                android:id="@+id/tv_sign_in"
+                style="@style/TextViewMediumBlack"
+                android:layout_marginStart="@dimen/base_pow_two"
+                android:text="@string/sign_in" />
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/ProgressBar" />
+
+    </RelativeLayout>
+
+</ScrollView>
