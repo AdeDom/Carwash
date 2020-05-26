@@ -26,10 +26,6 @@ class SignInActivity : BaseActivity() {
     }
 
     private fun init() {
-        //set widget
-        val username = readPref(CommonsConstant.USERNAME)
-        et_username.setText(username)
-
         //event
         iv_arrow_back.setOnClickListener { onBackPressed() }
 
@@ -48,7 +44,6 @@ class SignInActivity : BaseActivity() {
             if (success) {
                 token?.let { writePref(CommonsConstant.TOKEN, it) }
                 refreshToken?.let { writePref(CommonsConstant.REFRESH_TOKEN, it) }
-                writePref(CommonsConstant.USERNAME, et_username.getContents())
                 startActivity<MainActivity> {
                     finishAffinity()
                 }
