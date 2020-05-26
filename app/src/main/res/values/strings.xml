@@ -72,5 +72,10 @@
     <string name="or">or</string>
     <string name="verify_phone">Verify Phone</string>
     <string name="re_send">Re-send</string>
+    <string name="ratings">Ratings</string>
+    <string name="tv_example_ratings">5.00</string>
+    <string name="acceptance">Acceptance</string>
+    <string name="cancellation">Cancellation</string>
+    <string name="tv_example_percent">100.0%</string>
 
 </resources>

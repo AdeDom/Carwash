@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/RelativeLayout">
 
     <RelativeLayout
@@ -25,10 +24,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/layout_card"
         style="@style/StyleCardView"
-        android:layout_below="@id/layout_toolbar"
-        app:cardCornerRadius="@dimen/base_pow_three"
-        app:cardElevation="@dimen/base_pow_four"
-        app:contentPadding="@dimen/base_pow_four">
+        android:layout_below="@id/layout_toolbar">
 
         <GridLayout
             style="@style/MatchWrap"

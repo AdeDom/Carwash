@@ -39,6 +39,7 @@
 
     <style name="LinearLayoutVertical" parent="WrapWrap">
         <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:gravity">center_horizontal</item>
         <item name="android:layout_marginTop">@dimen/base_pow_four</item>
         <item name="android:orientation">vertical</item>
     </style>
@@ -58,6 +59,19 @@
     <style name="TextViewMediumBlack" parent="WrapWrap">
         <item name="android:textSize">@dimen/text_medium</item>
         <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="TextViewLargeApplication" parent="WrapWrap">
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:textColor">@color/colorTextGray</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+
+    <style name="TextViewLargeApplicationSub" parent="TextViewLargeApplication">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="TextViewLarge" parent="WrapWrap">
@@ -172,8 +186,11 @@
 
     <style name="StyleCardView" parent="MatchWrap">
         <item name="android:layout_marginStart">@dimen/base_pow_five</item>
-        <item name="android:layout_marginTop">@dimen/base_pow_five</item>
+        <item name="android:layout_marginTop">@dimen/base_pow_four</item>
         <item name="android:layout_marginEnd">@dimen/base_pow_five</item>
+        <item name="cardCornerRadius">@dimen/base_pow_three</item>
+        <item name="cardElevation">@dimen/base_pow_four</item>
+        <item name="contentPadding">@dimen/base_pow_four</item>
     </style>
 
 </resources>

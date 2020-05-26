@@ -25,9 +25,7 @@
             style="@style/LinearLayoutVertical"
             android:layout_centerInParent="true">
 
-            <RelativeLayout
-                style="@style/WrapWrap"
-                android:layout_gravity="center_horizontal">
+            <RelativeLayout style="@style/WrapWrap">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card"
@@ -50,6 +48,7 @@
 
             <TextView
                 style="@style/TextViewMediumGray"
+                android:layout_gravity="start"
                 android:text="@string/sign_up_to_join" />
 
             <EditText

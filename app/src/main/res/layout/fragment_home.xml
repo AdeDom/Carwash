@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/RelativeLayout">
+
+    <RelativeLayout
+        style="@style/WrapWrap"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/base_pow_four">
+
+        <ImageView
+            android:id="@+id/switch_frame"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_switch" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="2dp"
+            android:src="@drawable/ic_switch_off" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignEnd="@+id/switch_frame"
+            android:layout_marginEnd="2dp"
+            android:src="@drawable/ic_switch_on" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        style="@style/LinearLayoutVertical"
+        android:layout_width="match_parent">
+
+        <androidx.cardview.widget.CardView style="@style/CardViewImageView">
+
+            <ImageView style="@style/ImageViewPhoto" />
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            style="@style/WrapWrap"
+            android:layout_marginTop="@dimen/base_pow_four">
+
+            <ImageView
+                android:layout_width="@dimen/ic_base"
+                android:layout_height="@dimen/ic_base"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_person_gray" />
+
+            <TextView
+                style="@style/TextViewLargeApplication"
+                android:layout_marginStart="@dimen/base_pow_three"
+                android:text="@string/full_name" />
+
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            style="@style/StyleCardView"
+            android:layout_height="@dimen/base_hundred">
+
+            <RelativeLayout
+                style="@style/MatchWrap"
+                android:layout_gravity="center_vertical">
+
+                <ImageView
+                    style="@style/WrapWrap"
+                    android:src="@drawable/ic_ratings" />
+
+                <TextView
+                    style="@style/TextViewLargeApplicationSub"
+                    android:text="@string/ratings" />
+
+                <TextView
+                    style="@style/TextViewLargeApplicationSub"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/tv_example_ratings" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            style="@style/StyleCardView"
+            android:layout_height="@dimen/base_hundred">
+
+            <RelativeLayout
+                style="@style/MatchWrap"
+                android:layout_gravity="center_vertical">
+
+                <ImageView
+                    style="@style/WrapWrap"
+                    android:src="@drawable/ic_acceptance" />
+
+                <TextView
+                    style="@style/TextViewLargeApplicationSub"
+                    android:text="@string/acceptance" />
+
+                <TextView
+                    style="@style/TextViewLargeApplicationSub"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/tv_example_percent" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            style="@style/StyleCardView"
+            android:layout_height="@dimen/base_hundred">
+
+            <RelativeLayout
+                style="@style/MatchWrap"
+                android:layout_gravity="center_vertical">
+
+                <ImageView
+                    style="@style/WrapWrap"
+                    android:src="@drawable/ic_cancellation" />
+
+                <TextView
+                    style="@style/TextViewLargeApplicationSub"
+                    android:text="@string/cancellation" />
+
+                <TextView
+                    style="@style/TextViewLargeApplicationSub"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/tv_example_percent" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</RelativeLayout>

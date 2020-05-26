@@ -25,9 +25,7 @@
         style="@style/LinearLayoutVertical"
         android:layout_below="@+id/layout_toolbar">
 
-        <RelativeLayout
-            style="@style/WrapWrap"
-            android:layout_gravity="center_horizontal">
+        <RelativeLayout style="@style/WrapWrap">
 
             <ImageView
                 android:id="@+id/iv_photo"

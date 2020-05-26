@@ -22,7 +22,6 @@
 
         <ImageView
             style="@style/ImageViewLogo"
-            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="@dimen/base_pow_five"
             android:src="@drawable/img_logo_blue" />
 

@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/StyleCardView"
-    app:cardCornerRadius="@dimen/base_pow_three"
-    app:cardElevation="@dimen/base_pow_four"
-    app:contentPadding="@dimen/base_pow_four">
+    style="@style/StyleCardView">
 
     <RelativeLayout style="@style/MatchWrap">
 
