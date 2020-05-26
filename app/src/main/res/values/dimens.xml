@@ -13,6 +13,7 @@
     <dimen name="bt_short_width">120dp</dimen>
     <dimen name="bt_height">40dp</dimen>
     <dimen name="bt_long_width">260dp</dimen>
+    <dimen name="base_zero">0dp</dimen>
     <dimen name="base_one">1dp</dimen>
     <dimen name="base_fifty">50dp</dimen>
     <dimen name="base_hundred">100dp</dimen>

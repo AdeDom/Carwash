@@ -5,74 +5,32 @@
     <RelativeLayout style="@style/MatchWrap">
 
         <GridLayout
-            style="@style/WrapWrap"
+            style="@style/MatchWrap"
             android:columnCount="2"
-            android:rowCount="6">
+            android:rowCount="2">
 
             <ImageView
-                android:layout_width="@dimen/ic_base"
-                android:layout_height="@dimen/ic_base"
+                style="@style/ImageViewIcon"
+                android:layout_marginTop="@dimen/base_zero"
                 android:src="@drawable/ic_person_gray" />
 
             <TextView
                 android:id="@+id/tv_full_name"
-                style="@style/TextViewMediumBlack"
+                style="@style/TextViewLargeApplicationSub"
+                android:layout_gravity="start"
                 android:layout_marginStart="@dimen/base_pow_three"
                 android:text="@string/full_name" />
 
             <ImageView
-                android:layout_width="@dimen/ic_base"
-                android:layout_height="@dimen/ic_base"
-                android:src="@drawable/ic_list_job_gray" />
-
-            <TextView
-                android:id="@+id/tv_service"
-                style="@style/TextViewMediumBlack"
-                android:layout_marginStart="@dimen/base_pow_three"
-                android:text="@string/service" />
-
-            <ImageView
-                android:layout_width="@dimen/ic_base"
-                android:layout_height="@dimen/ic_base"
-                android:src="@drawable/ic_location_gray" />
-
-            <TextView
-                android:id="@+id/tv_location"
-                style="@style/TextViewMediumBlack"
-                android:layout_marginStart="@dimen/base_pow_three"
-                android:text="@string/location" />
-
-            <ImageView
-                android:layout_width="@dimen/ic_base"
-                android:layout_height="@dimen/ic_base"
-                android:src="@drawable/ic_car_gray" />
-
-            <TextView
-                android:id="@+id/tv_vehicle_registration"
-                style="@style/TextViewMediumBlack"
-                android:layout_marginStart="@dimen/base_pow_three"
-                android:text="@string/vehicle_registration" />
-
-            <ImageView
-                android:layout_width="@dimen/ic_base"
-                android:layout_height="@dimen/ic_base"
-                android:src="@drawable/ic_baht" />
-
-            <TextView
-                android:id="@+id/tv_price"
-                style="@style/TextViewMediumBlack"
-                android:layout_marginStart="@dimen/base_pow_three"
-                android:text="@string/price" />
-
-            <ImageView
-                android:layout_width="@dimen/ic_base"
-                android:layout_height="@dimen/ic_base"
+                style="@style/ImageViewIcon"
                 android:src="@drawable/ic_time_gray" />
 
             <TextView
                 android:id="@+id/tv_date_time"
-                style="@style/TextViewMediumBlack"
+                style="@style/TextViewLargeApplicationSub"
+                android:layout_gravity="start"
                 android:layout_marginStart="@dimen/base_pow_three"
+                android:layout_marginTop="@dimen/base_pow_four"
                 android:text="@string/date_time" />
 
         </GridLayout>

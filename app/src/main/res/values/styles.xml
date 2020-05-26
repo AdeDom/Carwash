@@ -196,7 +196,7 @@
         <item name="android:layout_marginTop">@dimen/base_pow_four</item>
         <item name="android:layout_marginEnd">@dimen/base_pow_five</item>
         <item name="cardCornerRadius">@dimen/base_pow_three</item>
-        <item name="cardElevation">@dimen/base_pow_four</item>
+        <item name="cardElevation">@dimen/base_pow_three</item>
         <item name="contentPadding">@dimen/base_pow_four</item>
     </style>
 
