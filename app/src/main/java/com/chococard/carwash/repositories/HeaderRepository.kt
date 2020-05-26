@@ -24,8 +24,7 @@ class HeaderRepository(
 
     suspend fun callLogout() = apiRequest { api.callLogout() }
 
-    suspend fun callChangeProfile(name: String, identityCard: String, phone: String) =
-        apiRequest { api.callChangeProfile(name, identityCard, phone) }
+    suspend fun callChangeProfile(phone: String) = apiRequest { api.callChangeProfile(phone) }
 
     suspend fun callChangePassword(oldPassword: String, newPassword: String) =
         apiRequest { api.callChangePassword(oldPassword, newPassword) }

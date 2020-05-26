@@ -35,8 +35,6 @@ interface HeaderAppService {
     @FormUrlEncoded
     @POST("v2/5e9eadde340000452b6eee61")
     suspend fun callChangeProfile(
-        @Field(ApiConstant.FULL_NAME) name: String,
-        @Field(ApiConstant.ID_CARD_NUMBER) identityCard: String,
         @Field(ApiConstant.PHONE) phone: String
     ): Response<BaseResponse>
 

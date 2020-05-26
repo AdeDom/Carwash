@@ -32,9 +32,7 @@ class ChangeProfileActivity : BaseActivity() {
         //set widgets
         viewModel.getDbUser.observe(this, Observer { user ->
             if (user == null) return@Observer
-            val (_, fullName, idCard, phone, _, image) = user
-            et_full_name.setText(fullName)
-            et_identity_card.setText(idCard)
+            val (_, _, _, phone, _, image) = user
             et_phone.setText(phone)
             image?.let { iv_photo.setImageCircle(it) }
         })
@@ -106,21 +104,13 @@ class ChangeProfileActivity : BaseActivity() {
 
     private fun changeProfile() {
         when {
-            et_full_name.isEmpty(getString(R.string.error_empty_name)) -> return
-            et_identity_card.isEmpty(getString(R.string.error_empty_identity_card)) -> return
-            et_identity_card.isEqualLength(13, getString(R.string.error_equal_length, 13)) -> return
-            et_identity_card.isVerifyIdentityCard(getString(R.string.error_identity_card)) -> return
             et_phone.isEmpty(getString(R.string.error_empty_phone)) -> return
             et_phone.isEqualLength(10, getString(R.string.error_equal_length, 10)) -> return
             et_phone.isVerifyPhone(getString(R.string.error_phone)) -> return
         }
 
         progress_bar.show()
-        viewModel.callChangeProfile(
-            et_full_name.getContents(),
-            et_identity_card.getContents(),
-            et_phone.getContents()
-        )
+        viewModel.callChangeProfile(et_phone.getContents())
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

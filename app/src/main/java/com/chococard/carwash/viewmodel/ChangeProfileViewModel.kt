@@ -47,8 +47,8 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
         repository.deleteUser()
     }
 
-    fun callChangeProfile(name: String, identityCard: String, phone: String) = launchCallApi(
-        request = { repository.callChangeProfile(name, identityCard, phone) },
+    fun callChangeProfile(phone: String) = launchCallApi(
+        request = { repository.callChangeProfile(phone) },
         response = { changeProfile.value = it }
     )
 
