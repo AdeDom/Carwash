@@ -18,6 +18,7 @@ import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
 import com.chococard.carwash.ui.history.HistoryFragment
 import com.chococard.carwash.ui.map.MapFragment
 import com.chococard.carwash.ui.payment.PaymentActivity
+import com.chococard.carwash.ui.profile.ProfileFragment
 import com.chococard.carwash.ui.wallet.WalletFragment
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.FlagConstant
@@ -131,6 +132,7 @@ class MainActivity : BaseActivity(),
             R.id.nav_map -> replaceFragment(MapFragment())
             R.id.nav_wallet -> replaceFragment(WalletFragment())
             R.id.nav_history -> replaceFragment(HistoryFragment())
+            R.id.nav_profile -> replaceFragment(ProfileFragment())
         }
         return true
     }
