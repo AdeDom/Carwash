@@ -30,7 +30,8 @@
 
     <LinearLayout
         style="@style/LinearLayoutVertical"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView style="@style/CardViewImageView">
 

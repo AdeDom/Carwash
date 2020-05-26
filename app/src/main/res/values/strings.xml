@@ -78,5 +78,6 @@
     <string name="cancellation">Cancellation</string>
     <string name="tv_example_percent">100.0%</string>
     <string name="profile">Profile</string>
+    <string name="home">Home</string>
 
 </resources>
