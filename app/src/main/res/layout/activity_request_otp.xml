@@ -6,9 +6,7 @@
         android:id="@+id/layout_toolbar"
         style="@style/MatchWrap">
 
-        <androidx.appcompat.widget.Toolbar
-            style="@style/MatchWrap"
-            android:background="@color/colorPrimary" />
+        <androidx.appcompat.widget.Toolbar style="@style/Toolbar" />
 
         <ImageView
             android:id="@+id/iv_arrow_back"
@@ -44,12 +42,17 @@
         android:layout_centerInParent="true"
         android:src="@drawable/ic_phone_sms" />
 
-    <Button
-        android:id="@+id/bt_request_otp"
-        style="@style/ButtonBlueLong"
+    <androidx.cardview.widget.CardView
+        style="@style/CardViewButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/base_pow_five"
-        android:text="@string/request_otp" />
+        android:layout_marginBottom="@dimen/base_pow_five">
+
+        <Button
+            android:id="@+id/bt_request_otp"
+            style="@style/ButtonBlueLong"
+            android:text="@string/request_otp" />
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
