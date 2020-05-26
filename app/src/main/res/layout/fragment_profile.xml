@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/RelativeLayout">
+
+    <androidx.cardview.widget.CardView style="@style/StyleCardView">
+
+        <LinearLayout
+            style="@style/LinearLayoutVertical"
+            android:layout_width="match_parent">
+
+            <androidx.cardview.widget.CardView style="@style/CardViewImageView">
+
+                <ImageView style="@style/ImageViewPhoto" />
+
+            </androidx.cardview.widget.CardView>
+
+            <GridLayout
+                style="@style/MatchWrap"
+                android:columnCount="2"
+                android:rowCount="3">
+
+                <ImageView
+                    style="@style/ImageViewIcon"
+                    android:src="@drawable/ic_person_gray" />
+
+                <TextView
+                    android:id="@+id/tv_full_name"
+                    style="@style/TextViewLargeApplicationSub"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/base_pow_three"
+                    android:layout_marginTop="@dimen/base_pow_four"
+                    android:text="@string/full_name" />
+
+                <ImageView
+                    style="@style/ImageViewIcon"
+                    android:src="@drawable/ic_identity_card" />
+
+                <TextView
+                    android:id="@+id/tv_identity_card"
+                    style="@style/TextViewLargeApplicationSub"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/base_pow_three"
+                    android:layout_marginTop="@dimen/base_pow_four"
+                    android:text="@string/identity_card" />
+
+                <ImageView
+                    style="@style/ImageViewIcon"
+                    android:src="@drawable/ic_phone_gray" />
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    style="@style/TextViewLargeApplicationSub"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/base_pow_three"
+                    android:layout_marginTop="@dimen/base_pow_four"
+                    android:text="@string/full_name" />
+
+            </GridLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
