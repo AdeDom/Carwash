@@ -28,6 +28,10 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
+    <style name="Toolbar" parent="MatchWrap">
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
     <style name="RelativeLayout" parent="MatchMatch">
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>
@@ -131,6 +135,22 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">@dimen/ic_base</item>
         <item name="android:layout_centerInParent">true</item>
+    </style>
+
+    <style name="CardViewImageView" parent="WrapWrap">
+        <item name="android:layout_margin">@dimen/base_pow_three</item>
+        <item name="cardCornerRadius">60dp</item>
+        <item name="cardElevation">@dimen/base_pow_three</item>
+    </style>
+
+    <style name="CardViewButton" parent="WrapWrap">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginStart">@dimen/base_pow_three</item>
+        <item name="android:layout_marginTop">@dimen/base_pow_five</item>
+        <item name="android:layout_marginEnd">@dimen/base_pow_three</item>
+        <item name="android:layout_marginBottom">@dimen/base_pow_three</item>
+        <item name="cardCornerRadius">@dimen/base_pow_three</item>
+        <item name="cardElevation">@dimen/base_pow_two</item>
     </style>
 
     <style name="ProgressBar" parent="WrapWrap">
