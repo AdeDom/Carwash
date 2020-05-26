@@ -6,9 +6,7 @@
         android:id="@+id/layout_toolbar"
         style="@style/MatchWrap">
 
-        <androidx.appcompat.widget.Toolbar
-            style="@style/MatchWrap"
-            android:background="@color/colorPrimary" />
+        <androidx.appcompat.widget.Toolbar style="@style/Toolbar" />
 
         <ImageView
             android:id="@+id/iv_arrow_back"
@@ -42,22 +40,31 @@
             android:layout_marginTop="@dimen/base_pow_four"
             android:text="@string/or" />
 
-        <Button
-            android:id="@+id/bt_re_send"
-            style="@style/ButtonWhiteShort"
-            android:layout_width="@dimen/bt_long_width"
-            android:layout_marginTop="@dimen/base_pow_four"
-            android:layout_marginBottom="@dimen/base_pow_three"
-            android:text="@string/re_send" />
+        <androidx.cardview.widget.CardView
+            style="@style/CardViewButton"
+            android:layout_marginTop="@dimen/base_pow_four">
+
+            <Button
+                android:id="@+id/bt_re_send"
+                style="@style/ButtonWhiteShort"
+                android:layout_width="@dimen/bt_long_width"
+                android:text="@string/re_send" />
+
+        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/bt_verify_phone"
-        style="@style/ButtonBlueLong"
+    <androidx.cardview.widget.CardView
+        style="@style/CardViewButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/base_pow_five"
-        android:text="@string/verify_phone" />
+        android:layout_marginBottom="@dimen/base_pow_five">
+
+        <Button
+            android:id="@+id/bt_verify_phone"
+            style="@style/ButtonBlueLong"
+            android:text="@string/verify_phone" />
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
