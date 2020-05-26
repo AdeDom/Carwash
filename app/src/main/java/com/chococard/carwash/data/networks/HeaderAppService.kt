@@ -56,14 +56,6 @@ interface HeaderAppService {
         @Field(ApiConstant.LONGITUDE) longitude: Double
     ): Response<LocationResponse>
 
-    //get e-wallet amount wallet & wallet logs is list and filter by date begin & end.
-    @FormUrlEncoded
-    @POST("v2/5e9eb7662d00002700cb7652")
-    suspend fun callFetchWallet(
-        @Field(ApiConstant.DATE_BEGIN) dateBegin: String,
-        @Field(ApiConstant.DATE_END) dateEnd: String
-    ): Response<WalletResponse>
-
     //get old history ever service customer and filter by date begin & end.
     @FormUrlEncoded
     @POST("v2/5e9eb0e9340000b81a6eee8a")

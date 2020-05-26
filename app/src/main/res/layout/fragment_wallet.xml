@@ -10,7 +10,7 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/TextViewLarge"
+            style="@style/TextViewLargeApplication"
             android:text="@string/balance" />
 
         <TextView

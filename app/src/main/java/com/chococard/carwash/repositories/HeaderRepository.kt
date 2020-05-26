@@ -33,9 +33,6 @@ class HeaderRepository(
     suspend fun callSetLocation(latitude: Double, longitude: Double) =
         apiRequest { api.callSetLocation(latitude, longitude) }
 
-    suspend fun callFetchWallet(dateBegin: String, dateEnd: String) =
-        apiRequest { api.callFetchWallet(dateBegin, dateEnd) }
-
     suspend fun callFetchHistory(dateBegin: String, dateEnd: String) =
         apiRequest { api.callFetchHistory(dateBegin, dateEnd) }
 

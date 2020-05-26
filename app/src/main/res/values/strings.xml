@@ -41,7 +41,7 @@
     <string name="price">Price</string>
     <string name="vehicle_registration">Vehicle registration</string>
     <string name="location">Location</string>
-    <string name="balance">ยอดเงินคงเหลือ</string>
+    <string name="balance">Balance</string>
     <string name="amount">Amount</string>
     <string name="date_example">25/03/2020</string>
     <string name="time">14:39</string>
