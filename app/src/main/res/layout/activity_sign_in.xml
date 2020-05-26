@@ -4,9 +4,7 @@
 
     <RelativeLayout style="@style/MatchWrap">
 
-        <androidx.appcompat.widget.Toolbar
-            style="@style/MatchWrap"
-            android:background="@color/colorPrimary" />
+        <androidx.appcompat.widget.Toolbar style="@style/Toolbar" />
 
         <ImageView
             android:id="@+id/iv_arrow_back"
@@ -32,36 +30,31 @@
             style="@style/TextViewMediumGray"
             android:text="@string/sign_in_to_continue" />
 
-        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+        <EditText
+            android:id="@+id/et_username"
+            style="@style/EditText"
+            android:background="@drawable/shape_et"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+            android:drawableStart="@drawable/ic_account_gray"
+            android:hint="@string/username" />
 
-            <EditText
-                android:id="@+id/et_username"
-                style="@style/MatchMatch"
-                android:background="@drawable/shape_et"
-                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-                android:drawableStart="@drawable/ic_account_gray"
-                android:hint="@string/username" />
+        <EditText
+            android:id="@+id/et_password"
+            style="@style/EditText"
+            android:background="@drawable/shape_et"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+            android:drawableStart="@drawable/ic_key_gray"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+        <androidx.cardview.widget.CardView style="@style/CardViewButton">
 
-        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+            <Button
+                android:id="@+id/bt_sign_in"
+                style="@style/ButtonBlueLong"
+                android:text="@string/sign_in" />
 
-            <EditText
-                android:id="@+id/et_password"
-                style="@style/MatchMatch"
-                android:background="@drawable/shape_et"
-                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-                android:drawableStart="@drawable/ic_key_gray"
-                android:hint="@string/password"
-                android:inputType="textPassword" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/bt_sign_in"
-            style="@style/ButtonBlueLong"
-            android:layout_marginTop="@dimen/base_pow_four"
-            android:text="@string/sign_in" />
+        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 
