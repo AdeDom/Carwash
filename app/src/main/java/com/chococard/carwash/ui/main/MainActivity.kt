@@ -17,7 +17,6 @@ import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
 import com.chococard.carwash.ui.history.HistoryFragment
 import com.chococard.carwash.ui.home.HomeFragment
-import com.chococard.carwash.ui.map.MapFragment
 import com.chococard.carwash.ui.payment.PaymentActivity
 import com.chococard.carwash.ui.profile.ProfileFragment
 import com.chococard.carwash.ui.wallet.WalletFragment
@@ -51,7 +50,7 @@ class MainActivity : BaseActivity(),
         setReceiverLocation()
 
         bottom_navigation.setOnNavigationItemSelectedListener(this)
-        if (savedInstanceState == null) replaceFragment(MapFragment())
+        if (savedInstanceState == null) replaceFragment(HomeFragment())
 
         bt_has_job.setOnClickListener {
             viewModel.callJobRequest()
@@ -130,7 +129,6 @@ class MainActivity : BaseActivity(),
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_map -> replaceFragment(MapFragment())
             R.id.nav_home -> replaceFragment(HomeFragment())
             R.id.nav_wallet -> replaceFragment(WalletFragment())
             R.id.nav_history -> replaceFragment(HistoryFragment())
