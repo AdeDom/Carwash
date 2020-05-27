@@ -6,6 +6,7 @@ import com.chococard.carwash.data.db.entities.User
 import com.chococard.carwash.data.networks.HeaderAppService
 import com.chococard.carwash.data.networks.SafeApiRequest
 import com.chococard.carwash.data.networks.request.LogsActive
+import com.chococard.carwash.data.networks.request.SwitchSystem
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
@@ -48,5 +49,8 @@ class HeaderRepository(
 
     suspend fun callSetLogsActive(logsActive: LogsActive) =
         apiRequest { api.callSetLogsActive(logsActive) }
+
+    suspend fun callSwitchSystem(switchSystem: SwitchSystem) =
+        apiRequest { api.callSwitchSystem(switchSystem) }
 
 }

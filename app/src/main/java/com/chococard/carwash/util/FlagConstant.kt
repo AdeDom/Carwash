@@ -7,9 +7,9 @@ object FlagConstant {
     const val JOB_RECEIVE = 1 // receive from job dialog confirm
     const val PAYMENT_CONFIRM = 0 // payment dialog confirm button
     const val PAYMENT_REPORT = 1 // payment dialog report button
-    const val STATE_OFFLINE = 0 // set state offline on pause main activity
-    const val STATE_ONLINE = 1 // set state online on resume main activity
     const val LOGS_STATUS_INACTIVE = 0 // set user logs inactive on home screen from main activity
     const val LOGS_STATUS_ACTIVE = 1 // set user logs active on open application
+    const val SWITCH_OFF = 0 // switch system for receive job off
+    const val SWITCH_ON = 1 // switch system for receive job on
 
 }

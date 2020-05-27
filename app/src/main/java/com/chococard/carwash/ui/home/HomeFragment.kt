@@ -2,12 +2,14 @@ package com.chococard.carwash.ui.home
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
+import com.chococard.carwash.data.networks.request.SwitchSystem
 import com.chococard.carwash.ui.base.BaseFragment
+import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.SwitchFlag
-import com.chococard.carwash.util.extension.readSwitch
-import com.chococard.carwash.util.extension.setImageCircle
+import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -19,6 +21,29 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        switchButton()
+
+        viewModel.getDbUser.observe(viewLifecycleOwner, Observer { user ->
+            if (user == null) return@Observer
+            val (_, fullName, _, _, _, image) = user
+            tv_full_name.text = fullName
+            image?.let { iv_photo.setImageCircle(it) }
+        })
+
+        viewModel.callSwitchSystem.observe(viewLifecycleOwner, Observer { response ->
+            progress_bar.hide()
+            val (success, message) = response
+            if (success) {
+                switchButton()
+            } else {
+                message?.let { context.toast(it, Toast.LENGTH_LONG) }
+            }
+        })
+
+        iv_switch_frame.setOnClickListener { switchSystem() }
+    }
+
+    private fun switchButton() {
         val switch = context?.readSwitch()
         if (switch == SwitchFlag.SWITCH_OFF.toString()) {
             iv_switch_off.visibility = View.VISIBLE
@@ -27,13 +52,18 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             iv_switch_off.visibility = View.INVISIBLE
             iv_switch_on.visibility = View.VISIBLE
         }
+    }
 
-        viewModel.getDbUser.observe(viewLifecycleOwner, Observer { user ->
-            if (user == null) return@Observer
-            val (_, fullName, _, _, _, image) = user
-            tv_full_name.text = fullName
-            image?.let { iv_photo.setImageCircle(it) }
-        })
+    private fun switchSystem() {
+        progress_bar.show()
+        val switch = context?.readSwitch()
+        if (switch == SwitchFlag.SWITCH_OFF.toString()) {
+            context?.writeSwitch(SwitchFlag.SWITCH_ON)
+            viewModel.callSwitchSystem(SwitchSystem(FlagConstant.SWITCH_ON))
+        } else {
+            context?.writeSwitch(SwitchFlag.SWITCH_OFF)
+            viewModel.callSwitchSystem(SwitchSystem(FlagConstant.SWITCH_OFF))
+        }
     }
 
 }

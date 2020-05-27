@@ -2,6 +2,7 @@ package com.chococard.carwash.data.networks
 
 import com.chococard.carwash.data.networks.request.JobRequest
 import com.chococard.carwash.data.networks.request.LogsActive
+import com.chococard.carwash.data.networks.request.SwitchSystem
 import com.chococard.carwash.data.networks.response.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -80,6 +81,9 @@ interface HeaderAppService {
     //set user logs active & inactive using application.
     @POST("api/account/userlogs")
     suspend fun callSetLogsActive(@Body logsActive: LogsActive): Response<BaseResponse>
+
+    @POST("api/account/switchsystem")
+    suspend fun callSwitchSystem(@Body switchSystem: SwitchSystem): Response<BaseResponse>
 
     companion object {
         operator fun invoke(networkHeaderInterceptor: NetworkHeaderInterceptor) =
