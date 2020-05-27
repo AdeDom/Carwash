@@ -9,15 +9,12 @@ import retrofit2.Response
 import retrofit2.http.*
 
 //todo re-check method get or post
-//TODO User, History, Job keep to room database
 interface HeaderAppService {
 
-    //TODO concern header & no header
     //get user info from data base keep to shared preferences.
-    @GET("v2/5e9eb5eb3400002ab56eeec4")
+    @GET("api/account/userinfo")
     suspend fun callFetchUser(): Response<UserResponse>
 
-    //TODO concern header & no header
     //upload image from android to server when selected image.
     @Multipart
     @POST("upload.php")
@@ -27,8 +24,7 @@ interface HeaderAppService {
     ): Response<ResponseBody>
 
     //logout
-    @POST("v2/5ebb9ce136000039def7e7ea")
-//    @POST("api/account/logout/")
+    @POST("api/account/logout/")
     suspend fun callLogout(): Response<BaseResponse>
 
     //change data profile name, id card, phone etc.

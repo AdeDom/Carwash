@@ -10,11 +10,8 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 
-//todo re-check method get or post
-//TODO User, History, Job keep to room database
 interface ConnectionAppService {
 
-    //TODO concern header & no header
     //upload image from android to server when selected image.
     @Multipart
     @POST("upload.php")
@@ -37,8 +34,7 @@ interface ConnectionAppService {
     ): Response<BaseResponse>
 
     //login for want token from server.
-    @POST("v2/5ebb9c0d36000026def7e7e2")
-//    @POST("api/account/login/")
+    @POST("api/account/login")
     suspend fun callSignIn(@Body signIn: SignIn): Response<SignInResponse>
 
     companion object {

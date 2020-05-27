@@ -7,9 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
-    const val BASE_URL = "http://www.mocky.io/"
-//        const val BASE_URL = "http://192.168.1.15/upload/"
-//        const val BASE_URL = "https://sncarwash.azurewebsites.net/"
+    const val BASE_URL = "https://sncarwash.azurewebsites.net/"
 
     fun instant(interceptor: Interceptor): Retrofit {
         val okHttpClient = OkHttpClient.Builder()

@@ -59,7 +59,7 @@ class MainActivity : BaseActivity(),
         //call api
         val logsKeys = UUID.randomUUID().toString().replace("-", "")
         writePref(CommonsConstant.LOGS_KEYS, logsKeys)
-        viewModel.callSetLogsActive(FlagConstant.LOGS_STATUS_ACTIVE, logsKeys)
+//        viewModel.callSetLogsActive(FlagConstant.LOGS_STATUS_ACTIVE, logsKeys)
 
         // fetch user info
         progress_bar.show()
@@ -186,7 +186,7 @@ class MainActivity : BaseActivity(),
 
         // set user logs active
         val logsKeys = readPref(CommonsConstant.LOGS_KEYS)
-        viewModel.callSetLogsActive(FlagConstant.LOGS_STATUS_INACTIVE, logsKeys)
+//        viewModel.callSetLogsActive(FlagConstant.LOGS_STATUS_INACTIVE, logsKeys)
     }
 
     // When location is not enabled, the application will end.

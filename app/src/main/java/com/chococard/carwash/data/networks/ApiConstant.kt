@@ -45,7 +45,7 @@ object ApiConstant {
     const val EMPLOYEE_LOCATION = "EmployeeLocation"
     const val TOKEN = "Token"
     const val REFRESH_TOKEN = "RefreshToken"
-    const val USER = "User"
+    const val USER_INFO = "UserInfo"
     const val WALLET = "Wallet"
     const val WALLET_LOGS = "WalletLogs"
     const val LOGS_STATUS = "LogsStatus"
