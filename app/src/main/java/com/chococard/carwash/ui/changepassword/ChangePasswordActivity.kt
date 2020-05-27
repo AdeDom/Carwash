@@ -1,5 +1,6 @@
 package com.chococard.carwash.ui.changepassword
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
@@ -88,7 +89,9 @@ class ChangePasswordActivity : BaseActivity() {
                     finish()
                 }
             }
-            R.id.option_contact_admin -> dialogContactAdmin()
+            R.id.option_contact_admin -> {
+                startActivity(Intent.ACTION_DIAL, getString(R.string.contact_admin_tel))
+            }
             R.id.option_logout -> dialogLogout {
                 viewModel.deleteUser()
                 viewModel.callLogout()

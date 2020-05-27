@@ -81,7 +81,9 @@ class PaymentActivity : BaseActivity(), FlagPaymentListener {
                 startActivity<ChangeProfileActivity>()
             }
             R.id.option_change_password -> toast(getString(R.string.not_available))
-            R.id.option_contact_admin -> dialogContactAdmin()
+            R.id.option_contact_admin -> {
+                startActivity(Intent.ACTION_DIAL, getString(R.string.contact_admin_tel))
+            }
             R.id.option_logout -> toast(getString(R.string.not_available))
         }
         return super.onOptionsItemSelected(item)

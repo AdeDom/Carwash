@@ -1,13 +1,11 @@
 package com.chococard.carwash.ui.base
 
-import android.content.Intent
 import android.graphics.PorterDuff
 import android.view.Menu
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.chococard.carwash.R
-import com.chococard.carwash.util.extension.startActivity
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -23,19 +21,6 @@ abstract class BaseActivity : AppCompatActivity() {
             resources.getColor(android.R.color.white),
             PorterDuff.Mode.SRC_ATOP
         )
-    }
-
-    fun dialogContactAdmin() = AlertDialog.Builder(this).apply {
-        setTitle(R.string.contact_admin)
-        setMessage(R.string.contact_system_administrator)
-        setNegativeButton(android.R.string.cancel) { dialog, which ->
-            dialog.dismiss()
-        }
-        setPositiveButton(android.R.string.ok) { dialog, which ->
-            startActivity(Intent.ACTION_DIAL, getString(R.string.contact_admin_tel))
-        }
-        setCancelable(false)
-        show()
     }
 
     fun dialogLogout(logout: () -> Unit) = AlertDialog.Builder(this).apply {
