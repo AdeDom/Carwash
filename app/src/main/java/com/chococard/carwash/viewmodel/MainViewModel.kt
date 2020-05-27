@@ -23,10 +23,6 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
     val getJobResponse: LiveData<JobResponse>
         get() = jobResponse
 
-    private val activeStatus = MutableLiveData<BaseResponse>()
-    val getActiveStatus: LiveData<BaseResponse>
-        get() = activeStatus
-
     private val logsActive = MutableLiveData<BaseResponse>()
     val getLogsActive: LiveData<BaseResponse>
         get() = logsActive
@@ -58,11 +54,6 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
     fun callJobResponse(jobStatus: Int) = launchCallApi(
         request = { repository.callJobResponse(jobStatus) },
         response = { jobResponse.value = it }
-    )
-
-    fun callSetActiveState(activityState: Int) = launchCallApi(
-        request = { repository.callSetActiveState(activityState) },
-        response = { activeStatus.value = it }
     )
 
     fun callSetLogsActive(status: Int, keys: String) = launchCallApi(

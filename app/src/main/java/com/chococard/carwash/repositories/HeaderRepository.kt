@@ -45,9 +45,6 @@ class HeaderRepository(
 
     suspend fun callPayment(paymentStatus: Int) = apiRequest { api.callPayment(paymentStatus) }
 
-    suspend fun callSetActiveState(activityState: Int) =
-        apiRequest { api.callSetActiveState(activityState) }
-
     suspend fun callSetLogsActive(status: Int, keys: String) =
         apiRequest { api.callSetLogsActive(status, keys) }
 

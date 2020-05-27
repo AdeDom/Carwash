@@ -80,14 +80,6 @@ interface HeaderAppService {
         @Field(ApiConstant.PAYMENT_STATUS) paymentStatus: Int
     ): Response<BaseResponse>
 
-    //TODO re-check call api onPause
-    //set state already send flag online or offline to server.
-    @FormUrlEncoded
-    @POST("v2/5e9eae80340000442b6eee68")
-    suspend fun callSetActiveState(
-        @Field(ApiConstant.ACTIVITY_STATE) activityState: Int
-    ): Response<BaseResponse>
-
     //set user logs active & inactive using application.
     @FormUrlEncoded
     @POST("v2/5ea025ac320000700094ac16")

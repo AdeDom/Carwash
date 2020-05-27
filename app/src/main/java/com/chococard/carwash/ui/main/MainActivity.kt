@@ -110,11 +110,6 @@ class MainActivity : BaseActivity(),
             }
         })
 
-        viewModel.getActiveStatus.observe(this, Observer { response ->
-            val (success, message) = response
-            if (!success) message?.let { toast(it, Toast.LENGTH_LONG) }
-        })
-
         viewModel.getLogout.observe(this, Observer { response ->
             val (success, message) = response
             if (!success) {
@@ -182,18 +177,12 @@ class MainActivity : BaseActivity(),
         super.onResume()
         //Register receiver.
         broadcastReceiver(true)
-
-        // set status
-        viewModel.callSetActiveState(FlagConstant.STATE_ONLINE)
     }
 
     override fun onPause() {
         super.onPause()
         //Unregister receiver.
         broadcastReceiver(false)
-
-        // set status
-        viewModel.callSetActiveState(FlagConstant.STATE_OFFLINE)
 
         // set user logs active
         val logsKeys = readPref(CommonsConstant.LOGS_KEYS)
