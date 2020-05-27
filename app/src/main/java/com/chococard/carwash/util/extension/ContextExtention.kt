@@ -21,7 +21,6 @@ import com.bumptech.glide.request.transition.Transition
 import com.chococard.carwash.R
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.JobFlag
-import com.chococard.carwash.util.SwitchFlag
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -75,16 +74,6 @@ fun Context.writeJobFlag(flag: JobFlag) =
 fun Context.readJobFlag() =
     getSharedPreferences(CommonsConstant.PREF_FILE, Context.MODE_PRIVATE)
         .getString(CommonsConstant.JOB_FLAG, JobFlag.JOB_FLAG_OFF.toString())
-
-fun Context.writeSwitch(switch: SwitchFlag) =
-    getSharedPreferences(CommonsConstant.PREF_FILE, Context.MODE_PRIVATE).edit().apply {
-        putString(CommonsConstant.SWITCH, switch.toString())
-        apply()
-    }
-
-fun Context.readSwitch() =
-    getSharedPreferences(CommonsConstant.PREF_FILE, Context.MODE_PRIVATE)
-        .getString(CommonsConstant.SWITCH, SwitchFlag.SWITCH_OFF.toString())
 
 fun Context.uploadFile(fileUri: Uri, upload: (MultipartBody.Part, RequestBody) -> Unit) {
     val parcelFileDescriptor = contentResolver.openFileDescriptor(fileUri, "r", null) ?: return

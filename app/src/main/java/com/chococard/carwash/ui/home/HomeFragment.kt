@@ -7,8 +7,8 @@ import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.request.SwitchSystem
 import com.chococard.carwash.ui.base.BaseFragment
+import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.FlagConstant
-import com.chococard.carwash.util.SwitchFlag
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -44,8 +44,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun switchButton() {
-        val switch = context?.readSwitch()
-        if (switch == SwitchFlag.SWITCH_OFF.toString()) {
+        val switch = context?.readPref(CommonsConstant.SWITCH)
+        if (switch == FlagConstant.SWITCH_OFF.toString()) {
             iv_switch_off.visibility = View.VISIBLE
             iv_switch_on.visibility = View.INVISIBLE
         } else {
@@ -56,12 +56,12 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private fun switchSystem() {
         progress_bar.show()
-        val switch = context?.readSwitch()
-        if (switch == SwitchFlag.SWITCH_OFF.toString()) {
-            context?.writeSwitch(SwitchFlag.SWITCH_ON)
+        val switch = context?.readPref(CommonsConstant.SWITCH)
+        if (switch == FlagConstant.SWITCH_OFF.toString()) {
+            context?.writePref(CommonsConstant.SWITCH, FlagConstant.SWITCH_ON.toString())
             viewModel.callSwitchSystem(SwitchSystem(FlagConstant.SWITCH_ON))
         } else {
-            context?.writeSwitch(SwitchFlag.SWITCH_OFF)
+            context?.writePref(CommonsConstant.SWITCH, FlagConstant.SWITCH_OFF.toString())
             viewModel.callSwitchSystem(SwitchSystem(FlagConstant.SWITCH_OFF))
         }
     }
