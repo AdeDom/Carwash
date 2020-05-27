@@ -1,4 +1,4 @@
-package com.chococard.carwash.data.models
+package com.chococard.carwash.data.networks.request
 
 import com.chococard.carwash.util.FlagConstant
 

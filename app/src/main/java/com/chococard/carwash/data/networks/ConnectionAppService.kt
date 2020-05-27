@@ -1,6 +1,6 @@
 package com.chococard.carwash.data.networks
 
-import com.chococard.carwash.data.models.SignIn
+import com.chococard.carwash.data.networks.request.SignIn
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.SignInResponse
 import com.chococard.carwash.util.FlagConstant

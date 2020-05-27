@@ -5,6 +5,7 @@ import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.db.entities.User
 import com.chococard.carwash.data.networks.HeaderAppService
 import com.chococard.carwash.data.networks.SafeApiRequest
+import com.chococard.carwash.data.networks.request.LogsActive
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
@@ -45,7 +46,7 @@ class HeaderRepository(
 
     suspend fun callPayment(paymentStatus: Int) = apiRequest { api.callPayment(paymentStatus) }
 
-    suspend fun callSetLogsActive(status: Int, keys: String) =
-        apiRequest { api.callSetLogsActive(status, keys) }
+    suspend fun callSetLogsActive(logsActive: LogsActive) =
+        apiRequest { api.callSetLogsActive(logsActive) }
 
 }

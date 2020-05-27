@@ -64,7 +64,7 @@ fun Context.writePref(key: String, values: String) =
 
 fun Context.readPref(key: String) =
     getSharedPreferences(CommonsConstant.PREF_FILE, Context.MODE_PRIVATE)
-        .getString(key, "")
+        .getString(key, "") ?: ""
 
 fun Context.writeJobFlag(flag: JobFlag) =
     getSharedPreferences(CommonsConstant.PREF_FILE, Context.MODE_PRIVATE).edit().apply {

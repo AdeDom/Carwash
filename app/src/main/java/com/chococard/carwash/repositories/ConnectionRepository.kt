@@ -1,6 +1,6 @@
 package com.chococard.carwash.repositories
 
-import com.chococard.carwash.data.models.SignIn
+import com.chococard.carwash.data.networks.request.SignIn
 import com.chococard.carwash.data.networks.ConnectionAppService
 import com.chococard.carwash.data.networks.SafeApiRequest
 import okhttp3.MultipartBody

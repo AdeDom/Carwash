@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
+import com.chococard.carwash.data.networks.request.LogsActive
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
@@ -60,7 +61,7 @@ class MainActivity : BaseActivity(),
         //call api
         val logsKeys = UUID.randomUUID().toString().replace("-", "")
         writePref(CommonsConstant.LOGS_KEYS, logsKeys)
-//        viewModel.callSetLogsActive(FlagConstant.LOGS_STATUS_ACTIVE, logsKeys)
+        viewModel.callSetLogsActive(LogsActive(logsKeys, FlagConstant.LOGS_STATUS_ACTIVE))
 
         // fetch user info
         progress_bar.show()
@@ -193,7 +194,7 @@ class MainActivity : BaseActivity(),
 
         // set user logs active
         val logsKeys = readPref(CommonsConstant.LOGS_KEYS)
-//        viewModel.callSetLogsActive(FlagConstant.LOGS_STATUS_INACTIVE, logsKeys)
+        viewModel.callSetLogsActive(LogsActive(logsKeys, FlagConstant.LOGS_STATUS_INACTIVE))
     }
 
     // When location is not enabled, the application will end.
