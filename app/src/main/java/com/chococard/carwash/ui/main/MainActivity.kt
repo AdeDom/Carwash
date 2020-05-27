@@ -19,6 +19,7 @@ import com.chococard.carwash.ui.history.HistoryFragment
 import com.chococard.carwash.ui.home.HomeFragment
 import com.chococard.carwash.ui.payment.PaymentActivity
 import com.chococard.carwash.ui.profile.ProfileFragment
+import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
 import com.chococard.carwash.ui.wallet.WalletFragment
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.FlagConstant
@@ -112,7 +113,13 @@ class MainActivity : BaseActivity(),
 
         viewModel.getLogout.observe(this, Observer { response ->
             val (success, message) = response
-            if (!success) {
+            if (success) {
+                writePref(CommonsConstant.TOKEN, "")
+                writePref(CommonsConstant.REFRESH_TOKEN, "")
+                startActivity<SplashScreenActivity> {
+                    finishAffinity()
+                }
+            } else {
                 message?.let { toast(it, Toast.LENGTH_LONG) }
             }
         })

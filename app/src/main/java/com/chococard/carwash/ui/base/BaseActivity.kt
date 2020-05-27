@@ -7,10 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.chococard.carwash.R
-import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
-import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.startActivity
-import com.chococard.carwash.util.extension.writePref
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -48,12 +45,7 @@ abstract class BaseActivity : AppCompatActivity() {
             dialog.dismiss()
         }
         setNegativeButton(android.R.string.ok) { dialog, which ->
-            writePref(CommonsConstant.TOKEN, "")
-            writePref(CommonsConstant.REFRESH_TOKEN, "")
             logout.invoke()
-            startActivity<SplashScreenActivity> {
-                finishAffinity()
-            }
         }
         setCancelable(false)
         show()

@@ -49,7 +49,13 @@ class ChangePasswordActivity : BaseActivity() {
 
         viewModel.getLogout.observe(this, Observer { response ->
             val (success, message) = response
-            if (!success) {
+            if (success) {
+                writePref(CommonsConstant.TOKEN, "")
+                writePref(CommonsConstant.REFRESH_TOKEN, "")
+                startActivity<SplashScreenActivity> {
+                    finishAffinity()
+                }
+            } else {
                 message?.let { toast(it, Toast.LENGTH_LONG) }
             }
         })

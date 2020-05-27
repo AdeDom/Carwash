@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
+import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.ChangeProfileViewModel
@@ -72,7 +73,13 @@ class ChangeProfileActivity : BaseActivity() {
 
         viewModel.getLogout.observe(this, Observer { response ->
             val (success, message) = response
-            if (!success) {
+            if (success) {
+                writePref(CommonsConstant.TOKEN, "")
+                writePref(CommonsConstant.REFRESH_TOKEN, "")
+                startActivity<SplashScreenActivity> {
+                    finishAffinity()
+                }
+            } else {
                 message?.let { toast(it, Toast.LENGTH_LONG) }
             }
         })
