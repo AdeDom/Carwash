@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.request.LogsActive
+import com.chococard.carwash.data.networks.request.SetLocation
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
@@ -133,6 +134,13 @@ class MainActivity : BaseActivity(),
                     finishAffinity()
                 }
             } else {
+                message?.let { toast(it, Toast.LENGTH_LONG) }
+            }
+        })
+
+        viewModel.getLocation.observe(this, Observer { response ->
+            val (success, message) = response
+            if (!success) {
                 message?.let { toast(it, Toast.LENGTH_LONG) }
             }
         })
@@ -287,7 +295,8 @@ class MainActivity : BaseActivity(),
     override fun onConnectionFailed(p0: ConnectionResult) {}
 
     override fun onLocationChanged(location: Location?) {
-        toast("${location?.latitude}, ${location?.longitude}")
+        val setLocation = SetLocation(location?.latitude, location?.longitude)
+        viewModel.callSetLocation(setLocation)
     }
 
 }

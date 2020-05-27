@@ -8,7 +8,7 @@ import com.chococard.carwash.repositories.HeaderRepository
 
 class HomeViewModel(private val repository: HeaderRepository) : BaseViewModel() {
 
-    val switch = MutableLiveData<BaseResponse>()
+    private val switch = MutableLiveData<BaseResponse>()
     val callSwitchSystem: LiveData<BaseResponse>
         get() = switch
 

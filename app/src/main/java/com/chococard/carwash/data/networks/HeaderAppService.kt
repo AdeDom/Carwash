@@ -2,8 +2,12 @@ package com.chococard.carwash.data.networks
 
 import com.chococard.carwash.data.networks.request.JobRequest
 import com.chococard.carwash.data.networks.request.LogsActive
+import com.chococard.carwash.data.networks.request.SetLocation
 import com.chococard.carwash.data.networks.request.SwitchSystem
-import com.chococard.carwash.data.networks.response.*
+import com.chococard.carwash.data.networks.response.BaseResponse
+import com.chococard.carwash.data.networks.response.HistoryResponse
+import com.chococard.carwash.data.networks.response.JobResponse
+import com.chococard.carwash.data.networks.response.UserResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -45,12 +49,8 @@ interface HeaderAppService {
     ): Response<BaseResponse>
 
     //set my location now to server and response location other employee around.
-    @FormUrlEncoded
-    @POST("v2/5e9eb321340000442b6eeea8")
-    suspend fun callSetLocation(
-        @Field(ApiConstant.LATITUDE) latitude: Double,
-        @Field(ApiConstant.LONGITUDE) longitude: Double
-    ): Response<LocationResponse>
+    @POST("api/location")
+    suspend fun callSetLocation(@Body setLocation: SetLocation): Response<BaseResponse>
 
     //get old history ever service customer and filter by date begin & end.
     @FormUrlEncoded

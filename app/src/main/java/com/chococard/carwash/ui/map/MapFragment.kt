@@ -56,14 +56,14 @@ class MapFragment : BaseFragment(R.layout.fragment_map), OnMapReadyCallback,
         setRequestLocation()
 
         // observe
-        viewModel.getEmployeeLocation.observe(viewLifecycleOwner, Observer { response ->
-            val (success, message, employeeLocation) = response
-            if (success) {
-                employeeLocation?.let { Employee(requireContext(), mGoogleMap, it) }
-            } else {
-                message?.let { context.toast(it, Toast.LENGTH_LONG) }
-            }
-        })
+//        viewModel.getEmployeeLocation.observe(viewLifecycleOwner, Observer { response ->
+//            val (success, message, employeeLocation) = response
+//            if (success) {
+//                employeeLocation?.let { Employee(requireContext(), mGoogleMap, it) }
+//            } else {
+//                message?.let { context.toast(it, Toast.LENGTH_LONG) }
+//            }
+//        })
 
         viewModel.getError.observe(viewLifecycleOwner, Observer {
             dialogError(it)
@@ -93,7 +93,7 @@ class MapFragment : BaseFragment(R.layout.fragment_map), OnMapReadyCallback,
         })
 
         // call api
-        viewModel.callSetLocation(latLng.latitude, latLng.longitude)
+//        viewModel.callSetLocation(latLng.latitude, latLng.longitude)
     }
 
     override fun onResume() {

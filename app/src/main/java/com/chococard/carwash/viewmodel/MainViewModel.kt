@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.request.JobRequest
 import com.chococard.carwash.data.networks.request.LogsActive
+import com.chococard.carwash.data.networks.request.SetLocation
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.networks.response.UserResponse
@@ -31,6 +32,10 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
     private val logout = MutableLiveData<BaseResponse>()
     val getLogout: LiveData<BaseResponse>
         get() = logout
+
+    private val location = MutableLiveData<BaseResponse>()
+    val getLocation: LiveData<BaseResponse>
+        get() = location
 
     fun callFetchUser() = launchCallApi(
         request = { repository.callFetchUser() },
@@ -65,6 +70,11 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
     fun callLogout() = launchCallApi(
         request = { repository.callLogout() },
         response = { logout.value = it }
+    )
+
+    fun callSetLocation(setLocation: SetLocation) = launchCallApi(
+        request = { repository.callSetLocation(setLocation) },
+        response = { location.value = it }
     )
 
 }
