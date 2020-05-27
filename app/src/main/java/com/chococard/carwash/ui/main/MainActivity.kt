@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
@@ -27,6 +28,11 @@ import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.JobFlag
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.MainViewModel
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.location.LocationListener
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -34,10 +40,15 @@ import java.util.*
 
 class MainActivity : BaseActivity(),
     BottomNavigationView.OnNavigationItemSelectedListener,
+    GoogleApiClient.ConnectionCallbacks,
+    GoogleApiClient.OnConnectionFailedListener,
+    LocationListener,
     FlagJobListener {
 
     val viewModel: MainViewModel by viewModel()
 
+    private lateinit var mGoogleApiClient: GoogleApiClient
+    private lateinit var mLocationRequest: LocationRequest
     private var mBroadcastReceiver: BroadcastReceiver? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +61,7 @@ class MainActivity : BaseActivity(),
 
         setToolbar(toolbar)
         setReceiverLocation()
+        setRequestLocation()
 
         bottom_navigation.setOnNavigationItemSelectedListener(this)
         if (savedInstanceState == null) replaceFragment(HomeFragment())
@@ -187,6 +199,9 @@ class MainActivity : BaseActivity(),
         super.onResume()
         //Register receiver.
         broadcastReceiver(true)
+
+        mGoogleApiClient.connect()
+        if (mGoogleApiClient.isConnected) startLocationUpdate()
     }
 
     override fun onPause() {
@@ -197,6 +212,9 @@ class MainActivity : BaseActivity(),
         // set user logs active
         val logsKeys = readPref(CommonsConstant.LOGS_KEYS)
         viewModel.callSetLogsActive(LogsActive(logsKeys, FlagConstant.LOGS_STATUS_INACTIVE))
+
+        if (mGoogleApiClient.isConnected) stopLocationUpdate()
+        if (mGoogleApiClient.isConnected) mGoogleApiClient.disconnect()
     }
 
     // When location is not enabled, the application will end.
@@ -236,5 +254,40 @@ class MainActivity : BaseActivity(),
     }
 
     override fun onFlag(flag: Int) = viewModel.callJobResponse(flag)
+
+    private fun setRequestLocation() {
+        mGoogleApiClient = GoogleApiClient.Builder(baseContext)
+            .addApi(LocationServices.API)
+            .addConnectionCallbacks(this)
+            .addOnConnectionFailedListener(this)
+            .build()
+        mGoogleApiClient.connect()
+
+        mLocationRequest = LocationRequest()
+            .setInterval(10_000)
+            .setFastestInterval(8_000)
+            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+    }
+
+    private fun startLocationUpdate() {
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+            mGoogleApiClient,
+            mLocationRequest,
+            this
+        )
+    }
+
+    private fun stopLocationUpdate() =
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this)
+
+    override fun onConnected(p0: Bundle?) = startLocationUpdate()
+
+    override fun onConnectionSuspended(p0: Int) = mGoogleApiClient.connect()
+
+    override fun onConnectionFailed(p0: ConnectionResult) {}
+
+    override fun onLocationChanged(location: Location?) {
+        toast("${location?.latitude}, ${location?.longitude}")
+    }
 
 }
