@@ -14,12 +14,14 @@
             android:src="@drawable/ic_switch" />
 
         <ImageView
+            android:id="@+id/iv_switch_off"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="2dp"
             android:src="@drawable/ic_switch_off" />
 
         <ImageView
+            android:id="@+id/iv_switch_on"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignEnd="@+id/switch_frame"
@@ -35,7 +37,9 @@
 
         <androidx.cardview.widget.CardView style="@style/CardViewImageView">
 
-            <ImageView style="@style/ImageViewPhoto" />
+            <ImageView
+                android:id="@+id/iv_photo"
+                style="@style/ImageViewPhoto" />
 
         </androidx.cardview.widget.CardView>
 
@@ -50,6 +54,7 @@
                 android:src="@drawable/ic_person_gray" />
 
             <TextView
+                android:id="@+id/tv_full_name"
                 style="@style/TextViewLargeApplication"
                 android:layout_marginStart="@dimen/base_pow_three"
                 android:text="@string/full_name" />
