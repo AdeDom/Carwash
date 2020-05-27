@@ -10,7 +10,9 @@
 
             <androidx.cardview.widget.CardView style="@style/CardViewImageView">
 
-                <ImageView style="@style/ImageViewPhoto" />
+                <ImageView
+                    android:id="@+id/iv_photo"
+                    style="@style/ImageViewPhoto" />
 
             </androidx.cardview.widget.CardView>
 

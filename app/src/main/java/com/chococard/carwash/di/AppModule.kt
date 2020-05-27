@@ -31,5 +31,6 @@ val appModule = module {
     viewModel { MapViewModel(get()) }
     viewModel { PaymentViewModel(get()) }
     viewModel { HomeViewModel(get()) }
+    viewModel { ProfileViewModel(get()) }
 
 }
