@@ -3,8 +3,8 @@ package com.chococard.carwash.ui.auth
 import android.os.Bundle
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
+import com.chococard.carwash.ui.requestotp.RequestOtpActivity
 import com.chococard.carwash.ui.signin.SignInActivity
-import com.chococard.carwash.ui.signup.SignUpActivity
 import com.chococard.carwash.util.extension.startActivity
 import kotlinx.android.synthetic.main.activity_auth.*
 
@@ -15,7 +15,7 @@ class AuthActivity : BaseActivity() {
         setContentView(R.layout.activity_auth)
 
         bt_sign_up.setOnClickListener {
-            startActivity<SignUpActivity>()
+            startActivity<RequestOtpActivity>()
         }
 
         bt_sign_in.setOnClickListener {

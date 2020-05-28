@@ -9,10 +9,6 @@
         <androidx.appcompat.widget.Toolbar style="@style/Toolbar" />
 
         <ImageView
-            android:id="@+id/iv_arrow_back"
-            style="@style/ImageViewArrowBack" />
-
-        <ImageView
             style="@style/ImageViewToolbar"
             android:src="@drawable/ic_verify_phone" />
 
