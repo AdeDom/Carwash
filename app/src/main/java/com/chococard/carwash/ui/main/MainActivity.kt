@@ -35,6 +35,7 @@ import com.google.android.gms.location.LocationListener
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
@@ -177,6 +178,7 @@ class MainActivity : BaseActivity(),
                 startActivity(Intent.ACTION_DIAL, getString(R.string.contact_admin_tel))
             }
             R.id.option_logout -> dialogLogout {
+                FirebaseAuth.getInstance().signOut()
                 viewModel.deleteUser()
                 viewModel.callLogout()
             }

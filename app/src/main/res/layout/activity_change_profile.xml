@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/RelativeLayout">
 
     <RelativeLayout
@@ -36,12 +37,18 @@
 
             </androidx.cardview.widget.CardView>
 
-            <ImageView
-                android:id="@+id/iv_camera"
-                style="@style/ImageViewCamera"
+            <androidx.cardview.widget.CardView
+                style="@style/WrapWrap"
                 android:layout_alignEnd="@+id/card"
                 android:layout_alignBottom="@+id/card"
-                android:elevation="@dimen/base_pow_three" />
+                app:cardCornerRadius="25dp"
+                app:cardElevation="@dimen/base_pow_three">
+
+                <ImageView
+                    android:id="@+id/iv_camera"
+                    style="@style/ImageViewCamera" />
+
+            </androidx.cardview.widget.CardView>
 
         </RelativeLayout>
 

@@ -12,6 +12,7 @@ import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.ChangePasswordViewModel
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_change_password.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -93,6 +94,7 @@ class ChangePasswordActivity : BaseActivity() {
                 startActivity(Intent.ACTION_DIAL, getString(R.string.contact_admin_tel))
             }
             R.id.option_logout -> dialogLogout {
+                FirebaseAuth.getInstance().signOut()
                 viewModel.deleteUser()
                 viewModel.callLogout()
             }
