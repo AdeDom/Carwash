@@ -92,6 +92,7 @@
         <item name="android:layout_margin">@dimen/base_pow_three</item>
         <item name="android:background">@drawable/shape_et</item>
         <item name="android:elevation">@dimen/base_pow_two</item>
+        <item name="android:drawablePadding">@dimen/base_pow_three</item>
     </style>
 
     <style name="EditTextPhoneNumber" parent="EditText">

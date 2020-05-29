@@ -104,7 +104,7 @@ class ChangeProfileActivity : BaseActivity() {
             iv_photo.setImageCircle(fileUri.toString())
             uploadFile(fileUri) { body, description ->
                 progress_bar.show()
-                viewModel.callUploadImageFile(body, description)
+                viewModel.callUploadImageFile(body)
             }
         }
     }

@@ -7,7 +7,6 @@ import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.repositories.HeaderRepository
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.ResponseBody
 
 class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseViewModel() {
@@ -38,8 +37,8 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
         }
     )
 
-    fun callUploadImageFile(file: MultipartBody.Part, description: RequestBody) = launchCallApi(
-        request = { repository.callUploadImageFile(file, description) },
+    fun callUploadImageFile(file: MultipartBody.Part) = launchCallApi(
+        request = { repository.callUploadImageFile(file) },
         response = { upload.value = it }
     )
 

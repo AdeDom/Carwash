@@ -9,7 +9,6 @@ import com.chococard.carwash.data.networks.request.LogsActive
 import com.chococard.carwash.data.networks.request.SetLocation
 import com.chococard.carwash.data.networks.request.SwitchSystem
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 
 class HeaderRepository(
     private val api: HeaderAppService,
@@ -22,8 +21,8 @@ class HeaderRepository(
     fun getUser() = db.getUserDao().getUser()
     suspend fun deleteUser() = db.getUserDao().deleteUser()
 
-    suspend fun callUploadImageFile(file: MultipartBody.Part, description: RequestBody) =
-        apiRequest { api.callUploadImageFile(file, description) }
+    suspend fun callUploadImageFile(file: MultipartBody.Part) =
+        apiRequest { api.callUploadImageFile(file) }
 
     suspend fun callLogout() = apiRequest { api.callLogout() }
 

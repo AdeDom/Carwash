@@ -9,7 +9,6 @@ import com.chococard.carwash.data.networks.response.HistoryResponse
 import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.networks.response.UserResponse
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -23,11 +22,8 @@ interface HeaderAppService {
 
     //upload image from android to server when selected image.
     @Multipart
-    @POST("upload.php")
-    suspend fun callUploadImageFile(
-        @Part file: MultipartBody.Part,
-        @Part(ApiConstant.DESCRIPTION) description: RequestBody
-    ): Response<ResponseBody>
+    @POST("api/changeprofile")
+    suspend fun callUploadImageFile(@Part file: MultipartBody.Part): Response<ResponseBody>
 
     //logout
     @POST("api/account/logout/")

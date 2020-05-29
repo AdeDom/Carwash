@@ -86,7 +86,7 @@ fun Context.uploadFile(fileUri: Uri, upload: (MultipartBody.Part, RequestBody) -
     val requestFile = RequestBody
         .create(MediaType.parse(contentResolver.getType(fileUri)), file)
 
-    val body = MultipartBody.Part.createFormData("uploaded_file", file?.name, requestFile)
+    val body = MultipartBody.Part.createFormData("file", file?.name, requestFile)
 
     val descriptionString = "hello, this is description speaking"
     val description = RequestBody.create(MultipartBody.FORM, descriptionString)
