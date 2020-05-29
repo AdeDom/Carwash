@@ -21,6 +21,7 @@
     <string name="error_empty_re_password">Please enter re-password</string>
     <string name="error_empty_identity_card">Please enter identity card</string>
     <string name="error_empty_phone">Please enter phone</string>
+    <string name="error_empty_otp">Please enter OTP</string>
     <string name="error_least_length">Please enter at least %1$d characters</string>
     <string name="error_equal_length">Please enter a total of %1$d characters</string>
     <string name="error_matched">Please enter the password to match</string>
@@ -79,5 +80,7 @@
     <string name="tv_example_percent">100.0%</string>
     <string name="profile">Profile</string>
     <string name="home">Home</string>
+    <string name="please_check_message_phone_number">Please check the message from phone number %1$s</string>
+    <string name="please_re_send_message">Please re-send message</string>
 
 </resources>

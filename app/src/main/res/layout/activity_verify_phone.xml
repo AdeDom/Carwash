@@ -26,10 +26,13 @@
             android:text="@string/please_enter_otp_from_message" />
 
         <EditText
-            android:id="@+id/et_otp"
+            android:id="@+id/et_verify_otp"
             style="@style/EditText"
+            android:digits="0123456789"
             android:drawableStart="@drawable/ic_mail"
-            android:hint="@string/otp" />
+            android:hint="@string/otp"
+            android:inputType="number"
+            android:maxLength="6" />
 
         <TextView
             style="@style/TextViewMediumGray"
@@ -41,7 +44,7 @@
             android:layout_marginTop="@dimen/base_pow_four">
 
             <Button
-                android:id="@+id/bt_re_send"
+                android:id="@+id/bt_re_send_message"
                 style="@style/ButtonWhiteShort"
                 android:layout_width="@dimen/bt_long_width"
                 android:text="@string/re_send" />

@@ -25,16 +25,13 @@ class RequestOtpActivity : BaseActivity() {
     }
 
     private fun requestOtp() {
-        var phoneNumber = et_phone.getContents()
-
         when {
             et_phone.isEmpty(getString(R.string.error_empty_phone)) -> return
             et_phone.isEqualLength(10, getString(R.string.error_equal_length, 10)) -> return
             et_phone.isVerifyPhone(getString(R.string.error_phone)) -> return
         }
 
-        phoneNumber = "+66${phoneNumber.substring(1, 10)}"
-
+        val phoneNumber = et_phone.getContents()
         startActivity<VerifyPhoneActivity> { intent ->
             intent.putExtra(CommonsConstant.PHONE, phoneNumber)
             finish()
