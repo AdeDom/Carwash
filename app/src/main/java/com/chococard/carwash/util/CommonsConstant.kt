@@ -5,6 +5,7 @@ object CommonsConstant {
     const val REQUEST_CODE_IMAGE = 1
     const val REQUEST_CODE_LOCATION = 2
     const val REQUEST_CODE_PERMISSION = 3
+    const val REQUEST_CODE_VERIFY_PHONE = 4
 
     const val PREF_FILE = "pref_file"
     const val TOKEN = "token"

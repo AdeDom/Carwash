@@ -7,15 +7,18 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
+import com.chococard.carwash.data.networks.request.ChangePhone
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
 import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
+import com.chococard.carwash.ui.verifyphone.VPChangeProfileActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.ChangeProfileViewModel
 import kotlinx.android.synthetic.main.activity_change_profile.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+// TODO: 29/05/2563 re-check get db user info from room database
 class ChangeProfileActivity : BaseActivity() {
 
     val viewModel: ChangeProfileViewModel by viewModel()
@@ -106,6 +109,11 @@ class ChangeProfileActivity : BaseActivity() {
                 progress_bar.show()
                 viewModel.callUploadImageFile(body)
             }
+        } else if (requestCode == CommonsConstant.REQUEST_CODE_VERIFY_PHONE && resultCode == Activity.RESULT_OK) {
+            progress_bar.show()
+            val phoneNumber = et_phone.getContents()
+            val changePhone = ChangePhone(phoneNumber)
+            viewModel.callChangeProfile(changePhone)
         }
     }
 
@@ -116,8 +124,11 @@ class ChangeProfileActivity : BaseActivity() {
             et_phone.isVerifyPhone(getString(R.string.error_phone)) -> return
         }
 
-        progress_bar.show()
-        viewModel.callChangeProfile(et_phone.getContents())
+        val phoneNumber = et_phone.getContents()
+        Intent(baseContext, VPChangeProfileActivity::class.java).apply {
+            putExtra(CommonsConstant.PHONE, phoneNumber)
+            startActivityForResult(this, CommonsConstant.REQUEST_CODE_VERIFY_PHONE)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

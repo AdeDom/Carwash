@@ -1,9 +1,6 @@
 package com.chococard.carwash.data.networks
 
-import com.chococard.carwash.data.networks.request.JobRequest
-import com.chococard.carwash.data.networks.request.LogsActive
-import com.chococard.carwash.data.networks.request.SetLocation
-import com.chococard.carwash.data.networks.request.SwitchSystem
+import com.chococard.carwash.data.networks.request.*
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.HistoryResponse
 import com.chococard.carwash.data.networks.response.JobResponse
@@ -30,11 +27,8 @@ interface HeaderAppService {
     suspend fun callLogout(): Response<BaseResponse>
 
     //change data profile name, id card, phone etc.
-    @FormUrlEncoded
-    @POST("v2/5e9eadde340000452b6eee61")
-    suspend fun callChangeProfile(
-        @Field(ApiConstant.PHONE) phone: String
-    ): Response<BaseResponse>
+    @POST("api/account/changephone")
+    suspend fun callChangeProfile(@Body changePhone: ChangePhone): Response<BaseResponse>
 
     //change password of username for security.
     @FormUrlEncoded

@@ -5,6 +5,7 @@ import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.db.entities.User
 import com.chococard.carwash.data.networks.HeaderAppService
 import com.chococard.carwash.data.networks.SafeApiRequest
+import com.chococard.carwash.data.networks.request.ChangePhone
 import com.chococard.carwash.data.networks.request.LogsActive
 import com.chococard.carwash.data.networks.request.SetLocation
 import com.chococard.carwash.data.networks.request.SwitchSystem
@@ -26,7 +27,8 @@ class HeaderRepository(
 
     suspend fun callLogout() = apiRequest { api.callLogout() }
 
-    suspend fun callChangeProfile(phone: String) = apiRequest { api.callChangeProfile(phone) }
+    suspend fun callChangeProfile(changePhone: ChangePhone) =
+        apiRequest { api.callChangeProfile(changePhone) }
 
     suspend fun callChangePassword(oldPassword: String, newPassword: String) =
         apiRequest { api.callChangePassword(oldPassword, newPassword) }
