@@ -4,7 +4,8 @@ import android.os.Bundle
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.verifyphone.VerifyPhoneActivity
-import com.chococard.carwash.util.extension.startActivity
+import com.chococard.carwash.util.CommonsConstant
+import com.chococard.carwash.util.extension.*
 import kotlinx.android.synthetic.main.activity_request_otp.*
 
 class RequestOtpActivity : BaseActivity() {
@@ -24,7 +25,18 @@ class RequestOtpActivity : BaseActivity() {
     }
 
     private fun requestOtp() {
-        startActivity<VerifyPhoneActivity> {
+        var phoneNumber = et_phone.getContents()
+
+        when {
+            et_phone.isEmpty(getString(R.string.error_empty_phone)) -> return
+            et_phone.isEqualLength(10, getString(R.string.error_equal_length, 10)) -> return
+            et_phone.isVerifyPhone(getString(R.string.error_phone)) -> return
+        }
+
+        phoneNumber = "+66${phoneNumber.substring(1, 10)}"
+
+        startActivity<VerifyPhoneActivity> { intent ->
+            intent.putExtra(CommonsConstant.PHONE, phoneNumber)
             finish()
         }
     }

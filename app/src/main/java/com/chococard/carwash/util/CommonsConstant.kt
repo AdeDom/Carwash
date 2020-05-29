@@ -13,5 +13,6 @@ object CommonsConstant {
     const val JOB_FLAG = "flag"
     const val LOGS_KEYS = "logs_keys"
     const val SWITCH = "switch"
+    const val PHONE = "phone"
 
 }

@@ -29,9 +29,9 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 
-inline fun <reified T : Activity> Context.startActivity(noinline intent: (() -> Unit)? = null) {
+inline fun <reified T : Activity> Context.startActivity(noinline intent: ((Intent) -> Unit)? = null) {
     Intent(this, T::class.java).apply {
-        intent?.invoke()
+        intent?.invoke(this)
         startActivity(this)
     }
 }
