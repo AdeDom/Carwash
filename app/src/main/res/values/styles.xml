@@ -103,6 +103,13 @@
         <item name="android:digits">0123456789</item>
     </style>
 
+    <style name="EditTextPassword" parent="EditText">
+        <item name="android:digits">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890</item>
+        <item name="android:drawableStart">@drawable/ic_key_gray</item>
+        <item name="android:hint">@string/password</item>
+        <item name="android:inputType">textPassword</item>
+    </style>
+
     <style name="ButtonBlueShort">
         <item name="android:textAllCaps">false</item>
         <item name="android:textStyle">bold</item>
