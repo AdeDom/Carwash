@@ -16,7 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.verifyphone.VerifyPhoneActivity"
+            android:name=".ui.verifyphone.VPChangeProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.verifyphone.VPSignUpActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.requestotp.RequestOtpActivity"

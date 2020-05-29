@@ -4,21 +4,22 @@ import android.os.Bundle
 import android.widget.Toast
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
-import com.chococard.carwash.ui.signup.SignUpActivity
 import com.chococard.carwash.util.CommonsConstant
-import com.chococard.carwash.util.extension.*
+import com.chococard.carwash.util.extension.getContents
+import com.chococard.carwash.util.extension.isEmpty
+import com.chococard.carwash.util.extension.isEqualLength
+import com.chococard.carwash.util.extension.toast
 import com.google.firebase.FirebaseException
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import kotlinx.android.synthetic.main.activity_verify_phone.*
 import java.util.concurrent.TimeUnit
 
-class VerifyPhoneActivity : BaseActivity() {
+abstract class BaseVerifyPhoneActivity : BaseActivity() {
 
     private var mIsReSendMessage = true
     private var mVerificationId: String? = null
-    private var mPhoneNumber: String? = null
+    protected var mPhoneNumber: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +58,7 @@ class VerifyPhoneActivity : BaseActivity() {
             mVerificationId != null -> {
                 val smsCode = et_verify_otp.getContents()
                 val credential = PhoneAuthProvider.getCredential(mVerificationId!!, smsCode)
-                signInWithCredential(credential)
+                firebaseAuthPhone(credential)
             }
             else -> toast(getString(R.string.please_re_send_message), Toast.LENGTH_LONG)
         }
@@ -67,7 +68,7 @@ class VerifyPhoneActivity : BaseActivity() {
         val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
                 et_verify_otp.setText(credential.smsCode)
-                signInWithCredential(credential)
+                firebaseAuthPhone(credential)
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
@@ -91,18 +92,6 @@ class VerifyPhoneActivity : BaseActivity() {
         )
     }
 
-    private fun signInWithCredential(credential: PhoneAuthCredential) {
-        FirebaseAuth.getInstance().signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    startActivity<SignUpActivity> {
-                        it.putExtra(CommonsConstant.PHONE, mPhoneNumber)
-                        finish()
-                    }
-                } else {
-                    task.exception?.message?.let { toast(it, Toast.LENGTH_LONG) }
-                }
-            }
-    }
+    abstract fun firebaseAuthPhone(credential: PhoneAuthCredential)
 
 }

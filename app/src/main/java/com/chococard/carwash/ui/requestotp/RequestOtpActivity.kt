@@ -3,7 +3,7 @@ package com.chococard.carwash.ui.requestotp
 import android.os.Bundle
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
-import com.chococard.carwash.ui.verifyphone.VerifyPhoneActivity
+import com.chococard.carwash.ui.verifyphone.VPSignUpActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
 import kotlinx.android.synthetic.main.activity_request_otp.*
@@ -32,7 +32,7 @@ class RequestOtpActivity : BaseActivity() {
         }
 
         val phoneNumber = et_phone.getContents()
-        startActivity<VerifyPhoneActivity> { intent ->
+        startActivity<VPSignUpActivity> { intent ->
             intent.putExtra(CommonsConstant.PHONE, phoneNumber)
             finish()
         }
