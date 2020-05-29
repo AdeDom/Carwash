@@ -94,6 +94,14 @@
         <item name="android:elevation">@dimen/base_pow_two</item>
     </style>
 
+    <style name="EditTextPhoneNumber" parent="EditText">
+        <item name="android:drawableStart">@drawable/ic_phone_gray</item>
+        <item name="android:hint">@string/phone</item>
+        <item name="android:inputType">phone</item>
+        <item name="android:maxLength">10</item>
+        <item name="android:digits">0123456789</item>
+    </style>
+
     <style name="ButtonBlueShort">
         <item name="android:textAllCaps">false</item>
         <item name="android:textStyle">bold</item>

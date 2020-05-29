@@ -16,6 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SignUpActivity : BaseActivity() {
 
     val viewModel: SignUpViewModel by viewModel()
+    private var mPhoneNumber: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +26,10 @@ class SignUpActivity : BaseActivity() {
     }
 
     private fun init() {
+        // set widgets
+        mPhoneNumber = intent.getStringExtra(CommonsConstant.PHONE)
+        if (mPhoneNumber == null) finish() else et_phone.setText(mPhoneNumber)
+
         //event
         iv_arrow_back.setOnClickListener { onBackPressed() }
 

@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit
 
 class VerifyPhoneActivity : BaseActivity() {
 
-    private var mIsReSendPhone = true
+    private var mIsReSendMessage = true
     private var mVerificationId: String? = null
     private var mPhoneNumber: String? = null
 
@@ -34,8 +34,8 @@ class VerifyPhoneActivity : BaseActivity() {
 
         //set event
         bt_re_send_message.setOnClickListener {
-            if (mIsReSendPhone) {
-                mIsReSendPhone = false
+            if (mIsReSendMessage) {
+                mIsReSendMessage = false
                 requestOtp()
             } else {
                 toast(

@@ -89,12 +89,8 @@
 
             <EditText
                 android:id="@+id/et_phone"
-                style="@style/EditText"
-                android:drawableStart="@drawable/ic_phone_gray"
-                android:enabled="false"
-                android:hint="@string/phone"
-                android:inputType="phone"
-                android:maxLength="10" />
+                style="@style/EditTextPhoneNumber"
+                android:enabled="false" />
 
             <androidx.cardview.widget.CardView style="@style/CardViewButton">
 
