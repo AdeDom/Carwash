@@ -32,5 +32,6 @@ val appModule = module {
     viewModel { PaymentViewModel(get()) }
     viewModel { HomeViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
+    viewModel { RequestOtpViewModel(get()) }
 
 }

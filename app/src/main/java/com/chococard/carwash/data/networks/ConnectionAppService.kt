@@ -1,6 +1,7 @@
 package com.chococard.carwash.data.networks
 
 import com.chococard.carwash.data.networks.request.SignIn
+import com.chococard.carwash.data.networks.request.ValidatePhone
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.SignInResponse
 import com.chococard.carwash.util.FlagConstant
@@ -36,6 +37,9 @@ interface ConnectionAppService {
     //login for want token from server.
     @POST("api/account/login")
     suspend fun callSignIn(@Body signIn: SignIn): Response<SignInResponse>
+
+    @POST("api/account/checkphone")
+    suspend fun callValidatePhone(@Body validatePhone: ValidatePhone): Response<BaseResponse>
 
     companion object {
         operator fun invoke(networkConnectionInterceptor: NetworkConnectionInterceptor) =

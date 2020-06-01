@@ -82,5 +82,6 @@
     <string name="home">Home</string>
     <string name="please_check_message_phone_number">Please check the message from phone number %1$s</string>
     <string name="please_re_send_message">Please re-send message</string>
+    <string name="validate_phone">Validate phone</string>
 
 </resources>
