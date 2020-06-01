@@ -4,34 +4,27 @@ import com.chococard.carwash.data.networks.request.SignIn
 import com.chococard.carwash.data.networks.request.ValidatePhone
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.SignInResponse
-import com.chococard.carwash.util.FlagConstant
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.ResponseBody
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.Multipart
+import retrofit2.http.POST
+import retrofit2.http.Part
 
 interface ConnectionAppService {
 
-    //upload image from android to server when selected image.
-    @Multipart
-    @POST("upload.php")
-    suspend fun callUploadImageFile(
-        @Part file: MultipartBody.Part,
-        @Part(ApiConstant.DESCRIPTION) description: RequestBody
-    ): Response<ResponseBody>
-
     //register for entire to system car wash.
-    @FormUrlEncoded
-    @POST("v2/5e9eacad34000099b46eee54")
-//    @POST("api/account/register/")
+    @Multipart
+    @POST("api/account/register")
     suspend fun callSignUp(
-        @Field(ApiConstant.FULL_NAME) fullName: String,
-        @Field(ApiConstant.USERNAME) username: String,
-        @Field(ApiConstant.PASSWORD) password: String,
-        @Field(ApiConstant.ID_CARD_NUMBER) identityCard: String,
-        @Field(ApiConstant.PHONE) phone: String,
-        @Field(ApiConstant.ROLE) role: Int = FlagConstant.EMPLOYEE
+        @Part(ApiConstant.USERNAME) username: RequestBody,
+        @Part(ApiConstant.PASSWORD) password: RequestBody,
+        @Part(ApiConstant.FULL_NAME) fullName: RequestBody,
+        @Part(ApiConstant.ID_CARD_NUMBER) identityCard: RequestBody,
+        @Part(ApiConstant.PHONE) phone: RequestBody,
+        @Part(ApiConstant.ROLE) role: RequestBody,
+        @Part file: MultipartBody.Part
     ): Response<BaseResponse>
 
     //login for want token from server.

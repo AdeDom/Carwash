@@ -11,16 +11,15 @@ class ConnectionRepository(
     private val api: ConnectionAppService
 ) : SafeApiRequest() {
 
-    suspend fun callUploadImageFile(file: MultipartBody.Part, description: RequestBody) =
-        apiRequest { api.callUploadImageFile(file, description) }
-
     suspend fun callSignUp(
-        fullName: String,
-        username: String,
-        password: String,
-        identityCard: String,
-        phone: String
-    ) = apiRequest { api.callSignUp(fullName, username, password, identityCard, phone) }
+        username: RequestBody,
+        password: RequestBody,
+        fullName: RequestBody,
+        identityCard: RequestBody,
+        phone: RequestBody,
+        role: RequestBody,
+        file: MultipartBody.Part
+    ) = apiRequest { api.callSignUp(username, password, fullName, identityCard, phone, role, file) }
 
     suspend fun callSignIn(signIn: SignIn) = apiRequest { api.callSignIn(signIn) }
 
