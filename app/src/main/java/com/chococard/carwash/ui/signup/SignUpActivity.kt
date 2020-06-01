@@ -5,10 +5,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.signin.SignInActivity
+import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.*
@@ -55,11 +57,10 @@ class SignUpActivity : BaseActivity() {
         viewModel.getSignUp.observe(this, Observer { response ->
             val (success, message) = response
             progress_bar.hide()
-            message?.let { toast(it) }
             if (success) {
-                startActivity<SignInActivity> {
-                    finish()
-                }
+                dialogContactAdmin()
+            } else {
+                message?.let { toast(it) }
             }
         })
 
@@ -116,6 +117,19 @@ class SignUpActivity : BaseActivity() {
         val multipartBody = convertToMultipartBody(mFileUri!!)
         viewModel.callSignUp(username, password, fullName, identityCard, phone, role, multipartBody)
 
+    }
+
+    private fun dialogContactAdmin() = AlertDialog.Builder(this).apply {
+        setTitle(R.string.contact_admin)
+        setMessage(R.string.please_contact_car_wash)
+        setPositiveButton(android.R.string.ok) { dialog, which ->
+            dialog.dismiss()
+            startActivity<SplashScreenActivity> {
+                finishAffinity()
+            }
+        }
+        setCancelable(false)
+        show()
     }
 
 }

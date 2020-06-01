@@ -84,5 +84,6 @@
     <string name="please_re_send_message">Please re-send message</string>
     <string name="validate_phone">Validate phone</string>
     <string name="please_select_profile_picture">Please select a profile picture</string>
+    <string name="please_contact_car_wash">Please contact the Car Wash for training, Thank you.</string>
 
 </resources>
