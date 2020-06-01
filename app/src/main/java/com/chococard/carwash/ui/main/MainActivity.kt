@@ -23,6 +23,7 @@ import com.chococard.carwash.ui.home.HomeFragment
 import com.chococard.carwash.ui.payment.PaymentActivity
 import com.chococard.carwash.ui.profile.ProfileFragment
 import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
+import com.chococard.carwash.ui.verifyphone.VPSignInActivity
 import com.chococard.carwash.ui.wallet.WalletFragment
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.FlagConstant
@@ -84,8 +85,15 @@ class MainActivity : BaseActivity(),
         //observe
         viewModel.getUser.observe(this, Observer { response ->
             progress_bar.hide()
-            val (success, message, _) = response
-            if (!success) {
+            val (success, message, user) = response
+            if (success) {
+                val currentUser = FirebaseAuth.getInstance().currentUser
+                if (currentUser == null) {
+                    startActivity<VPSignInActivity> { intent ->
+                        intent.putExtra(CommonsConstant.PHONE, user?.phone)
+                    }
+                }
+            } else {
                 finishAffinity()
                 message?.let { toast(it, Toast.LENGTH_LONG) }
             }

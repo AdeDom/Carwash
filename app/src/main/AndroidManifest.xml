@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ui.verifyphone.VPSignInActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.verifyphone.VPChangeProfileActivity"
             android:screenOrientation="portrait" />
         <activity
