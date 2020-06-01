@@ -75,10 +75,10 @@ fun Context.readJobFlag() =
     getSharedPreferences(CommonsConstant.PREF_FILE, Context.MODE_PRIVATE)
         .getString(CommonsConstant.JOB_FLAG, JobFlag.JOB_FLAG_OFF.toString())
 
-fun Context.uploadFile(fileUri: Uri, upload: (MultipartBody.Part, RequestBody) -> Unit) {
-    val parcelFileDescriptor = contentResolver.openFileDescriptor(fileUri, "r", null) ?: return
+fun Context.convertToMultipartBody(fileUri: Uri): MultipartBody.Part {
+    val parcelFileDescriptor = contentResolver.openFileDescriptor(fileUri, "r", null)
 
-    val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
+    val inputStream = FileInputStream(parcelFileDescriptor?.fileDescriptor)
     val file = File(cacheDir, contentResolver.getFileName(fileUri))
     val outputStream = FileOutputStream(file)
     inputStream.copyTo(outputStream)
@@ -86,12 +86,7 @@ fun Context.uploadFile(fileUri: Uri, upload: (MultipartBody.Part, RequestBody) -
     val requestFile = RequestBody
         .create(MediaType.parse(contentResolver.getType(fileUri)), file)
 
-    val body = MultipartBody.Part.createFormData("file", file?.name, requestFile)
-
-    val descriptionString = "hello, this is description speaking"
-    val description = RequestBody.create(MultipartBody.FORM, descriptionString)
-
-    upload.invoke(body, description)
+    return MultipartBody.Part.createFormData("file", file?.name, requestFile)
 }
 
 fun Context.setImageCircle(

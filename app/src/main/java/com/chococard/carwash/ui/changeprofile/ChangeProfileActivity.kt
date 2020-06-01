@@ -106,10 +106,9 @@ class ChangeProfileActivity : BaseActivity() {
         if (requestCode == CommonsConstant.REQUEST_CODE_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
             val fileUri = data.data!!
             iv_photo.setImageCircle(fileUri.toString())
-            uploadFile(fileUri) { body, description ->
-                progress_bar.show()
-                viewModel.callUploadImageFile(body)
-            }
+            progress_bar.show()
+            val multipartBody = convertToMultipartBody(fileUri)
+            viewModel.callUploadImageFile(multipartBody)
         } else if (requestCode == CommonsConstant.REQUEST_CODE_VERIFY_PHONE && resultCode == Activity.RESULT_OK) {
             progress_bar.show()
             val phoneNumber = et_phone.getContents()
