@@ -85,5 +85,29 @@
     <string name="validate_phone">Validate phone</string>
     <string name="please_select_profile_picture">Please select a profile picture</string>
     <string name="please_contact_car_wash">Please contact the Car Wash for training, Thank you.</string>
+    <string name="front">Front</string>
+    <string name="back">Back</string>
+    <string name="left">Left</string>
+    <string name="right">Right</string>
+    <string name="comment">Comment</string>
+    <string name="lorem">เนื้อหาจำลองแบบเรียบๆ ที่ใช้กันในธุรกิจ
+                        งานพิมพ์หรืองานเรียงพิมพ์ มันได้กลาย
+                        มาเป็นเนื้อหาจำลองมาตรฐานของธุรกิจ
+                        ดังกล่าวมาตั้งแต่ศตวรรษที่ 16 เมื่อ
+                        เครื่องพิมพ์โนเนมเครื่องหนึ่งนำรางตัว
+                        พิมพ์มาสลับสับตำแหน่งตัวอักษรเพื่อทำ
+                        หนังสือตัวอย่าง Lorem Ipsum อยู่ยง
+                        คงกระพันมาไม่ใช่แค่เพียงห้าศตวรรษ
+                        แต่อยู่มาจนถึงยุคที่พลิกโฉมเข้าสู่งาน
+                        เรียงพิมพ์ด้วยวิธีทางอิเล็กทรอนิกส์
+                        และยังคงสภาพเดิมไว้อย่างไม่มีการ
+                        เปลี่ยนแปลง มันได้รับความนิยมมากขึ้น
+                        ในยุค ค.ศ. 1960 เมื่อแผ่น Letraset
+                        วางจำหน่ายโดยมีข้อความบนนั้นเป็น
+                        Lorem Ipsum และล่าสุดกว่านั้น คือเมื่อ
+                        ซอฟท์แวร์การทำสื่อสิ่งพิมพ์ (Desktop
+                        Publishing) อย่าง Aldus PageMaker
+                        ได้รวมเอา Lorem Ipsum เวอร์ชั่นต่างๆ
+                        เข้าไว้ในซอฟท์แวร์ด้วยYes</string>
 
 </resources>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchMatch"
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    android:paddingBottom="@dimen/base_hundred">
+
+    <LinearLayout
+        style="@style/MatchWrap"
+        android:orientation="vertical">
+
+        <RelativeLayout style="@style/MatchWrap">
+
+            <androidx.appcompat.widget.Toolbar style="@style/Toolbar" />
+
+            <ImageView
+                android:id="@+id/iv_arrow_back"
+                style="@style/ImageViewArrowBack" />
+
+            <ImageView
+                style="@style/ImageViewToolbar"
+                android:src="@drawable/ic_history_detail" />
+
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView style="@style/StyleCardView">
+
+            <RelativeLayout style="@style/MatchWrap">
+
+                <GridLayout
+                    style="@style/WrapWrap"
+                    android:columnCount="2"
+                    android:rowCount="6">
+
+                    <ImageView
+                        style="@style/ImageViewIcon"
+                        android:layout_marginTop="@dimen/base_zero"
+                        android:src="@drawable/ic_person_gray" />
+
+                    <TextView
+                        android:id="@+id/tv_full_name"
+                        style="@style/TextViewLargeApplicationSub"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="@dimen/base_pow_three"
+                        android:text="@string/full_name" />
+
+                    <ImageView
+                        style="@style/ImageViewIcon"
+                        android:src="@drawable/ic_list_job_gray" />
+
+                    <TextView
+                        android:id="@+id/tv_service"
+                        style="@style/TextViewLargeApplicationSub"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="@dimen/base_pow_three"
+                        android:layout_marginTop="@dimen/base_pow_four"
+                        android:text="@string/service" />
+
+                    <ImageView
+                        style="@style/ImageViewIcon"
+                        android:src="@drawable/ic_location_gray" />
+
+                    <TextView
+                        android:id="@+id/tv_location"
+                        style="@style/TextViewLargeApplicationSub"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="@dimen/base_pow_three"
+                        android:layout_marginTop="@dimen/base_pow_four"
+                        android:text="@string/location" />
+
+                    <ImageView
+                        style="@style/ImageViewIcon"
+                        android:src="@drawable/ic_car_gray" />
+
+                    <TextView
+                        android:id="@+id/tv_vehicle_registration"
+                        style="@style/TextViewLargeApplicationSub"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="@dimen/base_pow_three"
+                        android:layout_marginTop="@dimen/base_pow_four"
+                        android:text="@string/vehicle_registration" />
+
+                    <ImageView
+                        style="@style/ImageViewIcon"
+                        android:src="@drawable/ic_baht" />
+
+                    <TextView
+                        android:id="@+id/tv_price"
+                        style="@style/TextViewLargeApplicationSub"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="@dimen/base_pow_three"
+                        android:layout_marginTop="@dimen/base_pow_four"
+                        android:text="@string/price" />
+
+                    <ImageView
+                        style="@style/ImageViewIcon"
+                        android:src="@drawable/ic_time_gray" />
+
+                    <TextView
+                        android:id="@+id/tv_date_time"
+                        style="@style/TextViewLargeApplicationSub"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="@dimen/base_pow_three"
+                        android:layout_marginTop="@dimen/base_pow_four"
+                        android:text="@string/date_time" />
+
+                </GridLayout>
+
+                <ImageView
+                    android:id="@+id/iv_photo"
+                    style="@style/ImageViewPhotoSub"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            style="@style/StyleCardView"
+            app:contentPadding="@dimen/base_zero">
+
+            <TextView
+                style="@style/TextViewLargeApplication"
+                android:text="@string/front" />
+
+            <ImageView
+                android:id="@+id/iv_image_front"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_two_hundred"
+                android:layout_marginTop="@dimen/base_pow_five"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_example" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            style="@style/StyleCardView"
+            app:contentPadding="@dimen/base_zero">
+
+            <TextView
+                style="@style/TextViewLargeApplication"
+                android:text="@string/back" />
+
+            <ImageView
+                android:id="@+id/iv_image_back"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_two_hundred"
+                android:layout_marginTop="@dimen/base_pow_five"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_example" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            style="@style/StyleCardView"
+            app:contentPadding="@dimen/base_zero">
+
+            <TextView
+                style="@style/TextViewLargeApplication"
+                android:text="@string/left" />
+
+            <ImageView
+                android:id="@+id/iv_image_left"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_two_hundred"
+                android:layout_marginTop="@dimen/base_pow_five"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_example" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            style="@style/StyleCardView"
+            app:contentPadding="@dimen/base_zero">
+
+            <TextView
+                style="@style/TextViewLargeApplication"
+                android:text="@string/right" />
+
+            <ImageView
+                android:id="@+id/iv_image_right"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_two_hundred"
+                android:layout_marginTop="@dimen/base_pow_five"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_example" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView style="@style/StyleCardView">
+
+            <TextView
+                style="@style/TextViewLargeApplication"
+                android:layout_gravity="start"
+                android:text="@string/comment" />
+
+            <TextView
+                android:id="@+id/tv_comment"
+                style="@style/TextViewMediumGray"
+                android:layout_marginTop="@dimen/base_pow_five"
+                android:text="@string/lorem" />
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>
