@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/MatchMatch"
     android:clipToPadding="false"
     android:fillViewport="true"
@@ -130,7 +131,7 @@
                 android:layout_height="@dimen/base_two_hundred"
                 android:layout_marginTop="@dimen/base_pow_five"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_example" />
+                android:src="@drawable/img_logo_blue" />
 
         </androidx.cardview.widget.CardView>
 
@@ -148,7 +149,7 @@
                 android:layout_height="@dimen/base_two_hundred"
                 android:layout_marginTop="@dimen/base_pow_five"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_example" />
+                android:src="@drawable/img_logo_blue" />
 
         </androidx.cardview.widget.CardView>
 
@@ -166,7 +167,7 @@
                 android:layout_height="@dimen/base_two_hundred"
                 android:layout_marginTop="@dimen/base_pow_five"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_example" />
+                android:src="@drawable/img_logo_blue" />
 
         </androidx.cardview.widget.CardView>
 
@@ -184,7 +185,7 @@
                 android:layout_height="@dimen/base_two_hundred"
                 android:layout_marginTop="@dimen/base_pow_five"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_example" />
+                android:src="@drawable/img_logo_blue" />
 
         </androidx.cardview.widget.CardView>
 
@@ -201,7 +202,7 @@
                 android:id="@+id/tv_comment"
                 style="@style/TextViewMediumGray"
                 android:layout_marginTop="@dimen/base_pow_five"
-                android:text="@string/lorem" />
+                tools:text="@string/lorem" />
 
         </androidx.cardview.widget.CardView>
 

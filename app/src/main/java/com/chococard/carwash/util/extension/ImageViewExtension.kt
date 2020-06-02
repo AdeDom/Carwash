@@ -1,6 +1,5 @@
 package com.chococard.carwash.util.extension
 
-import android.graphics.Bitmap
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -14,10 +13,9 @@ fun ImageView.setImageCircle(url: String) {
         .into(this)
 }
 
-fun ImageView.setImageCircle(bitmap: Bitmap?) {
+fun ImageView.setImageFromInternet(url: String?) {
     Glide.with(this)
-        .load(bitmap)
-        .apply(RequestOptions.placeholderOf(R.drawable.ic_user))
-        .circleCrop()
+        .load(url)
+        .apply(RequestOptions.placeholderOf(R.drawable.img_logo_blue))
         .into(this)
 }
