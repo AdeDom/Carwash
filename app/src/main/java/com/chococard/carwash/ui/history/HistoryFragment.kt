@@ -3,7 +3,6 @@ package com.chococard.carwash.ui.history
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -51,8 +50,7 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history) {
             val (success, message, histories) = response
             progress_bar.hide()
             if (success) {
-//                histories?.let { adt.setList(it) }
-                Log.d(TAG, "init: $histories")
+                histories?.let { adt.setList(it) }
             } else {
                 message?.let { context.toast(it, Toast.LENGTH_LONG) }
             }
@@ -71,10 +69,6 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history) {
             if (dateBegin != null && dateEnd != null)
                 viewModel.callFetchHistory(dateBegin, dateEnd)
         }
-    }
-
-    companion object {
-        private const val TAG = "HistoryFragment"
     }
 
 }
