@@ -62,15 +62,6 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history) {
         })
     }
 
-    private fun filterDate() = activity?.supportFragmentManager?.let { fragmentManager ->
-        HistoryDialog(object : FilterDateListener {
-            override fun onFilterDate(dateBegin: String, dateEnd: String) {
-                progress_bar.show()
-                viewModel.callFetchHistory(dateBegin, dateEnd)
-            }
-        }).show(fragmentManager, null)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CommonsConstant.REQUEST_CODE_DATE_RANGE && resultCode == Activity.RESULT_OK && data != null) {
