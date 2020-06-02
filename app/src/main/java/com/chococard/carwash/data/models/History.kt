@@ -1,5 +1,7 @@
 package com.chococard.carwash.data.models
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.chococard.carwash.data.networks.ApiConstant
 import com.google.gson.annotations.SerializedName
 
@@ -17,6 +19,56 @@ data class History(
     @SerializedName(ApiConstant.IMAGE_BACK) val imageBack: String? = null,
     @SerializedName(ApiConstant.IMAGE_LEFT) val imageLeft: String? = null,
     @SerializedName(ApiConstant.IMAGE_RIGHT) val imageRight: String? = null,
-    @SerializedName(ApiConstant.OTHER_IMAGE) val otherImage: Any? = null,
+    @SerializedName(ApiConstant.OTHER_IMAGE) val otherImage: String? = null,
     @SerializedName(ApiConstant.COMMENT) val comment: String? = null
-)
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readValue(Double::class.java.classLoader) as? Double,
+        parcel.readValue(Double::class.java.classLoader) as? Double,
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString()
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeValue(jobId)
+        parcel.writeString(fullName)
+        parcel.writeString(imageProfile)
+        parcel.writeString(packageName)
+        parcel.writeValue(latitude)
+        parcel.writeValue(longitude)
+        parcel.writeString(vehicleRegistration)
+        parcel.writeString(price)
+        parcel.writeString(jobDateTime)
+        parcel.writeString(imageFront)
+        parcel.writeString(imageBack)
+        parcel.writeString(imageLeft)
+        parcel.writeString(imageRight)
+        parcel.writeString(otherImage)
+        parcel.writeString(comment)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<History> {
+        override fun createFromParcel(parcel: Parcel): History {
+            return History(parcel)
+        }
+
+        override fun newArray(size: Int): Array<History?> {
+            return arrayOfNulls(size)
+        }
+    }
+}

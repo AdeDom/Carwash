@@ -10,6 +10,7 @@ import com.chococard.carwash.R
 import com.chococard.carwash.data.models.DateRangePicker
 import com.chococard.carwash.ui.DateRangePickerActivity
 import com.chococard.carwash.ui.base.BaseFragment
+import com.chococard.carwash.ui.historydetail.HistoryDetailActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.hide
 import com.chococard.carwash.util.extension.show
@@ -33,6 +34,13 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history) {
         recycler_view.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = adt
+        }
+
+        adt.onClick = {
+            Intent(context, HistoryDetailActivity::class.java).apply {
+                putExtra(CommonsConstant.HISTORY, it)
+                startActivity(this)
+            }
         }
 
         fab.setOnClickListener {

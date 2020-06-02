@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 abstract class BaseRecyclerView<T : Any> : RecyclerView.Adapter<BaseRecyclerView<T>.BaseHolder>() {
 
     private var list = mutableListOf<T>()
+    var onClick: ((T) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder =
         BaseHolder(
@@ -29,6 +30,15 @@ abstract class BaseRecyclerView<T : Any> : RecyclerView.Adapter<BaseRecyclerView
         notifyDataSetChanged()
     }
 
-    inner class BaseHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    inner class BaseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        init {
+            itemView.setOnClickListener {
+                val entity = list[adapterPosition]
+                onClick?.invoke(entity)
+            }
+        }
+
+    }
 
 }

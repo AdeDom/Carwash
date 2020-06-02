@@ -188,7 +188,9 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView style="@style/StyleCardView">
+        <androidx.cardview.widget.CardView
+            style="@style/StyleCardView"
+            android:layout_marginBottom="@dimen/base_pow_four">
 
             <TextView
                 style="@style/TextViewLargeApplication"
