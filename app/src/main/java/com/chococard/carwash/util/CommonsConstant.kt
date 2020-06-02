@@ -18,5 +18,6 @@ object CommonsConstant {
     const val PHONE = "phone"
     const val DATE_RANGE_PICKER = "date_range_picker"
     const val HISTORY = "history"
+    const val IMAGE = "image"
 
 }

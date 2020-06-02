@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/RelativeLayout"
+    android:background="@android:color/black">
+
+    <RelativeLayout
+        android:id="@+id/layout_toolbar"
+        style="@style/MatchWrap">
+
+        <androidx.appcompat.widget.Toolbar style="@style/Toolbar" />
+
+        <ImageView
+            android:id="@+id/iv_arrow_back"
+            style="@style/ImageViewArrowBack" />
+
+        <ImageView
+            style="@style/ImageViewToolbar"
+            android:src="@drawable/ic_history_detail" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_image"
+        style="@style/MatchMatch"
+        android:layout_below="@id/layout_toolbar"
+        android:layout_centerInParent="true"
+        android:src="@drawable/img_logo_blue" />
+
+</RelativeLayout>
