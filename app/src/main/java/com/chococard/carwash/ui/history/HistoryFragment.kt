@@ -1,11 +1,16 @@
 package com.chococard.carwash.ui.history
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chococard.carwash.R
+import com.chococard.carwash.data.models.DateRangePicker
+import com.chococard.carwash.ui.DateRangePickerActivity
 import com.chococard.carwash.ui.base.BaseFragment
+import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.hide
 import com.chococard.carwash.util.extension.show
 import com.chococard.carwash.util.extension.toast
@@ -30,7 +35,11 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history) {
             adapter = adt
         }
 
-        fab.setOnClickListener { filterDate() }
+        fab.setOnClickListener {
+            Intent(context, DateRangePickerActivity::class.java).apply {
+                startActivityForResult(this, CommonsConstant.REQUEST_CODE_DATE_RANGE)
+            }
+        }
 
         // call api
         progress_bar.show()
@@ -60,6 +69,14 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history) {
                 viewModel.callFetchHistory(dateBegin, dateEnd)
             }
         }).show(fragmentManager, null)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CommonsConstant.REQUEST_CODE_DATE_RANGE && resultCode == Activity.RESULT_OK && data != null) {
+            val dateRange = data.getParcelableExtra<DateRangePicker>(CommonsConstant.DATE_RANGE_PICKER)
+            context.toast(dateRange.toString(), Toast.LENGTH_LONG)
+        }
     }
 
 }

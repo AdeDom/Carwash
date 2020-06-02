@@ -16,6 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ui.DateRangePickerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeMaterialComponents" />
+        <activity
             android:name=".ui.verifyphone.VPSignInActivity"
             android:screenOrientation="portrait" />
         <activity
