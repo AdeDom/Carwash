@@ -31,7 +31,7 @@ class PaymentActivity : BaseActivity(), FlagPaymentListener {
             tv_full_name.text = fullName
             tv_service.text = service
             tv_price.text = price
-            image?.let { iv_photo.setImageCircle(it) }
+            iv_photo.setImageCircle(image)
 
             fab.setOnClickListener { navigation(beginLat, beginLong, endLat, endLong) }
         })

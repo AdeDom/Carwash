@@ -35,7 +35,7 @@ class JobDialog : BaseDialog(R.layout.dialog_job) {
         tv_service.text = service
         if (endLat != null && endLong != null)
             tv_location.text = context?.getLocality(endLat, endLong)
-        image?.let { iv_photo.setImageCircle(it) }
+        iv_photo.setImageCircle(image)
 
         setCountTime()
 

@@ -27,7 +27,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             if (user == null) return@Observer
             val (_, fullName, _, _, _, image) = user
             tv_full_name.text = fullName
-            image?.let { iv_photo.setImageCircle(it) }
+            iv_photo.setImageCircle(image)
         })
 
         viewModel.callSwitchSystem.observe(viewLifecycleOwner, Observer { response ->

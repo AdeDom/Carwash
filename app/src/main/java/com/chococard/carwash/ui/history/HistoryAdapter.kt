@@ -18,7 +18,7 @@ class HistoryAdapter : BaseRecyclerView<History>() {
 
         view.tv_date_time.text = jobDateTime
 
-        imageProfile?.let { view.iv_photo.setImageCircle(it) }
+        view.iv_photo.setImageCircle(imageProfile)
     }
 
 }

@@ -39,7 +39,7 @@ class ChangeProfileActivity : BaseActivity() {
             if (user == null) return@Observer
             val (_, _, _, phone, _, image) = user
             et_phone.setText(phone)
-            image?.let { iv_photo.setImageCircle(it) }
+            iv_photo.setImageCircle(image)
         })
 
         //set event

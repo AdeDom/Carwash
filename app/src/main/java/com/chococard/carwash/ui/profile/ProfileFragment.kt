@@ -22,7 +22,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
             tv_full_name.text = fullName
             tv_identity_card.text = idCardNumber
             tv_phone.text = phone
-            image?.let { iv_photo.setImageCircle(it) }
+            iv_photo.setImageCircle(image)
         })
     }
 

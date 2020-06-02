@@ -34,7 +34,7 @@ class HistoryDetailActivity : BaseActivity() {
             tv_vehicle_registration.text = vehicleRegistration
             tv_price.text = price
             tv_date_time.text = jobDateTime
-            imageProfile?.let { iv_photo.setImageCircle(it) }
+            iv_photo.setImageCircle(imageProfile)
             iv_image_front.setImageFromInternet(imageFront)
             iv_image_back.setImageFromInternet(imageBack)
             iv_image_left.setImageFromInternet(imageLeft)
