@@ -43,11 +43,10 @@ interface HeaderAppService {
     suspend fun callSetLocation(@Body setLocation: SetLocation): Response<BaseResponse>
 
     //get old history ever service customer and filter by date begin & end.
-    @FormUrlEncoded
-    @POST("v2/5e9eb0e9340000b81a6eee8a")
+    @GET("api/history")
     suspend fun callFetchHistory(
-        @Field(ApiConstant.DATE_BEGIN) dateBegin: String,
-        @Field(ApiConstant.DATE_END) dateEnd: String
+        @Query(ApiConstant.DATE_BEGIN) dateBegin: Long,
+        @Query(ApiConstant.DATE_END) dateEnd: Long
     ): Response<HistoryResponse>
 
     //mock job request from server when customer call using application.

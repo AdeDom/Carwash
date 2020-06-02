@@ -4,16 +4,19 @@ import com.chococard.carwash.data.networks.ApiConstant
 import com.google.gson.annotations.SerializedName
 
 data class History(
-    @SerializedName(ApiConstant.USER_ID) val userId: String? = null,
+    @SerializedName(ApiConstant.JOB_ID) val jobId: Int? = null,
     @SerializedName(ApiConstant.FULL_NAME) val fullName: String? = null,
-    @SerializedName(ApiConstant.IMAGE) val image: String? = null,
-    @SerializedName(ApiConstant.JOB_ID) val jobId: String? = null,
-    @SerializedName(ApiConstant.PACKAGE_ID) val packageId: String? = null,
-    @SerializedName(ApiConstant.SERVICE) val service: String? = null,
-    @SerializedName(ApiConstant.PRICE) val price: String? = null,
+    @SerializedName(ApiConstant.IMAGE_PROFILE) val imageProfile: String? = null,
+    @SerializedName(ApiConstant.PACKAGE_NAME) val packageName: String? = null,
     @SerializedName(ApiConstant.LATITUDE) val latitude: Double? = null,
     @SerializedName(ApiConstant.LONGITUDE) val longitude: Double? = null,
-    @SerializedName(ApiConstant.CAR_ID) val carId: String? = null,
     @SerializedName(ApiConstant.VEHICLE_REGISTRATION) val vehicleRegistration: String? = null,
-    @SerializedName(ApiConstant.DATE_TIME) val dateTime: String? = null
+    @SerializedName(ApiConstant.PRICE) val price: String? = null,
+    @SerializedName(ApiConstant.JOB_DATE_TIME) val jobDateTime: String? = null,
+    @SerializedName(ApiConstant.IMAGE_FRONT) val imageFront: String? = null,
+    @SerializedName(ApiConstant.IMAGE_BACK) val imageBack: String? = null,
+    @SerializedName(ApiConstant.IMAGE_LEFT) val imageLeft: String? = null,
+    @SerializedName(ApiConstant.IMAGE_RIGHT) val imageRight: String? = null,
+    @SerializedName(ApiConstant.OTHER_IMAGE) val otherImage: Any? = null,
+    @SerializedName(ApiConstant.COMMENT) val comment: String? = null
 )

@@ -7,5 +7,5 @@ import com.google.gson.annotations.SerializedName
 data class HistoryResponse(
     @SerializedName(ApiConstant.SUCCESS) val success: Boolean = false,
     @SerializedName(ApiConstant.MESSAGE) val message: String? = null,
-    @SerializedName(ApiConstant.HISTORY) val history: List<History>? = null
+    @SerializedName(ApiConstant.HISTORIES) val histories: List<History>? = null
 )

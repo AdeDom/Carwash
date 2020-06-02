@@ -36,7 +36,7 @@ class HeaderRepository(
     suspend fun callSetLocation(setLocation: SetLocation) =
         apiRequest { api.callSetLocation(setLocation) }
 
-    suspend fun callFetchHistory(dateBegin: String, dateEnd: String) =
+    suspend fun callFetchHistory(dateBegin: Long, dateEnd: Long) =
         apiRequest { api.callFetchHistory(dateBegin, dateEnd) }
 
     // job
