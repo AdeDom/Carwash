@@ -191,6 +191,23 @@
 
         <androidx.cardview.widget.CardView
             style="@style/StyleCardView"
+            app:contentPadding="@dimen/base_zero">
+
+            <TextView
+                style="@style/TextViewLargeApplication"
+                android:text="@string/other_image" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                style="@style/MatchWrap"
+                android:layout_marginTop="@dimen/base_pow_five"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_other_image" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            style="@style/StyleCardView"
             android:layout_marginBottom="@dimen/base_pow_four">
 
             <TextView

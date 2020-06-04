@@ -73,7 +73,7 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history) {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CommonsConstant.REQUEST_CODE_DATE_RANGE && resultCode == Activity.RESULT_OK && data != null) {
-            val (dateBegin, dateEnd) = data.getParcelableExtra<DateRangePicker>(CommonsConstant.DATE_RANGE_PICKER)
+            val (dateBegin, dateEnd) = data.getParcelableExtra<DateRangePicker>(CommonsConstant.DATE_RANGE_PICKER)!!
             if (dateBegin != null && dateEnd != null)
                 viewModel.callFetchHistory(dateBegin, dateEnd)
         }
