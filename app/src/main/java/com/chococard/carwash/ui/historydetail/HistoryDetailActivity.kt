@@ -59,6 +59,12 @@ class HistoryDetailActivity : BaseActivity() {
                 OtherImage("https://d2pa5gi5n2e1an.cloudfront.net/th/images/car_models/Lotus_Exige/4/main/L_1.jpg")
             )
             adt.setList(listOtherImage)
+
+            adt.onClick = { otherImage ->
+                startActivity<ViewImageActivity> {
+                    it.putExtra(CommonsConstant.IMAGE, otherImage.image)
+                }
+            }
         }
 
         //set event
