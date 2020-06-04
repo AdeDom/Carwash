@@ -26,14 +26,14 @@ class PaymentActivity : BaseActivity(), FlagPaymentListener {
 
         viewModel.getDbJob.observe(this, Observer { job ->
             if (job == null) return@Observer
-            val (fullName, image, _, _, service, price, beginLat, beginLong, endLat, endLong, _, _, dateTime) = job
-            tv_date_time.text = dateTime
-            tv_full_name.text = fullName
-            tv_service.text = service
-            tv_price.text = price
-            iv_photo.setImageCircle(image)
-
-            fab.setOnClickListener { navigation(beginLat, beginLong, endLat, endLong) }
+//            val (fullName, image, _, _, service, price, beginLat, beginLong, endLat, endLong, _, _, dateTime) = job
+//            tv_date_time.text = dateTime
+//            tv_full_name.text = fullName
+//            tv_service.text = service
+//            tv_price.text = price
+//            iv_photo.setImageCircle(image)
+//
+//            fab.setOnClickListener { navigation(beginLat, beginLong, endLat, endLong) }
         })
 
         iv_arrow_back.setOnClickListener { onBackPressed() }

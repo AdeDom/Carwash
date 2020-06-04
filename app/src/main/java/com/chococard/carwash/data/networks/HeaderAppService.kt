@@ -46,7 +46,7 @@ interface HeaderAppService {
     ): Response<HistoryResponse>
 
     //mock job request from server when customer call using application.
-    @POST("v2/5e9eb8cf2d00007000cb7660")
+    @POST("api/jobrequest")
     suspend fun callJobRequest(): Response<JobRequest>
 
     //answer job request from customer also send flag cancel job or confirm job to server.

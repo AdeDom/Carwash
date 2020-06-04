@@ -8,6 +8,7 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -109,12 +110,14 @@ class MainActivity : BaseActivity(),
         viewModel.getJobRequest.observe(this, Observer { request ->
             val (success, message, jobRequest) = request
             if (success) {
-                val bundle = Bundle()
-                bundle.putParcelable(CommonsConstant.JOB, jobRequest)
+//                val bundle = Bundle()
+//                bundle.putParcelable(CommonsConstant.JOB, jobRequest)
+//
+//                val jobDialog = JobDialog()
+//                jobDialog.arguments = bundle
+//                jobDialog.show(supportFragmentManager, null)
 
-                val jobDialog = JobDialog()
-                jobDialog.arguments = bundle
-                jobDialog.show(supportFragmentManager, null)
+                Log.d(TAG, "onCreate: $jobRequest")
             } else {
                 message?.let { toast(it, Toast.LENGTH_LONG) }
             }
@@ -307,6 +310,10 @@ class MainActivity : BaseActivity(),
     override fun onLocationChanged(location: Location?) {
         val setLocation = SetLocation(location?.latitude, location?.longitude)
         viewModel.callSetLocation(setLocation)
+    }
+
+    companion object {
+        private const val TAG = "MainActivity"
     }
 
 }
