@@ -2,9 +2,13 @@ package com.chococard.carwash.ui.main
 
 import android.os.Bundle
 import com.chococard.carwash.R
+import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.ui.BaseDialog
+import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.FlagConstant
+import com.chococard.carwash.util.extension.getLocality
+import com.chococard.carwash.util.extension.setImageCircle
 import kotlinx.android.synthetic.main.dialog_job.*
 import kotlinx.coroutines.delay
 
@@ -23,15 +27,15 @@ class JobDialog : BaseDialog(R.layout.dialog_job) {
     private fun init() {
         listener = context as FlagJobListener
 
-//        val job = arguments?.getParcelable(CommonsConstant.JOB) as Job?
-//
-//        // set widgets
-//        val (fullName, image, _, _, service, _, _, _, endLat, endLong, _, _, _) = job as Job
-//        tv_full_name.text = fullName
-//        tv_service.text = service
-//        if (endLat != null && endLong != null)
-//            tv_location.text = context?.getLocality(endLat, endLong)
-//        iv_photo.setImageCircle(image)
+        val job = arguments?.getParcelable(CommonsConstant.JOB) as Job? ?: return
+
+        // set widgets
+        val (_, fullName, imageProfile, packageName, _, _, latitude, longitude, _) = job
+        tv_full_name.text = fullName
+        tv_service.text = packageName
+        if (latitude != null && longitude != null)
+            tv_location.text = context?.getLocality(latitude, longitude)
+        iv_photo.setImageCircle(imageProfile)
 
         setCountTime()
 

@@ -59,9 +59,9 @@ class MainActivity : BaseActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (readJobFlag() == JobFlag.JOB_FLAG_ON.toString()) {
-            startActivity<PaymentActivity>()
-        }
+//        if (readJobFlag() == JobFlag.JOB_FLAG_ON.toString()) {
+//            startActivity<PaymentActivity>()
+//        }
 
         setToolbar(toolbar)
         setReceiverLocation()
@@ -110,14 +110,12 @@ class MainActivity : BaseActivity(),
         viewModel.getJobRequest.observe(this, Observer { request ->
             val (success, message, jobRequest) = request
             if (success) {
-//                val bundle = Bundle()
-//                bundle.putParcelable(CommonsConstant.JOB, jobRequest)
-//
-//                val jobDialog = JobDialog()
-//                jobDialog.arguments = bundle
-//                jobDialog.show(supportFragmentManager, null)
+                val bundle = Bundle()
+                bundle.putParcelable(CommonsConstant.JOB, jobRequest)
 
-                Log.d(TAG, "onCreate: $jobRequest")
+                val jobDialog = JobDialog()
+                jobDialog.arguments = bundle
+                jobDialog.show(supportFragmentManager, null)
             } else {
                 message?.let { toast(it, Toast.LENGTH_LONG) }
             }
@@ -274,7 +272,10 @@ class MainActivity : BaseActivity(),
         }
     }
 
-    override fun onFlag(flag: Int) = viewModel.callJobResponse(flag)
+    override fun onFlag(flag: Int) {
+        Log.d(TAG, "onFlag: $flag")
+//        viewModel.callJobResponse(flag)
+    }
 
     private fun setRequestLocation() {
         mGoogleApiClient = GoogleApiClient.Builder(baseContext)

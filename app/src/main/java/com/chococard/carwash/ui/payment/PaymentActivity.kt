@@ -24,18 +24,6 @@ class PaymentActivity : BaseActivity(), FlagPaymentListener {
 
         setToolbar(toolbar)
 
-        viewModel.getDbJob.observe(this, Observer { job ->
-            if (job == null) return@Observer
-//            val (fullName, image, _, _, service, price, beginLat, beginLong, endLat, endLong, _, _, dateTime) = job
-//            tv_date_time.text = dateTime
-//            tv_full_name.text = fullName
-//            tv_service.text = service
-//            tv_price.text = price
-//            iv_photo.setImageCircle(image)
-//
-//            fab.setOnClickListener { navigation(beginLat, beginLong, endLat, endLong) }
-        })
-
         iv_arrow_back.setOnClickListener { onBackPressed() }
         bt_payment.setOnClickListener {
             PaymentDialog().show(supportFragmentManager, null)
@@ -47,7 +35,6 @@ class PaymentActivity : BaseActivity(), FlagPaymentListener {
             val (success, message) = response
             if (success) {
                 writeJobFlag(JobFlag.JOB_FLAG_OFF)
-                viewModel.deleteJob()
                 finish()
             } else {
                 message?.let { toast(it, Toast.LENGTH_LONG) }
