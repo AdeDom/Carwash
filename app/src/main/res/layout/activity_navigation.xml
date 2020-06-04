@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/RelativeLayout">
+
+    <RelativeLayout
+        android:id="@+id/layout_toolbar"
+        style="@style/MatchWrap">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar" />
+
+        <ImageView
+            style="@style/ImageViewToolbar"
+            android:src="@drawable/ic_navigation" />
+
+    </RelativeLayout>
+
+    <fragment
+        android:id="@+id/map_fragment"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_toolbar" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        style="@style/WrapWrap"
+        android:layout_below="@id/layout_toolbar"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/base_pow_four"
+        android:src="@drawable/ic_navigation_white" />
+
+    <androidx.cardview.widget.CardView
+        style="@style/CardViewButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/base_pow_five">
+
+        <Button
+            android:id="@+id/bt_next_step"
+            style="@style/ButtonBlueLong"
+            android:text="@string/next_step" />
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
