@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
+import com.chococard.carwash.data.networks.request.ChangePassword
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
 import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
@@ -80,7 +81,11 @@ class ChangePasswordActivity : BaseActivity() {
         }
 
         progress_bar.show()
-        viewModel.callChangePassword(et_old_password.getContents(), et_new_password.getContents())
+        val changePassword = ChangePassword(
+            et_old_password.getContents(),
+            et_new_password.getContents()
+        )
+        viewModel.callChangePassword(changePassword)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

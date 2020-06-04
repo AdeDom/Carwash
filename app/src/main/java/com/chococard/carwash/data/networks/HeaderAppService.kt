@@ -31,12 +31,8 @@ interface HeaderAppService {
     suspend fun callChangeProfile(@Body changePhone: ChangePhone): Response<BaseResponse>
 
     //change password of username for security.
-    @FormUrlEncoded
-    @POST("v2/5e9eadfe34000083b56eee64")
-    suspend fun callChangePassword(
-        @Field(ApiConstant.OLD_PASSWORD) oldPassword: String,
-        @Field(ApiConstant.NEW_PASSWORD) newPassword: String
-    ): Response<BaseResponse>
+    @POST("api/account/changepassword")
+    suspend fun callChangePassword(@Body changePassword: ChangePassword): Response<BaseResponse>
 
     //set my location now to server and response location other employee around.
     @POST("api/location")

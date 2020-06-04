@@ -2,15 +2,16 @@ package com.chococard.carwash.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.chococard.carwash.data.networks.request.ChangePassword
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.repositories.HeaderRepository
 import kotlinx.coroutines.launch
 
 class ChangePasswordViewModel(private val repository: HeaderRepository) : BaseViewModel() {
 
-    private val changePassword = MutableLiveData<BaseResponse>()
+    private val changePasswordResponse = MutableLiveData<BaseResponse>()
     val getChangePassword: LiveData<BaseResponse>
-        get() = changePassword
+        get() = changePasswordResponse
 
     private val logout = MutableLiveData<BaseResponse>()
     val getLogout: LiveData<BaseResponse>
@@ -20,9 +21,9 @@ class ChangePasswordViewModel(private val repository: HeaderRepository) : BaseVi
         repository.deleteUser()
     }
 
-    fun callChangePassword(oldPassword: String, newPassword: String) = launchCallApi(
-        request = { repository.callChangePassword(oldPassword, newPassword) },
-        response = { changePassword.value = it }
+    fun callChangePassword(changePassword: ChangePassword) = launchCallApi(
+        request = { repository.callChangePassword(changePassword) },
+        response = { changePasswordResponse.value = it }
     )
 
     fun callLogout() = launchCallApi(
