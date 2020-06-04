@@ -1,8 +1,10 @@
 package com.chococard.carwash.ui.historydetail
 
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.History
+import com.chococard.carwash.data.models.OtherImage
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.getLocality
@@ -41,6 +43,18 @@ class HistoryDetailActivity : BaseActivity() {
         iv_image_left.setImageFromInternet(imageLeft)
         iv_image_right.setImageFromInternet(imageRight)
         tv_comment.text = comment
+
+        // recycler view
+        val adt = HistoryDetailAdapter()
+        recycler_view.apply {
+            layoutManager = LinearLayoutManager(baseContext)
+            adapter = adt
+        }
+        val listOtherImage = mutableListOf<OtherImage>(
+            OtherImage("https://d2pa5gi5n2e1an.cloudfront.net/th/images/article/Lotus_Elise/1.jpg"),
+            OtherImage("https://d2pa5gi5n2e1an.cloudfront.net/th/images/car_models/Lotus_Exige/4/main/L_1.jpg")
+        )
+        adt.setList(listOtherImage)
 
         //set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
