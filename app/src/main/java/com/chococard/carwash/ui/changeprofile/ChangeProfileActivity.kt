@@ -7,7 +7,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.networks.request.ChangePhone
+import com.chococard.carwash.data.networks.request.ChangePhoneRequest
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
 import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
@@ -112,7 +112,7 @@ class ChangeProfileActivity : BaseActivity() {
         } else if (requestCode == CommonsConstant.REQUEST_CODE_VERIFY_PHONE && resultCode == Activity.RESULT_OK) {
             progress_bar.show()
             val phoneNumber = et_phone.getContents()
-            val changePhone = ChangePhone(phoneNumber)
+            val changePhone = ChangePhoneRequest(phoneNumber)
             viewModel.callChangeProfile(changePhone)
         }
     }

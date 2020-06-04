@@ -2,9 +2,9 @@ package com.chococard.carwash.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.chococard.carwash.data.networks.request.JobAnswer
-import com.chococard.carwash.data.networks.request.LogsActive
-import com.chococard.carwash.data.networks.request.SetLocation
+import com.chococard.carwash.data.networks.request.JobAnswerRequest
+import com.chococard.carwash.data.networks.request.LogsActiveRequest
+import com.chococard.carwash.data.networks.request.SetLocationRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.networks.response.UserResponse
@@ -56,7 +56,7 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
         response = { jobRequest.value = it }
     )
 
-    fun callJobResponse(jobAnswer: JobAnswer) = launchCallApi(
+    fun callJobResponse(jobAnswer: JobAnswerRequest) = launchCallApi(
         request = { repository.callJobResponse(jobAnswer) },
         response = { response ->
             response?.job?.let { repository.saveJob(it) }
@@ -64,7 +64,7 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
         }
     )
 
-    fun callSetLogsActive(logsActive: LogsActive) = launchCallApi(
+    fun callSetLogsActive(logsActive: LogsActiveRequest) = launchCallApi(
         request = { repository.callSetLogsActive(logsActive) },
         response = { userLogsActive.value = it }
     )
@@ -74,7 +74,7 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
         response = { logout.value = it }
     )
 
-    fun callSetLocation(setLocation: SetLocation) = launchCallApi(
+    fun callSetLocation(setLocation: SetLocationRequest) = launchCallApi(
         request = { repository.callSetLocation(setLocation) },
         response = { location.value = it }
     )

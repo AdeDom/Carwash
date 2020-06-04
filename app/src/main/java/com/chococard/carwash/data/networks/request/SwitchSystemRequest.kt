@@ -1,5 +1,5 @@
 package com.chococard.carwash.data.networks.request
 
-data class SwitchSystem(
+data class SwitchSystemRequest(
     val state: Int? = null
 )

@@ -2,7 +2,7 @@ package com.chococard.carwash.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.chococard.carwash.data.networks.request.ValidatePhone
+import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.repositories.ConnectionRepository
 
@@ -12,7 +12,7 @@ class RequestOtpViewModel(private val repository: ConnectionRepository) : BaseVi
     val getValidatePhone: LiveData<BaseResponse>
         get() = validatePhoneResponse
 
-    fun callValidatePhone(validatePhone: ValidatePhone) = launchCallApi(
+    fun callValidatePhone(validatePhone: ValidatePhoneRequest) = launchCallApi(
         request = { repository.callValidatePhone(validatePhone) },
         response = { validatePhoneResponse.value = it }
     )

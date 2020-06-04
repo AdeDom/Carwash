@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.networks.request.SignIn
+import com.chococard.carwash.data.networks.request.SignInRequest
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.ui.signup.SignUpActivity
@@ -67,7 +67,7 @@ class SignInActivity : BaseActivity() {
         }
 
         progress_bar.show()
-        val signIn = SignIn(et_username.getContents(), et_password.getContents())
+        val signIn = SignInRequest(et_username.getContents(), et_password.getContents())
         viewModel.callSignIn(signIn)
     }
 

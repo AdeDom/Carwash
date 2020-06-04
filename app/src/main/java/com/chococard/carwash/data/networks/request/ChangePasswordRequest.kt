@@ -1,6 +1,6 @@
 package com.chococard.carwash.data.networks.request
 
-data class ChangePassword(
+data class ChangePasswordRequest(
     val oldPassword: String? = null,
     val newPassword: String? = null
 )

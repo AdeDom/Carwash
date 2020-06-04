@@ -1,7 +1,7 @@
 package com.chococard.carwash.data.networks
 
-import com.chococard.carwash.data.networks.request.SignIn
-import com.chococard.carwash.data.networks.request.ValidatePhone
+import com.chococard.carwash.data.networks.request.SignInRequest
+import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.SignInResponse
 import okhttp3.MultipartBody
@@ -29,10 +29,10 @@ interface ConnectionAppService {
 
     //login for want token from server.
     @POST("api/account/login")
-    suspend fun callSignIn(@Body signIn: SignIn): Response<SignInResponse>
+    suspend fun callSignIn(@Body signIn: SignInRequest): Response<SignInResponse>
 
     @POST("api/account/checkphone")
-    suspend fun callValidatePhone(@Body validatePhone: ValidatePhone): Response<BaseResponse>
+    suspend fun callValidatePhone(@Body validatePhone: ValidatePhoneRequest): Response<BaseResponse>
 
     companion object {
         operator fun invoke(networkConnectionInterceptor: NetworkConnectionInterceptor) =

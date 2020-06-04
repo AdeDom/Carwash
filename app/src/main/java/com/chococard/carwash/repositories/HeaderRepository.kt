@@ -24,13 +24,13 @@ class HeaderRepository(
 
     suspend fun callLogout() = apiRequest { api.callLogout() }
 
-    suspend fun callChangeProfile(changePhone: ChangePhone) =
+    suspend fun callChangeProfile(changePhone: ChangePhoneRequest) =
         apiRequest { api.callChangeProfile(changePhone) }
 
-    suspend fun callChangePassword(changePassword: ChangePassword) =
+    suspend fun callChangePassword(changePassword: ChangePasswordRequest) =
         apiRequest { api.callChangePassword(changePassword) }
 
-    suspend fun callSetLocation(setLocation: SetLocation) =
+    suspend fun callSetLocation(setLocation: SetLocationRequest) =
         apiRequest { api.callSetLocation(setLocation) }
 
     suspend fun callFetchHistory(dateBegin: Long, dateEnd: Long) =
@@ -39,7 +39,7 @@ class HeaderRepository(
     suspend fun callJobRequest() = apiRequest { api.callJobRequest() }
 
     // job
-    suspend fun callJobResponse(jobAnswer: JobAnswer) =
+    suspend fun callJobResponse(jobAnswer: JobAnswerRequest) =
         apiRequest { api.callJobResponse(jobAnswer) }
 
     suspend fun saveJob(job: Job) = db.getJobDao().saveJob(job)
@@ -49,10 +49,10 @@ class HeaderRepository(
 
     suspend fun callPayment(paymentStatus: Int) = apiRequest { api.callPayment(paymentStatus) }
 
-    suspend fun callSetLogsActive(logsActive: LogsActive) =
+    suspend fun callSetLogsActive(logsActive: LogsActiveRequest) =
         apiRequest { api.callSetLogsActive(logsActive) }
 
-    suspend fun callSwitchSystem(switchSystem: SwitchSystem) =
+    suspend fun callSwitchSystem(switchSystem: SwitchSystemRequest) =
         apiRequest { api.callSwitchSystem(switchSystem) }
 
 }

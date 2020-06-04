@@ -13,9 +13,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.networks.request.JobAnswer
-import com.chococard.carwash.data.networks.request.LogsActive
-import com.chococard.carwash.data.networks.request.SetLocation
+import com.chococard.carwash.data.networks.request.JobAnswerRequest
+import com.chococard.carwash.data.networks.request.LogsActiveRequest
+import com.chococard.carwash.data.networks.request.SetLocationRequest
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
@@ -79,7 +79,7 @@ class MainActivity : BaseActivity(),
         //call api
         val logsKeys = UUID.randomUUID().toString().replace("-", "")
         writePref(CommonsConstant.LOGS_KEYS, logsKeys)
-        viewModel.callSetLogsActive(LogsActive(logsKeys, FlagConstant.LOGS_STATUS_ACTIVE))
+        viewModel.callSetLogsActive(LogsActiveRequest(logsKeys, FlagConstant.LOGS_STATUS_ACTIVE))
 
         // fetch user info
         progress_bar.show()
@@ -227,7 +227,7 @@ class MainActivity : BaseActivity(),
 
         // set user logs active
         val logsKeys = readPref(CommonsConstant.LOGS_KEYS)
-        viewModel.callSetLogsActive(LogsActive(logsKeys, FlagConstant.LOGS_STATUS_INACTIVE))
+        viewModel.callSetLogsActive(LogsActiveRequest(logsKeys, FlagConstant.LOGS_STATUS_INACTIVE))
 
         if (mGoogleApiClient.isConnected) stopLocationUpdate()
         if (mGoogleApiClient.isConnected) mGoogleApiClient.disconnect()
@@ -269,7 +269,7 @@ class MainActivity : BaseActivity(),
         }
     }
 
-    override fun onFlag(flag: Int) = viewModel.callJobResponse(JobAnswer(flag))
+    override fun onFlag(flag: Int) = viewModel.callJobResponse(JobAnswerRequest(flag))
 
     private fun setRequestLocation() {
         mGoogleApiClient = GoogleApiClient.Builder(baseContext)
@@ -303,7 +303,7 @@ class MainActivity : BaseActivity(),
     override fun onConnectionFailed(p0: ConnectionResult) {}
 
     override fun onLocationChanged(location: Location?) {
-        val setLocation = SetLocation(location?.latitude, location?.longitude)
+        val setLocation = SetLocationRequest(location?.latitude, location?.longitude)
         viewModel.callSetLocation(setLocation)
     }
 

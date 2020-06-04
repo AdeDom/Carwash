@@ -2,8 +2,8 @@ package com.chococard.carwash.repositories
 
 import com.chococard.carwash.data.networks.ConnectionAppService
 import com.chococard.carwash.data.networks.SafeApiRequest
-import com.chococard.carwash.data.networks.request.SignIn
-import com.chococard.carwash.data.networks.request.ValidatePhone
+import com.chococard.carwash.data.networks.request.SignInRequest
+import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
@@ -21,9 +21,9 @@ class ConnectionRepository(
         file: MultipartBody.Part
     ) = apiRequest { api.callSignUp(username, password, fullName, identityCard, phone, role, file) }
 
-    suspend fun callSignIn(signIn: SignIn) = apiRequest { api.callSignIn(signIn) }
+    suspend fun callSignIn(signIn: SignInRequest) = apiRequest { api.callSignIn(signIn) }
 
-    suspend fun callValidatePhone(validatePhone: ValidatePhone) =
+    suspend fun callValidatePhone(validatePhone: ValidatePhoneRequest) =
         apiRequest { api.callValidatePhone(validatePhone) }
 
 }

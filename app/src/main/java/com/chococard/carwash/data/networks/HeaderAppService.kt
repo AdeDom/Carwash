@@ -28,15 +28,15 @@ interface HeaderAppService {
 
     //change data profile name, id card, phone etc.
     @POST("api/account/changephone")
-    suspend fun callChangeProfile(@Body changePhone: ChangePhone): Response<BaseResponse>
+    suspend fun callChangeProfile(@Body changePhone: ChangePhoneRequest): Response<BaseResponse>
 
     //change password of username for security.
     @POST("api/account/changepassword")
-    suspend fun callChangePassword(@Body changePassword: ChangePassword): Response<BaseResponse>
+    suspend fun callChangePassword(@Body changePassword: ChangePasswordRequest): Response<BaseResponse>
 
     //set my location now to server and response location other employee around.
     @POST("api/location")
-    suspend fun callSetLocation(@Body setLocation: SetLocation): Response<BaseResponse>
+    suspend fun callSetLocation(@Body setLocation: SetLocationRequest): Response<BaseResponse>
 
     //get old history ever service customer and filter by date begin & end.
     @GET("api/history")
@@ -51,7 +51,7 @@ interface HeaderAppService {
 
     //answer job request from customer also send flag cancel job or confirm job to server.
     @POST("api/jobresponse")
-    suspend fun callJobResponse(@Body jobAnswer: JobAnswer): Response<JobResponse>
+    suspend fun callJobResponse(@Body jobAnswer: JobAnswerRequest): Response<JobResponse>
 
     //payment fee of application by send flag report or confirm to server.
     @FormUrlEncoded
@@ -62,10 +62,10 @@ interface HeaderAppService {
 
     //set user logs active & inactive using application.
     @POST("api/account/userlogs")
-    suspend fun callSetLogsActive(@Body logsActive: LogsActive): Response<BaseResponse>
+    suspend fun callSetLogsActive(@Body logsActive: LogsActiveRequest): Response<BaseResponse>
 
     @POST("api/account/switchsystem")
-    suspend fun callSwitchSystem(@Body switchSystem: SwitchSystem): Response<BaseResponse>
+    suspend fun callSwitchSystem(@Body switchSystem: SwitchSystemRequest): Response<BaseResponse>
 
     companion object {
         operator fun invoke(networkHeaderInterceptor: NetworkHeaderInterceptor) =

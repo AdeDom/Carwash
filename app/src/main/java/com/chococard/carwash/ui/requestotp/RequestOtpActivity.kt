@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.networks.request.ValidatePhone
+import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.verifyphone.VPSignUpActivity
 import com.chococard.carwash.util.CommonsConstant
@@ -59,7 +59,7 @@ class RequestOtpActivity : BaseActivity() {
 
         progress_bar.show()
         val phoneNumber = et_phone.getContents()
-        val validatePhone = ValidatePhone(phoneNumber)
+        val validatePhone = ValidatePhoneRequest(phoneNumber)
         viewModel.callValidatePhone(validatePhone)
     }
 

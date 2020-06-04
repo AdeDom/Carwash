@@ -2,7 +2,7 @@ package com.chococard.carwash.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.chococard.carwash.data.networks.request.ChangePhone
+import com.chococard.carwash.data.networks.request.ChangePhoneRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.repositories.HeaderRepository
@@ -47,7 +47,7 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
         repository.deleteUser()
     }
 
-    fun callChangeProfile(changePhone: ChangePhone) = launchCallApi(
+    fun callChangeProfile(changePhone: ChangePhoneRequest) = launchCallApi(
         request = { repository.callChangeProfile(changePhone) },
         response = { changeProfile.value = it }
     )

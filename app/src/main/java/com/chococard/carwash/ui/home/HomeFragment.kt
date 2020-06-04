@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.networks.request.SwitchSystem
+import com.chococard.carwash.data.networks.request.SwitchSystemRequest
 import com.chococard.carwash.ui.base.BaseFragment
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.FlagConstant
@@ -59,10 +59,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         val switch = context?.readPref(CommonsConstant.SWITCH)
         if (switch == FlagConstant.SWITCH_OFF.toString()) {
             context?.writePref(CommonsConstant.SWITCH, FlagConstant.SWITCH_ON.toString())
-            viewModel.callSwitchSystem(SwitchSystem(FlagConstant.SWITCH_ON))
+            viewModel.callSwitchSystem(SwitchSystemRequest(FlagConstant.SWITCH_ON))
         } else {
             context?.writePref(CommonsConstant.SWITCH, FlagConstant.SWITCH_OFF.toString())
-            viewModel.callSwitchSystem(SwitchSystem(FlagConstant.SWITCH_OFF))
+            viewModel.callSwitchSystem(SwitchSystemRequest(FlagConstant.SWITCH_OFF))
         }
     }
 
