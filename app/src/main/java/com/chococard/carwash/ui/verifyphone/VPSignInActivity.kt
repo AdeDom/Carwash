@@ -14,7 +14,7 @@ class VPSignInActivity : BaseVerifyPhoneActivity() {
                 if (task.isSuccessful) {
                     finish()
                 } else {
-                    task.exception?.message?.let { toast(it, Toast.LENGTH_LONG) }
+                    toast(task.exception?.message, Toast.LENGTH_LONG)
                 }
             }
     }

@@ -60,7 +60,7 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history) {
             if (success) {
                 histories?.let { adt.setList(it) }
             } else {
-                message?.let { context.toast(it, Toast.LENGTH_LONG) }
+                context.toast(message, Toast.LENGTH_LONG)
             }
         })
 

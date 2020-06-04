@@ -15,7 +15,7 @@ class VPChangeProfileActivity : BaseVerifyPhoneActivity() {
                     setResult(Activity.RESULT_OK)
                     finish()
                 } else {
-                    task.exception?.message?.let { toast(it, Toast.LENGTH_LONG) }
+                    toast(task.exception?.message, Toast.LENGTH_LONG)
                 }
             }
     }

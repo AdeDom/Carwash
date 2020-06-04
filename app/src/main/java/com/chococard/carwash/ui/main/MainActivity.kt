@@ -98,14 +98,14 @@ class MainActivity : BaseActivity(),
                 }
             } else {
                 finishAffinity()
-                message?.let { toast(it, Toast.LENGTH_LONG) }
+                toast(message, Toast.LENGTH_LONG)
             }
         })
 
         viewModel.getLogsActive.observe(this, Observer { response ->
             val (success, message) = response
             if (!success) {
-                message?.let { toast(it, Toast.LENGTH_LONG) }
+                toast(message, Toast.LENGTH_LONG)
             }
         })
 
@@ -119,7 +119,7 @@ class MainActivity : BaseActivity(),
                 jobDialog.arguments = bundle
                 jobDialog.show(supportFragmentManager, null)
             } else {
-                message?.let { toast(it, Toast.LENGTH_LONG) }
+                toast(message, Toast.LENGTH_LONG)
             }
         })
 
@@ -141,14 +141,14 @@ class MainActivity : BaseActivity(),
                     finishAffinity()
                 }
             } else {
-                message?.let { toast(it, Toast.LENGTH_LONG) }
+                toast(message, Toast.LENGTH_LONG)
             }
         })
 
         viewModel.getLocation.observe(this, Observer { response ->
             val (success, message) = response
             if (!success) {
-                message?.let { toast(it, Toast.LENGTH_LONG) }
+                toast(message, Toast.LENGTH_LONG)
             }
         })
 

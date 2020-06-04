@@ -72,7 +72,7 @@ abstract class BaseVerifyPhoneActivity : BaseActivity() {
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
-                e.message?.let { toast(it, Toast.LENGTH_LONG) }
+                toast(e.message, Toast.LENGTH_LONG)
             }
 
             override fun onCodeSent(

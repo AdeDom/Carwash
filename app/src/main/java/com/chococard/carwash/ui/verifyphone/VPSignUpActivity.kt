@@ -19,7 +19,7 @@ class VPSignUpActivity : BaseVerifyPhoneActivity() {
                         finish()
                     }
                 } else {
-                    task.exception?.message?.let { toast(it, Toast.LENGTH_LONG) }
+                    toast(task.exception?.message, Toast.LENGTH_LONG)
                 }
             }
     }

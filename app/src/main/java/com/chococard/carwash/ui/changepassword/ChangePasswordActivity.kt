@@ -39,7 +39,7 @@ class ChangePasswordActivity : BaseActivity() {
         viewModel.getChangePassword.observe(this, Observer { response ->
             val (success, message) = response
             progress_bar.hide()
-            message?.let { toast(it) }
+            toast(message)
             if (success) {
                 writePref(CommonsConstant.TOKEN, "")
                 writePref(CommonsConstant.REFRESH_TOKEN, "")
@@ -59,7 +59,7 @@ class ChangePasswordActivity : BaseActivity() {
                     finishAffinity()
                 }
             } else {
-                message?.let { toast(it, Toast.LENGTH_LONG) }
+                toast(message, Toast.LENGTH_LONG)
             }
         })
 

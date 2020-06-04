@@ -60,7 +60,7 @@ class SignUpActivity : BaseActivity() {
             if (success) {
                 dialogContactAdmin()
             } else {
-                message?.let { toast(it) }
+                toast(message, Toast.LENGTH_LONG)
             }
         })
 

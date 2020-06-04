@@ -36,7 +36,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             if (success) {
                 switchButton()
             } else {
-                message?.let { context.toast(it, Toast.LENGTH_LONG) }
+                context.toast(message, Toast.LENGTH_LONG)
             }
         })
 

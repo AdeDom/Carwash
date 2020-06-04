@@ -38,7 +38,7 @@ class PaymentActivity : BaseActivity(), FlagPaymentListener {
             if (success) {
                 finish()
             } else {
-                message?.let { toast(it, Toast.LENGTH_LONG) }
+                toast(message, Toast.LENGTH_LONG)
             }
         })
 

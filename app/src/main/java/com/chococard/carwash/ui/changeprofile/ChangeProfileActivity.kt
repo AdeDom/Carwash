@@ -57,7 +57,7 @@ class ChangeProfileActivity : BaseActivity() {
         viewModel.getChangeProfile.observe(this, Observer { response ->
             val (success, message) = response
             progress_bar.hide()
-            message?.let { toast(it) }
+            toast(message)
             if (success) {
                 progress_bar.show()
                 viewModel.callFetchUser()
@@ -71,7 +71,7 @@ class ChangeProfileActivity : BaseActivity() {
                 finish()
             } else {
                 finishAffinity()
-                message?.let { toast(it, Toast.LENGTH_LONG) }
+                toast(message, Toast.LENGTH_LONG)
             }
         })
 
@@ -84,7 +84,7 @@ class ChangeProfileActivity : BaseActivity() {
                     finishAffinity()
                 }
             } else {
-                message?.let { toast(it, Toast.LENGTH_LONG) }
+                toast(message, Toast.LENGTH_LONG)
             }
         })
 
