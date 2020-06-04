@@ -108,10 +108,15 @@
 
                 </GridLayout>
 
-                <ImageView
-                    android:id="@+id/iv_photo"
-                    style="@style/ImageViewPhotoSub"
-                    android:layout_alignParentEnd="true" />
+                <androidx.cardview.widget.CardView
+                    style="@style/CardViewImageView"
+                    android:layout_alignParentEnd="true">
+
+                    <ImageView
+                        android:id="@+id/iv_photo"
+                        style="@style/ImageViewPhotoSub" />
+
+                </androidx.cardview.widget.CardView>
 
             </RelativeLayout>
 
