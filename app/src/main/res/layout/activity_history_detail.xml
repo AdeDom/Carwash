@@ -190,6 +190,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/card_other_image"
             style="@style/StyleCardView"
             app:contentPadding="@dimen/base_zero">
 

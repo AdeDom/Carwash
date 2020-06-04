@@ -1,6 +1,7 @@
 package com.chococard.carwash.ui.historydetail
 
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.History
@@ -27,7 +28,7 @@ class HistoryDetailActivity : BaseActivity() {
         val history = intent.getParcelableExtra<History>(CommonsConstant.HISTORY)
         if (history == null) finish()
         val (_, fullName, imageProfile, packageName, latitude, longitude, vehicleRegistration, price,
-            jobDateTime, imageFront, imageBack, imageLeft, imageRight, _, comment) = history!!
+            jobDateTime, imageFront, imageBack, imageLeft, imageRight, otherImages, comment) = history!!
 
         // set widget
         tv_full_name.text = fullName
@@ -45,16 +46,20 @@ class HistoryDetailActivity : BaseActivity() {
         tv_comment.text = comment
 
         // recycler view
-        val adt = HistoryDetailAdapter()
-        recycler_view.apply {
-            layoutManager = LinearLayoutManager(baseContext)
-            adapter = adt
+        if (otherImages?.size == 0) {
+            card_other_image.visibility = View.GONE
+        } else {
+            val adt = HistoryDetailAdapter()
+            recycler_view.apply {
+                layoutManager = LinearLayoutManager(baseContext)
+                adapter = adt
+            }
+            val listOtherImage = mutableListOf<OtherImage>(
+                OtherImage("https://d2pa5gi5n2e1an.cloudfront.net/th/images/article/Lotus_Elise/1.jpg"),
+                OtherImage("https://d2pa5gi5n2e1an.cloudfront.net/th/images/car_models/Lotus_Exige/4/main/L_1.jpg")
+            )
+            adt.setList(listOtherImage)
         }
-        val listOtherImage = mutableListOf<OtherImage>(
-            OtherImage("https://d2pa5gi5n2e1an.cloudfront.net/th/images/article/Lotus_Elise/1.jpg"),
-            OtherImage("https://d2pa5gi5n2e1an.cloudfront.net/th/images/car_models/Lotus_Exige/4/main/L_1.jpg")
-        )
-        adt.setList(listOtherImage)
 
         //set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
