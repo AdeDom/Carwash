@@ -24,6 +24,8 @@
     <dimen name="ic_location">100dp</dimen>
     <dimen name="et_width">260dp</dimen>
     <dimen name="et_height">40dp</dimen>
+    <dimen name="service_width">150dp</dimen>
+    <dimen name="service_height">130dp</dimen>
 
     <dimen name="text_small">14sp</dimen>
     <dimen name="text_medium">18sp</dimen>

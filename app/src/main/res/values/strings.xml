@@ -111,5 +111,6 @@
                         เข้าไว้ในซอฟท์แวร์ด้วยYes</string>
     <string name="other_image">Other image</string>
     <string name="next_step">Next step</string>
+    <string name="photo_service_from_all_4_sides">Photo service from all 4 sides</string>
 
 </resources>
