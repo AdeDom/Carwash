@@ -21,6 +21,7 @@ import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
 import com.chococard.carwash.ui.history.HistoryFragment
 import com.chococard.carwash.ui.home.HomeFragment
+import com.chococard.carwash.ui.navigation.NavigationActivity
 import com.chococard.carwash.ui.profile.ProfileFragment
 import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
 import com.chococard.carwash.ui.verifyphone.VPSignInActivity
@@ -57,9 +58,12 @@ class MainActivity : BaseActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        if (readJobFlag() == JobFlag.JOB_FLAG_ON.toString()) {
-//            startActivity<PaymentActivity>()
-//        }
+        viewModel.getJob.observe(this, Observer { job ->
+            if (job == null) return@Observer
+            startActivity<NavigationActivity> {
+                finishAffinity()
+            }
+        })
 
         setToolbar(toolbar)
         setReceiverLocation()
@@ -120,13 +124,10 @@ class MainActivity : BaseActivity(),
         })
 
         viewModel.getJobResponse.observe(this, Observer { response ->
-            val (success, message, jobResponse) = response
+            val (success, _, _) = response
             if (success) {
-                if (jobResponse == null) {
-//                    writeJobFlag(JobFlag.JOB_FLAG_ON)
-//                    startActivity<PaymentActivity>()
-                } else {
-//                    writeJobFlag(JobFlag.JOB_FLAG_OFF)
+                startActivity<NavigationActivity> {
+                    finishAffinity()
                 }
             }
         })

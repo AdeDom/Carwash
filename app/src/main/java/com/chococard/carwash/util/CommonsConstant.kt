@@ -12,7 +12,6 @@ object CommonsConstant {
     const val TOKEN = "token"
     const val REFRESH_TOKEN = "refresh_token"
     const val JOB = "job"
-    const val JOB_FLAG = "flag"
     const val LOGS_KEYS = "logs_keys"
     const val SWITCH = "switch"
     const val PHONE = "phone"

@@ -13,6 +13,8 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() {
 
+    val getJob = repository.getJob()
+
     private val user = MutableLiveData<UserResponse>()
     val getUser: LiveData<UserResponse>
         get() = user
@@ -57,8 +59,8 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
     fun callJobResponse(jobAnswer: JobAnswer) = launchCallApi(
         request = { repository.callJobResponse(jobAnswer) },
         response = { response ->
-            jobResponse.value = response
             response?.job?.let { repository.saveJob(it) }
+            jobResponse.value = response
         }
     )
 

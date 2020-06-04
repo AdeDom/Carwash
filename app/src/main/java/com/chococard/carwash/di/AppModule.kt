@@ -33,5 +33,6 @@ val appModule = module {
     viewModel { HomeViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
     viewModel { RequestOtpViewModel(get()) }
+    viewModel { NavigationViewModel(get()) }
 
 }

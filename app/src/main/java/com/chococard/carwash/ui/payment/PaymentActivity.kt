@@ -8,8 +8,10 @@ import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
-import com.chococard.carwash.util.JobFlag
-import com.chococard.carwash.util.extension.*
+import com.chococard.carwash.util.extension.hide
+import com.chococard.carwash.util.extension.show
+import com.chococard.carwash.util.extension.startActivity
+import com.chococard.carwash.util.extension.toast
 import com.chococard.carwash.viewmodel.PaymentViewModel
 import kotlinx.android.synthetic.main.activity_payment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -34,7 +36,6 @@ class PaymentActivity : BaseActivity(), FlagPaymentListener {
             progress_bar.hide()
             val (success, message) = response
             if (success) {
-                writeJobFlag(JobFlag.JOB_FLAG_OFF)
                 finish()
             } else {
                 message?.let { toast(it, Toast.LENGTH_LONG) }
