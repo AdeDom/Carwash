@@ -47,14 +47,11 @@ interface HeaderAppService {
 
     //mock job request from server when customer call using application.
     @POST("api/jobrequest")
-    suspend fun callJobRequest(): Response<JobRequest>
+    suspend fun callJobRequest(): Response<JobResponse>
 
     //answer job request from customer also send flag cancel job or confirm job to server.
-    @FormUrlEncoded
-    @POST("v2/5e9ebb042d00004b00cb7683")
-    suspend fun callJobResponse(
-        @Field(ApiConstant.JOB_STATUS) jobStatus: Int
-    ): Response<JobResponse>
+    @POST("api/jobresponse")
+    suspend fun callJobResponse(@Body jobAnswer: JobAnswer): Response<JobResponse>
 
     //payment fee of application by send flag report or confirm to server.
     @FormUrlEncoded

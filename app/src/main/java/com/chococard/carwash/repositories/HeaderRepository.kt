@@ -1,6 +1,7 @@
 package com.chococard.carwash.repositories
 
 import com.chococard.carwash.data.db.AppDatabase
+import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.db.entities.User
 import com.chococard.carwash.data.networks.HeaderAppService
 import com.chococard.carwash.data.networks.SafeApiRequest
@@ -35,13 +36,16 @@ class HeaderRepository(
     suspend fun callFetchHistory(dateBegin: Long, dateEnd: Long) =
         apiRequest { api.callFetchHistory(dateBegin, dateEnd) }
 
-    // job
     suspend fun callJobRequest() = apiRequest { api.callJobRequest() }
-//    suspend fun saveJob(job: Job) = db.getJobDao().saveJob(job)
-//    fun getJob() = db.getJobDao().getJob()
-//    suspend fun deleteJob() = db.getJobDao().deleteJob()
 
-    suspend fun callJobResponse(jobStatus: Int) = apiRequest { api.callJobResponse(jobStatus) }
+    // job
+    suspend fun callJobResponse(jobAnswer: JobAnswer) =
+        apiRequest { api.callJobResponse(jobAnswer) }
+
+    suspend fun saveJob(job: Job) = db.getJobDao().saveJob(job)
+    fun getJob() = db.getJobDao().getJob()
+    suspend fun deleteJob() = db.getJobDao().deleteJob()
+    //job
 
     suspend fun callPayment(paymentStatus: Int) = apiRequest { api.callPayment(paymentStatus) }
 

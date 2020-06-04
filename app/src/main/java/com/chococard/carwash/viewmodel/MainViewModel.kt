@@ -2,7 +2,7 @@ package com.chococard.carwash.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.chococard.carwash.data.networks.request.JobRequest
+import com.chococard.carwash.data.networks.request.JobAnswer
 import com.chococard.carwash.data.networks.request.LogsActive
 import com.chococard.carwash.data.networks.request.SetLocation
 import com.chococard.carwash.data.networks.response.BaseResponse
@@ -17,8 +17,8 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
     val getUser: LiveData<UserResponse>
         get() = user
 
-    private val jobRequest = MutableLiveData<JobRequest>()
-    val getJobRequest: LiveData<JobRequest>
+    private val jobRequest = MutableLiveData<JobResponse>()
+    val getJobRequest: LiveData<JobResponse>
         get() = jobRequest
 
     private val jobResponse = MutableLiveData<JobResponse>()
@@ -54,9 +54,12 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
         response = { jobRequest.value = it }
     )
 
-    fun callJobResponse(jobStatus: Int) = launchCallApi(
-        request = { repository.callJobResponse(jobStatus) },
-        response = { jobResponse.value = it }
+    fun callJobResponse(jobAnswer: JobAnswer) = launchCallApi(
+        request = { repository.callJobResponse(jobAnswer) },
+        response = { response ->
+            jobResponse.value = response
+            response?.job?.let { repository.saveJob(it) }
+        }
     )
 
     fun callSetLogsActive(logsActive: LogsActive) = launchCallApi(

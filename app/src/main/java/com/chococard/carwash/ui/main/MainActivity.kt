@@ -8,12 +8,12 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
+import com.chococard.carwash.data.networks.request.JobAnswer
 import com.chococard.carwash.data.networks.request.LogsActive
 import com.chococard.carwash.data.networks.request.SetLocation
 import com.chococard.carwash.ui.base.BaseActivity
@@ -21,14 +21,12 @@ import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
 import com.chococard.carwash.ui.history.HistoryFragment
 import com.chococard.carwash.ui.home.HomeFragment
-import com.chococard.carwash.ui.payment.PaymentActivity
 import com.chococard.carwash.ui.profile.ProfileFragment
 import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
 import com.chococard.carwash.ui.verifyphone.VPSignInActivity
 import com.chococard.carwash.ui.wallet.WalletFragment
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.FlagConstant
-import com.chococard.carwash.util.JobFlag
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.MainViewModel
 import com.google.android.gms.common.ConnectionResult
@@ -122,16 +120,14 @@ class MainActivity : BaseActivity(),
         })
 
         viewModel.getJobResponse.observe(this, Observer { response ->
-            val (success, message, jobFlag) = response
+            val (success, message, jobResponse) = response
             if (success) {
-                if (jobFlag) {
-                    writeJobFlag(JobFlag.JOB_FLAG_ON)
-                    startActivity<PaymentActivity>()
+                if (jobResponse == null) {
+//                    writeJobFlag(JobFlag.JOB_FLAG_ON)
+//                    startActivity<PaymentActivity>()
                 } else {
-                    writeJobFlag(JobFlag.JOB_FLAG_OFF)
+//                    writeJobFlag(JobFlag.JOB_FLAG_OFF)
                 }
-            } else {
-                message?.let { toast(it, Toast.LENGTH_LONG) }
             }
         })
 
@@ -272,10 +268,7 @@ class MainActivity : BaseActivity(),
         }
     }
 
-    override fun onFlag(flag: Int) {
-        Log.d(TAG, "onFlag: $flag")
-//        viewModel.callJobResponse(flag)
-    }
+    override fun onFlag(flag: Int) = viewModel.callJobResponse(JobAnswer(flag))
 
     private fun setRequestLocation() {
         mGoogleApiClient = GoogleApiClient.Builder(baseContext)
@@ -311,10 +304,6 @@ class MainActivity : BaseActivity(),
     override fun onLocationChanged(location: Location?) {
         val setLocation = SetLocation(location?.latitude, location?.longitude)
         viewModel.callSetLocation(setLocation)
-    }
-
-    companion object {
-        private const val TAG = "MainActivity"
     }
 
 }
