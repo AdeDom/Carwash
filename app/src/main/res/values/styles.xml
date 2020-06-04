@@ -78,6 +78,9 @@
     <style name="TextViewLargeApplicationSub" parent="TextViewLargeApplication">
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textStyle">normal</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:layout_marginStart">@dimen/base_pow_three</item>
+        <item name="android:layout_marginTop">@dimen/base_pow_four</item>
     </style>
 
     <style name="TextViewLarge" parent="WrapWrap">

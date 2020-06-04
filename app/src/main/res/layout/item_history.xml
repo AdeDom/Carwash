@@ -6,6 +6,7 @@
 
         <GridLayout
             style="@style/MatchWrap"
+            android:layout_centerVertical="true"
             android:columnCount="2"
             android:rowCount="2">
 
@@ -17,8 +18,7 @@
             <TextView
                 android:id="@+id/tv_full_name"
                 style="@style/TextViewLargeApplicationSub"
-                android:layout_gravity="start"
-                android:layout_marginStart="@dimen/base_pow_three"
+                android:layout_marginTop="@dimen/base_zero"
                 android:text="@string/full_name" />
 
             <ImageView
@@ -28,9 +28,6 @@
             <TextView
                 android:id="@+id/tv_date_time"
                 style="@style/TextViewLargeApplicationSub"
-                android:layout_gravity="start"
-                android:layout_marginStart="@dimen/base_pow_three"
-                android:layout_marginTop="@dimen/base_pow_four"
                 android:text="@string/date_time" />
 
         </GridLayout>
