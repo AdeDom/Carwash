@@ -13,18 +13,21 @@ import org.koin.dsl.module
 
 val appModule = module {
 
+    // db
+    single { AppDatabase(get()) }
+
     //connection
     single { NetworkConnectionInterceptor(get()) }
     single { ConnectionAppService.invoke(get()) }
-    single { ConnectionRepository(get()) }
+    single { ConnectionRepository(get(), get()) }
     viewModel { SignInViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
     viewModel { RequestOtpViewModel(get()) }
+    viewModel { SplashScreenViewModel(get()) }
 
     //header connection
     single { NetworkHeaderInterceptor(get()) }
     single { HeaderAppService.invoke(get()) }
-    single { AppDatabase(get()) }
     single { HeaderRepository(get(), get()) }
     viewModel { AddWalletViewModel(get()) }
     viewModel { ChangePasswordViewModel(get()) }
@@ -36,6 +39,5 @@ val appModule = module {
     viewModel { HomeViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
     viewModel { NavigationViewModel(get()) }
-    viewModel { SplashScreenViewModel(get()) }
 
 }

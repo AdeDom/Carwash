@@ -1,5 +1,6 @@
 package com.chococard.carwash.repositories
 
+import com.chococard.carwash.data.db.AppDatabase
 import com.chococard.carwash.data.networks.ConnectionAppService
 import com.chococard.carwash.data.networks.SafeApiRequest
 import com.chococard.carwash.data.networks.request.SignInRequest
@@ -8,8 +9,11 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 class ConnectionRepository(
-    private val api: ConnectionAppService
+    private val api: ConnectionAppService,
+    private val db: AppDatabase
 ) : SafeApiRequest() {
+
+    fun getJob() = db.getJobDao().getJob()
 
     suspend fun callSignUp(
         username: RequestBody,
