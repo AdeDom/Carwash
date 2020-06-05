@@ -28,7 +28,8 @@
         style="@style/WrapWrap"
         android:layout_below="@id/layout_toolbar"
         android:layout_alignParentEnd="true"
-        android:layout_margin="@dimen/base_pow_four"
+        android:layout_marginTop="@dimen/base_pow_six"
+        android:layout_marginEnd="@dimen/base_pow_four"
         android:src="@drawable/ic_navigation_white" />
 
     <androidx.cardview.widget.CardView
