@@ -3,6 +3,8 @@ package com.chococard.carwash.ui.navigation
 import android.content.Intent
 import android.location.Location
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.WindowManager
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
@@ -74,10 +76,12 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             mMarkerMyLocation?.remove()
 
             baseContext.setImageCircle(user.image) { bitmap ->
+                val bmp = baseContext.setImageMarkerCircle(bitmap)
+                val bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(bmp)
                 mMarkerMyLocation = mGoogleMap?.addMarker(
                     MarkerOptions().apply {
                         position(latLng)
-                        icon(BitmapDescriptorFactory.fromBitmap(baseContext.setImageMarkerCircle(bitmap)))
+                        icon(bitmapDescriptor)
                         title(user.fullName)
                     }
                 )
@@ -95,6 +99,20 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
                 endLatLng?.longitude
             )
         )
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_option_busy, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.option_contact_admin -> {
+                startActivity(Intent.ACTION_DIAL, getString(R.string.contact_admin_tel))
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }

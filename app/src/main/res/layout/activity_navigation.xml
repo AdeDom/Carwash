@@ -36,7 +36,7 @@
         style="@style/CardViewButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/base_pow_five">
+        android:layout_marginBottom="@dimen/base_pow_six">
 
         <Button
             android:id="@+id/bt_next_step"
