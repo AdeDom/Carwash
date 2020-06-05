@@ -13,8 +13,6 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() {
 
-    val getJob = repository.getJob()
-
     private val user = MutableLiveData<UserResponse>()
     val getUser: LiveData<UserResponse>
         get() = user

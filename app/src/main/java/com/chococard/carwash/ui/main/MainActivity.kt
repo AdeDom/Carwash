@@ -41,13 +41,6 @@ class MainActivity : BaseLocationActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel.getJob.observe(this, Observer { job ->
-            if (job == null) return@Observer
-            startActivity<NavigationActivity> {
-                finishAffinity()
-            }
-        })
-
         setToolbar(toolbar)
 
         bottom_navigation.setOnNavigationItemSelectedListener(this)

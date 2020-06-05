@@ -5,15 +5,21 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.auth.AuthActivity
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.main.MainActivity
+import com.chococard.carwash.ui.navigation.NavigationActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.readPref
 import com.chococard.carwash.util.extension.startActivity
+import com.chococard.carwash.viewmodel.SplashScreenViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashScreenActivity : BaseActivity() {
+
+    val viewModel: SplashScreenViewModel by viewModel()
 
     private val GRANTED = PackageManager.PERMISSION_GRANTED
     private val ACCESS_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
@@ -40,10 +46,10 @@ class SplashScreenActivity : BaseActivity() {
                     ), CommonsConstant.REQUEST_CODE_PERMISSION
                 )
             } else {
-                authByCheckToken()
+                onReadyCarWash()
             }
         } else {
-            authByCheckToken()
+            onReadyCarWash()
         }
     }
 
@@ -60,21 +66,29 @@ class SplashScreenActivity : BaseActivity() {
             ) {
                 finish()
             } else {
-                authByCheckToken()
+                onReadyCarWash()
             }
         }
     }
 
-    private fun authByCheckToken() {
+    private fun onReadyCarWash() {
         val token = readPref(CommonsConstant.TOKEN)
         if (token.isEmpty()) {
             startActivity<AuthActivity> {
                 finish()
             }
         } else {
-            startActivity<MainActivity> {
-                finish()
-            }
+            viewModel.getJob.observe(this, Observer { job ->
+                if (job == null) {
+                    startActivity<MainActivity> {
+                        finish()
+                    }
+                } else {
+                    startActivity<NavigationActivity> {
+                        finish()
+                    }
+                }
+            })
         }
     }
 
