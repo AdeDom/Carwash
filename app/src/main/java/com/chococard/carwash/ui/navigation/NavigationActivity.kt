@@ -9,6 +9,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
+import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.networks.request.SetNavigationRequest
 import com.chococard.carwash.ui.base.BaseLocationActivity
 import com.chococard.carwash.util.extension.*
@@ -29,8 +30,9 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
     val viewModel: NavigationViewModel by viewModel()
     private var mGoogleMap: GoogleMap? = null
     private var mIsFlagMoveCamera: Boolean = true
-    private var mLatLngCustomer: LatLng? = null
     private var mMarkerMyLocation: Marker? = null
+    private var mMarkerCustomer: Marker? = null
+    private var mJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,16 +48,17 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         // observe
         viewModel.getDbJob.observe(this, Observer { job ->
             if (job == null) return@Observer
-
-            if (job.latitude != null && job.longitude != null)
-                mLatLngCustomer = LatLng(job.latitude, job.longitude)
+            mJob = job
         })
 
         viewModel.getNavigationResponse.observe(this, Observer { response ->
             val (success, message, navigation) = response
             progress_bar.hide()
             if (success) {
-                toast(navigation.toString())
+                if (navigation?.customerLatitude != null && navigation.customerLongitude != null) {
+                    val latLng = LatLng(navigation.customerLatitude, navigation.customerLongitude)
+                    setLocationCustomer(latLng)
+                }
             } else {
                 toast(message, Toast.LENGTH_LONG)
             }
@@ -84,7 +87,10 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             mGoogleMap?.moveCamera(cameraUpdate)
         }
 
-        fab.setOnClickListener { navigation(latLng, mLatLngCustomer) }
+        if (mJob?.latitude != null && mJob?.longitude != null) {
+            val latLngCustomer = LatLng(mJob?.latitude!!, mJob?.longitude!!)
+            fab.setOnClickListener { navigation(latLng, latLngCustomer) }
+        }
 
         viewModel.getDbUser.observe(this, Observer { user ->
             if (user == null) return@Observer
@@ -106,6 +112,22 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
 
         val setNavigation = SetNavigationRequest(latLng.latitude, latLng.longitude)
         viewModel.callSetNavigation(setNavigation)
+    }
+
+    private fun setLocationCustomer(latLng: LatLng) {
+        mMarkerCustomer?.remove()
+
+        baseContext.setImageCircle(mJob?.imageProfile) { bitmap ->
+            val bmp = baseContext.setImageMarkerCircle(bitmap)
+            val bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(bmp)
+            mMarkerCustomer = mGoogleMap?.addMarker(
+                MarkerOptions().apply {
+                    position(latLng)
+                    icon(bitmapDescriptor)
+                    title(mJob?.fullName)
+                }
+            )
+        }
     }
 
     private fun navigation(beginLatLng: LatLng?, endLatLng: LatLng?) {
