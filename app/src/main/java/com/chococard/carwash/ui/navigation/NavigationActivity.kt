@@ -1,17 +1,23 @@
 package com.chococard.carwash.ui.navigation
 
+import android.content.Intent
 import android.location.Location
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseLocationActivity
+import com.chococard.carwash.util.extension.setImageCircle
+import com.chococard.carwash.util.extension.startActivity
 import com.chococard.carwash.viewmodel.NavigationViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapFragment
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_navigation.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -20,6 +26,8 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
     val viewModel: NavigationViewModel by viewModel()
     private var mGoogleMap: GoogleMap? = null
     private var mIsFlagMoveCamera: Boolean = true
+    private var mLatLngCustomer: LatLng? = null
+    private var mMarkerMyLocation: Marker? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +40,11 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         val mapFragment = fragmentManager.findFragmentById(R.id.map_fragment) as MapFragment
         mapFragment.getMapAsync(this@NavigationActivity)
 
-        viewModel.getJob.observe(this, Observer { job ->
+        viewModel.getDbJob.observe(this, Observer { job ->
             if (job == null) return@Observer
+
+            if (job.latitude != null && job.longitude != null)
+                mLatLngCustomer = LatLng(job.latitude, job.longitude)
         })
     }
 
@@ -53,6 +64,36 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 14F)
             mGoogleMap?.moveCamera(cameraUpdate)
         }
+
+        fab.setOnClickListener { navigation(latLng, mLatLngCustomer) }
+
+        viewModel.getDbUser.observe(this, Observer { user ->
+            if (user == null) return@Observer
+
+            mMarkerMyLocation?.remove()
+
+            baseContext.setImageCircle(user.image) { bitmap ->
+                mMarkerMyLocation = mGoogleMap?.addMarker(
+                    MarkerOptions().apply {
+                        position(latLng)
+                        icon(BitmapDescriptorFactory.fromBitmap(bitmap))
+                        title(user.fullName)
+                    }
+                )
+            }
+        })
+    }
+
+    private fun navigation(beginLatLng: LatLng?, endLatLng: LatLng?) {
+        startActivity(
+            Intent.ACTION_VIEW, getString(
+                R.string.google_maps_navigation,
+                beginLatLng?.latitude,
+                beginLatLng?.longitude,
+                endLatLng?.latitude,
+                endLatLng?.longitude
+            )
+        )
     }
 
 }

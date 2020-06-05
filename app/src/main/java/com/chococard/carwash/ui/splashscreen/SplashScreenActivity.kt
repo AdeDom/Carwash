@@ -78,7 +78,7 @@ class SplashScreenActivity : BaseActivity() {
                 finish()
             }
         } else {
-            viewModel.getJob.observe(this, Observer { job ->
+            viewModel.getDbJob.observe(this, Observer { job ->
                 if (job == null) {
                     startActivity<MainActivity> {
                         finish()

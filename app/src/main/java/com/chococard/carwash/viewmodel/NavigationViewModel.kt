@@ -4,6 +4,8 @@ import com.chococard.carwash.repositories.HeaderRepository
 
 class NavigationViewModel(private val repository: HeaderRepository) : BaseViewModel() {
 
-    val getJob = repository.getJob()
+    val getDbUser = repository.getUser()
+
+    val getDbJob = repository.getJob()
 
 }
