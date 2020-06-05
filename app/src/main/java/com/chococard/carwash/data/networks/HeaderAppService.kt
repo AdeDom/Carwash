@@ -1,5 +1,6 @@
 package com.chococard.carwash.data.networks
 
+import com.chococard.carwash.data.networks.response.NavigationResponse
 import com.chococard.carwash.data.networks.request.*
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.HistoryResponse
@@ -66,6 +67,9 @@ interface HeaderAppService {
 
     @POST("api/account/switchsystem")
     suspend fun callSwitchSystem(@Body switchSystem: SwitchSystemRequest): Response<BaseResponse>
+
+    @POST("api/navigation")
+    suspend fun callSetNavigation(@Body setNavigation: SetNavigationRequest): Response<NavigationResponse>
 
     companion object {
         operator fun invoke(networkHeaderInterceptor: NetworkHeaderInterceptor) =

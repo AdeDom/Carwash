@@ -41,8 +41,12 @@
         <Button
             android:id="@+id/bt_next_step"
             style="@style/ButtonBlueLong"
-            android:text="@string/next_step" />
+            android:text="@string/service" />
 
     </androidx.cardview.widget.CardView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/ProgressBar" />
 
 </RelativeLayout>

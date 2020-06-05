@@ -55,4 +55,7 @@ class HeaderRepository(
     suspend fun callSwitchSystem(switchSystem: SwitchSystemRequest) =
         apiRequest { api.callSwitchSystem(switchSystem) }
 
+    suspend fun callSetNavigation(setNavigation: SetNavigationRequest) =
+        apiRequest { api.callSetNavigation(setNavigation) }
+
 }

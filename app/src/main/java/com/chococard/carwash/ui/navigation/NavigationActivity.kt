@@ -6,12 +6,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
+import com.chococard.carwash.data.networks.request.SetNavigationRequest
 import com.chococard.carwash.ui.base.BaseLocationActivity
-import com.chococard.carwash.util.extension.setImageCircle
-import com.chococard.carwash.util.extension.setImageMarkerCircle
-import com.chococard.carwash.util.extension.startActivity
+import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.NavigationViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -43,11 +43,27 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         val mapFragment = fragmentManager.findFragmentById(R.id.map_fragment) as MapFragment
         mapFragment.getMapAsync(this@NavigationActivity)
 
+        // observe
         viewModel.getDbJob.observe(this, Observer { job ->
             if (job == null) return@Observer
 
             if (job.latitude != null && job.longitude != null)
                 mLatLngCustomer = LatLng(job.latitude, job.longitude)
+        })
+
+        viewModel.getNavigationResponse.observe(this, Observer { response ->
+            val (success, message, navigation) = response
+            progress_bar.hide()
+            if (success) {
+                toast(navigation.toString())
+            } else {
+                toast(message, Toast.LENGTH_LONG)
+            }
+        })
+
+        viewModel.getError.observe(this, Observer {
+            progress_bar.hide()
+            dialogError(it)
         })
     }
 
@@ -87,6 +103,9 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
                 )
             }
         })
+
+        val setNavigation = SetNavigationRequest(latLng.latitude, latLng.longitude)
+        viewModel.callSetNavigation(setNavigation)
     }
 
     private fun navigation(beginLatLng: LatLng?, endLatLng: LatLng?) {
