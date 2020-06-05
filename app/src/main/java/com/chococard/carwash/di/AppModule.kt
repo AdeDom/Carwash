@@ -34,7 +34,6 @@ val appModule = module {
     viewModel { ChangeProfileViewModel(get()) }
     viewModel { HistoryViewModel(get()) }
     viewModel { MainViewModel(get()) }
-    viewModel { MapViewModel(get()) }
     viewModel { PaymentViewModel(get()) }
     viewModel { HomeViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
