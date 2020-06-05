@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseLocationActivity
 import com.chococard.carwash.util.extension.setImageCircle
+import com.chococard.carwash.util.extension.setImageMarkerCircle
 import com.chococard.carwash.util.extension.startActivity
 import com.chococard.carwash.viewmodel.NavigationViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -76,7 +77,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
                 mMarkerMyLocation = mGoogleMap?.addMarker(
                     MarkerOptions().apply {
                         position(latLng)
-                        icon(BitmapDescriptorFactory.fromBitmap(bitmap))
+                        icon(BitmapDescriptorFactory.fromBitmap(baseContext.setImageMarkerCircle(bitmap)))
                         title(user.fullName)
                     }
                 )

@@ -97,12 +97,12 @@ fun Context.setImageCircle(
         })
 }
 
-fun Context?.setMyLocation(image: Bitmap): Bitmap {
+fun Context?.setImageMarkerCircle(image: Bitmap): Bitmap {
     val inflater = this?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     val view: View = inflater.inflate(R.layout.layout_my_location, null)
     view.findViewById<ImageView>(R.id.iv_photo).setImageBitmap(image)
     val displayMetrics = DisplayMetrics()
-    (this as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
+//    (this as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
     view.layoutParams = ViewGroup.LayoutParams(100, ViewGroup.LayoutParams.WRAP_CONTENT)
     view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels)
     view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels)
