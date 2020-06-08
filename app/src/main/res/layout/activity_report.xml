@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/RelativeLayout">
+
+    <RelativeLayout
+        android:id="@+id/layout_toolbar"
+        style="@style/MatchWrap">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar" />
+
+        <ImageView
+            android:id="@+id/iv_arrow_back"
+            style="@style/ImageViewArrowBack" />
+
+        <ImageView
+            style="@style/ImageViewToolbar"
+            android:src="@drawable/ic_report" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_et_report"
+        style="@style/MatchWrap"
+        android:layout_below="@id/layout_toolbar"
+        android:layout_marginStart="@dimen/base_pow_five"
+        android:layout_marginTop="@dimen/base_pow_four"
+        android:layout_marginEnd="@dimen/base_pow_five"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextViewMediumGray"
+            android:text="@string/please_contact_the_system_administrator_in_an_emergency" />
+
+        <EditText
+            android:id="@+id/et_report"
+            style="@style/EditText"
+            android:layout_height="@dimen/base_two_hundred"
+            android:layout_margin="@dimen/base_pow_four"
+            android:drawableStart="@drawable/ic_message"
+            android:gravity="start"
+            android:hint="@string/report" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        style="@style/MatchMatch"
+        android:layout_above="@id/layout_bt_report"
+        android:layout_below="@id/layout_et_report">
+
+        <ImageView
+            style="@style/WrapWrap"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_sos" />
+
+    </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layout_bt_report"
+        style="@style/CardViewButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/base_pow_five">
+
+        <Button
+            android:id="@+id/bt_report"
+            style="@style/ButtonBlueLong"
+            android:text="@string/report" />
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

@@ -121,9 +121,9 @@
         <androidx.cardview.widget.CardView style="@style/CardViewButtonPair">
 
             <Button
-                android:id="@+id/bt_service"
+                android:id="@+id/bt_payment"
                 style="@style/ButtonBlueShort"
-                android:text="@string/service" />
+                android:text="@string/payment" />
 
         </androidx.cardview.widget.CardView>
 
