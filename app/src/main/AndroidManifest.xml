@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ui.report.ReportActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.service.ServiceActivity"
             android:screenOrientation="portrait" />
         <activity

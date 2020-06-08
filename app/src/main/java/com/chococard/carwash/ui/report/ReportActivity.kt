@@ -1,4 +1,4 @@
-package com.chococard.carwash.ui.service
+package com.chococard.carwash.ui.report
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,15 +6,14 @@ import android.view.Menu
 import android.view.MenuItem
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
-import com.chococard.carwash.ui.report.ReportActivity
 import com.chococard.carwash.util.extension.startActivity
-import kotlinx.android.synthetic.main.activity_service.*
+import kotlinx.android.synthetic.main.activity_report.*
 
-class ServiceActivity : BaseActivity() {
+class ReportActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_service)
+        setContentView(R.layout.activity_report)
 
         init()
     }
@@ -25,8 +24,6 @@ class ServiceActivity : BaseActivity() {
 
         // set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
-
-        bt_report.setOnClickListener { startActivity<ReportActivity>() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

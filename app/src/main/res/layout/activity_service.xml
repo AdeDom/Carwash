@@ -29,6 +29,7 @@
         android:rowCount="3">
 
         <TextView
+            android:layout_marginStart="@dimen/base_pow_four"
             style="@style/TextViewMediumGray"
             android:layout_columnSpan="2"
             android:text="@string/photo_service_from_all_4_sides" />
