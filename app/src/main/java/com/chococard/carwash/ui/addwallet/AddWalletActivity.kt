@@ -1,11 +1,11 @@
 package com.chococard.carwash.ui.addwallet
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.util.CommonsConstant
+import com.chococard.carwash.util.extension.selectImage
 import com.chococard.carwash.util.extension.toast
 import com.chococard.carwash.viewmodel.AddWalletViewModel
 import kotlinx.android.synthetic.main.activity_add_wallet.*
@@ -33,16 +33,9 @@ class AddWalletActivity : BaseActivity() {
 
         //set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
-        bt_upload_image.setOnClickListener { selectImage() }
+        bt_upload_image.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE) }
         bt_cancel.setOnClickListener { finish() }
         bt_confirm.setOnClickListener { addWallet() }
-    }
-
-    private fun selectImage() = Intent(Intent.ACTION_PICK).apply {
-        type = "image/*"
-        val mimeTypes = arrayOf("image/jpeg", "image/png")
-        putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
-        startActivityForResult(this, CommonsConstant.REQUEST_CODE_IMAGE)
     }
 
     private fun addWallet() {

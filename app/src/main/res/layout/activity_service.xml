@@ -29,9 +29,9 @@
         android:rowCount="3">
 
         <TextView
-            android:layout_marginStart="@dimen/base_pow_four"
             style="@style/TextViewMediumGray"
             android:layout_columnSpan="2"
+            android:layout_marginStart="@dimen/base_pow_four"
             android:text="@string/photo_service_from_all_4_sides" />
 
         <androidx.cardview.widget.CardView style="@style/StyleCardViewService">
@@ -41,14 +41,24 @@
                 android:text="@string/front"
                 android:textColor="@color/colorAccent" />
 
-            <ImageView
-                android:id="@+id/iv_image_front"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/base_hundred"
-                android:layout_marginTop="@dimen/base_pow_five"
-                android:padding="@dimen/base_fifty"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_camera_blue" />
+            <RelativeLayout
+                style="@style/WrapWrap"
+                android:layout_marginTop="@dimen/base_pow_five">
+
+                <ImageView
+                    android:id="@+id/iv_image_front"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/base_hundred"
+                    android:padding="@dimen/base_fifty"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_camera_blue" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar_front"
+                    style="@style/ProgressBar"
+                    android:layout_gravity="center" />
+
+            </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
 

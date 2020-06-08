@@ -41,9 +41,9 @@ class SignUpActivity : BaseActivity() {
         //event
         iv_arrow_back.setOnClickListener { onBackPressed() }
 
-        iv_photo.setOnClickListener { selectImage() }
+        iv_photo.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE) }
 
-        iv_camera.setOnClickListener { selectImage() }
+        iv_camera.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE) }
 
         bt_sign_up.setOnClickListener { signUp() }
 
@@ -68,13 +68,6 @@ class SignUpActivity : BaseActivity() {
             progress_bar.hide()
             dialogError(it)
         })
-    }
-
-    private fun selectImage() = Intent(Intent.ACTION_PICK).apply {
-        type = "image/*"
-        val mimeTypes = arrayOf("image/jpeg", "image/png")
-        putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
-        startActivityForResult(this, CommonsConstant.REQUEST_CODE_IMAGE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
