@@ -71,6 +71,9 @@ interface HeaderAppService {
     @POST("api/navigation")
     suspend fun callSetNavigation(@Body setNavigation: SetNavigationRequest): Response<NavigationResponse>
 
+    @POST("api/setjobstastusname")
+    suspend fun callSetJobStatusName(): Response<BaseResponse>
+
     companion object {
         operator fun invoke(networkHeaderInterceptor: NetworkHeaderInterceptor) =
             RetrofitClient.instant(networkHeaderInterceptor)

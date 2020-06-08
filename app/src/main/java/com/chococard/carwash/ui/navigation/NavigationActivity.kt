@@ -13,7 +13,10 @@ import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.networks.request.SetNavigationRequest
 import com.chococard.carwash.ui.base.BaseLocationActivity
 import com.chococard.carwash.ui.service.ServiceActivity
-import com.chococard.carwash.util.extension.*
+import com.chococard.carwash.util.extension.setImageCircle
+import com.chococard.carwash.util.extension.setImageMarkerCircle
+import com.chococard.carwash.util.extension.startActivity
+import com.chococard.carwash.util.extension.toast
 import com.chococard.carwash.viewmodel.NavigationViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -46,7 +49,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         val mapFragment = fragmentManager.findFragmentById(R.id.map_fragment) as MapFragment
         mapFragment.getMapAsync(this@NavigationActivity)
 
-        bt_service.setOnClickListener { serviceJob() }
+        bt_service.setOnClickListener { viewModel.callSetJobStatusName() }
 
         // observe
         viewModel.getDbJob.observe(this, Observer { job ->
@@ -56,7 +59,6 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
 
         viewModel.getNavigationResponse.observe(this, Observer { response ->
             val (success, message, navigation) = response
-            progress_bar.hide()
             if (success) {
                 if (navigation?.customerLatitude != null && navigation.customerLongitude != null) {
                     val latLng = LatLng(navigation.customerLatitude, navigation.customerLongitude)
@@ -67,14 +69,18 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             }
         })
 
+        viewModel.getJobStatusName.observe(this, Observer { response ->
+            val (success, message) = response
+            if (success) {
+                startActivity<ServiceActivity>()
+            } else {
+                toast(message, Toast.LENGTH_LONG)
+            }
+        })
+
         viewModel.getError.observe(this, Observer {
-            progress_bar.hide()
             dialogError(it)
         })
-    }
-
-    private fun serviceJob() {
-        startActivity<ServiceActivity>()
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {

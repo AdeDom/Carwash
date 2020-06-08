@@ -58,4 +58,6 @@ class HeaderRepository(
     suspend fun callSetNavigation(setNavigation: SetNavigationRequest) =
         apiRequest { api.callSetNavigation(setNavigation) }
 
+    suspend fun callSetJobStatusName() = apiRequest { api.callSetJobStatusName() }
+
 }
