@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
+import com.chococard.carwash.ui.payment.PaymentActivity
 import com.chococard.carwash.ui.report.ReportActivity
 import com.chococard.carwash.util.extension.startActivity
 import kotlinx.android.synthetic.main.activity_service.*
@@ -27,6 +28,8 @@ class ServiceActivity : BaseActivity() {
         iv_arrow_back.setOnClickListener { onBackPressed() }
 
         bt_report.setOnClickListener { startActivity<ReportActivity>() }
+
+        bt_payment.setOnClickListener { startActivity<PaymentActivity>() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
