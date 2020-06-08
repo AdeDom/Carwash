@@ -61,6 +61,9 @@ interface HeaderAppService {
         @Field(ApiConstant.PAYMENT_STATUS) paymentStatus: Int
     ): Response<BaseResponse>
 
+    @POST("api/report")
+    suspend fun callReport(@Body report: ReportRequest): Response<BaseResponse>
+
     //set user logs active & inactive using application.
     @POST("api/account/userlogs")
     suspend fun callSetLogsActive(@Body logsActive: LogsActiveRequest): Response<BaseResponse>

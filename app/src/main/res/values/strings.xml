@@ -114,5 +114,6 @@
     <string name="photo_service_from_all_4_sides">Photo service from all 4 sides</string>
     <string name="other_related_images">Other related images</string>
     <string name="please_contact_the_system_administrator_in_an_emergency">Please contact the system administrator in an emergency</string>
+    <string name="error_empty_report">Please enter report</string>
 
 </resources>
