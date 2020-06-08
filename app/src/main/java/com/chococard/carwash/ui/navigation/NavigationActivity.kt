@@ -12,6 +12,7 @@ import com.chococard.carwash.R
 import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.networks.request.SetNavigationRequest
 import com.chococard.carwash.ui.base.BaseLocationActivity
+import com.chococard.carwash.ui.service.ServiceActivity
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.NavigationViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -45,6 +46,8 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         val mapFragment = fragmentManager.findFragmentById(R.id.map_fragment) as MapFragment
         mapFragment.getMapAsync(this@NavigationActivity)
 
+        bt_service.setOnClickListener { serviceJob() }
+
         // observe
         viewModel.getDbJob.observe(this, Observer { job ->
             if (job == null) return@Observer
@@ -68,6 +71,10 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             progress_bar.hide()
             dialogError(it)
         })
+    }
+
+    private fun serviceJob() {
+        startActivity<ServiceActivity>()
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {

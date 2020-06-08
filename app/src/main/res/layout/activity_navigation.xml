@@ -39,7 +39,7 @@
         android:layout_marginBottom="@dimen/base_pow_six">
 
         <Button
-            android:id="@+id/bt_next_step"
+            android:id="@+id/bt_service"
             style="@style/ButtonBlueLong"
             android:text="@string/service" />
 

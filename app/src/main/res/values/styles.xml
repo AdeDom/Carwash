@@ -233,14 +233,15 @@
         <item name="contentPadding">@dimen/base_pow_four</item>
     </style>
 
-    <style name="StyleCardViewService" parent="StyleCardView">
-        <item name="android:layout_marginStart">@dimen/base_pow_four</item>
-        <item name="android:layout_marginTop">@dimen/base_pow_four</item>
-        <item name="android:layout_marginEnd">@dimen/base_pow_four</item>
-        <item name="android:layout_marginBottom">@dimen/base_pow_four</item>
+    <style name="StyleCardViewService">
+        <item name="android:layout_marginStart">@dimen/base_pow_three</item>
+        <item name="android:layout_marginTop">@dimen/base_pow_three</item>
+        <item name="android:layout_marginEnd">@dimen/base_pow_three</item>
+        <item name="android:layout_marginBottom">@dimen/base_pow_three</item>
         <item name="android:layout_width">@dimen/service_width</item>
         <item name="android:layout_height">@dimen/service_height</item>
-        <item name="contentPadding">@dimen/base_zero</item>
+        <item name="cardCornerRadius">@dimen/base_pow_three</item>
+        <item name="cardElevation">@dimen/base_pow_two</item>
     </style>
 
 </resources>
