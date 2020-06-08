@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
+import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.util.extension.hide
 import com.chococard.carwash.util.extension.setImageCircle
 import com.chococard.carwash.util.extension.startActivity
@@ -38,14 +39,17 @@ class PaymentActivity : BaseActivity() {
         })
 
         iv_arrow_back.setOnClickListener { onBackPressed() }
-        bt_payment.setOnClickListener { }
+        bt_payment.setOnClickListener { viewModel.callPayment() }
 
         //observe
         viewModel.getPayment.observe(this, Observer { response ->
             progress_bar.hide()
             val (success, message) = response
             if (success) {
-                finish()
+                viewModel.deleteDbJob()
+                startActivity<MainActivity> {
+                    finishAffinity()
+                }
             } else {
                 toast(message, Toast.LENGTH_LONG)
             }

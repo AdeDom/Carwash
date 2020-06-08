@@ -1,11 +1,7 @@
 package com.chococard.carwash.data.networks
 
-import com.chococard.carwash.data.networks.response.NavigationResponse
 import com.chococard.carwash.data.networks.request.*
-import com.chococard.carwash.data.networks.response.BaseResponse
-import com.chococard.carwash.data.networks.response.HistoryResponse
-import com.chococard.carwash.data.networks.response.JobResponse
-import com.chococard.carwash.data.networks.response.UserResponse
+import com.chococard.carwash.data.networks.response.*
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -55,11 +51,8 @@ interface HeaderAppService {
     suspend fun callJobResponse(@Body jobAnswer: JobAnswerRequest): Response<JobResponse>
 
     //payment fee of application by send flag report or confirm to server.
-    @FormUrlEncoded
-    @POST("v2/5e9eae5e340000452b6eee67")
-    suspend fun callPayment(
-        @Field(ApiConstant.PAYMENT_STATUS) paymentStatus: Int
-    ): Response<BaseResponse>
+    @POST("api/payment")
+    suspend fun callPayment(): Response<BaseResponse>
 
     @POST("api/report")
     suspend fun callReport(@Body report: ReportRequest): Response<BaseResponse>
