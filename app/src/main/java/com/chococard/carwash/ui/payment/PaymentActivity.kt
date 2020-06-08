@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.util.extension.hide
+import com.chococard.carwash.util.extension.setImageCircle
 import com.chococard.carwash.util.extension.startActivity
 import com.chococard.carwash.util.extension.toast
 import com.chococard.carwash.viewmodel.PaymentViewModel
@@ -24,6 +25,17 @@ class PaymentActivity : BaseActivity() {
         setContentView(R.layout.activity_payment)
 
         setToolbar(toolbar)
+
+        // set widgets
+        viewModel.getDbJob.observe(this, Observer { job ->
+            if (job == null) return@Observer
+            val (_, fullName, imageProfile, packageName, price, _, _, _, dateTime) = job
+            tv_date_time.text = dateTime
+            tv_full_name.text = fullName
+            tv_service.text = packageName
+            tv_price.text = price
+            iv_photo.setImageCircle(imageProfile)
+        })
 
         iv_arrow_back.setOnClickListener { onBackPressed() }
         bt_payment.setOnClickListener { }
