@@ -7,6 +7,7 @@ import com.chococard.carwash.data.networks.HeaderAppService
 import com.chococard.carwash.data.networks.SafeApiRequest
 import com.chococard.carwash.data.networks.request.*
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class HeaderRepository(
     private val api: HeaderAppService,
@@ -63,5 +64,8 @@ class HeaderRepository(
     suspend fun callSetJobStatusName() = apiRequest { api.callSetJobStatusName() }
 
     suspend fun callHomeScore() = apiRequest { api.callHomeScore() }
+
+    suspend fun callUploadImageService(file: MultipartBody.Part, statusService: RequestBody) =
+        apiRequest { api.callUploadImageService(file, statusService) }
 
 }

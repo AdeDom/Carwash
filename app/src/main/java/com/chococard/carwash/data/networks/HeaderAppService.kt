@@ -3,6 +3,7 @@ package com.chococard.carwash.data.networks
 import com.chococard.carwash.data.networks.request.*
 import com.chococard.carwash.data.networks.response.*
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -72,6 +73,13 @@ interface HeaderAppService {
 
     @GET("api/homescore")
     suspend fun callHomeScore(): Response<HomeScoreResponse>
+
+    @Multipart
+    @POST("api/job/uploadimageservice")
+    suspend fun callUploadImageService(
+        @Part file: MultipartBody.Part,
+        @Part(ApiConstant.STATUS_SERVICE) statusService: RequestBody
+    ): Response<ServiceImageResponse>
 
     companion object {
         operator fun invoke(networkHeaderInterceptor: NetworkHeaderInterceptor) =

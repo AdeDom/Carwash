@@ -6,18 +6,24 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.payment.PaymentActivity
 import com.chococard.carwash.ui.report.ReportActivity
 import com.chococard.carwash.util.CommonsConstant
-import com.chococard.carwash.util.extension.selectImage
-import com.chococard.carwash.util.extension.show
-import com.chococard.carwash.util.extension.startActivity
-import com.chococard.carwash.util.extension.toast
+import com.chococard.carwash.util.FlagConstant
+import com.chococard.carwash.util.extension.*
+import com.chococard.carwash.viewmodel.ServiceViewModel
 import kotlinx.android.synthetic.main.activity_service.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ServiceActivity : BaseActivity() {
+
+    val viewModel: ServiceViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +50,31 @@ class ServiceActivity : BaseActivity() {
         bt_report.setOnClickListener { startActivity<ReportActivity>() }
 
         bt_payment.setOnClickListener { startActivity<PaymentActivity>() }
+
+        // observe
+        viewModel.getServiceImage.observe(this, Observer { response ->
+            val (success, message, serviceImage) = response
+            progress_bar_front.hide()
+            progress_bar_back.hide()
+            progress_bar_left.hide()
+            progress_bar_right.hide()
+            if (success) {
+                iv_image_front.setImageFromInternet(serviceImage?.imageFront)
+                iv_image_back.setImageFromInternet(serviceImage?.imageBack)
+                iv_image_left.setImageFromInternet(serviceImage?.imageLeft)
+                iv_image_right.setImageFromInternet(serviceImage?.imageRight)
+            } else {
+                toast(message, Toast.LENGTH_LONG)
+            }
+        })
+
+        viewModel.getError.observe(this, Observer {
+            progress_bar_front.hide()
+            progress_bar_back.hide()
+            progress_bar_left.hide()
+            progress_bar_right.hide()
+            dialogError(it)
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -63,28 +94,45 @@ class ServiceActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && data != null) {
+            val multipartBody = convertToMultipartBody(data.data!!)
+            var statusService: RequestBody? = null
             when (requestCode) {
                 CommonsConstant.REQUEST_CODE_IMAGE_FRONT -> {
-                    toast(data.data.toString())
                     iv_camera_front.visibility = View.INVISIBLE
                     progress_bar_front.show()
+                    statusService = RequestBody.create(
+                        MultipartBody.FORM,
+                        FlagConstant.STATUS_SERVICE_FRONT.toString()
+                    )
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_BACK -> {
-                    toast(data.data.toString())
                     iv_camera_back.visibility = View.INVISIBLE
                     progress_bar_back.show()
+                    statusService = RequestBody.create(
+                        MultipartBody.FORM,
+                        FlagConstant.STATUS_SERVICE_BACK.toString()
+                    )
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_LEFT -> {
-                    toast(data.data.toString())
                     iv_camera_left.visibility = View.INVISIBLE
                     progress_bar_left.show()
+                    statusService = RequestBody.create(
+                        MultipartBody.FORM,
+                        FlagConstant.STATUS_SERVICE_LEFT.toString()
+                    )
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_RIGHT -> {
-                    toast(data.data.toString())
                     iv_camera_right.visibility = View.INVISIBLE
                     progress_bar_right.show()
+                    statusService = RequestBody.create(
+                        MultipartBody.FORM,
+                        FlagConstant.STATUS_SERVICE_RIGHT.toString()
+                    )
                 }
             }
+
+            if (statusService != null)
+                viewModel.callUploadImageService(multipartBody, statusService)
         }
     }
 

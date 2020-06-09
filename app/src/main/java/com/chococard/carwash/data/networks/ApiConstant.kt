@@ -14,7 +14,6 @@ object ApiConstant {
     const val LONGITUDE = "Longitude"
     const val DATE_BEGIN = "DateBegin"
     const val DATE_END = "DateEnd"
-    const val PAYMENT_STATUS = "PaymentStatus"
     const val SUCCESS = "Success"
     const val MESSAGE = "Message"
     const val IMAGE = "Image"
@@ -43,5 +42,7 @@ object ApiConstant {
     const val RATINGS = "Ratings"
     const val ACCEPTANCE = "Acceptance"
     const val CANCELLATION = "Cancellation"
+    const val STATUS_SERVICE = "StatusService"
+    const val SERVICE_IMAGE = "ServiceImage"
 
 }
