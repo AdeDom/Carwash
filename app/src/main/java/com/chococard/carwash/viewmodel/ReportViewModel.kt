@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.request.ReportRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.repositories.HeaderRepository
-import kotlinx.coroutines.launch
 
 class ReportViewModel(private val repository: HeaderRepository) : BaseViewModel() {
 
@@ -13,13 +12,12 @@ class ReportViewModel(private val repository: HeaderRepository) : BaseViewModel(
     val getReportResponse: LiveData<BaseResponse>
         get() = reportResponse
 
-    fun deleteDbJob() = launch {
-        repository.deleteJob()
-    }
-
     fun callReport(report: ReportRequest) = launchCallApi(
         request = { repository.callReport(report) },
-        response = { reportResponse.value = it }
+        response = { response ->
+            if (response != null && response.success) repository.deleteJob()
+            reportResponse.value = response
+        }
     )
 
 }

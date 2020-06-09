@@ -40,7 +40,6 @@ class ReportActivity : BaseActivity() {
             progress_bar.hide()
             val (success, message) = response
             if (success) {
-                viewModel.deleteDbJob()
                 startActivity<MainActivity> {
                     finishAffinity()
                 }
