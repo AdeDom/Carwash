@@ -56,12 +56,10 @@ class MainActivity : BaseLocationActivity(),
         viewModel.callSetLogsActive(LogsActiveRequest(logsKeys, FlagConstant.LOGS_STATUS_ACTIVE))
 
         // fetch user info
-        progress_bar.show()
         viewModel.callFetchUser()
 
         //observe
         viewModel.getUser.observe(this, Observer { response ->
-            progress_bar.hide()
             val (success, message, user) = response
             if (success) {
                 val currentUser = FirebaseAuth.getInstance().currentUser

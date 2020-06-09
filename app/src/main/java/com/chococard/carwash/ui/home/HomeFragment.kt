@@ -24,6 +24,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         switchButton()
 
         // call api
+        progress_bar.show()
         viewModel.callHomeScore()
 
         // observe
