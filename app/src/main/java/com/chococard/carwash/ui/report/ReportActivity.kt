@@ -55,13 +55,17 @@ class ReportActivity : BaseActivity() {
     }
 
     private fun reportJob() {
+        val report = et_report.getContents()
+
         when {
-            et_report.isEmpty(getString(R.string.error_empty_report)) -> return
+            report.isEmpty() -> {
+                dialogError(getString(R.string.error_empty_report))
+                return
+            }
         }
 
         progress_bar.show()
-        val report = ReportRequest(et_report.getContents())
-        viewModel.callReport(report)
+        viewModel.callReport(ReportRequest(report))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
