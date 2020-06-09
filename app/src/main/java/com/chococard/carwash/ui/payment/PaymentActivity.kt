@@ -9,10 +9,7 @@ import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.main.MainActivity
-import com.chococard.carwash.util.extension.hide
-import com.chococard.carwash.util.extension.setImageCircle
-import com.chococard.carwash.util.extension.startActivity
-import com.chococard.carwash.util.extension.toast
+import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.PaymentViewModel
 import kotlinx.android.synthetic.main.activity_payment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -39,14 +36,13 @@ class PaymentActivity : BaseActivity() {
         })
 
         iv_arrow_back.setOnClickListener { onBackPressed() }
-        bt_payment.setOnClickListener { viewModel.callPayment() }
+        bt_payment.setOnClickListener { paymentService() }
 
         //observe
         viewModel.getPayment.observe(this, Observer { response ->
             progress_bar.hide()
             val (success, message) = response
             if (success) {
-                viewModel.deleteDbJob()
                 startActivity<MainActivity> {
                     finishAffinity()
                 }
@@ -59,6 +55,11 @@ class PaymentActivity : BaseActivity() {
             progress_bar.hide()
             dialogError(it)
         })
+    }
+
+    private fun paymentService() {
+        progress_bar.show()
+        viewModel.callPayment()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
