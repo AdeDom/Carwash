@@ -6,7 +6,6 @@ import com.chococard.carwash.data.networks.request.ChangePhoneRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.repositories.HeaderRepository
-import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 
@@ -30,7 +29,20 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
     val getLogout: LiveData<BaseResponse>
         get() = logout
 
-    fun callFetchUser() = launchCallApi(
+    fun callUploadImageFile(file: MultipartBody.Part) = launchCallApi(
+        request = { repository.callUploadImageFile(file) },
+        response = { upload.value = it }
+    )
+
+    fun callChangeProfile(changePhone: ChangePhoneRequest) = launchCallApi(
+        request = { repository.callChangeProfile(changePhone) },
+        response = { response ->
+            if (response != null && response.success) callFetchUser()
+            changeProfile.value = response
+        }
+    )
+
+    private fun callFetchUser() = launchCallApi(
         request = { repository.callFetchUser() },
         response = { response ->
             user.value = response
@@ -38,23 +50,12 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
         }
     )
 
-    fun callUploadImageFile(file: MultipartBody.Part) = launchCallApi(
-        request = { repository.callUploadImageFile(file) },
-        response = { upload.value = it }
-    )
-
-    fun deleteUser() = launch {
-        repository.deleteUser()
-    }
-
-    fun callChangeProfile(changePhone: ChangePhoneRequest) = launchCallApi(
-        request = { repository.callChangeProfile(changePhone) },
-        response = { changeProfile.value = it }
-    )
-
     fun callLogout() = launchCallApi(
         request = { repository.callLogout() },
-        response = { logout.value = it }
+        response = { response ->
+            if (response != null && response.success) repository.deleteUser()
+            logout.value = response
+        }
     )
 
 }

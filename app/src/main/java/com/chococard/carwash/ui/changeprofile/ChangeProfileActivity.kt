@@ -55,13 +55,8 @@ class ChangeProfileActivity : BaseActivity() {
         })
 
         viewModel.getChangeProfile.observe(this, Observer { response ->
-            val (success, message) = response
-            progress_bar.hide()
+            val (_, message) = response
             toast(message)
-            if (success) {
-                progress_bar.show()
-                viewModel.callFetchUser()
-            }
         })
 
         viewModel.getUser.observe(this, Observer { response ->
@@ -70,7 +65,6 @@ class ChangeProfileActivity : BaseActivity() {
             if (success) {
                 finish()
             } else {
-                finishAffinity()
                 toast(message, Toast.LENGTH_LONG)
             }
         })
@@ -136,7 +130,6 @@ class ChangeProfileActivity : BaseActivity() {
             }
             R.id.option_logout -> dialogLogout {
                 FirebaseAuth.getInstance().signOut()
-                viewModel.deleteUser()
                 viewModel.callLogout()
             }
         }
