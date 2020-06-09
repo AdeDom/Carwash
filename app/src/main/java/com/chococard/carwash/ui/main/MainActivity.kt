@@ -96,6 +96,7 @@ class MainActivity : BaseLocationActivity(),
         })
 
         viewModel.getJobResponse.observe(this, Observer { response ->
+            progress_bar.hide()
             val (success, _, _) = response
             if (success) {
                 startActivity<NavigationActivity> {
@@ -157,7 +158,6 @@ class MainActivity : BaseLocationActivity(),
             }
             R.id.option_logout -> dialogLogout {
                 FirebaseAuth.getInstance().signOut()
-                viewModel.deleteUser()
                 viewModel.callLogout()
             }
         }
@@ -171,7 +171,10 @@ class MainActivity : BaseLocationActivity(),
         viewModel.callSetLogsActive(LogsActiveRequest(logsKeys, FlagConstant.LOGS_STATUS_INACTIVE))
     }
 
-    override fun onFlag(flag: Int) = viewModel.callJobResponse(JobAnswerRequest(flag))
+    override fun onFlag(flag: Int) {
+        progress_bar.show()
+        viewModel.callJobResponse(JobAnswerRequest(flag))
+    }
 
     override fun onLocationChanged(location: Location?) {
         val setLocation = SetLocationRequest(location?.latitude, location?.longitude)

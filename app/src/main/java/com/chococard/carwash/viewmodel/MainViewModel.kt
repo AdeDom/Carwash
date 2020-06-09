@@ -9,7 +9,6 @@ import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.repositories.HeaderRepository
-import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() {
 
@@ -45,10 +44,6 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
         }
     )
 
-    fun deleteUser() = launch {
-        repository.deleteUser()
-    }
-
     fun callJobRequest() = launchCallApi(
         request = { repository.callJobRequest() },
         response = { jobRequest.value = it }
@@ -69,7 +64,10 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
 
     fun callLogout() = launchCallApi(
         request = { repository.callLogout() },
-        response = { logout.value = it }
+        response = { response ->
+            if (response != null && response.success) repository.deleteUser()
+            logout.value = response
+        }
     )
 
     fun callSetLocation(setLocation: SetLocationRequest) = launchCallApi(
