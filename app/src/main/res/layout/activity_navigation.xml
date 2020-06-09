@@ -45,4 +45,8 @@
 
     </androidx.cardview.widget.CardView>
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/ProgressBar" />
+
 </RelativeLayout>

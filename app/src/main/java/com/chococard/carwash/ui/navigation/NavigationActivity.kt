@@ -13,10 +13,7 @@ import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.networks.request.SetNavigationRequest
 import com.chococard.carwash.ui.base.BaseLocationActivity
 import com.chococard.carwash.ui.service.ServiceActivity
-import com.chococard.carwash.util.extension.setImageCircle
-import com.chococard.carwash.util.extension.setImageMarkerCircle
-import com.chococard.carwash.util.extension.startActivity
-import com.chococard.carwash.util.extension.toast
+import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.NavigationViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -49,7 +46,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         val mapFragment = fragmentManager.findFragmentById(R.id.map_fragment) as MapFragment
         mapFragment.getMapAsync(this@NavigationActivity)
 
-        bt_service.setOnClickListener { viewModel.callSetJobStatusName() }
+        bt_service.setOnClickListener { serviceJob() }
 
         // observe
         viewModel.getDbJob.observe(this, Observer { job ->
@@ -70,6 +67,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         })
 
         viewModel.getJobStatusName.observe(this, Observer { response ->
+            progress_bar.hide()
             val (success, message) = response
             if (success) {
                 startActivity<ServiceActivity>()
@@ -81,6 +79,11 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         viewModel.getError.observe(this, Observer {
             dialogError(it)
         })
+    }
+
+    private fun serviceJob() {
+        progress_bar.show()
+        viewModel.callSetJobStatusName()
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {
