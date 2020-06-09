@@ -43,7 +43,6 @@ class ChangePasswordActivity : BaseActivity() {
             if (success) {
                 writePref(CommonsConstant.TOKEN, "")
                 writePref(CommonsConstant.REFRESH_TOKEN, "")
-                viewModel.deleteUser()
                 startActivity<SplashScreenActivity> {
                     finishAffinity()
                 }
@@ -100,7 +99,6 @@ class ChangePasswordActivity : BaseActivity() {
             }
             R.id.option_logout -> dialogLogout {
                 FirebaseAuth.getInstance().signOut()
-                viewModel.deleteUser()
                 viewModel.callLogout()
             }
         }
