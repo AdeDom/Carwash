@@ -34,24 +34,16 @@
             style="@style/TextViewMediumGray"
             android:text="@string/please_contact_the_system_administrator_in_an_emergency" />
 
-        <RelativeLayout
-            style="@style/WrapWrap"
-            android:layout_margin="@dimen/base_pow_four">
-
-            <EditText
-                android:id="@+id/et_report"
-                style="@style/EditText"
-                android:layout_height="@dimen/base_two_hundred"
-                android:gravity="start"
-                android:hint="       Report" />
-
-            <ImageView
-                style="@style/WrapWrap"
-                android:layout_margin="@dimen/base_pow_four"
-                android:elevation="@dimen/base_pow_two"
-                android:src="@drawable/ic_message" />
-
-        </RelativeLayout>
+        <com.chococard.carwash.util.LinedEditText
+            android:id="@+id/et_report"
+            style="@style/EditText"
+            android:layout_height="@dimen/base_two_hundred"
+            android:layout_margin="@dimen/base_pow_four"
+            android:gravity="start"
+            android:hint="@string/report"
+            android:padding="@dimen/base_pow_two"
+            android:scrollbars="vertical"
+            android:textSize="@dimen/text_large" />
 
     </LinearLayout>
 
