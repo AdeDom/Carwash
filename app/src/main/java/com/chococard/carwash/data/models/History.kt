@@ -19,7 +19,7 @@ data class History(
     @SerializedName(ApiConstant.IMAGE_BACK) val imageBack: String? = null,
     @SerializedName(ApiConstant.IMAGE_LEFT) val imageLeft: String? = null,
     @SerializedName(ApiConstant.IMAGE_RIGHT) val imageRight: String? = null,
-    @SerializedName(ApiConstant.OTHER_IMAGE) val otherImages: List<OtherImage>? = null,
+    @SerializedName(ApiConstant.OTHER_IMAGES) var otherImages: List<OtherImage>? = null,
     @SerializedName(ApiConstant.COMMENT) val comment: String? = null
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -36,9 +36,7 @@ data class History(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        arrayListOf<OtherImage>().apply {
-            parcel.readList(this as List<OtherImage>, OtherImage::class.java.classLoader)
-        },
+        parcel.createTypedArrayList(OtherImage),
         parcel.readString()
     )
 
@@ -56,7 +54,7 @@ data class History(
         parcel.writeString(imageBack)
         parcel.writeString(imageLeft)
         parcel.writeString(imageRight)
-        parcel.writeList(otherImages)
+        parcel.writeTypedList(otherImages)
         parcel.writeString(comment)
     }
 

@@ -34,7 +34,7 @@ object ApiConstant {
     const val IMAGE_BACK = "ImageBack"
     const val IMAGE_LEFT = "ImageLeft"
     const val IMAGE_RIGHT = "ImageRight"
-    const val OTHER_IMAGE = "OtherImage"
+    const val OTHER_IMAGES = "OtherImages"
     const val COMMENT = "Comment"
     const val NAVIGATION = "Navigation"
     const val CUSTOMER_LATITUDE = "CustomerLatitude"
