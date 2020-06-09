@@ -62,4 +62,6 @@ class HeaderRepository(
 
     suspend fun callSetJobStatusName() = apiRequest { api.callSetJobStatusName() }
 
+    suspend fun callHomeScore() = apiRequest { api.callHomeScore() }
+
 }

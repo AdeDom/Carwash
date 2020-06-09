@@ -70,6 +70,9 @@ interface HeaderAppService {
     @POST("api/setjobstastusname")
     suspend fun callSetJobStatusName(): Response<BaseResponse>
 
+    @GET("api/homescore")
+    suspend fun callHomeScore(): Response<HomeScoreResponse>
+
     companion object {
         operator fun invoke(networkHeaderInterceptor: NetworkHeaderInterceptor) =
             RetrofitClient.instant(networkHeaderInterceptor)

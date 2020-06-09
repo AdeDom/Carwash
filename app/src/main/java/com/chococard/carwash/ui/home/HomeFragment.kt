@@ -23,6 +23,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
         switchButton()
 
+        // call api
+        viewModel.callHomeScore()
+
+        // observe
         viewModel.getDbUser.observe(viewLifecycleOwner, Observer { user ->
             if (user == null) return@Observer
             val (_, fullName, _, _, _, image) = user
@@ -40,6 +44,24 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             }
         })
 
+        viewModel.getHomeScore.observe(viewLifecycleOwner, Observer { response ->
+            progress_bar.hide()
+            val (success, message, homeScore) = response
+            if (success) {
+                tv_ratings.text = homeScore?.ratings
+                tv_acceptance.text = homeScore?.acceptance
+                tv_cancellation.text = homeScore?.cancellation
+            } else {
+                context.toast(message, Toast.LENGTH_LONG)
+            }
+        })
+
+        viewModel.getError.observe(viewLifecycleOwner, Observer {
+            progress_bar.hide()
+            dialogError(it)
+        })
+
+        // set event
         iv_switch_frame.setOnClickListener { switchSystem() }
     }
 

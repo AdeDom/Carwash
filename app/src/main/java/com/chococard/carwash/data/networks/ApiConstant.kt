@@ -39,5 +39,9 @@ object ApiConstant {
     const val NAVIGATION = "Navigation"
     const val CUSTOMER_LATITUDE = "CustomerLatitude"
     const val CUSTOMER_LONGITUDE = "CustomerLongitude"
+    const val HOME_SCORE = "HomeScore"
+    const val RATINGS = "Ratings"
+    const val ACCEPTANCE = "Acceptance"
+    const val CANCELLATION = "Cancellation"
 
 }

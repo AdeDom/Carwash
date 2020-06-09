@@ -78,6 +78,7 @@
                     android:text="@string/ratings" />
 
                 <TextView
+                    android:id="@+id/tv_ratings"
                     style="@style/TextViewLargeApplicationSub"
                     android:layout_alignParentEnd="true"
                     android:text="@string/tv_example_ratings" />
@@ -103,6 +104,7 @@
                     android:text="@string/acceptance" />
 
                 <TextView
+                    android:id="@+id/tv_acceptance"
                     style="@style/TextViewLargeApplicationSub"
                     android:layout_alignParentEnd="true"
                     android:text="@string/tv_example_percent" />
@@ -128,6 +130,7 @@
                     android:text="@string/cancellation" />
 
                 <TextView
+                    android:id="@+id/tv_cancellation"
                     style="@style/TextViewLargeApplicationSub"
                     android:layout_alignParentEnd="true"
                     android:text="@string/tv_example_percent" />
