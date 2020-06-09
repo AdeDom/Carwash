@@ -5,13 +5,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.payment.PaymentActivity
 import com.chococard.carwash.ui.report.ReportActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.selectImage
+import com.chococard.carwash.util.extension.show
 import com.chococard.carwash.util.extension.startActivity
+import com.chococard.carwash.util.extension.toast
 import kotlinx.android.synthetic.main.activity_service.*
 
 class ServiceActivity : BaseActivity() {
@@ -62,17 +65,24 @@ class ServiceActivity : BaseActivity() {
         if (resultCode == Activity.RESULT_OK && data != null) {
             when (requestCode) {
                 CommonsConstant.REQUEST_CODE_IMAGE_FRONT -> {
-//                    mfileUriFront = data.data!!
-                    iv_image_front.setImageURI(data.data)
+                    toast(data.data.toString())
+                    iv_camera_front.visibility = View.INVISIBLE
+                    progress_bar_front.show()
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_BACK -> {
-                    iv_image_back.setImageURI(data.data)
+                    toast(data.data.toString())
+                    iv_camera_back.visibility = View.INVISIBLE
+                    progress_bar_back.show()
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_LEFT -> {
-                    iv_image_left.setImageURI(data.data)
+                    toast(data.data.toString())
+                    iv_camera_left.visibility = View.INVISIBLE
+                    progress_bar_left.show()
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_RIGHT -> {
-                    iv_image_right.setImageURI(data.data)
+                    toast(data.data.toString())
+                    iv_camera_right.visibility = View.INVISIBLE
+                    progress_bar_right.show()
                 }
             }
         }

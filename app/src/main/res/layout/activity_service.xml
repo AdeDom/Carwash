@@ -48,15 +48,19 @@
                 <ImageView
                     android:id="@+id/iv_image_front"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/base_hundred"
-                    android:padding="@dimen/base_fifty"
-                    android:scaleType="centerCrop"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+                <ImageView
+                    android:id="@+id/iv_camera_front"
+                    android:layout_width="@dimen/base_fifty"
+                    android:layout_height="@dimen/base_fifty"
+                    android:layout_centerInParent="true"
                     android:src="@drawable/ic_camera_blue" />
 
                 <ProgressBar
                     android:id="@+id/progress_bar_front"
-                    style="@style/ProgressBar"
-                    android:layout_gravity="center" />
+                    style="@style/ProgressBar" />
 
             </RelativeLayout>
 
@@ -69,14 +73,28 @@
                 android:text="@string/back"
                 android:textColor="@color/colorAccent" />
 
-            <ImageView
-                android:id="@+id/iv_image_back"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/base_hundred"
-                android:layout_marginTop="@dimen/base_pow_five"
-                android:padding="@dimen/base_fifty"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_camera_blue" />
+            <RelativeLayout
+                style="@style/WrapWrap"
+                android:layout_marginTop="@dimen/base_pow_five">
+
+                <ImageView
+                    android:id="@+id/iv_image_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+                <ImageView
+                    android:id="@+id/iv_camera_back"
+                    android:layout_width="@dimen/base_fifty"
+                    android:layout_height="@dimen/base_fifty"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_camera_blue" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar_back"
+                    style="@style/ProgressBar" />
+
+            </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
 
@@ -87,14 +105,28 @@
                 android:text="@string/left"
                 android:textColor="@color/colorAccent" />
 
-            <ImageView
-                android:id="@+id/iv_image_left"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/base_hundred"
-                android:layout_marginTop="@dimen/base_pow_five"
-                android:padding="@dimen/base_fifty"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_camera_blue" />
+            <RelativeLayout
+                style="@style/WrapWrap"
+                android:layout_marginTop="@dimen/base_pow_five">
+
+                <ImageView
+                    android:id="@+id/iv_image_left"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+                <ImageView
+                    android:id="@+id/iv_camera_left"
+                    android:layout_width="@dimen/base_fifty"
+                    android:layout_height="@dimen/base_fifty"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_camera_blue" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar_left"
+                    style="@style/ProgressBar" />
+
+            </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
 
@@ -105,14 +137,28 @@
                 android:text="@string/right"
                 android:textColor="@color/colorAccent" />
 
-            <ImageView
-                android:id="@+id/iv_image_right"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/base_hundred"
-                android:layout_marginTop="@dimen/base_pow_five"
-                android:padding="@dimen/base_fifty"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_camera_blue" />
+            <RelativeLayout
+                style="@style/WrapWrap"
+                android:layout_marginTop="@dimen/base_pow_five">
+
+                <ImageView
+                    android:id="@+id/iv_image_right"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+                <ImageView
+                    android:id="@+id/iv_camera_right"
+                    android:layout_width="@dimen/base_fifty"
+                    android:layout_height="@dimen/base_fifty"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_camera_blue" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar_right"
+                    style="@style/ProgressBar" />
+
+            </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
 
