@@ -94,7 +94,8 @@
 
                 <androidx.cardview.widget.CardView
                     style="@style/CardViewImageView"
-                    android:layout_alignParentEnd="true">
+                    android:layout_alignParentEnd="true"
+                    app:cardCornerRadius="40dp">
 
                     <ImageView
                         android:id="@+id/iv_photo"
