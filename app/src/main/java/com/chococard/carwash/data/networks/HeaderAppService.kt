@@ -86,6 +86,10 @@ interface HeaderAppService {
         @Part(ApiConstant.STATUS_SERVICE) statusService: RequestBody
     ): Response<ServiceImageResponse>
 
+    // fetch data old image job service
+    @GET("api/job/imageservice")
+    suspend fun callFetchImageService(): Response<ServiceImageResponse>
+
     companion object {
         operator fun invoke(networkHeaderInterceptor: NetworkHeaderInterceptor) =
             RetrofitClient.instant(networkHeaderInterceptor)

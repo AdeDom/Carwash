@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
+import com.chococard.carwash.data.models.ServiceImage
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.payment.PaymentActivity
 import com.chococard.carwash.ui.report.ReportActivity
@@ -51,6 +52,10 @@ class ServiceActivity : BaseActivity() {
 
         bt_payment.setOnClickListener { startActivity<PaymentActivity>() }
 
+        // call api
+        progress_bar.show()
+        viewModel.callFetchImageService()
+
         // observe
         viewModel.getServiceImage.observe(this, Observer { response ->
             val (success, message, serviceImage) = response
@@ -59,10 +64,17 @@ class ServiceActivity : BaseActivity() {
             progress_bar_left.hide()
             progress_bar_right.hide()
             if (success) {
-                iv_image_front.setImageFromInternet(serviceImage?.imageFront)
-                iv_image_back.setImageFromInternet(serviceImage?.imageBack)
-                iv_image_left.setImageFromInternet(serviceImage?.imageLeft)
-                iv_image_right.setImageFromInternet(serviceImage?.imageRight)
+                serviceImage?.let { setImageJobService(it) }
+            } else {
+                toast(message, Toast.LENGTH_LONG)
+            }
+        })
+
+        viewModel.getImageService.observe(this, Observer { response ->
+            progress_bar.hide()
+            val (success, message, serviceImage) = response
+            if (success) {
+                serviceImage?.let { setImageJobService(it) }
             } else {
                 toast(message, Toast.LENGTH_LONG)
             }
@@ -75,6 +87,13 @@ class ServiceActivity : BaseActivity() {
             progress_bar_right.hide()
             dialogError(it)
         })
+    }
+
+    private fun setImageJobService(serviceImage: ServiceImage) {
+        iv_image_front.setImageFromInternet(serviceImage.imageFront)
+        iv_image_back.setImageFromInternet(serviceImage.imageBack)
+        iv_image_left.setImageFromInternet(serviceImage.imageLeft)
+        iv_image_right.setImageFromInternet(serviceImage.imageRight)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -68,4 +68,6 @@ class HeaderRepository(
     suspend fun callUploadImageService(file: MultipartBody.Part, statusService: RequestBody) =
         apiRequest { api.callUploadImageService(file, statusService) }
 
+    suspend fun callFetchImageService() = apiRequest { api.callFetchImageService() }
+
 }

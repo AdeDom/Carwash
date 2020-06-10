@@ -13,12 +13,21 @@ class ServiceViewModel(private val repository: HeaderRepository) : BaseViewModel
     val getServiceImage: LiveData<ServiceImageResponse>
         get() = serviceImage
 
+    private val imageService = MutableLiveData<ServiceImageResponse>()
+    val getImageService: LiveData<ServiceImageResponse>
+        get() = imageService
+
     fun callUploadImageService(
         file: MultipartBody.Part,
         statusService: RequestBody
     ) = launchCallApi(
         request = { repository.callUploadImageService(file, statusService) },
         response = { serviceImage.value = it }
+    )
+
+    fun callFetchImageService() = launchCallApi(
+        request = { repository.callFetchImageService() },
+        response = { imageService.value = it }
     )
 
 }
