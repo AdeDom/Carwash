@@ -31,6 +31,7 @@ interface ConnectionAppService {
     @POST("api/account/login")
     suspend fun callSignIn(@Body signIn: SignInRequest): Response<SignInResponse>
 
+    //verify phone before authentication firebase
     @POST("api/account/checkphone")
     suspend fun callValidatePhone(@Body validatePhone: ValidatePhoneRequest): Response<BaseResponse>
 

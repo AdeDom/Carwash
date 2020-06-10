@@ -8,7 +8,6 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 
-//todo re-check method get or post
 interface HeaderAppService {
 
     //get user info from data base keep to shared preferences.
@@ -17,11 +16,11 @@ interface HeaderAppService {
 
     //upload image from android to server when selected image.
     @Multipart
-    @POST("api/changeprofile")
+    @POST("api/account/changeprofile")
     suspend fun callUploadImageFile(@Part file: MultipartBody.Part): Response<ResponseBody>
 
     //logout
-    @POST("api/account/logout/")
+    @POST("api/account/logout")
     suspend fun callLogout(): Response<BaseResponse>
 
     //change data profile name, id card, phone etc.
@@ -33,47 +32,53 @@ interface HeaderAppService {
     suspend fun callChangePassword(@Body changePassword: ChangePasswordRequest): Response<BaseResponse>
 
     //set my location now to server and response location other employee around.
-    @POST("api/location")
+    @POST("api/account/location")
     suspend fun callSetLocation(@Body setLocation: SetLocationRequest): Response<BaseResponse>
 
+    //set user logs active & inactive using application.
+    @POST("api/account/userlogs")
+    suspend fun callSetLogsActive(@Body logsActive: LogsActiveRequest): Response<BaseResponse>
+
     //get old history ever service customer and filter by date begin & end.
-    @GET("api/history")
+    @GET("api/job/history")
     suspend fun callFetchHistory(
         @Query(ApiConstant.DATE_BEGIN) dateBegin: Long,
         @Query(ApiConstant.DATE_END) dateEnd: Long
     ): Response<HistoryResponse>
 
     //mock job request from server when customer call using application.
-    @POST("api/jobrequest")
+    @POST("api/job/jobrequest")
     suspend fun callJobRequest(): Response<JobResponse>
 
     //answer job request from customer also send flag cancel job or confirm job to server.
-    @POST("api/jobresponse")
+    @POST("api/job/jobresponse")
     suspend fun callJobResponse(@Body jobAnswer: JobAnswerRequest): Response<JobResponse>
 
     //payment fee of application by send flag report or confirm to server.
-    @POST("api/payment")
+    @POST("api/job/paymentjob")
     suspend fun callPayment(): Response<BaseResponse>
 
-    @POST("api/report")
+    //report job service when have problem
+    @POST("api/job/reportjob")
     suspend fun callReport(@Body report: ReportRequest): Response<BaseResponse>
 
-    //set user logs active & inactive using application.
-    @POST("api/account/userlogs")
-    suspend fun callSetLogsActive(@Body logsActive: LogsActiveRequest): Response<BaseResponse>
-
-    @POST("api/account/switchsystem")
+    //switch on-off (receive & reject) of job
+    @POST("api/job/switchsystem")
     suspend fun callSwitchSystem(@Body switchSystem: SwitchSystemRequest): Response<BaseResponse>
 
-    @POST("api/navigation")
+    //send location employee and response location customer
+    @POST("api/job/navigation")
     suspend fun callSetNavigation(@Body setNavigation: SetNavigationRequest): Response<NavigationResponse>
 
-    @POST("api/setjobstastusname")
+    //set status name of table job
+    @POST("api/job/statusservice")
     suspend fun callSetJobStatusName(): Response<BaseResponse>
 
-    @GET("api/homescore")
+    //fetch data from server to set widget score or ratings
+    @GET("api/job/homescore")
     suspend fun callHomeScore(): Response<HomeScoreResponse>
 
+    //upload image service job 4 side and other image
     @Multipart
     @POST("api/job/uploadimageservice")
     suspend fun callUploadImageService(
