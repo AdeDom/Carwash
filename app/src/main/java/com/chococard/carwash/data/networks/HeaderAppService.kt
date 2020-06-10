@@ -39,6 +39,10 @@ interface HeaderAppService {
     @POST("api/account/userlogs")
     suspend fun callSetLogsActive(@Body logsActive: LogsActiveRequest): Response<BaseResponse>
 
+    //switch on-off (receive & reject) of job
+    @POST("api/account/switchsystem")
+    suspend fun callSwitchSystem(@Body switchSystem: SwitchSystemRequest): Response<BaseResponse>
+
     //get old history ever service customer and filter by date begin & end.
     @GET("api/job/history")
     suspend fun callFetchHistory(
@@ -61,10 +65,6 @@ interface HeaderAppService {
     //report job service when have problem
     @POST("api/job/reportjob")
     suspend fun callReport(@Body report: ReportRequest): Response<BaseResponse>
-
-    //switch on-off (receive & reject) of job
-    @POST("api/job/switchsystem")
-    suspend fun callSwitchSystem(@Body switchSystem: SwitchSystemRequest): Response<BaseResponse>
 
     //send location employee and response location customer
     @POST("api/job/navigation")
