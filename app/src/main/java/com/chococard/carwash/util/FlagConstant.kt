@@ -13,5 +13,6 @@ object FlagConstant {
     const val STATUS_SERVICE_BACK = 2
     const val STATUS_SERVICE_LEFT = 3
     const val STATUS_SERVICE_RIGHT = 4
+    const val STATUS_SERVICE_OTHER_IMAGE = 5
 
 }

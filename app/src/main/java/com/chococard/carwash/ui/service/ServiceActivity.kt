@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chococard.carwash.R
+import com.chococard.carwash.data.models.OtherImage
 import com.chococard.carwash.data.models.ServiceImage
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.payment.PaymentActivity
@@ -32,6 +33,7 @@ class ServiceActivity : BaseActivity() {
     private var mImageUrlBack: String? = null
     private var mImageUrlLeft: String? = null
     private var mImageUrlRight: String? = null
+    private var mListOtherImage: List<OtherImage>? = null
     private var mServiceAdapter: ServiceAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,6 +65,8 @@ class ServiceActivity : BaseActivity() {
 
         iv_image_right.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_RIGHT) }
 
+        iv_add_other_image.setOnClickListener { validateUploadOtherImage() }
+
         bt_report.setOnClickListener { startActivity<ReportActivity>() }
 
         bt_payment.setOnClickListener {
@@ -79,6 +83,7 @@ class ServiceActivity : BaseActivity() {
 
         // observe
         viewModel.getUploadImageService.observe(this, Observer { response ->
+            progress_bar_other_image.hide()
             val (success, message, serviceImage) = response
             if (success) {
                 serviceImage?.let { setImageJobService(it) }
@@ -103,8 +108,17 @@ class ServiceActivity : BaseActivity() {
             progress_bar_back.hide()
             progress_bar_left.hide()
             progress_bar_right.hide()
+            progress_bar_other_image.hide()
             dialogError(it)
         })
+    }
+
+    private fun validateUploadOtherImage() {
+        if (mListOtherImage?.size ?: 0 < CommonsConstant.MAXIMUM_UPLOAD_OTHER_IMAGE) {
+            selectImage(CommonsConstant.REQUEST_CODE_IMAGE_OTHER_IMAGE)
+        } else {
+            dialogError(getString(R.string.error_maximum_other_image))
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -159,6 +173,13 @@ class ServiceActivity : BaseActivity() {
                         FlagConstant.STATUS_SERVICE_RIGHT.toString()
                     )
                 }
+                CommonsConstant.REQUEST_CODE_IMAGE_OTHER_IMAGE -> {
+                    progress_bar_other_image.show()
+                    statusService = RequestBody.create(
+                        MultipartBody.FORM,
+                        FlagConstant.STATUS_SERVICE_OTHER_IMAGE.toString()
+                    )
+                }
             }
 
             if (statusService != null)
@@ -172,6 +193,7 @@ class ServiceActivity : BaseActivity() {
         mImageUrlBack = back
         mImageUrlLeft = left
         mImageUrlRight = right
+        mListOtherImage = otherImage
 
         setImageView(front, iv_image_front, iv_camera_front, progress_bar_front)
         setImageView(back, iv_image_back, iv_camera_back, progress_bar_back)

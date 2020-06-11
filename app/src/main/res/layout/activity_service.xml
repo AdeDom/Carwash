@@ -172,7 +172,7 @@
 
         </GridLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="@dimen/base_four_hundred"
             android:layout_height="wrap_content"
             android:layout_below="@id/layout_service"
@@ -182,6 +182,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/other_head"
                 style="@style/MatchWrap"
                 android:gravity="center_vertical">
 
@@ -207,12 +208,17 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 style="@style/WrapWrap"
+                android:layout_below="@id/other_head"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="1"
                 tools:listitem="@layout/item_other_image_service" />
 
-        </LinearLayout>
+            <ProgressBar
+                android:id="@+id/progress_bar_other_image"
+                style="@style/ProgressBar" />
+
+        </RelativeLayout>
 
         <LinearLayout style="@style/LinearLayoutButtonPair">
 

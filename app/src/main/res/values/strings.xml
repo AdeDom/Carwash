@@ -106,5 +106,6 @@
     <string name="please_contact_the_system_administrator_in_an_emergency">Please contact the system administrator in an emergency</string>
     <string name="error_empty_report">Please enter report</string>
     <string name="error_empty_image">Please upload a 4-sided image service</string>
+    <string name="error_maximum_other_image">The most relevant images have been uploaded</string>
 
 </resources>
