@@ -17,9 +17,9 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
     val getUserInfo: LiveData<UserResponse>
         get() = userInfo
 
-    private val upload = MutableLiveData<ResponseBody>()
-    val getUpload: LiveData<ResponseBody>
-        get() = upload
+    private val changeImageProfile = MutableLiveData<ResponseBody>()
+    val getChangeImageProfile: LiveData<ResponseBody>
+        get() = changeImageProfile
 
     private val changeProfile = MutableLiveData<BaseResponse>()
     val getChangeProfile: LiveData<BaseResponse>
@@ -29,9 +29,9 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
     val getLogout: LiveData<BaseResponse>
         get() = logout
 
-    fun callUploadImageFile(file: MultipartBody.Part) = launchCallApi(
-        request = { repository.callUploadImageFile(file) },
-        response = { upload.value = it }
+    fun callChangeImageProfile(file: MultipartBody.Part) = launchCallApi(
+        request = { repository.callChangeImageProfile(file) },
+        response = { changeImageProfile.value = it }
     )
 
     fun callChangeProfile(changePhone: ChangePhoneRequest) = launchCallApi(

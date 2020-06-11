@@ -50,7 +50,7 @@ class ChangeProfileActivity : BaseActivity() {
         bt_confirm.setOnClickListener { changeProfile() }
 
         //observe
-        viewModel.getUpload.observe(this, Observer {
+        viewModel.getChangeImageProfile.observe(this, Observer {
             progress_bar.hide()
         })
 
@@ -95,7 +95,7 @@ class ChangeProfileActivity : BaseActivity() {
             iv_photo.setImageCircle(fileUri.toString())
             progress_bar.show()
             val multipartBody = convertToMultipartBody(fileUri)
-            viewModel.callUploadImageFile(multipartBody)
+            viewModel.callChangeImageProfile(multipartBody)
         } else if (requestCode == CommonsConstant.REQUEST_CODE_VERIFY_PHONE && resultCode == Activity.RESULT_OK) {
             progress_bar.show()
             val phoneNumber = et_phone.getContents()

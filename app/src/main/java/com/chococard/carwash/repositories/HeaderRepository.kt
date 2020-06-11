@@ -20,8 +20,8 @@ class HeaderRepository(
     fun getUser() = db.getUserDao().getUser()
     suspend fun deleteUser() = db.getUserDao().deleteUser()
 
-    suspend fun callUploadImageFile(file: MultipartBody.Part) =
-        apiRequest { api.callUploadImageFile(file) }
+    suspend fun callChangeImageProfile(file: MultipartBody.Part) =
+        apiRequest { api.callChangeImageProfile(file) }
 
     suspend fun callLogout() = apiRequest { api.callLogout() }
 

@@ -17,7 +17,7 @@ interface HeaderAppService {
     //upload image from android to server when selected image.
     @Multipart
     @POST("api/account/changeprofile")
-    suspend fun callUploadImageFile(@Part file: MultipartBody.Part): Response<ResponseBody>
+    suspend fun callChangeImageProfile(@Part file: MultipartBody.Part): Response<ResponseBody>
 
     //logout
     @POST("api/account/logout")
