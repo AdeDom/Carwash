@@ -10,7 +10,7 @@ import com.chococard.carwash.repositories.HeaderRepository
 class NavigationViewModel(private val repository: HeaderRepository) : BaseViewModel() {
 
     private val navigationResponse = MutableLiveData<NavigationResponse>()
-    val getNavigationResponse: LiveData<NavigationResponse>
+    val getNavigation: LiveData<NavigationResponse>
         get() = navigationResponse
 
     private val jobStatusName = MutableLiveData<BaseResponse>()

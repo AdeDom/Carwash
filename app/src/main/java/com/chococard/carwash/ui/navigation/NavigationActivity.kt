@@ -54,7 +54,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             mJob = job
         })
 
-        viewModel.getNavigationResponse.observe(this, Observer { response ->
+        viewModel.getNavigation.observe(this, Observer { response ->
             val (success, message, navigation) = response
             if (success) {
                 if (navigation?.customerLatitude != null && navigation.customerLongitude != null) {
