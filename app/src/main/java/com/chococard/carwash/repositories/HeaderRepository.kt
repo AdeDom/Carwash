@@ -15,7 +15,7 @@ class HeaderRepository(
 ) : SafeApiRequest() {
 
     // user
-    suspend fun callFetchUser() = apiRequest { api.callFetchUser() }
+    suspend fun callFetchUserInfo() = apiRequest { api.callFetchUserInfo() }
     suspend fun saveUser(user: User) = db.getUserDao().saveUser(user)
     fun getUser() = db.getUserDao().getUser()
     suspend fun deleteUser() = db.getUserDao().deleteUser()

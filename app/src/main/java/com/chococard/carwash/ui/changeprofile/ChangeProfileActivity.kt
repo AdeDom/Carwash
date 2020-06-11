@@ -59,7 +59,7 @@ class ChangeProfileActivity : BaseActivity() {
             toast(message)
         })
 
-        viewModel.getUser.observe(this, Observer { response ->
+        viewModel.getUserInfo.observe(this, Observer { response ->
             val (success, message, _) = response
             progress_bar.hide()
             if (success) {

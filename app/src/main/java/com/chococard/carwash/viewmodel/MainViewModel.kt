@@ -12,9 +12,9 @@ import com.chococard.carwash.repositories.HeaderRepository
 
 class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() {
 
-    private val user = MutableLiveData<UserResponse>()
-    val getUser: LiveData<UserResponse>
-        get() = user
+    private val userInfo = MutableLiveData<UserResponse>()
+    val getUserInfo: LiveData<UserResponse>
+        get() = userInfo
 
     private val jobRequest = MutableLiveData<JobResponse>()
     val getJobRequest: LiveData<JobResponse>
@@ -36,10 +36,10 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
     val getLocation: LiveData<BaseResponse>
         get() = location
 
-    fun callFetchUser() = launchCallApi(
-        request = { repository.callFetchUser() },
+    fun callFetchUserInfo() = launchCallApi(
+        request = { repository.callFetchUserInfo() },
         response = { response ->
-            user.value = response
+            userInfo.value = response
             response?.user?.let { repository.saveUser(it) }
         }
     )

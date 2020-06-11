@@ -12,7 +12,7 @@ interface HeaderAppService {
 
     //get user info from data base keep to shared preferences.
     @GET("api/account/userinfo")
-    suspend fun callFetchUser(): Response<UserResponse>
+    suspend fun callFetchUserInfo(): Response<UserResponse>
 
     //upload image from android to server when selected image.
     @Multipart

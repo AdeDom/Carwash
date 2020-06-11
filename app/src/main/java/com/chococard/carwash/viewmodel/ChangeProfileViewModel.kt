@@ -13,9 +13,9 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
 
     val getDbUser = repository.getUser()
 
-    private val user = MutableLiveData<UserResponse>()
-    val getUser: LiveData<UserResponse>
-        get() = user
+    private val userInfo = MutableLiveData<UserResponse>()
+    val getUserInfo: LiveData<UserResponse>
+        get() = userInfo
 
     private val upload = MutableLiveData<ResponseBody>()
     val getUpload: LiveData<ResponseBody>
@@ -37,15 +37,15 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
     fun callChangeProfile(changePhone: ChangePhoneRequest) = launchCallApi(
         request = { repository.callChangeProfile(changePhone) },
         response = { response ->
-            if (response != null && response.success) callFetchUser()
+            if (response != null && response.success) callFetchUserInfo()
             changeProfile.value = response
         }
     )
 
-    private fun callFetchUser() = launchCallApi(
-        request = { repository.callFetchUser() },
+    private fun callFetchUserInfo() = launchCallApi(
+        request = { repository.callFetchUserInfo() },
         response = { response ->
-            user.value = response
+            userInfo.value = response
             response?.user?.let { repository.saveUser(it) }
         }
     )
