@@ -13,9 +13,9 @@ class NavigationViewModel(private val repository: HeaderRepository) : BaseViewMo
     val getNavigation: LiveData<NavigationResponse>
         get() = navigationResponse
 
-    private val jobStatusName = MutableLiveData<BaseResponse>()
-    val getJobStatusName: LiveData<BaseResponse>
-        get() = jobStatusName
+    private val jobStatusServiceResponse = MutableLiveData<BaseResponse>()
+    val getJobStatusService: LiveData<BaseResponse>
+        get() = jobStatusServiceResponse
 
     val getDbUser = repository.getUser()
 
@@ -26,9 +26,9 @@ class NavigationViewModel(private val repository: HeaderRepository) : BaseViewMo
         response = { navigationResponse.value = it }
     )
 
-    fun callSetJobStatusName() = launchCallApi(
-        request = { repository.callSetJobStatusName() },
-        response = { jobStatusName.value = it }
+    fun callJobStatusService() = launchCallApi(
+        request = { repository.callJobStatusService() },
+        response = { jobStatusServiceResponse.value = it }
     )
 
 }

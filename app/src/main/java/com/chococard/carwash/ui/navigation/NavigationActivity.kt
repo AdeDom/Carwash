@@ -66,7 +66,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             }
         })
 
-        viewModel.getJobStatusName.observe(this, Observer { response ->
+        viewModel.getJobStatusService.observe(this, Observer { response ->
             progress_bar.hide()
             val (success, message) = response
             if (success) {
@@ -83,7 +83,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
 
     private fun serviceJob() {
         progress_bar.show()
-        viewModel.callSetJobStatusName()
+        viewModel.callJobStatusService()
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {

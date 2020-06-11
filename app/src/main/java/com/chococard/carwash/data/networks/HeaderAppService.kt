@@ -72,7 +72,7 @@ interface HeaderAppService {
 
     //set status name of table job
     @POST("api/job/statusservice")
-    suspend fun callSetJobStatusName(): Response<BaseResponse>
+    suspend fun callJobStatusService(): Response<BaseResponse>
 
     //fetch data from server to set widget score or ratings
     @GET("api/job/homescore")
