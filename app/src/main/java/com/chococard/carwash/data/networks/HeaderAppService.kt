@@ -25,7 +25,7 @@ interface HeaderAppService {
 
     //change data profile name, id card, phone etc.
     @POST("api/account/changephone")
-    suspend fun callChangeProfile(@Body changePhone: ChangePhoneRequest): Response<BaseResponse>
+    suspend fun callChangePhone(@Body changePhone: ChangePhoneRequest): Response<BaseResponse>
 
     //change password of username for security.
     @POST("api/account/changepassword")

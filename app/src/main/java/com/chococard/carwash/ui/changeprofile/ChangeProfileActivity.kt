@@ -54,7 +54,7 @@ class ChangeProfileActivity : BaseActivity() {
             progress_bar.hide()
         })
 
-        viewModel.getChangeProfile.observe(this, Observer { response ->
+        viewModel.getChangePhone.observe(this, Observer { response ->
             val (_, message) = response
             toast(message)
         })
@@ -100,7 +100,7 @@ class ChangeProfileActivity : BaseActivity() {
             progress_bar.show()
             val phoneNumber = et_phone.getContents()
             val changePhone = ChangePhoneRequest(phoneNumber)
-            viewModel.callChangeProfile(changePhone)
+            viewModel.callChangePhone(changePhone)
         }
     }
 
