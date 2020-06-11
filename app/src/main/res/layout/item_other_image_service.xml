@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/StyleCardViewService">
+
+    <ImageView
+        android:id="@+id/iv_other_image"
+        style="@style/MatchMatch"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_logo_blue" />
+
+</androidx.cardview.widget.CardView>

@@ -53,7 +53,7 @@ class HistoryDetailActivity : BaseActivity() {
                 layoutManager = LinearLayoutManager(baseContext)
                 adapter = adt
             }
-            otherImages?.let { adt.setList(it) }
+            adt.setList(otherImages)
 
             adt.onClick = { otherImage ->
                 startActivity<ViewImageActivity> {

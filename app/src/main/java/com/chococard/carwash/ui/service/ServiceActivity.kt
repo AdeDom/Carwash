@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.ServiceImage
 import com.chococard.carwash.ui.base.BaseActivity
@@ -31,6 +32,7 @@ class ServiceActivity : BaseActivity() {
     private var mImageUrlBack: String? = null
     private var mImageUrlLeft: String? = null
     private var mImageUrlRight: String? = null
+    private var mServiceAdapter: ServiceAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +44,13 @@ class ServiceActivity : BaseActivity() {
     private fun init() {
         // set toolbar
         setToolbar(toolbar)
+
+        // set widget
+        mServiceAdapter = ServiceAdapter()
+        recycler_view.apply {
+            layoutManager = LinearLayoutManager(baseContext, LinearLayoutManager.HORIZONTAL, false)
+            adapter = mServiceAdapter
+        }
 
         // set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
@@ -168,6 +177,7 @@ class ServiceActivity : BaseActivity() {
         setImageView(back, iv_image_back, iv_camera_back, progress_bar_back)
         setImageView(left, iv_image_left, iv_camera_left, progress_bar_left)
         setImageView(right, iv_image_right, iv_camera_right, progress_bar_right)
+        mServiceAdapter?.setList(otherImage)
     }
 
     private fun setImageView(

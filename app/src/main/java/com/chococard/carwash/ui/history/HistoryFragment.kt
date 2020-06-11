@@ -58,7 +58,7 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history) {
             val (success, message, histories) = response
             progress_bar.hide()
             if (success) {
-                histories?.let { adt.setList(it) }
+                adt.setList(histories)
             } else {
                 context.toast(message, Toast.LENGTH_LONG)
             }
