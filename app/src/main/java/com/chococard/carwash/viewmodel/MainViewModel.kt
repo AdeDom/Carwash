@@ -14,9 +14,9 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
 
     val getDbUserInfo = repository.getUser()
 
-    private val userInfo = MutableLiveData<UserResponse>()
+    private val userInfoResponse = MutableLiveData<UserResponse>()
     val getUserInfo: LiveData<UserResponse>
-        get() = userInfo
+        get() = userInfoResponse
 
     private val jobRequest = MutableLiveData<JobResponse>()
     val getJobRequest: LiveData<JobResponse>
@@ -30,18 +30,18 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
     val getLogsActive: LiveData<BaseResponse>
         get() = logsActiveResponse
 
-    private val logout = MutableLiveData<BaseResponse>()
+    private val logoutResponse = MutableLiveData<BaseResponse>()
     val getLogout: LiveData<BaseResponse>
-        get() = logout
+        get() = logoutResponse
 
-    private val location = MutableLiveData<BaseResponse>()
+    private val locationResponse = MutableLiveData<BaseResponse>()
     val getLocation: LiveData<BaseResponse>
-        get() = location
+        get() = locationResponse
 
     fun callFetchUserInfo() = launchCallApi(
         request = { repository.callFetchUserInfo() },
         response = { response ->
-            userInfo.value = response
+            userInfoResponse.value = response
             response?.user?.let { repository.saveUser(it) }
         }
     )
@@ -68,13 +68,13 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
         request = { repository.callLogout() },
         response = { response ->
             if (response != null && response.success) repository.deleteUser()
-            logout.value = response
+            logoutResponse.value = response
         }
     )
 
     fun callSetLocation(setLocation: SetLocationRequest) = launchCallApi(
         request = { repository.callSetLocation(setLocation) },
-        response = { location.value = it }
+        response = { locationResponse.value = it }
     )
 
 }

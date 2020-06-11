@@ -13,25 +13,25 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
 
     val getDbUser = repository.getUser()
 
-    private val userInfo = MutableLiveData<UserResponse>()
+    private val userInfoResponse = MutableLiveData<UserResponse>()
     val getUserInfo: LiveData<UserResponse>
-        get() = userInfo
+        get() = userInfoResponse
 
-    private val changeImageProfile = MutableLiveData<ResponseBody>()
+    private val changeImageProfileResponse = MutableLiveData<ResponseBody>()
     val getChangeImageProfile: LiveData<ResponseBody>
-        get() = changeImageProfile
+        get() = changeImageProfileResponse
 
     private val changePhoneResponse = MutableLiveData<BaseResponse>()
     val getChangePhone: LiveData<BaseResponse>
         get() = changePhoneResponse
 
-    private val logout = MutableLiveData<BaseResponse>()
+    private val logoutResponse = MutableLiveData<BaseResponse>()
     val getLogout: LiveData<BaseResponse>
-        get() = logout
+        get() = logoutResponse
 
     fun callChangeImageProfile(file: MultipartBody.Part) = launchCallApi(
         request = { repository.callChangeImageProfile(file) },
-        response = { changeImageProfile.value = it }
+        response = { changeImageProfileResponse.value = it }
     )
 
     fun callChangePhone(changePhone: ChangePhoneRequest) = launchCallApi(
@@ -45,7 +45,7 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
     private fun callFetchUserInfo() = launchCallApi(
         request = { repository.callFetchUserInfo() },
         response = { response ->
-            userInfo.value = response
+            userInfoResponse.value = response
             response?.user?.let { repository.saveUser(it) }
         }
     )
@@ -54,7 +54,7 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
         request = { repository.callLogout() },
         response = { response ->
             if (response != null && response.success) repository.deleteUser()
-            logout.value = response
+            logoutResponse.value = response
         }
     )
 

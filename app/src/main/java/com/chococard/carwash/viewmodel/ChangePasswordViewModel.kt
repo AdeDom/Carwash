@@ -12,9 +12,9 @@ class ChangePasswordViewModel(private val repository: HeaderRepository) : BaseVi
     val getChangePassword: LiveData<BaseResponse>
         get() = changePasswordResponse
 
-    private val logout = MutableLiveData<BaseResponse>()
+    private val logoutResponse = MutableLiveData<BaseResponse>()
     val getLogout: LiveData<BaseResponse>
-        get() = logout
+        get() = logoutResponse
 
     fun callChangePassword(changePassword: ChangePasswordRequest) = launchCallApi(
         request = { repository.callChangePassword(changePassword) },
@@ -28,7 +28,7 @@ class ChangePasswordViewModel(private val repository: HeaderRepository) : BaseVi
         request = { repository.callLogout() },
         response = { response ->
             if (response != null && response.success) repository.deleteUser()
-            logout.value = response
+            logoutResponse.value = response
         }
     )
 

@@ -9,9 +9,9 @@ import okhttp3.RequestBody
 
 class SignUpViewModel(private val repository: ConnectionRepository) : BaseViewModel() {
 
-    private val signUp = MutableLiveData<BaseResponse>()
+    private val signUpResponse = MutableLiveData<BaseResponse>()
     val getSignUp: LiveData<BaseResponse>
-        get() = signUp
+        get() = signUpResponse
 
     fun callSignUp(
         username: RequestBody,
@@ -33,7 +33,7 @@ class SignUpViewModel(private val repository: ConnectionRepository) : BaseViewMo
                 file
             )
         },
-        response = { signUp.value = it }
+        response = { signUpResponse.value = it }
     )
 
 }
