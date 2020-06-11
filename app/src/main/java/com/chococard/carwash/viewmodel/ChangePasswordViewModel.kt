@@ -8,9 +8,9 @@ import com.chococard.carwash.repositories.HeaderRepository
 
 class ChangePasswordViewModel(private val repository: HeaderRepository) : BaseViewModel() {
 
-    private val changePasswordResponse = MutableLiveData<BaseResponse>()
+    private val changePassword = MutableLiveData<BaseResponse>()
     val getChangePassword: LiveData<BaseResponse>
-        get() = changePasswordResponse
+        get() = changePassword
 
     private val logout = MutableLiveData<BaseResponse>()
     val getLogout: LiveData<BaseResponse>
@@ -20,7 +20,7 @@ class ChangePasswordViewModel(private val repository: HeaderRepository) : BaseVi
         request = { repository.callChangePassword(changePassword) },
         response = { response ->
             if (response != null && response.success) repository.deleteUser()
-            changePasswordResponse.value = response
+            this.changePassword.value = response
         }
     )
 
