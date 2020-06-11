@@ -35,8 +35,8 @@ class ServiceViewModel(private val repository: HeaderRepository) : BaseViewModel
         response = { imageServiceResponse.value = it }
     )
 
-    fun callDeleteSerImage(deleteImageService: DeleteImageServiceRequest) = launchCallApi(
-        request = { repository.callDeleteSerImage(deleteImageService) },
+    fun callDeleteServiceImage(deleteImageService: DeleteImageServiceRequest) = launchCallApi(
+        request = { repository.callDeleteServiceImage(deleteImageService) },
         response = { deleteImageServiceResponse.value = it }
     )
 

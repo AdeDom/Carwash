@@ -153,7 +153,7 @@ class ServiceActivity : BaseActivity() {
                 FlagConstant.STATUS_SERVICE_RIGHT -> progress_bar_right.show()
             }
             val deleteImageService = DeleteImageServiceRequest(statusService)
-            viewModel.callDeleteSerImage(deleteImageService)
+            viewModel.callDeleteServiceImage(deleteImageService)
         }
         return true
     }
