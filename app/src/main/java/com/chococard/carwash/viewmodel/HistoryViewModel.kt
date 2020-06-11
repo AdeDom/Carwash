@@ -7,13 +7,13 @@ import com.chococard.carwash.repositories.HeaderRepository
 
 class HistoryViewModel(private val repository: HeaderRepository) : BaseViewModel() {
 
-    private val history = MutableLiveData<HistoryResponse>()
+    private val historyResponse = MutableLiveData<HistoryResponse>()
     val getHistory: LiveData<HistoryResponse>
-        get() = history
+        get() = historyResponse
 
     fun callFetchHistory(dateBegin: Long = 0, dateEnd: Long = 0) = launchCallApi(
         request = { repository.callFetchHistory(dateBegin, dateEnd) },
-        response = { history.value = it }
+        response = { historyResponse.value = it }
     )
 
 }
