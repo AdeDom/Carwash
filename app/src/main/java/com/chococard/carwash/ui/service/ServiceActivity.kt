@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
@@ -25,6 +27,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ServiceActivity : BaseActivity() {
 
     val viewModel: ServiceViewModel by viewModel()
+    private var mImageUrlFront: String? = null
+    private var mImageUrlBack: String? = null
+    private var mImageUrlLeft: String? = null
+    private var mImageUrlRight: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +56,13 @@ class ServiceActivity : BaseActivity() {
 
         bt_report.setOnClickListener { startActivity<ReportActivity>() }
 
-        bt_payment.setOnClickListener { startActivity<PaymentActivity>() }
+        bt_payment.setOnClickListener {
+            if (mImageUrlFront != null && mImageUrlBack != null && mImageUrlLeft != null && mImageUrlRight != null) {
+                startActivity<PaymentActivity>()
+            } else {
+                dialogError(getString(R.string.error_empty_image))
+            }
+        }
 
         // call api
         progress_bar.show()
@@ -59,10 +71,6 @@ class ServiceActivity : BaseActivity() {
         // observe
         viewModel.getServiceImage.observe(this, Observer { response ->
             val (success, message, serviceImage) = response
-            progress_bar_front.hide()
-            progress_bar_back.hide()
-            progress_bar_left.hide()
-            progress_bar_right.hide()
             if (success) {
                 serviceImage?.let { setImageJobService(it) }
             } else {
@@ -81,19 +89,13 @@ class ServiceActivity : BaseActivity() {
         })
 
         viewModel.getError.observe(this, Observer {
+            progress_bar.hide()
             progress_bar_front.hide()
             progress_bar_back.hide()
             progress_bar_left.hide()
             progress_bar_right.hide()
             dialogError(it)
         })
-    }
-
-    private fun setImageJobService(serviceImage: ServiceImage) {
-        iv_image_front.setImageFromInternet(serviceImage.imageFront)
-        iv_image_back.setImageFromInternet(serviceImage.imageBack)
-        iv_image_left.setImageFromInternet(serviceImage.imageLeft)
-        iv_image_right.setImageFromInternet(serviceImage.imageRight)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -152,6 +154,34 @@ class ServiceActivity : BaseActivity() {
 
             if (statusService != null)
                 viewModel.callUploadImageService(multipartBody, statusService)
+        }
+    }
+
+    private fun setImageJobService(serviceImage: ServiceImage) {
+        val (front, back, left, right, otherImage) = serviceImage
+        mImageUrlFront = front
+        mImageUrlBack = back
+        mImageUrlLeft = left
+        mImageUrlRight = right
+
+        setImageView(front, iv_image_front, iv_camera_front, progress_bar_front)
+        setImageView(back, iv_image_back, iv_camera_back, progress_bar_back)
+        setImageView(left, iv_image_left, iv_camera_left, progress_bar_left)
+        setImageView(right, iv_image_right, iv_camera_right, progress_bar_right)
+    }
+
+    private fun setImageView(
+        url: String?,
+        iv_image: ImageView,
+        iv_camera: ImageView,
+        progress_bar: ProgressBar
+    ) {
+        if (url != null) {
+            progress_bar.hide()
+            iv_camera.visibility = View.INVISIBLE
+            iv_image.setImageFromInternet(url)
+        } else {
+            iv_camera.visibility = View.VISIBLE
         }
     }
 
