@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.OtherImage
 import com.chococard.carwash.data.models.ServiceImage
+import com.chococard.carwash.data.networks.request.DeleteImageServiceRequest
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.payment.PaymentActivity
 import com.chococard.carwash.ui.report.ReportActivity
@@ -65,6 +66,14 @@ class ServiceActivity : BaseActivity() {
 
         iv_image_right.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_RIGHT) }
 
+        iv_image_front.setOnLongClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_FRONT) }
+
+        iv_image_back.setOnLongClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_BACK) }
+
+        iv_image_left.setOnLongClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_LEFT) }
+
+        iv_image_right.setOnLongClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_RIGHT) }
+
         iv_add_other_image.setOnClickListener { validateUploadOtherImage() }
 
         bt_report.setOnClickListener { startActivity<ReportActivity>() }
@@ -102,6 +111,15 @@ class ServiceActivity : BaseActivity() {
             }
         })
 
+        viewModel.getDeleteImageService.observe(this, Observer { response ->
+            val (success, message, serviceImage) = response
+            if (success) {
+                serviceImage?.let { setImageJobService(it) }
+            } else {
+                toast(message, Toast.LENGTH_LONG)
+            }
+        })
+
         viewModel.getError.observe(this, Observer {
             progress_bar.hide()
             progress_bar_front.hide()
@@ -123,6 +141,20 @@ class ServiceActivity : BaseActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_option_busy, menu)
+        return true
+    }
+
+    private fun deleteImageService(statusService: Int): Boolean {
+        dialogNegative(R.string.delete_image_service, R.string.delete_image_service_questions) {
+            when (statusService) {
+                FlagConstant.STATUS_SERVICE_FRONT -> progress_bar_front.show()
+                FlagConstant.STATUS_SERVICE_BACK -> progress_bar_back.show()
+                FlagConstant.STATUS_SERVICE_LEFT -> progress_bar_left.show()
+                FlagConstant.STATUS_SERVICE_RIGHT -> progress_bar_right.show()
+            }
+            val deleteImageService = DeleteImageServiceRequest(statusService)
+            viewModel.callDeleteSerImage(deleteImageService)
+        }
         return true
     }
 
@@ -208,12 +240,13 @@ class ServiceActivity : BaseActivity() {
         iv_camera: ImageView,
         progress_bar: ProgressBar
     ) {
+        progress_bar.hide()
         if (url != null) {
-            progress_bar.hide()
             iv_camera.visibility = View.INVISIBLE
             iv_image.setImageFromInternet(url)
         } else {
             iv_camera.visibility = View.VISIBLE
+            iv_image.setImageResource(0)
         }
     }
 

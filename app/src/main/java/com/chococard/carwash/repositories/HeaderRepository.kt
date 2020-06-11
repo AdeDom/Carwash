@@ -70,4 +70,7 @@ class HeaderRepository(
 
     suspend fun callFetchImageService() = apiRequest { api.callFetchImageService() }
 
+    suspend fun callDeleteSerImage(deleteImageService: DeleteImageServiceRequest) =
+        apiRequest { api.callDeleteSerImage(deleteImageService) }
+
 }

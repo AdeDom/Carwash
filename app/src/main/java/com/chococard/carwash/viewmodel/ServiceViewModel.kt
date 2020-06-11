@@ -2,6 +2,7 @@ package com.chococard.carwash.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.chococard.carwash.data.networks.request.DeleteImageServiceRequest
 import com.chococard.carwash.data.networks.response.ServiceImageResponse
 import com.chococard.carwash.repositories.HeaderRepository
 import okhttp3.MultipartBody
@@ -17,6 +18,10 @@ class ServiceViewModel(private val repository: HeaderRepository) : BaseViewModel
     val getImageService: LiveData<ServiceImageResponse>
         get() = imageServiceResponse
 
+    private val deleteImageServiceResponse = MutableLiveData<ServiceImageResponse>()
+    val getDeleteImageService: LiveData<ServiceImageResponse>
+        get() = deleteImageServiceResponse
+
     fun callUploadImageService(
         file: MultipartBody.Part,
         statusService: RequestBody
@@ -28,6 +33,11 @@ class ServiceViewModel(private val repository: HeaderRepository) : BaseViewModel
     fun callFetchImageService() = launchCallApi(
         request = { repository.callFetchImageService() },
         response = { imageServiceResponse.value = it }
+    )
+
+    fun callDeleteSerImage(deleteImageService: DeleteImageServiceRequest) = launchCallApi(
+        request = { repository.callDeleteSerImage(deleteImageService) },
+        response = { deleteImageServiceResponse.value = it }
     )
 
 }

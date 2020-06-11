@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
@@ -115,3 +116,17 @@ fun Context?.setImageMarkerCircle(image: Bitmap): Bitmap {
     view.draw(Canvas(bitmap))
     return bitmap
 }
+
+fun Context.dialogNegative(title: Int, message: Int, negative: () -> Unit) =
+    AlertDialog.Builder(this).apply {
+        setTitle(title)
+        setMessage(message)
+        setPositiveButton(android.R.string.no) { dialog, which ->
+            dialog.dismiss()
+        }
+        setNegativeButton(android.R.string.yes) { dialog, which ->
+            negative.invoke()
+        }
+        setCancelable(false)
+        show()
+    }
