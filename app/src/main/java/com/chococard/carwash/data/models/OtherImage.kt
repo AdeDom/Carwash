@@ -6,11 +6,16 @@ import com.chococard.carwash.data.networks.ApiConstant
 import com.google.gson.annotations.SerializedName
 
 data class OtherImage(
+    @SerializedName(ApiConstant.IMAGE_ID) val imageId: Int? = null,
     @SerializedName(ApiConstant.IMAGE) val image: String? = null
 ) : Parcelable {
-    constructor(parcel: Parcel) : this(parcel.readString())
+    constructor(parcel: Parcel) : this(
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString()
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeValue(imageId)
         parcel.writeString(image)
     }
 
