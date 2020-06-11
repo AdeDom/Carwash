@@ -15,9 +15,9 @@ class HomeViewModel(private val repository: HeaderRepository) : BaseViewModel() 
     val callSwitchSystem: LiveData<BaseResponse>
         get() = switchSystemResponse
 
-    private val homeScore = MutableLiveData<HomeScoreResponse>()
+    private val homeScoreResponse = MutableLiveData<HomeScoreResponse>()
     val getHomeScore: LiveData<HomeScoreResponse>
-        get() = homeScore
+        get() = homeScoreResponse
 
     fun callSwitchSystem(switchSystem: SwitchSystemRequest) = launchCallApi(
         request = { repository.callSwitchSystem(switchSystem) },
@@ -26,7 +26,7 @@ class HomeViewModel(private val repository: HeaderRepository) : BaseViewModel() 
 
     fun callHomeScore() = launchCallApi(
         request = { repository.callHomeScore() },
-        response = { homeScore.value = it }
+        response = { homeScoreResponse.value = it }
     )
 
 }
