@@ -21,9 +21,9 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
     val getChangeImageProfile: LiveData<ResponseBody>
         get() = changeImageProfile
 
-    private val changePhone = MutableLiveData<BaseResponse>()
+    private val changePhoneResponse = MutableLiveData<BaseResponse>()
     val getChangePhone: LiveData<BaseResponse>
-        get() = changePhone
+        get() = changePhoneResponse
 
     private val logout = MutableLiveData<BaseResponse>()
     val getLogout: LiveData<BaseResponse>
@@ -38,7 +38,7 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
         request = { repository.callChangePhone(changePhone) },
         response = { response ->
             if (response != null && response.success) callFetchUserInfo()
-            this.changePhone.value = response
+            changePhoneResponse.value = response
         }
     )
 

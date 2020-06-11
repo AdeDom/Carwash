@@ -26,9 +26,9 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
     val getJobResponse: LiveData<JobResponse>
         get() = jobResponse
 
-    private val logsActive = MutableLiveData<BaseResponse>()
+    private val logsActiveResponse = MutableLiveData<BaseResponse>()
     val getLogsActive: LiveData<BaseResponse>
-        get() = logsActive
+        get() = logsActiveResponse
 
     private val logout = MutableLiveData<BaseResponse>()
     val getLogout: LiveData<BaseResponse>
@@ -61,7 +61,7 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
 
     fun callLogsActive(logsActive: LogsActiveRequest) = launchCallApi(
         request = { repository.callLogsActive(logsActive) },
-        response = { this.logsActive.value = it }
+        response = { logsActiveResponse.value = it }
     )
 
     fun callLogout() = launchCallApi(
