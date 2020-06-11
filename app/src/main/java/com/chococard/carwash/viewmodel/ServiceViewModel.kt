@@ -18,9 +18,13 @@ class ServiceViewModel(private val repository: HeaderRepository) : BaseViewModel
     val getImageService: LiveData<ServiceImageResponse>
         get() = imageServiceResponse
 
-    private val deleteImageServiceResponse = MutableLiveData<ServiceImageResponse>()
-    val getDeleteImageService: LiveData<ServiceImageResponse>
-        get() = deleteImageServiceResponse
+    private val deleteServiceImageResponse = MutableLiveData<ServiceImageResponse>()
+    val getDeleteServiceImage: LiveData<ServiceImageResponse>
+        get() = deleteServiceImageResponse
+
+    private val deleteServiceOtherImageResponse = MutableLiveData<ServiceImageResponse>()
+    val getDeleteServiceOtherImage: LiveData<ServiceImageResponse>
+        get() = deleteServiceOtherImageResponse
 
     fun callUploadImageService(
         file: MultipartBody.Part,
@@ -37,7 +41,12 @@ class ServiceViewModel(private val repository: HeaderRepository) : BaseViewModel
 
     fun callDeleteServiceImage(deleteImageService: DeleteImageServiceRequest) = launchCallApi(
         request = { repository.callDeleteServiceImage(deleteImageService) },
-        response = { deleteImageServiceResponse.value = it }
+        response = { deleteServiceImageResponse.value = it }
+    )
+
+    fun callDeleteServiceOtherImage(deleteImageService: DeleteImageServiceRequest) = launchCallApi(
+        request = { repository.callDeleteServiceOtherImage(deleteImageService) },
+        response = { deleteServiceOtherImageResponse.value = it }
     )
 
 }

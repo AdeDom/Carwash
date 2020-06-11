@@ -94,6 +94,9 @@ interface HeaderAppService {
     @POST("api/job/deleteserviceimage")
     suspend fun callDeleteServiceImage(@Body deleteImageService: DeleteImageServiceRequest): Response<ServiceImageResponse>
 
+    @POST("api/job/deleteserviceohterimage")
+    suspend fun callDeleteServiceOtherImage(@Body deleteImageService: DeleteImageServiceRequest): Response<ServiceImageResponse>
+
     companion object {
         operator fun invoke(networkHeaderInterceptor: NetworkHeaderInterceptor) =
             RetrofitClient.instant(networkHeaderInterceptor)

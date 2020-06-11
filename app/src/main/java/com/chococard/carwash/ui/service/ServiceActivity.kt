@@ -54,6 +54,10 @@ class ServiceActivity : BaseActivity() {
             layoutManager = LinearLayoutManager(baseContext, LinearLayoutManager.HORIZONTAL, false)
             adapter = mServiceAdapter
         }
+        mServiceAdapter?.onLongClick = { otherImage ->
+            otherImage.imageId?.let { deleteOtherImageService(it) }
+            true
+        }
 
         // set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
@@ -111,7 +115,17 @@ class ServiceActivity : BaseActivity() {
             }
         })
 
-        viewModel.getDeleteImageService.observe(this, Observer { response ->
+        viewModel.getDeleteServiceImage.observe(this, Observer { response ->
+            val (success, message, serviceImage) = response
+            if (success) {
+                serviceImage?.let { setImageJobService(it) }
+            } else {
+                toast(message, Toast.LENGTH_LONG)
+            }
+        })
+
+        viewModel.getDeleteServiceOtherImage.observe(this, Observer { response ->
+            progress_bar_other_image.hide()
             val (success, message, serviceImage) = response
             if (success) {
                 serviceImage?.let { setImageJobService(it) }
@@ -156,6 +170,14 @@ class ServiceActivity : BaseActivity() {
             viewModel.callDeleteServiceImage(deleteImageService)
         }
         return true
+    }
+
+    private fun deleteOtherImageService(imageId: Int) {
+        dialogNegative(R.string.delete_image_service, R.string.delete_image_service_questions) {
+            progress_bar_other_image.show()
+            val deleteImageService = DeleteImageServiceRequest(imageId)
+            viewModel.callDeleteServiceOtherImage(deleteImageService)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

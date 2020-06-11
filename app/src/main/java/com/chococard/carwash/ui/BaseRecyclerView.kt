@@ -9,6 +9,7 @@ abstract class BaseRecyclerView<T : Any> : RecyclerView.Adapter<BaseRecyclerView
 
     private var list = mutableListOf<T>()
     var onClick: ((T) -> Unit)? = null
+    var onLongClick: ((T) -> Boolean)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder =
         BaseHolder(
@@ -36,6 +37,11 @@ abstract class BaseRecyclerView<T : Any> : RecyclerView.Adapter<BaseRecyclerView
             itemView.setOnClickListener {
                 val entity = list[adapterPosition]
                 onClick?.invoke(entity)
+            }
+
+            itemView.setOnLongClickListener {
+                val entity = list[adapterPosition]
+                onLongClick?.invoke(entity)!!
             }
         }
 
