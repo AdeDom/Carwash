@@ -9,9 +9,9 @@ import okhttp3.RequestBody
 
 class ServiceViewModel(private val repository: HeaderRepository) : BaseViewModel() {
 
-    private val serviceImage = MutableLiveData<ServiceImageResponse>()
-    val getServiceImage: LiveData<ServiceImageResponse>
-        get() = serviceImage
+    private val uploadImageServiceResponse = MutableLiveData<ServiceImageResponse>()
+    val getUploadImageService: LiveData<ServiceImageResponse>
+        get() = uploadImageServiceResponse
 
     private val imageService = MutableLiveData<ServiceImageResponse>()
     val getImageService: LiveData<ServiceImageResponse>
@@ -22,7 +22,7 @@ class ServiceViewModel(private val repository: HeaderRepository) : BaseViewModel
         statusService: RequestBody
     ) = launchCallApi(
         request = { repository.callUploadImageService(file, statusService) },
-        response = { serviceImage.value = it }
+        response = { uploadImageServiceResponse.value = it }
     )
 
     fun callFetchImageService() = launchCallApi(

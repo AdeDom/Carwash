@@ -69,7 +69,7 @@ class ServiceActivity : BaseActivity() {
         viewModel.callFetchImageService()
 
         // observe
-        viewModel.getServiceImage.observe(this, Observer { response ->
+        viewModel.getUploadImageService.observe(this, Observer { response ->
             val (success, message, serviceImage) = response
             if (success) {
                 serviceImage?.let { setImageJobService(it) }
