@@ -9,15 +9,15 @@ class PaymentViewModel(private val repository: HeaderRepository) : BaseViewModel
 
     val getDbJob = repository.getJob()
 
-    private val payment = MutableLiveData<BaseResponse>()
-    val getPayment: LiveData<BaseResponse>
-        get() = payment
+    private val paymentJobResponse = MutableLiveData<BaseResponse>()
+    val getPaymentJob: LiveData<BaseResponse>
+        get() = paymentJobResponse
 
-    fun callPayment() = launchCallApi(
-        request = { repository.callPayment() },
+    fun callPaymentJob() = launchCallApi(
+        request = { repository.callPaymentJob() },
         response = { response ->
             if (response != null && response.success) repository.deleteJob()
-            payment.value = response
+            paymentJobResponse.value = response
         }
     )
 

@@ -39,7 +39,7 @@ class PaymentActivity : BaseActivity() {
         bt_payment.setOnClickListener { paymentService() }
 
         //observe
-        viewModel.getPayment.observe(this, Observer { response ->
+        viewModel.getPaymentJob.observe(this, Observer { response ->
             progress_bar.hide()
             val (success, message) = response
             if (success) {
@@ -59,7 +59,7 @@ class PaymentActivity : BaseActivity() {
 
     private fun paymentService() {
         progress_bar.show()
-        viewModel.callPayment()
+        viewModel.callPaymentJob()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

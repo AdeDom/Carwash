@@ -48,7 +48,7 @@ class HeaderRepository(
     suspend fun deleteJob() = db.getJobDao().deleteJob()
     //job
 
-    suspend fun callPayment() = apiRequest { api.callPayment() }
+    suspend fun callPaymentJob() = apiRequest { api.callPaymentJob() }
 
     suspend fun callReport(report: ReportRequest) = apiRequest { api.callReport(report) }
 

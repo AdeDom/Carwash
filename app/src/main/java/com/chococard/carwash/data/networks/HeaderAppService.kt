@@ -60,7 +60,7 @@ interface HeaderAppService {
 
     //payment fee of application by send flag report or confirm to server.
     @POST("api/job/paymentjob")
-    suspend fun callPayment(): Response<BaseResponse>
+    suspend fun callPaymentJob(): Response<BaseResponse>
 
     //report job service when have problem
     @POST("api/job/reportjob")
