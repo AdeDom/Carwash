@@ -53,7 +53,7 @@ class MainActivity : BaseLocationActivity(),
         //call api
         val logsKeys = UUID.randomUUID().toString().replace("-", "")
         writePref(CommonsConstant.LOGS_KEYS, logsKeys)
-        viewModel.callSetLogsActive(LogsActiveRequest(logsKeys, FlagConstant.LOGS_STATUS_ACTIVE))
+        viewModel.callLogsActive(LogsActiveRequest(logsKeys, FlagConstant.LOGS_STATUS_ACTIVE))
 
         // fetch user info
         viewModel.getDbUserInfo.observe(this, Observer { user ->
@@ -170,7 +170,7 @@ class MainActivity : BaseLocationActivity(),
         super.onPause()
         // set user logs active
         val logsKeys = readPref(CommonsConstant.LOGS_KEYS)
-        viewModel.callSetLogsActive(LogsActiveRequest(logsKeys, FlagConstant.LOGS_STATUS_INACTIVE))
+        viewModel.callLogsActive(LogsActiveRequest(logsKeys, FlagConstant.LOGS_STATUS_INACTIVE))
     }
 
     override fun onFlag(flag: Int) {

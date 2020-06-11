@@ -52,8 +52,8 @@ class HeaderRepository(
 
     suspend fun callReport(report: ReportRequest) = apiRequest { api.callReport(report) }
 
-    suspend fun callSetLogsActive(logsActive: LogsActiveRequest) =
-        apiRequest { api.callSetLogsActive(logsActive) }
+    suspend fun callLogsActive(logsActive: LogsActiveRequest) =
+        apiRequest { api.callLogsActive(logsActive) }
 
     suspend fun callSwitchSystem(switchSystem: SwitchSystemRequest) =
         apiRequest { api.callSwitchSystem(switchSystem) }

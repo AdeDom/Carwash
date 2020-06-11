@@ -37,7 +37,7 @@ interface HeaderAppService {
 
     //set user logs active & inactive using application.
     @POST("api/account/userlogs")
-    suspend fun callSetLogsActive(@Body logsActive: LogsActiveRequest): Response<BaseResponse>
+    suspend fun callLogsActive(@Body logsActive: LogsActiveRequest): Response<BaseResponse>
 
     //switch on-off (receive & reject) of job
     @POST("api/account/switchsystem")
