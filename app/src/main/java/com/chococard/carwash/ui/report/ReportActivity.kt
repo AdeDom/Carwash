@@ -36,7 +36,7 @@ class ReportActivity : BaseActivity() {
         bt_report.setOnClickListener { reportJob() }
 
         // observe
-        viewModel.getReportResponse.observe(this, Observer { response ->
+        viewModel.getReportJob.observe(this, Observer { response ->
             progress_bar.hide()
             val (success, message) = response
             if (success) {
@@ -65,7 +65,7 @@ class ReportActivity : BaseActivity() {
         }
 
         progress_bar.show()
-        viewModel.callReport(ReportRequest(report))
+        viewModel.callReportJob(ReportRequest(report))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -64,7 +64,7 @@ interface HeaderAppService {
 
     //report job service when have problem
     @POST("api/job/reportjob")
-    suspend fun callReport(@Body report: ReportRequest): Response<BaseResponse>
+    suspend fun callReportJob(@Body report: ReportRequest): Response<BaseResponse>
 
     //send location employee and response location customer
     @POST("api/job/navigation")

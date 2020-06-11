@@ -50,7 +50,7 @@ class HeaderRepository(
 
     suspend fun callPaymentJob() = apiRequest { api.callPaymentJob() }
 
-    suspend fun callReport(report: ReportRequest) = apiRequest { api.callReport(report) }
+    suspend fun callReportJob(report: ReportRequest) = apiRequest { api.callReportJob(report) }
 
     suspend fun callLogsActive(logsActive: LogsActiveRequest) =
         apiRequest { api.callLogsActive(logsActive) }

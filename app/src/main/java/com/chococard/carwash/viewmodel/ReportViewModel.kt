@@ -8,15 +8,15 @@ import com.chococard.carwash.repositories.HeaderRepository
 
 class ReportViewModel(private val repository: HeaderRepository) : BaseViewModel() {
 
-    private val reportResponse = MutableLiveData<BaseResponse>()
-    val getReportResponse: LiveData<BaseResponse>
-        get() = reportResponse
+    private val reportJobResponse = MutableLiveData<BaseResponse>()
+    val getReportJob: LiveData<BaseResponse>
+        get() = reportJobResponse
 
-    fun callReport(report: ReportRequest) = launchCallApi(
-        request = { repository.callReport(report) },
+    fun callReportJob(report: ReportRequest) = launchCallApi(
+        request = { repository.callReportJob(report) },
         response = { response ->
             if (response != null && response.success) repository.deleteJob()
-            reportResponse.value = response
+            reportJobResponse.value = response
         }
     )
 
