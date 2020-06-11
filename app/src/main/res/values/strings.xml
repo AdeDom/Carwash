@@ -27,7 +27,6 @@
     <string name="error_matched">Please enter the password to match</string>
     <string name="error_identity_card">Please enter the correct Identity card</string>
     <string name="error_phone">Please enter the correct phone number</string>
-    <string name="map">Map</string>
     <string name="wallet">Wallet</string>
     <string name="history">History</string>
     <string name="change_profile">Change profile</string>
@@ -50,22 +49,14 @@
     <string name="upload_image">Upload image</string>
     <string name="service">Service</string>
     <string name="do_you_really_want_to_log_out">Do you really want to log out?</string>
-    <string name="contact_system_administrator">Contact system administrator?</string>
     <string name="contact_admin_tel">tel:0834254372</string>
     <string name="unknown">Unknown</string>
-    <string name="car_wash">CAR WASH</string>
     <string name="fifteen">15</string>
     <string name="payment">Payment</string>
     <string name="not_available">Not available at this time</string>
     <string name="google_maps_navigation">http://maps.google.com/maps?saddr=%1$f,%2$f&amp;daddr=%3$f,%4$f</string>
     <string name="report">Report</string>
-    <string name="payment_received">Payment received?</string>
     <string name="error">Error</string>
-    <string name="date_format">0000/00/00</string>
-    <string name="date_begin">Begin</string>
-    <string name="date_end">End</string>
-    <string name="date">Date</string>
-    <string name="filter_date">Filter date</string>
     <string name="enter_phone">Please enter phone number</string>
     <string name="request_otp">Request OTP</string>
     <string name="please_enter_otp_from_message">Please enter OTP from message</string>
@@ -110,7 +101,6 @@
                         ได้รวมเอา Lorem Ipsum เวอร์ชั่นต่างๆ
                         เข้าไว้ในซอฟท์แวร์ด้วยYes</string>
     <string name="other_image">Other image</string>
-    <string name="next_step">Next step</string>
     <string name="photo_service_from_all_4_sides">Photo service from all 4 sides</string>
     <string name="other_related_images">Other related images</string>
     <string name="please_contact_the_system_administrator_in_an_emergency">Please contact the system administrator in an emergency</string>

@@ -17,9 +17,7 @@
     <dimen name="base_one">1dp</dimen>
     <dimen name="base_fifty">50dp</dimen>
     <dimen name="base_hundred">100dp</dimen>
-    <dimen name="base_one_hundred_fifty">150dp</dimen>
     <dimen name="base_two_hundred">200dp</dimen>
-    <dimen name="base_three_hundred">300dp</dimen>
     <dimen name="base_four_hundred">400dp</dimen>
     <dimen name="ic_camera">50dp</dimen>
     <dimen name="ic_base">24dp</dimen>
