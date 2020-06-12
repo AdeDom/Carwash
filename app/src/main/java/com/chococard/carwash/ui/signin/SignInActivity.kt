@@ -1,6 +1,7 @@
 package com.chococard.carwash.ui.signin
 
 import android.os.Bundle
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
@@ -35,6 +36,15 @@ class SignInActivity : BaseActivity() {
             startActivity<SignUpActivity> {
                 finish()
             }
+        }
+
+        et_password.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) signIn()
+            false
+        }
+
+        root_layout.setOnClickListener {
+            hideSoftKeyboard()
         }
 
         //observe
