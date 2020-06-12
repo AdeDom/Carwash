@@ -34,7 +34,7 @@ class ServiceActivity : BaseActivity() {
     private var mImageUrlBack: String? = null
     private var mImageUrlLeft: String? = null
     private var mImageUrlRight: String? = null
-    private var mListOtherImage: List<OtherImage>? = null
+    private var mListOtherImage: ArrayList<OtherImage>? = null
     private var mServiceAdapter: ServiceAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -147,6 +147,7 @@ class ServiceActivity : BaseActivity() {
 
     private fun validateUploadOtherImage() {
         if (mListOtherImage?.size ?: 0 < CommonsConstant.MAXIMUM_UPLOAD_OTHER_IMAGE) {
+            mListOtherImage?.add(OtherImage())
             selectImage(CommonsConstant.REQUEST_CODE_IMAGE_OTHER_IMAGE)
         } else {
             dialogError(getString(R.string.error_maximum_other_image))
@@ -247,7 +248,7 @@ class ServiceActivity : BaseActivity() {
         mImageUrlBack = back
         mImageUrlLeft = left
         mImageUrlRight = right
-        mListOtherImage = otherImage
+        mListOtherImage = otherImage as ArrayList<OtherImage>?
 
         setImageView(front, iv_image_front, iv_camera_front, progress_bar_front)
         setImageView(back, iv_image_back, iv_camera_back, progress_bar_back)
