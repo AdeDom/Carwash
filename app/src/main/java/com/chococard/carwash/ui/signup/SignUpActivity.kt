@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
@@ -44,6 +45,15 @@ class SignUpActivity : BaseActivity() {
         iv_photo.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE) }
 
         iv_camera.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE) }
+
+        root_layout.setOnClickListener {
+            hideSoftKeyboard()
+        }
+
+        et_identity_card.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) signUp()
+            false
+        }
 
         bt_sign_up.setOnClickListener { signUp() }
 

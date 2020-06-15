@@ -4,7 +4,9 @@
     style="@style/MatchMatch"
     android:fillViewport="true">
 
-    <RelativeLayout style="@style/WrapWrap">
+    <RelativeLayout
+        android:id="@+id/root_layout"
+        style="@style/WrapWrap">
 
         <LinearLayout
             style="@style/RelativeLayout"
@@ -87,6 +89,7 @@
                     style="@style/EditText"
                     android:drawableStart="@drawable/ic_identity_card"
                     android:hint="@string/identity_card"
+                    android:imeOptions="actionDone"
                     android:inputType="number"
                     android:maxLength="13" />
 
@@ -108,7 +111,7 @@
 
             <LinearLayout
                 style="@style/WrapWrap"
-                android:layout_marginTop="@dimen/base_pow_five"
+                android:layout_marginTop="@dimen/base_pow_four"
                 android:layout_marginBottom="@dimen/base_pow_five"
                 android:orientation="horizontal">
 
