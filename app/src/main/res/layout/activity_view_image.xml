@@ -22,7 +22,12 @@
     <ImageView
         android:id="@+id/iv_image"
         style="@style/MatchMatch"
-        android:layout_below="@id/layout_toolbar"
+        android:layout_below="@id/layout_toolbar" />
+
+    <ImageView
+        android:id="@+id/iv_image_place_holder"
+        android:layout_width="@dimen/base_two_hundred"
+        android:layout_height="@dimen/base_two_hundred"
         android:layout_centerInParent="true"
         android:src="@drawable/img_logo_blue" />
 
