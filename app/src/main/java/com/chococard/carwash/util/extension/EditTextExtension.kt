@@ -8,7 +8,6 @@ import android.widget.ImageView
 import com.chococard.carwash.R
 import com.chococard.carwash.util.FlagConstant
 
-//TODO create edit text extension Password
 fun EditText.getContents() = this.text.toString().trim()
 
 fun EditText.isEmpty(error: String = ""): Boolean {
