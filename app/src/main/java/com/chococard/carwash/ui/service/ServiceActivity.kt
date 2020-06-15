@@ -59,6 +59,9 @@ class ServiceActivity : BaseActivity() {
             otherImage.imageId?.let { deleteOtherImageService(it) }
             true
         }
+        mServiceAdapter?.onRemoveOtherImage = { otherImage ->
+            otherImage.imageId?.let { deleteOtherImageService(it) }
+        }
 
         // set event
         iv_arrow_back.setOnClickListener { onBackPressed() }

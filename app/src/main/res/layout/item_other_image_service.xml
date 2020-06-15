@@ -8,4 +8,16 @@
         android:scaleType="centerCrop"
         android:src="@drawable/img_logo_blue" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_remove_other_image"
+        style="@style/CardViewRemoveImage"
+        android:layout_gravity="end"
+        android:visibility="visible">
+
+        <ImageView
+            style="@style/MatchMatch"
+            android:src="@drawable/ic_remove_blue" />
+
+    </androidx.cardview.widget.CardView>
+
 </androidx.cardview.widget.CardView>
