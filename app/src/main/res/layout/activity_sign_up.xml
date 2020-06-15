@@ -4,122 +4,125 @@
     style="@style/MatchMatch"
     android:fillViewport="true">
 
-    <RelativeLayout
-        style="@style/RelativeLayout"
-        android:layout_height="wrap_content">
-
-        <RelativeLayout style="@style/MatchWrap">
-
-            <androidx.appcompat.widget.Toolbar style="@style/Toolbar" />
-
-            <ImageView
-                android:id="@+id/iv_arrow_back"
-                style="@style/ImageViewArrowBack" />
-
-            <ImageView
-                style="@style/ImageViewToolbar"
-                android:src="@drawable/ic_sign_up" />
-
-        </RelativeLayout>
+    <RelativeLayout style="@style/WrapWrap">
 
         <LinearLayout
-            style="@style/LinearLayoutVertical"
-            android:layout_centerInParent="true">
+            style="@style/RelativeLayout"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-            <RelativeLayout style="@style/WrapWrap">
+            <RelativeLayout style="@style/MatchWrap">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card"
-                    style="@style/CardViewImageView">
+                <androidx.appcompat.widget.Toolbar style="@style/Toolbar" />
 
-                    <ImageView
-                        android:id="@+id/iv_photo"
-                        style="@style/ImageViewPhoto" />
+                <ImageView
+                    android:id="@+id/iv_arrow_back"
+                    style="@style/ImageViewArrowBack" />
 
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    style="@style/WrapWrap"
-                    android:layout_alignEnd="@+id/card"
-                    android:layout_alignBottom="@+id/card"
-                    app:cardCornerRadius="25dp"
-                    app:cardElevation="@dimen/base_pow_three">
-
-                    <ImageView
-                        android:id="@+id/iv_camera"
-                        style="@style/ImageViewCamera" />
-
-                </androidx.cardview.widget.CardView>
+                <ImageView
+                    style="@style/ImageViewToolbar"
+                    android:src="@drawable/ic_sign_up" />
 
             </RelativeLayout>
 
-            <TextView
-                style="@style/TextViewMediumGray"
-                android:layout_gravity="start"
-                android:text="@string/sign_up_to_join" />
+            <LinearLayout style="@style/LinearLayoutVertical">
 
-            <EditText
-                android:id="@+id/et_username"
-                style="@style/EditText"
-                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-                android:drawableStart="@drawable/ic_account_gray"
-                android:hint="@string/username" />
+                <RelativeLayout style="@style/WrapWrap">
 
-            <EditText
-                android:id="@+id/et_password"
-                style="@style/EditTextPassword" />
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card"
+                        style="@style/CardViewImageView">
 
-            <EditText
-                android:id="@+id/et_re_password"
-                style="@style/EditTextPassword"
-                android:hint="@string/re_password" />
+                        <ImageView
+                            android:id="@+id/iv_photo"
+                            style="@style/ImageViewPhoto" />
 
-            <EditText
-                android:id="@+id/et_full_name"
-                style="@style/EditText"
-                android:drawableStart="@drawable/ic_person_gray"
-                android:hint="@string/full_name" />
+                    </androidx.cardview.widget.CardView>
 
-            <EditText
-                android:id="@+id/et_identity_card"
-                style="@style/EditText"
-                android:drawableStart="@drawable/ic_identity_card"
-                android:hint="@string/identity_card"
-                android:inputType="number"
-                android:maxLength="13" />
+                    <androidx.cardview.widget.CardView
+                        style="@style/WrapWrap"
+                        android:layout_alignEnd="@+id/card"
+                        android:layout_alignBottom="@+id/card"
+                        app:cardCornerRadius="25dp"
+                        app:cardElevation="@dimen/base_pow_three">
 
-            <EditText
-                android:id="@+id/et_phone"
-                style="@style/EditTextPhoneNumber"
-                android:enabled="false" />
+                        <ImageView
+                            android:id="@+id/iv_camera"
+                            style="@style/ImageViewCamera" />
 
-            <androidx.cardview.widget.CardView style="@style/CardViewButton">
+                    </androidx.cardview.widget.CardView>
 
-                <Button
-                    android:id="@+id/bt_sign_up"
-                    style="@style/ButtonBlueLong"
-                    android:text="@string/sign_up" />
+                </RelativeLayout>
 
-            </androidx.cardview.widget.CardView>
+                <TextView
+                    style="@style/TextViewMediumGray"
+                    android:layout_gravity="start"
+                    android:text="@string/sign_up_to_join" />
 
-        </LinearLayout>
+                <EditText
+                    android:id="@+id/et_username"
+                    style="@style/EditText"
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+                    android:drawableStart="@drawable/ic_account_gray"
+                    android:hint="@string/username" />
 
-        <LinearLayout
-            style="@style/WrapWrap"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/base_pow_five"
-            android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/et_password"
+                    style="@style/EditTextPassword" />
 
-            <TextView
-                style="@style/TextViewMediumGray"
-                android:text="@string/have_an_account" />
+                <EditText
+                    android:id="@+id/et_re_password"
+                    style="@style/EditTextPassword"
+                    android:hint="@string/re_password" />
 
-            <TextView
-                android:id="@+id/tv_sign_in"
-                style="@style/TextViewMediumBlack"
-                android:layout_marginStart="@dimen/base_pow_two"
-                android:text="@string/sign_in" />
+                <EditText
+                    android:id="@+id/et_full_name"
+                    style="@style/EditText"
+                    android:drawableStart="@drawable/ic_person_gray"
+                    android:hint="@string/full_name" />
+
+                <EditText
+                    android:id="@+id/et_identity_card"
+                    style="@style/EditText"
+                    android:drawableStart="@drawable/ic_identity_card"
+                    android:hint="@string/identity_card"
+                    android:inputType="number"
+                    android:maxLength="13" />
+
+                <EditText
+                    android:id="@+id/et_phone"
+                    style="@style/EditTextPhoneNumber"
+                    android:enabled="false" />
+
+                <androidx.cardview.widget.CardView style="@style/CardViewButton">
+
+                    <Button
+                        android:id="@+id/bt_sign_up"
+                        style="@style/ButtonBlueLong"
+                        android:text="@string/sign_up" />
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/WrapWrap"
+                android:layout_marginTop="@dimen/base_pow_five"
+                android:layout_marginBottom="@dimen/base_pow_five"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextViewMediumGray"
+                    android:text="@string/have_an_account" />
+
+                <TextView
+                    android:id="@+id/tv_sign_in"
+                    style="@style/TextViewMediumBlack"
+                    android:layout_marginStart="@dimen/base_pow_two"
+                    android:text="@string/sign_in" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
