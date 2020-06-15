@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
@@ -44,9 +45,20 @@ class ChangeProfileActivity : BaseActivity() {
 
         //set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
+
         iv_photo.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE) }
+
         iv_camera.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE) }
+
+        root_layout.setOnClickListener { hideSoftKeyboard() }
+
+        et_phone.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) changeProfile()
+            false
+        }
+
         bt_cancel.setOnClickListener { finish() }
+
         bt_confirm.setOnClickListener { changeProfile() }
 
         //observe
@@ -55,6 +67,7 @@ class ChangeProfileActivity : BaseActivity() {
         })
 
         viewModel.getChangePhone.observe(this, Observer { response ->
+            progress_bar.hide()
             val (_, message) = response
             toast(message)
         })
