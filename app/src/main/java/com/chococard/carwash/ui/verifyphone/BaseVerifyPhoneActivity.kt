@@ -1,14 +1,12 @@
 package com.chococard.carwash.ui.verifyphone
 
 import android.os.Bundle
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.util.CommonsConstant
-import com.chococard.carwash.util.extension.getContents
-import com.chococard.carwash.util.extension.isEmpty
-import com.chococard.carwash.util.extension.isEqualLength
-import com.chococard.carwash.util.extension.toast
+import com.chococard.carwash.util.extension.*
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
@@ -34,6 +32,15 @@ abstract class BaseVerifyPhoneActivity : BaseActivity() {
         if (mPhoneNumber == null) finish() else requestOtp()
 
         //set event
+        root_layout.setOnClickListener {
+            hideSoftKeyboard()
+        }
+
+        et_verify_otp.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) verifyPhone()
+            false
+        }
+
         bt_re_send_message.setOnClickListener {
             if (mIsReSendMessage) {
                 mIsReSendMessage = false
