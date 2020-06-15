@@ -63,6 +63,7 @@ abstract class BaseVerifyPhoneActivity : BaseActivity() {
             et_verify_otp.isEmpty(getString(R.string.error_empty_otp)) -> return
             et_verify_otp.isEqualLength(6, getString(R.string.error_equal_length, 6)) -> return
             mVerificationId != null -> {
+                progress_bar.show()
                 val smsCode = et_verify_otp.getContents()
                 val credential = PhoneAuthProvider.getCredential(mVerificationId!!, smsCode)
                 firebaseAuthPhone(credential)
