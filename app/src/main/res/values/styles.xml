@@ -224,6 +224,13 @@
         <item name="android:layout_marginBottom">@dimen/base_pow_three</item>
     </style>
 
+    <style name="CardViewRemoveImage" parent="WrapWrap">
+        <item name="android:layout_margin">@dimen/base_pow_three</item>
+        <item name="android:visibility">invisible</item>
+        <item name="cardCornerRadius">@dimen/ic_card</item>
+        <item name="cardElevation">@dimen/base_pow_three</item>
+    </style>
+
     <style name="ProgressBar" parent="WrapWrap">
         <item name="android:layout_centerInParent">true</item>
         <item name="android:visibility">invisible</item>

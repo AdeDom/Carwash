@@ -20,6 +20,7 @@
     <dimen name="base_two_hundred">200dp</dimen>
     <dimen name="base_four_hundred">400dp</dimen>
     <dimen name="ic_camera">50dp</dimen>
+    <dimen name="ic_card">12dp</dimen>
     <dimen name="ic_base">24dp</dimen>
     <dimen name="ic_location">100dp</dimen>
     <dimen name="et_width">260dp</dimen>

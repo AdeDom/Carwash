@@ -68,12 +68,8 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card_remove_front"
-                        style="@style/WrapWrap"
-                        android:layout_alignEnd="@id/iv_image_front"
-                        android:layout_margin="@dimen/base_pow_three"
-                        android:visibility="invisible"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="@dimen/base_pow_three">
+                        style="@style/CardViewRemoveImage"
+                        android:layout_alignEnd="@id/iv_image_front">
 
                         <ImageView
                             style="@style/MatchMatch"
@@ -115,12 +111,8 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card_remove_back"
-                        style="@style/WrapWrap"
-                        android:layout_alignEnd="@id/iv_image_back"
-                        android:layout_margin="@dimen/base_pow_three"
-                        android:visibility="invisible"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="@dimen/base_pow_three">
+                        style="@style/CardViewRemoveImage"
+                        android:layout_alignEnd="@id/iv_image_back">
 
                         <ImageView
                             style="@style/MatchMatch"
@@ -162,12 +154,8 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card_remove_left"
-                        style="@style/WrapWrap"
-                        android:layout_alignEnd="@id/iv_image_left"
-                        android:layout_margin="@dimen/base_pow_three"
-                        android:visibility="invisible"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="@dimen/base_pow_three">
+                        style="@style/CardViewRemoveImage"
+                        android:layout_alignEnd="@id/iv_image_left">
 
                         <ImageView
                             style="@style/MatchMatch"
@@ -209,12 +197,8 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card_remove_right"
-                        style="@style/WrapWrap"
-                        android:layout_alignEnd="@id/iv_image_right"
-                        android:layout_margin="@dimen/base_pow_three"
-                        android:visibility="invisible"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="@dimen/base_pow_three">
+                        style="@style/CardViewRemoveImage"
+                        android:layout_alignEnd="@id/iv_image_right">
 
                         <ImageView
                             style="@style/MatchMatch"
