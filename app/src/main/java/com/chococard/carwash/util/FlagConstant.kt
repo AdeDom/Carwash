@@ -14,5 +14,7 @@ object FlagConstant {
     const val STATUS_SERVICE_LEFT = 3
     const val STATUS_SERVICE_RIGHT = 4
     const val STATUS_SERVICE_OTHER_IMAGE = 5
+    const val TOGGLE_PASSWORD_OFF = 0
+    const val TOGGLE_PASSWORD_ON = 1
 
 }

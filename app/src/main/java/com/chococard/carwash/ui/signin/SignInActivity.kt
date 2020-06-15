@@ -10,6 +10,7 @@ import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.ui.signup.SignUpActivity
 import com.chococard.carwash.util.CommonsConstant
+import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.SignInViewModel
 import kotlinx.android.synthetic.main.activity_sign_in.*
@@ -45,6 +46,15 @@ class SignInActivity : BaseActivity() {
 
         root_layout.setOnClickListener {
             hideSoftKeyboard()
+        }
+
+        iv_toggle_password.tag = FlagConstant.TOGGLE_PASSWORD_ON
+        iv_toggle_password.setOnClickListener {
+            iv_toggle_password setTogglePassword et_password
+        }
+
+        et_password.onTextChanged {
+            et_password setTogglePassword iv_toggle_password
         }
 
         //observe

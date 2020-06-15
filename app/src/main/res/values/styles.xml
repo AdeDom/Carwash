@@ -185,6 +185,13 @@
         <item name="android:layout_marginTop">@dimen/base_pow_four</item>
     </style>
 
+    <style name="ImageViewTogglePassword" parent="WrapWrap">
+        <item name="android:layout_alignEnd">@+id/et_password</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginEnd">@dimen/base_pow_three</item>
+        <item name="android:elevation">@dimen/base_pow_two</item>
+    </style>
+
     <style name="CardViewImageView" parent="WrapWrap">
         <item name="android:layout_margin">@dimen/base_pow_three</item>
         <item name="cardCornerRadius">60dp</item>

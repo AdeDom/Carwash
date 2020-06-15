@@ -37,10 +37,18 @@
             android:drawableStart="@drawable/ic_account_gray"
             android:hint="@string/username" />
 
-        <EditText
-            android:id="@+id/et_password"
-            style="@style/EditTextPassword"
-            android:imeOptions="actionDone" />
+        <RelativeLayout style="@style/WrapWrap">
+
+            <EditText
+                android:id="@+id/et_password"
+                style="@style/EditTextPassword"
+                android:imeOptions="actionDone" />
+
+            <ImageView
+                android:id="@+id/iv_toggle_password"
+                style="@style/ImageViewTogglePassword" />
+
+        </RelativeLayout>
 
         <androidx.cardview.widget.CardView style="@style/CardViewButton">
 
