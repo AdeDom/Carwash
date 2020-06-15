@@ -45,6 +45,31 @@ class ChangePasswordActivity : BaseActivity() {
 
         bt_confirm.setOnClickListener { changePassword() }
 
+        //toggle password
+        et_old_password.onTextChanged {
+            et_old_password setTogglePassword  iv_toggle_old_password
+        }
+
+        iv_toggle_old_password.setOnClickListener {
+            iv_toggle_old_password setTogglePassword et_old_password
+        }
+
+        et_new_password.onTextChanged {
+            et_new_password setTogglePassword iv_toggle_new_password
+        }
+
+        iv_toggle_new_password.setOnClickListener {
+            iv_toggle_new_password setTogglePassword et_new_password
+        }
+
+        et_re_password.onTextChanged {
+            et_re_password setTogglePassword iv_toggle_re_password
+        }
+
+        iv_toggle_re_password.setOnClickListener {
+            iv_toggle_re_password setTogglePassword et_re_password
+        }
+
         //observe
         viewModel.getChangePassword.observe(this, Observer { response ->
             val (success, message) = response
