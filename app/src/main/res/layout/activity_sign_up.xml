@@ -69,14 +69,31 @@
                     android:drawableStart="@drawable/ic_account_gray"
                     android:hint="@string/username" />
 
-                <EditText
-                    android:id="@+id/et_password"
-                    style="@style/EditTextPassword" />
+                <RelativeLayout style="@style/WrapWrap">
 
-                <EditText
-                    android:id="@+id/et_re_password"
-                    style="@style/EditTextPassword"
-                    android:hint="@string/re_password" />
+                    <EditText
+                        android:id="@+id/et_password"
+                        style="@style/EditTextPassword" />
+
+                    <ImageView
+                        android:id="@+id/iv_toggle_password"
+                        style="@style/ImageViewTogglePassword" />
+
+                </RelativeLayout>
+
+                <RelativeLayout style="@style/WrapWrap">
+
+                    <EditText
+                        android:id="@+id/et_re_password"
+                        style="@style/EditTextPassword"
+                        android:hint="@string/re_password" />
+
+                    <ImageView
+                        android:id="@+id/iv_toggle_re_password"
+                        style="@style/ImageViewTogglePassword"
+                        android:layout_alignEnd="@id/et_re_password" />
+
+                </RelativeLayout>
 
                 <EditText
                     android:id="@+id/et_full_name"

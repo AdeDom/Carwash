@@ -46,6 +46,22 @@ class SignUpActivity : BaseActivity() {
 
         iv_camera.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE) }
 
+        et_password.onTextChanged {
+            et_password setTogglePassword iv_toggle_password
+        }
+
+        iv_toggle_password.setOnClickListener {
+            iv_toggle_password setTogglePassword et_password
+        }
+
+        et_re_password.onTextChanged {
+            et_re_password setTogglePassword iv_toggle_re_password
+        }
+
+        iv_toggle_re_password.setOnClickListener {
+            iv_toggle_re_password setTogglePassword et_re_password
+        }
+
         root_layout.setOnClickListener {
             hideSoftKeyboard()
         }
