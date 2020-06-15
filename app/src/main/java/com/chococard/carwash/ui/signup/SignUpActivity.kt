@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -45,6 +46,12 @@ class SignUpActivity : BaseActivity() {
         iv_photo.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE) }
 
         iv_camera.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE) }
+
+        card_remove_profile.setOnClickListener {
+            mFileUri = null
+            iv_photo.setImageResource(R.drawable.ic_user)
+            card_remove_profile.visibility = View.INVISIBLE
+        }
 
         et_password.onTextChanged {
             et_password setTogglePassword iv_toggle_password
@@ -100,6 +107,7 @@ class SignUpActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CommonsConstant.REQUEST_CODE_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
             mFileUri = data.data!!
+            card_remove_profile.visibility = View.VISIBLE
             iv_photo.setImageCircle(mFileUri.toString())
         }
     }

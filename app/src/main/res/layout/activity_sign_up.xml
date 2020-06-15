@@ -55,6 +55,21 @@
 
                     </androidx.cardview.widget.CardView>
 
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_remove_profile"
+                        style="@style/WrapWrap"
+                        android:layout_alignEnd="@+id/card"
+                        android:layout_marginTop="@dimen/base_pow_three"
+                        android:visibility="invisible"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="@dimen/base_pow_three">
+
+                        <ImageView
+                            style="@style/MatchMatch"
+                            android:src="@drawable/ic_remove_blue" />
+
+                    </androidx.cardview.widget.CardView>
+
                 </RelativeLayout>
 
                 <TextView
