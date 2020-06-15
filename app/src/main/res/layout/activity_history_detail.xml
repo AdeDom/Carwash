@@ -120,7 +120,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/base_two_hundred"
                 android:layout_marginTop="@dimen/base_pow_five"
-                android:scaleType="centerCrop"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/iv_image_front_place_holder"
+                android:layout_width="@dimen/base_two_hundred"
+                android:layout_height="@dimen/base_two_hundred"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/base_pow_five"
                 android:src="@drawable/img_logo_blue" />
 
         </androidx.cardview.widget.CardView>
@@ -138,7 +145,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/base_two_hundred"
                 android:layout_marginTop="@dimen/base_pow_five"
-                android:scaleType="centerCrop"
+                android:scaleType="centerCrop"/>
+
+            <ImageView
+                android:id="@+id/iv_image_back_place_holder"
+                android:layout_width="@dimen/base_two_hundred"
+                android:layout_height="@dimen/base_two_hundred"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/base_pow_five"
                 android:src="@drawable/img_logo_blue" />
 
         </androidx.cardview.widget.CardView>
@@ -156,7 +170,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/base_two_hundred"
                 android:layout_marginTop="@dimen/base_pow_five"
-                android:scaleType="centerCrop"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/iv_image_left_place_holder"
+                android:layout_width="@dimen/base_two_hundred"
+                android:layout_height="@dimen/base_two_hundred"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/base_pow_five"
                 android:src="@drawable/img_logo_blue" />
 
         </androidx.cardview.widget.CardView>
@@ -174,7 +195,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/base_two_hundred"
                 android:layout_marginTop="@dimen/base_pow_five"
-                android:scaleType="centerCrop"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/iv_image_right_place_holder"
+                android:layout_width="@dimen/base_two_hundred"
+                android:layout_height="@dimen/base_two_hundred"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/base_pow_five"
                 android:src="@drawable/img_logo_blue" />
 
         </androidx.cardview.widget.CardView>

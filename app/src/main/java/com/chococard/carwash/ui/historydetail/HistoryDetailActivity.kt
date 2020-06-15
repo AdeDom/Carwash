@@ -38,10 +38,22 @@ class HistoryDetailActivity : BaseActivity() {
         tv_price.text = price
         tv_date_time.text = jobDateTime
         iv_photo.setImageCircle(imageProfile)
-        iv_image_front.setImageFromInternet(imageFront)
-        iv_image_back.setImageFromInternet(imageBack)
-        iv_image_left.setImageFromInternet(imageLeft)
-        iv_image_right.setImageFromInternet(imageRight)
+        if (imageFront != null) {
+            iv_image_front_place_holder.visibility = View.INVISIBLE
+            iv_image_front.setImageFromInternet(imageFront)
+        }
+        if (imageBack != null) {
+            iv_image_back_place_holder.visibility = View.INVISIBLE
+            iv_image_back.setImageFromInternet(imageBack)
+        }
+        if (imageLeft != null) {
+            iv_image_left_place_holder.visibility = View.INVISIBLE
+            iv_image_left.setImageFromInternet(imageLeft)
+        }
+        if (imageRight != null) {
+            iv_image_right_place_holder.visibility = View.INVISIBLE
+            iv_image_right.setImageFromInternet(imageRight)
+        }
         tv_comment.text = comment
 
         // recycler view
