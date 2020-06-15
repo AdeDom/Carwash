@@ -1,104 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/MatchWrap"
-    android:layout_marginTop="@dimen/base_pow_four"
-    android:paddingStart="@dimen/base_pow_four"
-    android:paddingEnd="@dimen/base_pow_four">
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card"
-        style="@style/CardViewImageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/base_pow_four">
-
-        <ImageView
-            android:id="@+id/iv_photo"
-            style="@style/ImageViewPhoto" />
-
-    </androidx.cardview.widget.CardView>
+    style="@style/MatchWrap">
 
     <RelativeLayout
-        android:layout_width="@dimen/base_fifty"
-        android:layout_height="@dimen/base_fifty"
-        android:layout_alignParentEnd="true"
+        style="@style/WrapWrap"
         android:layout_marginTop="@dimen/base_pow_four"
-        android:background="@drawable/shape_count_job">
+        android:paddingStart="@dimen/base_pow_four"
+        android:paddingEnd="@dimen/base_pow_four">
 
-        <TextView
-            android:id="@+id/tv_count_time"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card"
+            style="@style/CardViewImageView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/base_pow_four">
+
+            <ImageView
+                android:id="@+id/iv_photo"
+                style="@style/ImageViewPhoto" />
+
+        </androidx.cardview.widget.CardView>
+
+        <RelativeLayout
+            android:layout_width="@dimen/base_fifty"
+            android:layout_height="@dimen/base_fifty"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/base_pow_four"
+            android:background="@drawable/shape_count_job">
+
+            <TextView
+                android:id="@+id/tv_count_time"
+                style="@style/WrapWrap"
+                android:layout_centerInParent="true"
+                android:text="@string/fifteen"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text_small"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <GridLayout
+            android:id="@+id/layout_job"
             style="@style/WrapWrap"
-            android:layout_centerInParent="true"
-            android:text="@string/fifteen"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/text_small"
-            android:textStyle="bold" />
+            android:layout_below="@id/card"
+            android:layout_marginStart="@dimen/base_pow_five"
+            android:layout_marginTop="@dimen/base_pow_four"
+            android:columnCount="2"
+            android:rowCount="4">
+
+            <ImageView
+                style="@style/ImageViewIcon"
+                android:layout_marginTop="@dimen/base_zero"
+                android:src="@drawable/ic_person_gray" />
+
+            <TextView
+                android:id="@+id/tv_full_name"
+                style="@style/TextViewLargeApplicationSub"
+                android:layout_marginTop="@dimen/base_zero"
+                android:text="@string/full_name" />
+
+            <ImageView
+                style="@style/ImageViewIcon"
+                android:src="@drawable/ic_list_job_gray" />
+
+            <TextView
+                android:id="@+id/tv_service"
+                style="@style/TextViewLargeApplicationSub"
+                android:text="@string/service" />
+
+            <ImageView
+                style="@style/ImageViewIcon"
+                android:src="@drawable/ic_location_gray" />
+
+            <TextView
+                android:id="@+id/tv_location"
+                style="@style/TextViewLargeApplicationSub"
+                android:text="@string/location" />
+
+        </GridLayout>
+
+        <LinearLayout
+            style="@style/LinearLayoutButtonPair"
+            android:layout_below="@id/layout_job"
+            android:layout_alignParentBottom="false"
+            android:layout_marginTop="@dimen/base_pow_five">
+
+            <androidx.cardview.widget.CardView style="@style/CardViewButtonPair">
+
+                <Button
+                    android:id="@+id/bt_cancel"
+                    style="@style/ButtonWhiteShort"
+                    android:text="@string/cancel" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView style="@style/CardViewButtonPair">
+
+                <Button
+                    android:id="@+id/bt_confirm"
+                    style="@style/ButtonBlueShort"
+                    android:text="@string/confirm" />
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
 
     </RelativeLayout>
-
-    <GridLayout
-        android:id="@+id/layout_job"
-        style="@style/WrapWrap"
-        android:layout_below="@id/card"
-        android:layout_marginStart="@dimen/base_pow_five"
-        android:layout_marginTop="@dimen/base_pow_four"
-        android:columnCount="2"
-        android:rowCount="4">
-
-        <ImageView
-            style="@style/ImageViewIcon"
-            android:layout_marginTop="@dimen/base_zero"
-            android:src="@drawable/ic_person_gray" />
-
-        <TextView
-            android:id="@+id/tv_full_name"
-            style="@style/TextViewLargeApplicationSub"
-            android:layout_marginTop="@dimen/base_zero"
-            android:text="@string/full_name" />
-
-        <ImageView
-            style="@style/ImageViewIcon"
-            android:src="@drawable/ic_list_job_gray" />
-
-        <TextView
-            android:id="@+id/tv_service"
-            style="@style/TextViewLargeApplicationSub"
-            android:text="@string/service" />
-
-        <ImageView
-            style="@style/ImageViewIcon"
-            android:src="@drawable/ic_location_gray" />
-
-        <TextView
-            android:id="@+id/tv_location"
-            style="@style/TextViewLargeApplicationSub"
-            android:text="@string/location" />
-
-    </GridLayout>
-
-    <LinearLayout
-        style="@style/LinearLayoutButtonPair"
-        android:layout_below="@id/layout_job"
-        android:layout_alignParentBottom="false"
-        android:layout_marginTop="@dimen/base_pow_five">
-
-        <androidx.cardview.widget.CardView style="@style/CardViewButtonPair">
-
-            <Button
-                android:id="@+id/bt_cancel"
-                style="@style/ButtonWhiteShort"
-                android:text="@string/cancel" />
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView style="@style/CardViewButtonPair">
-
-            <Button
-                android:id="@+id/bt_confirm"
-                style="@style/ButtonBlueShort"
-                android:text="@string/confirm" />
-
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
 
 </RelativeLayout>
