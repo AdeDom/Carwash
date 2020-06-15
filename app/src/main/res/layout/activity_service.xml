@@ -66,6 +66,21 @@
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_camera_blue" />
 
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_remove_front"
+                        style="@style/WrapWrap"
+                        android:layout_alignEnd="@id/iv_image_front"
+                        android:layout_margin="@dimen/base_pow_three"
+                        android:visibility="invisible"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="@dimen/base_pow_three">
+
+                        <ImageView
+                            style="@style/MatchMatch"
+                            android:src="@drawable/ic_remove_blue" />
+
+                    </androidx.cardview.widget.CardView>
+
                     <ProgressBar
                         android:id="@+id/progress_bar_front"
                         style="@style/ProgressBar" />
@@ -97,6 +112,21 @@
                         android:layout_height="@dimen/base_fifty"
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_camera_blue" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_remove_back"
+                        style="@style/WrapWrap"
+                        android:layout_alignEnd="@id/iv_image_back"
+                        android:layout_margin="@dimen/base_pow_three"
+                        android:visibility="invisible"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="@dimen/base_pow_three">
+
+                        <ImageView
+                            style="@style/MatchMatch"
+                            android:src="@drawable/ic_remove_blue" />
+
+                    </androidx.cardview.widget.CardView>
 
                     <ProgressBar
                         android:id="@+id/progress_bar_back"
@@ -130,6 +160,21 @@
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_camera_blue" />
 
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_remove_left"
+                        style="@style/WrapWrap"
+                        android:layout_alignEnd="@id/iv_image_left"
+                        android:layout_margin="@dimen/base_pow_three"
+                        android:visibility="invisible"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="@dimen/base_pow_three">
+
+                        <ImageView
+                            style="@style/MatchMatch"
+                            android:src="@drawable/ic_remove_blue" />
+
+                    </androidx.cardview.widget.CardView>
+
                     <ProgressBar
                         android:id="@+id/progress_bar_left"
                         style="@style/ProgressBar" />
@@ -161,6 +206,21 @@
                         android:layout_height="@dimen/base_fifty"
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_camera_blue" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_remove_right"
+                        style="@style/WrapWrap"
+                        android:layout_alignEnd="@id/iv_image_right"
+                        android:layout_margin="@dimen/base_pow_three"
+                        android:visibility="invisible"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="@dimen/base_pow_three">
+
+                        <ImageView
+                            style="@style/MatchMatch"
+                            android:src="@drawable/ic_remove_blue" />
+
+                    </androidx.cardview.widget.CardView>
 
                     <ProgressBar
                         android:id="@+id/progress_bar_right"

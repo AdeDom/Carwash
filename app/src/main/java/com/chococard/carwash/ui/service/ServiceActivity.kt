@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chococard.carwash.R
@@ -63,20 +64,19 @@ class ServiceActivity : BaseActivity() {
         iv_arrow_back.setOnClickListener { onBackPressed() }
 
         iv_image_front.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_FRONT) }
-
         iv_image_back.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_BACK) }
-
         iv_image_left.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_LEFT) }
-
         iv_image_right.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_RIGHT) }
 
         iv_image_front.setOnLongClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_FRONT) }
-
         iv_image_back.setOnLongClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_BACK) }
-
         iv_image_left.setOnLongClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_LEFT) }
-
         iv_image_right.setOnLongClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_RIGHT) }
+
+        card_remove_front.setOnClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_FRONT) }
+        card_remove_back.setOnClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_BACK) }
+        card_remove_left.setOnClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_LEFT) }
+        card_remove_right.setOnClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_RIGHT) }
 
         iv_add_other_image.setOnClickListener { validateUploadOtherImage() }
 
@@ -250,26 +250,29 @@ class ServiceActivity : BaseActivity() {
         mImageUrlRight = right
         mListOtherImage = otherImage as ArrayList<OtherImage>?
 
-        setImageView(front, iv_image_front, iv_camera_front, progress_bar_front)
-        setImageView(back, iv_image_back, iv_camera_back, progress_bar_back)
-        setImageView(left, iv_image_left, iv_camera_left, progress_bar_left)
-        setImageView(right, iv_image_right, iv_camera_right, progress_bar_right)
+        setImageView(front, iv_image_front, iv_camera_front, card_remove_front, progress_bar_front)
+        setImageView(back, iv_image_back, iv_camera_back, card_remove_back, progress_bar_back)
+        setImageView(left, iv_image_left, iv_camera_left, card_remove_left, progress_bar_left)
+        setImageView(right, iv_image_right, iv_camera_right, card_remove_right, progress_bar_right)
         mServiceAdapter?.setList(otherImage)
     }
 
     private fun setImageView(
         url: String?,
-        iv_image: ImageView,
-        iv_camera: ImageView,
+        ivImage: ImageView,
+        ivCamera: ImageView,
+        cardRemove: CardView,
         progress_bar: ProgressBar
     ) {
         progress_bar.hide()
         if (url != null) {
-            iv_camera.visibility = View.INVISIBLE
-            iv_image.setImageFromInternet(url)
+            ivCamera.visibility = View.INVISIBLE
+            ivImage.setImageFromInternet(url)
+            cardRemove.visibility = View.VISIBLE
         } else {
-            iv_camera.visibility = View.VISIBLE
-            iv_image.setImageResource(0)
+            ivCamera.visibility = View.VISIBLE
+            ivImage.setImageResource(0)
+            cardRemove.visibility = View.INVISIBLE
         }
     }
 
