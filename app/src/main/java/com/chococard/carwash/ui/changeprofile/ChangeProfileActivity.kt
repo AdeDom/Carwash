@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.request.ChangePhoneRequest
+import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
 import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
@@ -53,13 +54,13 @@ class ChangeProfileActivity : BaseActivity() {
         root_layout.setOnClickListener { hideSoftKeyboard() }
 
         et_phone.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) changeProfile()
+            if (actionId == EditorInfo.IME_ACTION_DONE) validatePhone()
             false
         }
 
         bt_cancel.setOnClickListener { finish() }
 
-        bt_confirm.setOnClickListener { changeProfile() }
+        bt_confirm.setOnClickListener { validatePhone() }
 
         //observe
         viewModel.getChangeImageProfile.observe(this, Observer {
@@ -95,6 +96,16 @@ class ChangeProfileActivity : BaseActivity() {
             }
         })
 
+        viewModel.getValidatePhone.observe(this, Observer { response ->
+            progress_bar.hide()
+            val (success, message) = response
+            if (success) {
+                changeProfile()
+            } else {
+                toast(message)
+            }
+        })
+
         viewModel.getError.observe(this, Observer {
             progress_bar.hide()
             dialogError(it)
@@ -117,13 +128,20 @@ class ChangeProfileActivity : BaseActivity() {
         }
     }
 
-    private fun changeProfile() {
+    private fun validatePhone() {
         when {
             et_phone.isEmpty(getString(R.string.error_empty_phone)) -> return
             et_phone.isEqualLength(10, getString(R.string.error_equal_length, 10)) -> return
             et_phone.isVerifyPhone(getString(R.string.error_phone)) -> return
         }
 
+        progress_bar.show()
+        val phoneNumber = et_phone.getContents()
+        val validatePhone = ValidatePhoneRequest(phoneNumber)
+        viewModel.callValidatePhone(validatePhone)
+    }
+
+    private fun changeProfile() {
         val phoneNumber = et_phone.getContents()
         Intent(baseContext, VPChangeProfileActivity::class.java).apply {
             putExtra(CommonsConstant.PHONE, phoneNumber)

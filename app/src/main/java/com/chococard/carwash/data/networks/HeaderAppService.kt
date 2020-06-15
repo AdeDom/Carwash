@@ -43,6 +43,10 @@ interface HeaderAppService {
     @POST("api/account/switchsystem")
     suspend fun callSwitchSystem(@Body switchSystem: SwitchSystemRequest): Response<BaseResponse>
 
+    //verify phone before authentication firebase
+    @POST("api/account/checkphone")
+    suspend fun callValidatePhone(@Body validatePhone: ValidatePhoneRequest): Response<BaseResponse>
+
     //get old history ever service customer and filter by date begin & end.
     @GET("api/job/history")
     suspend fun callFetchHistory(

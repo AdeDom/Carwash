@@ -3,6 +3,7 @@ package com.chococard.carwash.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.request.ChangePhoneRequest
+import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.repositories.HeaderRepository
@@ -28,6 +29,10 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
     private val logoutResponse = MutableLiveData<BaseResponse>()
     val getLogout: LiveData<BaseResponse>
         get() = logoutResponse
+
+    private val validatePhoneResponse = MutableLiveData<BaseResponse>()
+    val getValidatePhone: LiveData<BaseResponse>
+        get() = validatePhoneResponse
 
     fun callChangeImageProfile(file: MultipartBody.Part) = launchCallApi(
         request = { repository.callChangeImageProfile(file) },
@@ -56,6 +61,11 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
             if (response != null && response.success) repository.deleteUser()
             logoutResponse.value = response
         }
+    )
+
+    fun callValidatePhone(validatePhone: ValidatePhoneRequest) = launchCallApi(
+        request = { repository.callValidatePhone(validatePhone) },
+        response = { validatePhoneResponse.value = it }
     )
 
 }
