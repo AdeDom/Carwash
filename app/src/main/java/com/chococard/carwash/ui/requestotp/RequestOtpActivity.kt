@@ -1,6 +1,7 @@
 package com.chococard.carwash.ui.requestotp
 
 import android.os.Bundle
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
@@ -26,6 +27,15 @@ class RequestOtpActivity : BaseActivity() {
 
     private fun init() {
         //set event
+        root_layout.setOnClickListener {
+            hideSoftKeyboard()
+        }
+
+        et_phone.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) requestOtp()
+            false
+        }
+
         bt_request_otp.setOnClickListener {
             requestOtp()
         }
