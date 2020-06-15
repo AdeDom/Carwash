@@ -3,6 +3,7 @@ package com.chococard.carwash.ui.changepassword
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
@@ -32,7 +33,16 @@ class ChangePasswordActivity : BaseActivity() {
         setToolbar(toolbar)
 
         iv_arrow_back.setOnClickListener { onBackPressed() }
+
+        root_layout.setOnClickListener { hideSoftKeyboard() }
+
+        et_re_password.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) changePassword()
+            false
+        }
+
         bt_cancel.setOnClickListener { finish() }
+
         bt_confirm.setOnClickListener { changePassword() }
 
         //observe
