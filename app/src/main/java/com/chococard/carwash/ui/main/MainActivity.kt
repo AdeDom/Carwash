@@ -56,9 +56,7 @@ class MainActivity : BaseLocationActivity(),
         viewModel.callLogsActive(LogsActiveRequest(logsKeys, FlagConstant.LOGS_STATUS_ACTIVE))
 
         // fetch user info
-        viewModel.getDbUserInfo.observe(this, Observer { user ->
-            if (user == null) viewModel.callFetchUserInfo()
-        })
+        viewModel.callFetchUserInfo()
 
         //observe
         viewModel.getUserInfo.observe(this, Observer { response ->
