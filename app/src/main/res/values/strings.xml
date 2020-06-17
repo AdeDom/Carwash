@@ -111,5 +111,6 @@
     <string name="delete_image_service_questions">Do you want to delete the photo service?</string>
     <string name="contact_customer">Contact customer</string>
     <string name="navigation">Navigation</string>
+    <string name="maximum_5_images">*Maximum 5 images</string>
 
 </resources>

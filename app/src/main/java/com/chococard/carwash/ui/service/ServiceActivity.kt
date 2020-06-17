@@ -35,7 +35,7 @@ class ServiceActivity : BaseActivity() {
     private var mImageUrlBack: String? = null
     private var mImageUrlLeft: String? = null
     private var mImageUrlRight: String? = null
-    private var mListOtherImage: ArrayList<OtherImage>? = null
+    private var mListOtherImage = ArrayList<OtherImage>()
     private var mServiceAdapter: ServiceAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,7 +81,7 @@ class ServiceActivity : BaseActivity() {
         card_remove_left.setOnClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_LEFT) }
         card_remove_right.setOnClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_RIGHT) }
 
-        iv_add_other_image.setOnClickListener { validateUploadOtherImage() }
+        iv_add_other_image.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_OTHER_IMAGE) }
 
         bt_report.setOnClickListener { startActivity<ReportActivity>() }
 
@@ -148,15 +148,6 @@ class ServiceActivity : BaseActivity() {
         })
     }
 
-    private fun validateUploadOtherImage() {
-        if (mListOtherImage?.size ?: 0 < CommonsConstant.MAXIMUM_UPLOAD_OTHER_IMAGE) {
-            mListOtherImage?.add(OtherImage())
-            selectImage(CommonsConstant.REQUEST_CODE_IMAGE_OTHER_IMAGE)
-        } else {
-            dialogError(getString(R.string.error_maximum_other_image))
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_option_busy, menu)
         return true
@@ -196,6 +187,8 @@ class ServiceActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && data != null) {
+            mListOtherImage.add(OtherImage())
+            validateMaximumOtherImage()
             val multipartBody = convertToMultipartBody(data.data!!)
             var statusService: RequestBody? = null
             when (requestCode) {
@@ -251,13 +244,25 @@ class ServiceActivity : BaseActivity() {
         mImageUrlBack = back
         mImageUrlLeft = left
         mImageUrlRight = right
-        mListOtherImage = otherImage as ArrayList<OtherImage>?
+        mListOtherImage = otherImage as ArrayList<OtherImage>
 
         setImageView(front, iv_image_front, iv_camera_front, card_remove_front, progress_bar_front)
         setImageView(back, iv_image_back, iv_camera_back, card_remove_back, progress_bar_back)
         setImageView(left, iv_image_left, iv_camera_left, card_remove_left, progress_bar_left)
         setImageView(right, iv_image_right, iv_camera_right, card_remove_right, progress_bar_right)
         mServiceAdapter?.setList(otherImage)
+
+        validateMaximumOtherImage()
+    }
+
+    private fun validateMaximumOtherImage() {
+        if (mListOtherImage.size >= 5) {
+            card_add_other_image.visibility = View.INVISIBLE
+            tv_maximum_other_image.visibility = View.VISIBLE
+        } else {
+            card_add_other_image.visibility = View.VISIBLE
+            tv_maximum_other_image.visibility = View.INVISIBLE
+        }
     }
 
     private fun setImageView(

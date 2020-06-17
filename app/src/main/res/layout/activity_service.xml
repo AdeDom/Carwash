@@ -234,18 +234,33 @@
                     style="@style/TextViewMediumGray"
                     android:text="@string/other_related_images" />
 
-                <androidx.cardview.widget.CardView
-                    style="@style/WrapWrap"
-                    android:layout_margin="@dimen/base_pow_three"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="@dimen/base_pow_two">
+                <RelativeLayout style="@style/WrapWrap">
 
-                    <ImageView
-                        android:id="@+id/iv_add_other_image"
-                        style="@style/MatchMatch"
-                        android:src="@drawable/ic_add_blue" />
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_add_other_image"
+                        style="@style/WrapWrap"
+                        android:layout_margin="@dimen/base_pow_three"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="@dimen/base_pow_two">
 
-                </androidx.cardview.widget.CardView>
+                        <ImageView
+                            android:id="@+id/iv_add_other_image"
+                            style="@style/MatchMatch"
+                            android:src="@drawable/ic_add_blue" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/tv_maximum_other_image"
+                        style="@style/WrapWrap"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/base_pow_three"
+                        android:text="@string/maximum_5_images"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:textSize="@dimen/text_small"
+                        android:visibility="invisible" />
+
+                </RelativeLayout>
 
             </LinearLayout>
 
