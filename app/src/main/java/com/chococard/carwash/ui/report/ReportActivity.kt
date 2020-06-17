@@ -33,6 +33,8 @@ class ReportActivity : BaseActivity() {
         // set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
 
+        root_layout.setOnClickListener { hideSoftKeyboard() }
+
         bt_report.setOnClickListener { reportJob() }
 
         // observe
