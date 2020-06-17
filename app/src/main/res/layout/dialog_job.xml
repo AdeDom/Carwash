@@ -24,7 +24,6 @@
             android:layout_width="@dimen/base_fifty"
             android:layout_height="@dimen/base_fifty"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="@dimen/base_pow_four"
             android:background="@drawable/shape_count_job">
 
             <TextView

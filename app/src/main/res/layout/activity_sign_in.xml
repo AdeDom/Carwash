@@ -28,6 +28,7 @@
 
         <TextView
             style="@style/TextViewMediumGray"
+            android:layout_gravity="start"
             android:text="@string/sign_in_to_continue" />
 
         <EditText
