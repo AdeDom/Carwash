@@ -113,13 +113,14 @@
 
             <TextView
                 style="@style/TextViewLargeApplication"
+                android:layout_marginTop="@dimen/base_pow_two"
                 android:text="@string/front" />
 
             <ImageView
                 android:id="@+id/iv_image_front"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/base_two_hundred"
-                android:layout_marginTop="@dimen/base_pow_five"
+                android:layout_marginTop="@dimen/base_forty"
                 android:scaleType="centerCrop" />
 
             <ImageView
@@ -134,13 +135,14 @@
 
             <TextView
                 style="@style/TextViewLargeApplication"
+                android:layout_marginTop="@dimen/base_pow_two"
                 android:text="@string/back" />
 
             <ImageView
                 android:id="@+id/iv_image_back"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/base_two_hundred"
-                android:layout_marginTop="@dimen/base_pow_five"
+                android:layout_marginTop="@dimen/base_forty"
                 android:scaleType="centerCrop" />
 
             <ImageView
@@ -155,13 +157,14 @@
 
             <TextView
                 style="@style/TextViewLargeApplication"
+                android:layout_marginTop="@dimen/base_pow_two"
                 android:text="@string/left" />
 
             <ImageView
                 android:id="@+id/iv_image_left"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/base_two_hundred"
-                android:layout_marginTop="@dimen/base_pow_five"
+                android:layout_marginTop="@dimen/base_forty"
                 android:scaleType="centerCrop" />
 
             <ImageView
@@ -176,13 +179,14 @@
 
             <TextView
                 style="@style/TextViewLargeApplication"
+                android:layout_marginTop="@dimen/base_pow_two"
                 android:text="@string/right" />
 
             <ImageView
                 android:id="@+id/iv_image_right"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/base_two_hundred"
-                android:layout_marginTop="@dimen/base_pow_five"
+                android:layout_marginTop="@dimen/base_forty"
                 android:scaleType="centerCrop" />
 
             <ImageView
@@ -198,12 +202,13 @@
 
             <TextView
                 style="@style/TextViewLargeApplication"
+                android:layout_marginTop="@dimen/base_pow_two"
                 android:text="@string/other_image" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 style="@style/MatchWrap"
-                android:layout_marginTop="@dimen/base_pow_five"
+                android:layout_marginTop="@dimen/base_forty"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_other_image" />
 

@@ -196,7 +196,7 @@
         <item name="android:layout_width">@dimen/base_two_hundred</item>
         <item name="android:layout_height">@dimen/base_two_hundred</item>
         <item name="android:layout_gravity">center_horizontal</item>
-        <item name="android:layout_marginTop">@dimen/base_pow_five</item>
+        <item name="android:layout_marginTop">@dimen/base_forty</item>
         <item name="android:src">@drawable/img_logo_blue</item>
     </style>
 
