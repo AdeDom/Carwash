@@ -47,6 +47,10 @@ interface HeaderAppService {
     @POST("api/account/checkphone")
     suspend fun callValidatePhone(@Body validatePhone: ValidatePhoneRequest): Response<BaseResponse>
 
+    //fetch data from server to set widget score or ratings
+    @GET("api/account/homescore")
+    suspend fun callHomeScore(): Response<HomeScoreResponse>
+
     //get old history ever service customer and filter by date begin & end.
     @GET("api/job/history")
     suspend fun callFetchHistory(
@@ -77,10 +81,6 @@ interface HeaderAppService {
     //set status name of table job
     @POST("api/job/statusservice")
     suspend fun callJobStatusService(): Response<BaseResponse>
-
-    //fetch data from server to set widget score or ratings
-    @GET("api/job/homescore")
-    suspend fun callHomeScore(): Response<HomeScoreResponse>
 
     //upload image service job 4 side and other image
     @Multipart

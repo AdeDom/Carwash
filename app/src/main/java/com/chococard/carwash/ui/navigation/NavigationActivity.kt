@@ -105,7 +105,6 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
 
         if (mJob?.latitude != null && mJob?.longitude != null) {
             val latLngCustomer = LatLng(mJob?.latitude!!, mJob?.longitude!!)
-            fab.setOnClickListener { navigation(latLng, latLngCustomer) }
         }
 
         viewModel.getDbUser.observe(this, Observer { user ->
