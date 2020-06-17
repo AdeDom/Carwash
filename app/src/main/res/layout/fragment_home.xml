@@ -74,7 +74,8 @@
                     android:src="@drawable/ic_ratings" />
 
                 <TextView
-                    style="@style/TextViewLargeApplicationSub"
+                    style="@style/TextViewMediumBlack"
+                    android:layout_centerInParent="true"
                     android:text="@string/ratings" />
 
                 <TextView
@@ -100,7 +101,8 @@
                     android:src="@drawable/ic_acceptance" />
 
                 <TextView
-                    style="@style/TextViewLargeApplicationSub"
+                    style="@style/TextViewMediumBlack"
+                    android:layout_centerInParent="true"
                     android:text="@string/acceptance" />
 
                 <TextView
@@ -126,7 +128,8 @@
                     android:src="@drawable/ic_cancellation" />
 
                 <TextView
-                    style="@style/TextViewLargeApplicationSub"
+                    style="@style/TextViewMediumBlack"
+                    android:layout_centerInParent="true"
                     android:text="@string/cancellation" />
 
                 <TextView
