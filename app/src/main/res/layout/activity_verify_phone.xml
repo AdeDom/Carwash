@@ -1,75 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root_layout"
-    style="@style/RelativeLayout">
+    style="@style/MatchMatch">
 
-    <RelativeLayout
-        android:id="@+id/layout_toolbar"
-        style="@style/MatchWrap">
+    <RelativeLayout style="@style/RelativeLayout">
 
-        <androidx.appcompat.widget.Toolbar style="@style/Toolbar" />
+        <RelativeLayout
+            android:id="@+id/layout_toolbar"
+            style="@style/MatchWrap">
 
-        <ImageView
-            style="@style/ImageViewToolbar"
-            android:src="@drawable/ic_verify_phone" />
+            <androidx.appcompat.widget.Toolbar style="@style/Toolbar" />
 
-    </RelativeLayout>
+            <ImageView
+                style="@style/ImageViewToolbar"
+                android:src="@drawable/ic_verify_phone" />
 
-    <LinearLayout
-        style="@style/MatchWrap"
-        android:layout_below="@+id/layout_toolbar"
-        android:layout_marginTop="@dimen/base_pow_four"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        </RelativeLayout>
 
-        <TextView
-            style="@style/TextViewMediumGray"
-            android:text="@string/please_enter_otp_from_message" />
-
-        <EditText
-            android:id="@+id/et_verify_otp"
-            style="@style/EditText"
-            android:digits="0123456789"
-            android:drawableStart="@drawable/ic_mail"
-            android:hint="@string/otp"
-            android:imeOptions="actionDone"
-            android:inputType="number"
-            android:maxLength="6" />
-
-        <TextView
-            style="@style/TextViewMediumGray"
+        <LinearLayout
+            style="@style/MatchWrap"
+            android:layout_below="@+id/layout_toolbar"
             android:layout_marginTop="@dimen/base_pow_four"
-            android:text="@string/or" />
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewMediumGray"
+                android:text="@string/please_enter_otp_from_message" />
+
+            <EditText
+                android:id="@+id/et_verify_otp"
+                style="@style/EditText"
+                android:digits="0123456789"
+                android:drawableStart="@drawable/ic_mail"
+                android:hint="@string/otp"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="6" />
+
+            <TextView
+                style="@style/TextViewMediumGray"
+                android:layout_marginTop="@dimen/base_pow_four"
+                android:text="@string/or" />
+
+            <androidx.cardview.widget.CardView
+                style="@style/CardViewButton"
+                android:layout_marginTop="@dimen/base_pow_four">
+
+                <Button
+                    android:id="@+id/bt_re_send_message"
+                    style="@style/ButtonWhiteShort"
+                    android:layout_width="@dimen/bt_long_width"
+                    android:text="@string/re_send" />
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
 
         <androidx.cardview.widget.CardView
             style="@style/CardViewButton"
-            android:layout_marginTop="@dimen/base_pow_four">
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/base_pow_five">
 
             <Button
-                android:id="@+id/bt_re_send_message"
-                style="@style/ButtonWhiteShort"
-                android:layout_width="@dimen/bt_long_width"
-                android:text="@string/re_send" />
+                android:id="@+id/bt_verify_phone"
+                style="@style/ButtonBlueLong"
+                android:text="@string/verify_phone" />
 
         </androidx.cardview.widget.CardView>
 
-    </LinearLayout>
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/ProgressBar" />
 
-    <androidx.cardview.widget.CardView
-        style="@style/CardViewButton"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/base_pow_five">
+    </RelativeLayout>
 
-        <Button
-            android:id="@+id/bt_verify_phone"
-            style="@style/ButtonBlueLong"
-            android:text="@string/verify_phone" />
-
-    </androidx.cardview.widget.CardView>
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="@style/ProgressBar" />
-
-</RelativeLayout>
+</LinearLayout>

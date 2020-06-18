@@ -1,58 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root_layout"
-    style="@style/RelativeLayout">
+    style="@style/MatchMatch">
 
-    <RelativeLayout
-        android:id="@+id/layout_toolbar"
-        style="@style/MatchWrap">
+    <RelativeLayout style="@style/RelativeLayout">
 
-        <androidx.appcompat.widget.Toolbar style="@style/Toolbar" />
+        <RelativeLayout
+            android:id="@+id/layout_toolbar"
+            style="@style/MatchWrap">
+
+            <androidx.appcompat.widget.Toolbar style="@style/Toolbar" />
+
+            <ImageView
+                style="@style/ImageViewToolbar"
+                android:src="@drawable/ic_request_otp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            style="@style/MatchWrap"
+            android:layout_below="@+id/layout_toolbar"
+            android:layout_marginTop="@dimen/base_pow_four"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewMediumGray"
+                android:text="@string/enter_phone" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                style="@style/EditTextPhoneNumber"
+                android:imeOptions="actionDone" />
+
+        </LinearLayout>
 
         <ImageView
-            style="@style/ImageViewToolbar"
-            android:src="@drawable/ic_request_otp" />
+            style="@style/WrapWrap"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_phone_sms" />
+
+        <androidx.cardview.widget.CardView
+            style="@style/CardViewButton"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/base_pow_five">
+
+            <Button
+                android:id="@+id/bt_request_otp"
+                style="@style/ButtonBlueLong"
+                android:text="@string/request_otp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/ProgressBar" />
 
     </RelativeLayout>
 
-    <LinearLayout
-        style="@style/MatchWrap"
-        android:layout_below="@+id/layout_toolbar"
-        android:layout_marginTop="@dimen/base_pow_four"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <TextView
-            style="@style/TextViewMediumGray"
-            android:text="@string/enter_phone" />
-
-        <EditText
-            android:id="@+id/et_phone"
-            style="@style/EditTextPhoneNumber"
-            android:imeOptions="actionDone" />
-
-    </LinearLayout>
-
-    <ImageView
-        style="@style/WrapWrap"
-        android:layout_centerInParent="true"
-        android:src="@drawable/ic_phone_sms" />
-
-    <androidx.cardview.widget.CardView
-        style="@style/CardViewButton"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/base_pow_five">
-
-        <Button
-            android:id="@+id/bt_request_otp"
-            style="@style/ButtonBlueLong"
-            android:text="@string/request_otp" />
-
-    </androidx.cardview.widget.CardView>
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="@style/ProgressBar" />
-
-</RelativeLayout>
+</LinearLayout>

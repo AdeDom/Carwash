@@ -5,12 +5,4 @@
         android:id="@+id/option_contact_admin"
         android:title="@string/contact_admin" />
 
-    <item
-        android:id="@+id/option_contact_customer"
-        android:title="@string/contact_customer" />
-
-    <item
-        android:id="@+id/option_navigation"
-        android:title="@string/navigation" />
-
 </menu>

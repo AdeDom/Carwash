@@ -1,68 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root_layout"
-    style="@style/RelativeLayout">
+    style="@style/MatchMatch">
 
-    <RelativeLayout
-        android:id="@+id/layout_toolbar"
-        style="@style/MatchWrap">
+    <RelativeLayout style="@style/RelativeLayout">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            style="@style/Toolbar" />
+        <RelativeLayout
+            android:id="@+id/layout_toolbar"
+            style="@style/MatchWrap">
 
-        <ImageView
-            android:id="@+id/iv_arrow_back"
-            style="@style/ImageViewArrowBack" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/Toolbar" />
 
-        <ImageView
-            style="@style/ImageViewToolbar"
-            android:src="@drawable/ic_report" />
+            <ImageView
+                android:id="@+id/iv_arrow_back"
+                style="@style/ImageViewArrowBack" />
+
+            <ImageView
+                style="@style/ImageViewToolbar"
+                android:src="@drawable/ic_report" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            style="@style/MatchMatch"
+            android:layout_below="@id/layout_toolbar"
+            android:layout_marginStart="@dimen/base_pow_five"
+            android:layout_marginTop="@dimen/base_pow_four"
+            android:layout_marginEnd="@dimen/base_pow_five"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewMediumGray"
+                android:text="@string/please_contact_the_system_administrator_in_an_emergency" />
+
+            <EditText
+                android:id="@+id/et_report"
+                style="@style/EditText"
+                android:layout_height="@dimen/base_two_hundred"
+                android:layout_margin="@dimen/base_pow_four"
+                android:gravity="start"
+                android:hint="@string/report"
+                android:singleLine="false" />
+
+            <ImageView
+                style="@style/WrapWrap"
+                android:layout_weight="1"
+                android:src="@drawable/ic_sos" />
+
+            <androidx.cardview.widget.CardView
+                style="@style/CardViewButton"
+                android:layout_marginBottom="@dimen/base_pow_five">
+
+                <Button
+                    android:id="@+id/bt_report"
+                    style="@style/ButtonBlueLong"
+                    android:text="@string/report" />
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/ProgressBar" />
 
     </RelativeLayout>
 
-    <LinearLayout
-        style="@style/MatchMatch"
-        android:layout_below="@id/layout_toolbar"
-        android:layout_marginStart="@dimen/base_pow_five"
-        android:layout_marginTop="@dimen/base_pow_four"
-        android:layout_marginEnd="@dimen/base_pow_five"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <TextView
-            style="@style/TextViewMediumGray"
-            android:text="@string/please_contact_the_system_administrator_in_an_emergency" />
-
-        <EditText
-            android:id="@+id/et_report"
-            style="@style/EditText"
-            android:layout_height="@dimen/base_two_hundred"
-            android:layout_margin="@dimen/base_pow_four"
-            android:gravity="start"
-            android:hint="@string/report"
-            android:singleLine="false" />
-
-        <ImageView
-            style="@style/WrapWrap"
-            android:layout_weight="1"
-            android:src="@drawable/ic_sos" />
-
-        <androidx.cardview.widget.CardView
-            style="@style/CardViewButton"
-            android:layout_marginBottom="@dimen/base_pow_five">
-
-            <Button
-                android:id="@+id/bt_report"
-                style="@style/ButtonBlueLong"
-                android:text="@string/report" />
-
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="@style/ProgressBar" />
-
-</RelativeLayout>
+</LinearLayout>
