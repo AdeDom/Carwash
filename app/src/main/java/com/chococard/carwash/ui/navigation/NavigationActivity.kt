@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
@@ -13,6 +15,7 @@ import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.networks.request.SetNavigationRequest
 import com.chococard.carwash.ui.base.BaseLocationActivity
 import com.chococard.carwash.ui.service.ServiceActivity
+import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.NavigationViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -34,6 +37,8 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
     private var mMarkerMyLocation: Marker? = null
     private var mMarkerCustomer: Marker? = null
     private var mJob: Job? = null
+    private var mFabCloseAnim: Animation? = null
+    private var mFabOpenAnim: Animation? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +51,13 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         val mapFragment = fragmentManager.findFragmentById(R.id.map_fragment) as MapFragment
         mapFragment.getMapAsync(this@NavigationActivity)
 
-        bt_service.setOnClickListener { serviceJob() }
+        // set fab
+        mFabOpenAnim = AnimationUtils.loadAnimation(baseContext, R.anim.fab_open)
+        mFabCloseAnim = AnimationUtils.loadAnimation(baseContext, R.anim.fab_close)
+        fab_main.tag = FlagConstant.FAB_VISIBILITY_ON
+
+        // set event
+        fab_main.setOnClickListener { setFabMenuVisibility() }
 
         // observe
         viewModel.getDbJob.observe(this, Observer { job ->
@@ -79,6 +90,22 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         viewModel.getError.observe(this, Observer {
             dialogError(it)
         })
+    }
+
+    private fun setFabMenuVisibility() {
+        if (fab_main.tag == FlagConstant.FAB_VISIBILITY_ON) {
+            fab_main.tag = FlagConstant.FAB_VISIBILITY_OFF
+            layout_arrive.startAnimation(mFabOpenAnim)
+            layout_navigation.startAnimation(mFabOpenAnim)
+            layout_service_info.startAnimation(mFabOpenAnim)
+            layout_call.startAnimation(mFabOpenAnim)
+        } else {
+            fab_main.tag = FlagConstant.FAB_VISIBILITY_ON
+            layout_arrive.startAnimation(mFabCloseAnim)
+            layout_navigation.startAnimation(mFabCloseAnim)
+            layout_service_info.startAnimation(mFabCloseAnim)
+            layout_call.startAnimation(mFabCloseAnim)
+        }
     }
 
     private fun serviceJob() {

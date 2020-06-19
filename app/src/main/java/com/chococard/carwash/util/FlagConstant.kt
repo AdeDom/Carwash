@@ -16,5 +16,7 @@ object FlagConstant {
     const val STATUS_SERVICE_OTHER_IMAGE = 5
     const val TOGGLE_PASSWORD_OFF = 0
     const val TOGGLE_PASSWORD_ON = 1
+    const val FAB_VISIBILITY_OFF = 0
+    const val FAB_VISIBILITY_ON = 1
 
 }
