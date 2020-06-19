@@ -1,82 +1,68 @@
 package com.chococard.carwash.repositories
 
-import com.chococard.carwash.data.db.AppDatabase
+import androidx.lifecycle.LiveData
 import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.db.entities.User
-import com.chococard.carwash.data.networks.HeaderAppService
-import com.chococard.carwash.data.networks.SafeApiRequest
 import com.chococard.carwash.data.networks.request.*
+import com.chococard.carwash.data.networks.response.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 
-class HeaderRepository(
-    private val api: HeaderAppService,
-    private val db: AppDatabase
-) : SafeApiRequest() {
+interface HeaderRepository {
 
-    // user
-    suspend fun callFetchUserInfo() = apiRequest { api.callFetchUserInfo() }
-    suspend fun saveUser(user: User) = db.getUserDao().saveUser(user)
-    fun getUser() = db.getUserDao().getUser()
-    suspend fun deleteUser() = db.getUserDao().deleteUser()
+    suspend fun callFetchUserInfo(): UserResponse
 
-    suspend fun callChangeImageProfile(file: MultipartBody.Part) =
-        apiRequest { api.callChangeImageProfile(file) }
+    suspend fun saveUser(user: User)
 
-    suspend fun callLogout() = apiRequest { api.callLogout() }
+    fun getUser(): LiveData<User>
 
-    suspend fun callChangePhone(changePhone: ChangePhoneRequest) =
-        apiRequest { api.callChangePhone(changePhone) }
+    suspend fun deleteUser()
 
-    suspend fun callChangePassword(changePassword: ChangePasswordRequest) =
-        apiRequest { api.callChangePassword(changePassword) }
+    suspend fun callChangeImageProfile(file: MultipartBody.Part): ResponseBody
 
-    suspend fun callSetLocation(setLocation: SetLocationRequest) =
-        apiRequest { api.callSetLocation(setLocation) }
+    suspend fun callLogout(): BaseResponse
 
-    suspend fun callFetchHistory(dateBegin: Long, dateEnd: Long) =
-        apiRequest { api.callFetchHistory(dateBegin, dateEnd) }
+    suspend fun callChangePhone(changePhone: ChangePhoneRequest): BaseResponse
 
-    suspend fun callJobQuestion() = apiRequest { api.callJobQuestion() }
+    suspend fun callChangePassword(changePassword: ChangePasswordRequest): BaseResponse
 
-    // job
-    suspend fun callJobAnswer(jobAnswer: JobAnswerRequest) =
-        apiRequest { api.callJobAnswer(jobAnswer) }
+    suspend fun callSetLocation(setLocation: SetLocationRequest): BaseResponse
 
-    suspend fun saveJob(job: Job) = db.getJobDao().saveJob(job)
-    fun getJob() = db.getJobDao().getJob()
-    suspend fun deleteJob() = db.getJobDao().deleteJob()
-    //job
+    suspend fun callFetchHistory(dateBegin: Long, dateEnd: Long): HistoryResponse
 
-    suspend fun callPaymentJob() = apiRequest { api.callPaymentJob() }
+    suspend fun callJobQuestion(): JobResponse
 
-    suspend fun callReportJob(report: ReportRequest) = apiRequest { api.callReportJob(report) }
+    suspend fun callJobAnswer(jobAnswer: JobAnswerRequest): JobResponse
 
-    suspend fun callLogsActive(logsActive: LogsActiveRequest) =
-        apiRequest { api.callLogsActive(logsActive) }
+    suspend fun saveJob(job: Job)
 
-    suspend fun callSwitchSystem(switchSystem: SwitchSystemRequest) =
-        apiRequest { api.callSwitchSystem(switchSystem) }
+    fun getJob(): LiveData<Job>
 
-    suspend fun callValidatePhone(validatePhone: ValidatePhoneRequest) =
-        apiRequest { api.callValidatePhone(validatePhone) }
+    suspend fun deleteJob()
 
-    suspend fun callSetNavigation(setNavigation: SetNavigationRequest) =
-        apiRequest { api.callSetNavigation(setNavigation) }
+    suspend fun callPaymentJob(): BaseResponse
 
-    suspend fun callJobStatusService() = apiRequest { api.callJobStatusService() }
+    suspend fun callReportJob(report: ReportRequest): BaseResponse
 
-    suspend fun callHomeScore() = apiRequest { api.callHomeScore() }
+    suspend fun callLogsActive(logsActive: LogsActiveRequest): BaseResponse
 
-    suspend fun callUploadImageService(file: MultipartBody.Part, statusService: RequestBody) =
-        apiRequest { api.callUploadImageService(file, statusService) }
+    suspend fun callSwitchSystem(switchSystem: SwitchSystemRequest): BaseResponse
 
-    suspend fun callFetchImageService() = apiRequest { api.callFetchImageService() }
+    suspend fun callValidatePhone(validatePhone: ValidatePhoneRequest): BaseResponse
 
-    suspend fun callDeleteServiceImage(deleteImageService: DeleteImageServiceRequest) =
-        apiRequest { api.callDeleteServiceImage(deleteImageService) }
+    suspend fun callSetNavigation(setNavigation: SetNavigationRequest): NavigationResponse
 
-    suspend fun callDeleteServiceOtherImage(deleteImageService: DeleteImageServiceRequest) =
-        apiRequest { api.callDeleteServiceOtherImage(deleteImageService) }
+    suspend fun callJobStatusService(): BaseResponse
+
+    suspend fun callHomeScore(): HomeScoreResponse
+
+    suspend fun callUploadImageService(file: MultipartBody.Part, statusService: RequestBody): ServiceImageResponse
+
+    suspend fun callFetchImageService(): ServiceImageResponse
+
+    suspend fun callDeleteServiceImage(deleteImageService: DeleteImageServiceRequest): ServiceImageResponse
+
+    suspend fun callDeleteServiceOtherImage(deleteImageService: DeleteImageServiceRequest): ServiceImageResponse
 
 }
