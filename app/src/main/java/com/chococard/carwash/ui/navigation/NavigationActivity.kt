@@ -62,6 +62,11 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
 
         view_shadow.setOnClickListener { setFabMenuVisibility() }
 
+        fab_arrive.setOnClickListener {
+            setFabMenuVisibility()
+            arriveService()
+        }
+
         // observe
         viewModel.getDbJob.observe(this, Observer { job ->
             if (job == null) return@Observer
@@ -113,7 +118,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun serviceJob() {
+    private fun arriveService() {
         progress_bar.show()
         viewModel.callJobStatusService()
     }
@@ -137,6 +142,10 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
 
         if (mJob?.latitude != null && mJob?.longitude != null) {
             val latLngCustomer = LatLng(mJob?.latitude!!, mJob?.longitude!!)
+            fab_navigation.setOnClickListener {
+                setFabMenuVisibility()
+                navigation(latLng, latLngCustomer)
+            }
         }
 
         viewModel.getDbUser.observe(this, Observer { user ->
