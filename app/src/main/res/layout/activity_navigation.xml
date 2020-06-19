@@ -101,7 +101,7 @@
             android:id="@+id/fab_service_info"
             style="@style/FloatingActionButtonBase"
             android:layout_margin="@dimen/base_pow_three"
-            android:src="@drawable/ic_service_info"
+            android:src="@drawable/ic_service_info_white"
             app:fabSize="mini" />
 
         <TextView

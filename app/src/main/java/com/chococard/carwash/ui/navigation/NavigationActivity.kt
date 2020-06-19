@@ -16,6 +16,7 @@ import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.networks.request.SetNavigationRequest
 import com.chococard.carwash.ui.base.BaseLocationActivity
 import com.chococard.carwash.ui.service.ServiceActivity
+import com.chococard.carwash.ui.serviceinfo.ServiceInfoActivity
 import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.NavigationViewModel
@@ -65,6 +66,11 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         fab_arrive.setOnClickListener {
             setFabMenuVisibility()
             arriveService()
+        }
+
+        fab_service_info.setOnClickListener {
+            setFabMenuVisibility()
+            startActivity<ServiceInfoActivity>()
         }
 
         // observe
