@@ -1,19 +1,17 @@
 package com.chococard.carwash.repositories
 
-import com.chococard.carwash.data.db.AppDatabase
-import com.chococard.carwash.data.networks.ConnectionAppService
-import com.chococard.carwash.data.networks.SafeApiRequest
+import androidx.lifecycle.LiveData
+import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.networks.request.SignInRequest
 import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
+import com.chococard.carwash.data.networks.response.BaseResponse
+import com.chococard.carwash.data.networks.response.SignInResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
-class ConnectionRepository(
-    private val api: ConnectionAppService,
-    private val db: AppDatabase
-) : SafeApiRequest() {
+interface ConnectionRepository {
 
-    fun getJob() = db.getJobDao().getJob()
+    fun getJob(): LiveData<Job>
 
     suspend fun callSignUp(
         username: RequestBody,
@@ -23,11 +21,10 @@ class ConnectionRepository(
         phone: RequestBody,
         role: RequestBody,
         file: MultipartBody.Part
-    ) = apiRequest { api.callSignUp(username, password, fullName, identityCard, phone, role, file) }
+    ): BaseResponse
 
-    suspend fun callSignIn(signIn: SignInRequest) = apiRequest { api.callSignIn(signIn) }
+    suspend fun callSignIn(signIn: SignInRequest): SignInResponse
 
-    suspend fun callValidatePhone(validatePhone: ValidatePhoneRequest) =
-        apiRequest { api.callValidatePhone(validatePhone) }
+    suspend fun callValidatePhone(validatePhone: ValidatePhoneRequest): BaseResponse
 
 }

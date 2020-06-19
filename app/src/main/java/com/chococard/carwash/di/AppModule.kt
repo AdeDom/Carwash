@@ -6,6 +6,7 @@ import com.chococard.carwash.data.networks.HeaderAppService
 import com.chococard.carwash.data.networks.NetworkConnectionInterceptor
 import com.chococard.carwash.data.networks.NetworkHeaderInterceptor
 import com.chococard.carwash.repositories.ConnectionRepository
+import com.chococard.carwash.repositories.ConnectionRepositoryImpl
 import com.chococard.carwash.repositories.HeaderRepository
 import com.chococard.carwash.viewmodel.*
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -19,7 +20,7 @@ val appModule = module {
     //connection
     single { NetworkConnectionInterceptor(get()) }
     single { ConnectionAppService.invoke(get()) }
-    single { ConnectionRepository(get(), get()) }
+    single<ConnectionRepository> { ConnectionRepositoryImpl(get(), get()) }
     viewModel { SignInViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
     viewModel { RequestOtpViewModel(get()) }
