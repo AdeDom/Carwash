@@ -20,9 +20,9 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
     val getJobQuestion: LiveData<JobResponse>
         get() = jobQuestion
 
-    private val jobResponse = MutableLiveData<JobResponse>()
-    val getJobResponse: LiveData<JobResponse>
-        get() = jobResponse
+    private val jobAnswerResponse = MutableLiveData<JobResponse>()
+    val getJobAnswer: LiveData<JobResponse>
+        get() = jobAnswerResponse
 
     private val logsActiveResponse = MutableLiveData<BaseResponse>()
     val getLogsActive: LiveData<BaseResponse>
@@ -49,11 +49,11 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
         response = { jobQuestion.value = it }
     )
 
-    fun callJobResponse(jobAnswer: JobAnswerRequest) = launchCallApi(
-        request = { repository.callJobResponse(jobAnswer) },
+    fun callJobAnswer(jobAnswer: JobAnswerRequest) = launchCallApi(
+        request = { repository.callJobAnswer(jobAnswer) },
         response = { response ->
             response?.job?.let { repository.saveJob(it) }
-            jobResponse.value = response
+            jobAnswerResponse.value = response
         }
     )
 

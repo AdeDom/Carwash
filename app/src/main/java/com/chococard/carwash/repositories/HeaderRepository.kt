@@ -40,8 +40,8 @@ class HeaderRepository(
     suspend fun callJobQuestion() = apiRequest { api.callJobQuestion() }
 
     // job
-    suspend fun callJobResponse(jobAnswer: JobAnswerRequest) =
-        apiRequest { api.callJobResponse(jobAnswer) }
+    suspend fun callJobAnswer(jobAnswer: JobAnswerRequest) =
+        apiRequest { api.callJobAnswer(jobAnswer) }
 
     suspend fun saveJob(job: Job) = db.getJobDao().saveJob(job)
     fun getJob() = db.getJobDao().getJob()

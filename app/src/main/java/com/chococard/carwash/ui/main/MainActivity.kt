@@ -95,7 +95,7 @@ class MainActivity : BaseLocationActivity(),
             }
         })
 
-        viewModel.getJobResponse.observe(this, Observer { response ->
+        viewModel.getJobAnswer.observe(this, Observer { response ->
             progress_bar.hide()
             val (success, _, _) = response
             if (success) {
@@ -173,7 +173,7 @@ class MainActivity : BaseLocationActivity(),
 
     override fun onFlag(flag: Int) {
         progress_bar.show()
-        viewModel.callJobResponse(JobAnswerRequest(flag))
+        viewModel.callJobAnswer(JobAnswerRequest(flag))
     }
 
     override fun onLocationChanged(location: Location?) {

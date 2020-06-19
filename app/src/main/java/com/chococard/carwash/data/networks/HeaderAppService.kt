@@ -63,8 +63,8 @@ interface HeaderAppService {
     suspend fun callJobQuestion(): Response<JobResponse>
 
     //answer job request from customer also send flag cancel job or confirm job to server.
-    @POST("api/job/jobresponse")
-    suspend fun callJobResponse(@Body jobAnswer: JobAnswerRequest): Response<JobResponse>
+    @POST("api/job/jobanswer")
+    suspend fun callJobAnswer(@Body jobAnswer: JobAnswerRequest): Response<JobResponse>
 
     //payment fee of application by send flag report or confirm to server.
     @POST("api/job/paymentjob")
