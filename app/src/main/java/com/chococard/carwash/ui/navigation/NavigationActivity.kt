@@ -71,6 +71,10 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         viewModel.getDbJob.observe(this, Observer { job ->
             if (job == null) return@Observer
             mJob = job
+            fab_call.setOnClickListener {
+                setFabMenuVisibility()
+                startActivity(Intent.ACTION_DIAL, "tel:${job.phone}")
+            }
         })
 
         viewModel.getNavigation.observe(this, Observer { response ->
