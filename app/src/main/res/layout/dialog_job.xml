@@ -75,6 +75,15 @@
                 style="@style/TextViewLargeApplicationSub"
                 android:text="@string/location" />
 
+            <ImageView
+                style="@style/ImageViewIcon"
+                android:src="@drawable/ic_kilometers" />
+
+            <TextView
+                android:id="@+id/tv_distance"
+                style="@style/TextViewLargeApplicationSub"
+                android:text="@string/distance" />
+
         </GridLayout>
 
         <LinearLayout

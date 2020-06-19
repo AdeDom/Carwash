@@ -30,11 +30,12 @@ class JobDialog : BaseDialog(R.layout.dialog_job) {
         val job = arguments?.getParcelable(CommonsConstant.JOB) as Job? ?: return
 
         // set widgets
-        val (_, fullName, imageProfile, packageName, _, _, latitude, longitude, _) = job
+        val (_, fullName, imageProfile, _, packageName, _, _, latitude, longitude, distance, _) = job
         tv_full_name.text = fullName
         tv_service.text = packageName
         if (latitude != null && longitude != null)
             tv_location.text = context?.getLocality(latitude, longitude)
+        tv_distance.text = distance
         iv_photo.setImageCircle(imageProfile)
 
         setCountTime()

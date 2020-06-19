@@ -115,5 +115,6 @@
     <string name="arrive">Arrive</string>
     <string name="call">Call</string>
     <string name="service_info">Service info</string>
+    <string name="distance">Distance</string>
 
 </resources>

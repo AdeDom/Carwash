@@ -47,7 +47,7 @@ class MainActivity : BaseLocationActivity(),
         if (savedInstanceState == null) replaceFragment(HomeFragment())
 
         bt_has_job.setOnClickListener {
-            viewModel.callJobRequest()
+            viewModel.callJobQuestion()
         }
 
         //call api
@@ -81,11 +81,11 @@ class MainActivity : BaseLocationActivity(),
             }
         })
 
-        viewModel.getJobRequest.observe(this, Observer { request ->
-            val (success, message, jobRequest) = request
+        viewModel.getJobQuestion.observe(this, Observer { request ->
+            val (success, message, jobQuestion) = request
             if (success) {
                 val bundle = Bundle()
-                bundle.putParcelable(CommonsConstant.JOB, jobRequest)
+                bundle.putParcelable(CommonsConstant.JOB, jobQuestion)
 
                 val jobDialog = JobDialog()
                 jobDialog.arguments = bundle

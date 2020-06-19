@@ -19,5 +19,6 @@ object DatabaseConstant {
     const val VEHICLE_REGISTRATION = "vehicle_registration"
     const val DATE_TIME = "date_time"
     const val PACKAGE_NAME = "package_name"
+    const val DISTANCE = "distance"
 
 }

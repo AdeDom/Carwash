@@ -16,9 +16,9 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
     val getUserInfo: LiveData<UserResponse>
         get() = userInfoResponse
 
-    private val jobRequest = MutableLiveData<JobResponse>()
-    val getJobRequest: LiveData<JobResponse>
-        get() = jobRequest
+    private val jobQuestion = MutableLiveData<JobResponse>()
+    val getJobQuestion: LiveData<JobResponse>
+        get() = jobQuestion
 
     private val jobResponse = MutableLiveData<JobResponse>()
     val getJobResponse: LiveData<JobResponse>
@@ -44,9 +44,9 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
         }
     )
 
-    fun callJobRequest() = launchCallApi(
-        request = { repository.callJobRequest() },
-        response = { jobRequest.value = it }
+    fun callJobQuestion() = launchCallApi(
+        request = { repository.callJobQuestion() },
+        response = { jobQuestion.value = it }
     )
 
     fun callJobResponse(jobAnswer: JobAnswerRequest) = launchCallApi(

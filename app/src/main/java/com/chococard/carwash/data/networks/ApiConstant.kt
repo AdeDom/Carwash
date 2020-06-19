@@ -45,5 +45,6 @@ object ApiConstant {
     const val STATUS_SERVICE = "StatusService"
     const val SERVICE_IMAGE = "ServiceImage"
     const val IMAGE_ID = "ImageId"
+    const val DISTANCE = "Distance"
 
 }

@@ -37,7 +37,7 @@ class HeaderRepository(
     suspend fun callFetchHistory(dateBegin: Long, dateEnd: Long) =
         apiRequest { api.callFetchHistory(dateBegin, dateEnd) }
 
-    suspend fun callJobRequest() = apiRequest { api.callJobRequest() }
+    suspend fun callJobQuestion() = apiRequest { api.callJobQuestion() }
 
     // job
     suspend fun callJobResponse(jobAnswer: JobAnswerRequest) =
