@@ -241,7 +241,14 @@
         <item name="android:paddingBottom">@dimen/base_hundred</item>
     </style>
 
-    <style name="FloatingActionButton" parent="WrapWrap">
+    <style name="FloatingActionButtonBase" parent="WrapWrap">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="elevation">@dimen/base_pow_two</item>
+        <item name="rippleColor">@android:color/holo_blue_dark</item>
+    </style>
+
+    <style name="FloatingActionButton" parent="FloatingActionButtonBase">
         <item name="android:layout_alignParentEnd">true</item>
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_marginEnd">@dimen/base_pow_four</item>

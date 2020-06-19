@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/RelativeLayout">
 
     <RelativeLayout
@@ -22,6 +23,114 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/layout_toolbar" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_main"
+        style="@style/FloatingActionButtonBase"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/base_pow_five"
+        android:src="@drawable/ic_menu_white" />
+
+    <LinearLayout
+        android:id="@+id/layout_arrive"
+        style="@style/WrapWrap"
+        android:layout_alignBottom="@+id/fab_main"
+        android:layout_marginEnd="@dimen/base_pow_five"
+        android:layout_marginBottom="@dimen/base_pow_five"
+        android:layout_toStartOf="@+id/fab_main"
+        android:visibility="invisible">
+
+        <TextView
+            style="@style/WrapWrap"
+            android:background="@drawable/shape_tv_navigation"
+            android:text="@string/arrive"
+            android:textColor="@color/colorTextGray"
+            android:textSize="@dimen/text_small" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_arrive"
+            style="@style/FloatingActionButtonBase"
+            android:layout_margin="@dimen/base_pow_three"
+            android:src="@drawable/ic_flag"
+            app:fabSize="mini" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_navigation"
+        style="@style/WrapWrap"
+        android:layout_above="@+id/fab_main"
+        android:layout_alignEnd="@+id/fab_main"
+        android:layout_marginEnd="@dimen/base_forty"
+        android:layout_marginBottom="@dimen/base_pow_five"
+        android:visibility="invisible">
+
+        <TextView
+            style="@style/WrapWrap"
+            android:background="@drawable/shape_tv_navigation"
+            android:text="@string/navigation"
+            android:textColor="@color/colorTextGray"
+            android:textSize="@dimen/text_small" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_navigation"
+            style="@style/FloatingActionButtonBase"
+            android:layout_margin="@dimen/base_pow_three"
+            android:src="@drawable/ic_navigation_white"
+            app:fabSize="mini" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_service_info"
+        style="@style/WrapWrap"
+        android:layout_above="@+id/fab_main"
+        android:layout_alignStart="@+id/fab_main"
+        android:layout_marginStart="@dimen/base_forty"
+        android:layout_marginBottom="@dimen/base_pow_five"
+        android:visibility="invisible">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_service_info"
+            style="@style/FloatingActionButtonBase"
+            android:layout_margin="@dimen/base_pow_three"
+            android:src="@drawable/ic_service_info"
+            app:fabSize="mini" />
+
+        <TextView
+            style="@style/WrapWrap"
+            android:background="@drawable/shape_tv_navigation"
+            android:text="@string/service_info"
+            android:textColor="@color/colorTextGray"
+            android:textSize="@dimen/text_small" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_call"
+        style="@style/WrapWrap"
+        android:layout_alignBottom="@+id/fab_main"
+        android:layout_marginStart="@dimen/base_pow_five"
+        android:layout_marginBottom="@dimen/base_pow_five"
+        android:layout_toEndOf="@+id/fab_main"
+        android:visibility="invisible">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_call"
+            style="@style/FloatingActionButtonBase"
+            android:layout_margin="@dimen/base_pow_three"
+            android:src="@drawable/ic_call_white"
+            app:fabSize="mini" />
+
+        <TextView
+            style="@style/WrapWrap"
+            android:background="@drawable/shape_tv_navigation"
+            android:text="@string/call"
+            android:textColor="@color/colorTextGray"
+            android:textSize="@dimen/text_small" />
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progress_bar"

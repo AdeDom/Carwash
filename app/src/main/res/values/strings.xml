@@ -112,5 +112,8 @@
     <string name="contact_customer">Contact customer</string>
     <string name="navigation">Navigation</string>
     <string name="maximum_5_images">*Maximum 5 images</string>
+    <string name="arrive">Arrive</string>
+    <string name="call">Call</string>
+    <string name="service_info">Service info</string>
 
 </resources>
