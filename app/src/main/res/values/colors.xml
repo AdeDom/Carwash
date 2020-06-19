@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#4267B2</color>
     <color name="colorTextGray">#A1A1A1</color>
-    <color name="colorBgTransparent">#66000000</color>
+    <color name="colorBgShadow">#66000000</color>
     <color name="colorIconCamera">#4cda64</color>
     <color name="colorSolid">#F1F0F0</color>
     <color name="colorSplashScreenTop">#2A5298</color>

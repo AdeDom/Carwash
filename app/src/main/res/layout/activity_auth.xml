@@ -3,9 +3,9 @@
     style="@style/RelativeLayout"
     android:background="@drawable/img_authentication">
 
-    <ImageView
+    <View
         style="@style/MatchMatch"
-        android:src="@drawable/shape_bg_authentication" />
+        android:background="@color/colorBgShadow" />
 
     <ImageView
         style="@style/ImageViewLogo"

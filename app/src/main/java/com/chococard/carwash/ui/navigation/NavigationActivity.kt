@@ -5,6 +5,7 @@ import android.location.Location
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -59,6 +60,8 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         // set event
         fab_main.setOnClickListener { setFabMenuVisibility() }
 
+        view_shadow.setOnClickListener { setFabMenuVisibility() }
+
         // observe
         viewModel.getDbJob.observe(this, Observer { job ->
             if (job == null) return@Observer
@@ -95,12 +98,14 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
     private fun setFabMenuVisibility() {
         if (fab_main.tag == FlagConstant.FAB_VISIBILITY_ON) {
             fab_main.tag = FlagConstant.FAB_VISIBILITY_OFF
+            view_shadow.visibility = View.VISIBLE
             layout_arrive.startAnimation(mFabOpenAnim)
             layout_navigation.startAnimation(mFabOpenAnim)
             layout_service_info.startAnimation(mFabOpenAnim)
             layout_call.startAnimation(mFabOpenAnim)
         } else {
             fab_main.tag = FlagConstant.FAB_VISIBILITY_ON
+            view_shadow.visibility = View.INVISIBLE
             layout_arrive.startAnimation(mFabCloseAnim)
             layout_navigation.startAnimation(mFabCloseAnim)
             layout_service_info.startAnimation(mFabCloseAnim)

@@ -24,6 +24,12 @@
         android:layout_height="match_parent"
         android:layout_below="@id/layout_toolbar" />
 
+    <View
+        android:id="@+id/view_shadow"
+        style="@style/MatchMatch"
+        android:background="@color/colorBgShadow"
+        android:visibility="invisible" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_main"
         style="@style/FloatingActionButtonBase"
