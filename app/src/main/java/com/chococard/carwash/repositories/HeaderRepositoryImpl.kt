@@ -19,7 +19,7 @@ class HeaderRepositoryImpl(
     override suspend fun callFetchUserInfo() = apiRequest { api.callFetchUserInfo() }
     override suspend fun saveUser(user: User) = db.getUserDao().saveUser(user)
     override fun getUser() = db.getUserDao().getUser()
-    override suspend fun deleteUser() = db.getUserDao().deleteUser()
+    private suspend fun deleteUser() = db.getUserDao().deleteUser()
 
     override suspend fun callChangeImageProfile(file: MultipartBody.Part) =
         apiRequest { api.callChangeImageProfile(file) }
@@ -33,8 +33,11 @@ class HeaderRepositoryImpl(
     override suspend fun callChangePhone(changePhone: ChangePhoneRequest) =
         apiRequest { api.callChangePhone(changePhone) }
 
-    override suspend fun callChangePassword(changePassword: ChangePasswordRequest) =
-        apiRequest { api.callChangePassword(changePassword) }
+    override suspend fun callChangePassword(changePassword: ChangePasswordRequest): BaseResponse {
+        val response = apiRequest { api.callChangePassword(changePassword) }
+        if (response.success) deleteUser()
+        return response
+    }
 
     override suspend fun callSetLocation(setLocation: SetLocationRequest) =
         apiRequest { api.callSetLocation(setLocation) }

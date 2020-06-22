@@ -17,8 +17,6 @@ interface HeaderRepository {
 
     fun getUser(): LiveData<User>
 
-    suspend fun deleteUser()
-
     suspend fun callChangeImageProfile(file: MultipartBody.Part): ResponseBody
 
     suspend fun callLogout(): BaseResponse
