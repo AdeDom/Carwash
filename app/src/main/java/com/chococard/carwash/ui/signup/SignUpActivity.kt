@@ -2,7 +2,6 @@ package com.chococard.carwash.ui.signup
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -25,8 +24,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SignUpActivity : BaseActivity() {
 
     val viewModel: SignUpViewModel by viewModel()
-    private var mPhoneNumber: String? = null
-    private var mFileUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +34,8 @@ class SignUpActivity : BaseActivity() {
 
     private fun init() {
         // set widgets
-        mPhoneNumber = intent.getStringExtra(CommonsConstant.PHONE)
-        if (mPhoneNumber == null) finish() else et_phone.setText(mPhoneNumber)
+        val phoneNumber = intent.getStringExtra(CommonsConstant.PHONE)
+        if (phoneNumber == null) finish() else et_phone.setText(phoneNumber)
 
         //event
         iv_arrow_back.setOnClickListener { onBackPressed() }
@@ -48,9 +45,7 @@ class SignUpActivity : BaseActivity() {
         iv_camera.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE) }
 
         card_remove_profile.setOnClickListener {
-            mFileUri = null
-            iv_photo.setImageResource(R.drawable.ic_user)
-            card_remove_profile.visibility = View.INVISIBLE
+            viewModel.setValueFileUri(null)
         }
 
         et_password.onTextChanged {
@@ -87,6 +82,16 @@ class SignUpActivity : BaseActivity() {
         }
 
         //observe
+        viewModel.getFileUri.observe(this, Observer { uri ->
+            if (uri == null) {
+                card_remove_profile.visibility = View.INVISIBLE
+                iv_photo.setImageResource(R.drawable.ic_user)
+            } else {
+                card_remove_profile.visibility = View.VISIBLE
+                iv_photo.setImageCircle(uri.toString())
+            }
+        })
+
         viewModel.getSignUp.observe(this, Observer { response ->
             val (success, message) = response
             progress_bar.hide()
@@ -106,9 +111,7 @@ class SignUpActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CommonsConstant.REQUEST_CODE_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
-            mFileUri = data.data!!
-            card_remove_profile.visibility = View.VISIBLE
-            iv_photo.setImageCircle(mFileUri.toString())
+            viewModel.setValueFileUri(data.data)
         }
     }
 
@@ -128,7 +131,7 @@ class SignUpActivity : BaseActivity() {
             et_phone.isEmpty(getString(R.string.error_empty_phone)) -> return
             et_phone.isEqualLength(10, getString(R.string.error_equal_length, 10)) -> return
             et_phone.isVerifyPhone(getString(R.string.error_phone)) -> return
-            mFileUri == null -> {
+            viewModel.isValueFileUri() -> {
                 toast(getString(R.string.please_select_profile_picture), Toast.LENGTH_LONG)
                 return
             }
@@ -141,7 +144,7 @@ class SignUpActivity : BaseActivity() {
         val identityCard = RequestBody.create(MultipartBody.FORM, et_identity_card.getContents())
         val phone = RequestBody.create(MultipartBody.FORM, et_phone.getContents())
         val role = RequestBody.create(MultipartBody.FORM, FlagConstant.EMPLOYEE.toString())
-        val multipartBody = convertToMultipartBody(mFileUri!!)
+        val multipartBody = convertToMultipartBody(viewModel.getValueFileUri()!!)
         viewModel.callSignUp(username, password, fullName, identityCard, phone, role, multipartBody)
 
     }
