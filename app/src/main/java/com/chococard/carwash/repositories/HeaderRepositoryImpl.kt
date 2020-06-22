@@ -6,6 +6,7 @@ import com.chococard.carwash.data.db.entities.User
 import com.chococard.carwash.data.networks.HeaderAppService
 import com.chococard.carwash.data.networks.SafeApiRequest
 import com.chococard.carwash.data.networks.request.*
+import com.chococard.carwash.data.networks.response.BaseResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
@@ -23,7 +24,11 @@ class HeaderRepositoryImpl(
     override suspend fun callChangeImageProfile(file: MultipartBody.Part) =
         apiRequest { api.callChangeImageProfile(file) }
 
-    override suspend fun callLogout() = apiRequest { api.callLogout() }
+    override suspend fun callLogout(): BaseResponse {
+        val response = apiRequest { api.callLogout() }
+        if (response.success) deleteUser()
+        return response
+    }
 
     override suspend fun callChangePhone(changePhone: ChangePhoneRequest) =
         apiRequest { api.callChangePhone(changePhone) }

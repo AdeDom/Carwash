@@ -26,10 +26,7 @@ class ChangePasswordViewModel(private val repository: HeaderRepository) : BaseVi
 
     fun callLogout() = launchCallApi(
         request = { repository.callLogout() },
-        response = { response ->
-            if (response != null && response.success) repository.deleteUser()
-            logoutResponse.value = response
-        }
+        response = { logoutResponse.value = it }
     )
 
 }

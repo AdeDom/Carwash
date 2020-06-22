@@ -64,10 +64,7 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
 
     fun callLogout() = launchCallApi(
         request = { repository.callLogout() },
-        response = { response ->
-            if (response != null && response.success) repository.deleteUser()
-            logoutResponse.value = response
-        }
+        response = { logoutResponse.value = it }
     )
 
     fun callSetLocation(setLocation: SetLocationRequest) = launchCallApi(

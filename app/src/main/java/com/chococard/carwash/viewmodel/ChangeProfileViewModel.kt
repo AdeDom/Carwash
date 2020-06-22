@@ -57,10 +57,7 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
 
     fun callLogout() = launchCallApi(
         request = { repository.callLogout() },
-        response = { response ->
-            if (response != null && response.success) repository.deleteUser()
-            logoutResponse.value = response
-        }
+        response = { logoutResponse.value = it }
     )
 
     fun callValidatePhone(validatePhone: ValidatePhoneRequest) = launchCallApi(
