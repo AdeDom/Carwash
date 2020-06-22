@@ -38,22 +38,22 @@ class HistoryDetailActivity : BaseActivity() {
         tv_price.text = price
         tv_date_time.text = jobDateTime
         iv_photo.setImageCircle(imageProfile)
-        if (imageFront != null) {
-            iv_image_front_place_holder.visibility = View.INVISIBLE
-            iv_image_front.setImageFromInternet(imageFront)
-        }
-        if (imageBack != null) {
-            iv_image_back_place_holder.visibility = View.INVISIBLE
-            iv_image_back.setImageFromInternet(imageBack)
-        }
-        if (imageLeft != null) {
-            iv_image_left_place_holder.visibility = View.INVISIBLE
-            iv_image_left.setImageFromInternet(imageLeft)
-        }
-        if (imageRight != null) {
-            iv_image_right_place_holder.visibility = View.INVISIBLE
-            iv_image_right.setImageFromInternet(imageRight)
-        }
+//        if (imageFront != null) {
+//            iv_image_front_place_holder.visibility = View.INVISIBLE
+//            iv_image_front.setImageFromInternet(imageFront)
+//        }
+//        if (imageBack != null) {
+//            iv_image_back_place_holder.visibility = View.INVISIBLE
+//            iv_image_back.setImageFromInternet(imageBack)
+//        }
+//        if (imageLeft != null) {
+//            iv_image_left_place_holder.visibility = View.INVISIBLE
+//            iv_image_left.setImageFromInternet(imageLeft)
+//        }
+//        if (imageRight != null) {
+//            iv_image_right_place_holder.visibility = View.INVISIBLE
+//            iv_image_right.setImageFromInternet(imageRight)
+//        }
         tv_comment.text = comment
 
         // recycler view
@@ -61,7 +61,7 @@ class HistoryDetailActivity : BaseActivity() {
             card_other_image.visibility = View.GONE
         } else {
             val adt = HistoryDetailAdapter()
-            recycler_view.apply {
+            recycler_view_other_image.apply {
                 layoutManager = LinearLayoutManager(baseContext)
                 adapter = adt
             }
@@ -77,29 +77,29 @@ class HistoryDetailActivity : BaseActivity() {
         //set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
 
-        iv_image_front.setOnClickListener {
-            startActivity<ViewImageActivity> {
-                it.putExtra(CommonsConstant.IMAGE, imageFront)
-            }
-        }
-
-        iv_image_back.setOnClickListener {
-            startActivity<ViewImageActivity> {
-                it.putExtra(CommonsConstant.IMAGE, imageBack)
-            }
-        }
-
-        iv_image_left.setOnClickListener {
-            startActivity<ViewImageActivity> {
-                it.putExtra(CommonsConstant.IMAGE, imageLeft)
-            }
-        }
-
-        iv_image_right.setOnClickListener {
-            startActivity<ViewImageActivity> {
-                it.putExtra(CommonsConstant.IMAGE, imageRight)
-            }
-        }
+//        iv_image_front.setOnClickListener {
+//            startActivity<ViewImageActivity> {
+//                it.putExtra(CommonsConstant.IMAGE, imageFront)
+//            }
+//        }
+//
+//        iv_image_back.setOnClickListener {
+//            startActivity<ViewImageActivity> {
+//                it.putExtra(CommonsConstant.IMAGE, imageBack)
+//            }
+//        }
+//
+//        iv_image_left.setOnClickListener {
+//            startActivity<ViewImageActivity> {
+//                it.putExtra(CommonsConstant.IMAGE, imageLeft)
+//            }
+//        }
+//
+//        iv_image_right.setOnClickListener {
+//            startActivity<ViewImageActivity> {
+//                it.putExtra(CommonsConstant.IMAGE, imageRight)
+//            }
+//        }
 
     }
 

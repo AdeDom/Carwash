@@ -5,11 +5,11 @@ import com.chococard.carwash.R
 import com.chococard.carwash.data.models.OtherImage
 import com.chococard.carwash.ui.BaseRecyclerView
 import com.chococard.carwash.util.extension.setImageFromInternet
-import kotlinx.android.synthetic.main.item_other_image.view.*
+import kotlinx.android.synthetic.main.item_image_history_detail.view.*
 
 class HistoryDetailAdapter : BaseRecyclerView<OtherImage>() {
 
-    override fun getLayout(): Int = R.layout.item_other_image
+    override fun getLayout(): Int = R.layout.item_image_history_detail
 
     override fun onBindViewHolder(view: View, entity: OtherImage) {
         view.iv_other_image.setImageFromInternet(entity.image)

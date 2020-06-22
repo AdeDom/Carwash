@@ -114,18 +114,14 @@
             <TextView
                 style="@style/TextViewLargeApplication"
                 android:layout_marginTop="@dimen/base_pow_two"
-                android:text="@string/front" />
+                android:text="@string/before_service" />
 
-            <ImageView
-                android:id="@+id/iv_image_front"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/base_two_hundred"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_before_service"
+                style="@style/MatchWrap"
                 android:layout_marginTop="@dimen/base_forty"
-                android:scaleType="centerCrop" />
-
-            <ImageView
-                android:id="@+id/iv_image_front_place_holder"
-                style="@style/ImageViewLogoPlaceHolder" />
+                tools:itemCount="4"
+                tools:listitem="@layout/item_image_history_detail" />
 
         </androidx.cardview.widget.CardView>
 
@@ -136,62 +132,14 @@
             <TextView
                 style="@style/TextViewLargeApplication"
                 android:layout_marginTop="@dimen/base_pow_two"
-                android:text="@string/back" />
+                android:text="@string/after_service" />
 
-            <ImageView
-                android:id="@+id/iv_image_back"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/base_two_hundred"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_after_service"
+                style="@style/MatchWrap"
                 android:layout_marginTop="@dimen/base_forty"
-                android:scaleType="centerCrop" />
-
-            <ImageView
-                android:id="@+id/iv_image_back_place_holder"
-                style="@style/ImageViewLogoPlaceHolder" />
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            style="@style/StyleCardView"
-            app:contentPadding="@dimen/base_zero">
-
-            <TextView
-                style="@style/TextViewLargeApplication"
-                android:layout_marginTop="@dimen/base_pow_two"
-                android:text="@string/left" />
-
-            <ImageView
-                android:id="@+id/iv_image_left"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/base_two_hundred"
-                android:layout_marginTop="@dimen/base_forty"
-                android:scaleType="centerCrop" />
-
-            <ImageView
-                android:id="@+id/iv_image_left_place_holder"
-                style="@style/ImageViewLogoPlaceHolder" />
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            style="@style/StyleCardView"
-            app:contentPadding="@dimen/base_zero">
-
-            <TextView
-                style="@style/TextViewLargeApplication"
-                android:layout_marginTop="@dimen/base_pow_two"
-                android:text="@string/right" />
-
-            <ImageView
-                android:id="@+id/iv_image_right"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/base_two_hundred"
-                android:layout_marginTop="@dimen/base_forty"
-                android:scaleType="centerCrop" />
-
-            <ImageView
-                android:id="@+id/iv_image_right_place_holder"
-                style="@style/ImageViewLogoPlaceHolder" />
+                tools:itemCount="4"
+                tools:listitem="@layout/item_image_history_detail" />
 
         </androidx.cardview.widget.CardView>
 
@@ -206,11 +154,11 @@
                 android:text="@string/other_image" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
+                android:id="@+id/recycler_view_other_image"
                 style="@style/MatchWrap"
                 android:layout_marginTop="@dimen/base_forty"
                 tools:itemCount="3"
-                tools:listitem="@layout/item_other_image" />
+                tools:listitem="@layout/item_image_history_detail" />
 
         </androidx.cardview.widget.CardView>
 

@@ -50,19 +50,18 @@ class MainActivity : BaseLocationActivity(),
             viewModel.callJobQuestion()
         }
 
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser == null) viewModel.callFetchUserInfo()
+
         //call api
         val logsKeys = UUID.randomUUID().toString().replace("-", "")
         writePref(CommonsConstant.LOGS_KEYS, logsKeys)
         viewModel.callLogsActive(LogsActiveRequest(logsKeys, FlagConstant.LOGS_STATUS_ACTIVE))
 
-        // fetch user info
-        viewModel.callFetchUserInfo()
-
         //observe
         viewModel.getUserInfo.observe(this, Observer { response ->
             val (success, message, user) = response
             if (success) {
-                val currentUser = FirebaseAuth.getInstance().currentUser
                 if (currentUser == null) {
                     startActivity<VPSignInActivity> { intent ->
                         intent.putExtra(CommonsConstant.PHONE, user?.phone)

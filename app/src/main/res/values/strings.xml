@@ -116,5 +116,7 @@
     <string name="call">Call</string>
     <string name="service_info">Service info</string>
     <string name="distance">Distance</string>
+    <string name="after_service">After service</string>
+    <string name="before_service">Before service</string>
 
 </resources>
