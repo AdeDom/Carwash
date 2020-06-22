@@ -7,6 +7,7 @@ import com.chococard.carwash.data.networks.HeaderAppService
 import com.chococard.carwash.data.networks.SafeApiRequest
 import com.chococard.carwash.data.networks.request.*
 import com.chococard.carwash.data.networks.response.BaseResponse
+import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.networks.response.UserResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -58,18 +59,28 @@ class HeaderRepositoryImpl(
     override suspend fun callJobQuestion() = apiRequest { api.callJobQuestion() }
 
     // job
-    override suspend fun callJobAnswer(jobAnswer: JobAnswerRequest) =
-        apiRequest { api.callJobAnswer(jobAnswer) }
+    override suspend fun callJobAnswer(jobAnswer: JobAnswerRequest): JobResponse {
+        val response = apiRequest { api.callJobAnswer(jobAnswer) }
+        if (response.success && response.job != null) saveJob(response.job)
+        return response
+    }
 
-    override suspend fun saveJob(job: Job) = db.getJobDao().saveJob(job)
+    private suspend fun saveJob(job: Job) = db.getJobDao().saveJob(job)
     override fun getJob() = db.getJobDao().getJob()
-    override suspend fun deleteJob() = db.getJobDao().deleteJob()
+    private suspend fun deleteJob() = db.getJobDao().deleteJob()
     //job
 
-    override suspend fun callPaymentJob() = apiRequest { api.callPaymentJob() }
+    override suspend fun callPaymentJob(): BaseResponse {
+        val response = apiRequest { api.callPaymentJob() }
+        if (response.success) deleteJob()
+        return response
+    }
 
-    override suspend fun callReportJob(report: ReportRequest) =
-        apiRequest { api.callReportJob(report) }
+    override suspend fun callReportJob(report: ReportRequest): BaseResponse {
+        val response = apiRequest { api.callReportJob(report) }
+        if (response.success) deleteJob()
+        return response
+    }
 
     override suspend fun callLogsActive(logsActive: LogsActiveRequest) =
         apiRequest { api.callLogsActive(logsActive) }

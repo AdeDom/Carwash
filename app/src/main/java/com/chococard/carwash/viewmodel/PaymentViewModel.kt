@@ -15,10 +15,7 @@ class PaymentViewModel(private val repository: HeaderRepository) : BaseViewModel
 
     fun callPaymentJob() = launchCallApi(
         request = { repository.callPaymentJob() },
-        response = { response ->
-            if (response != null && response.success) repository.deleteJob()
-            paymentJobResponse.value = response
-        }
+        response = { paymentJobResponse.value = it }
     )
 
 }

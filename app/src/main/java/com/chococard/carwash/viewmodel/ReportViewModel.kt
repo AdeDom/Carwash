@@ -14,10 +14,7 @@ class ReportViewModel(private val repository: HeaderRepository) : BaseViewModel(
 
     fun callReportJob(report: ReportRequest) = launchCallApi(
         request = { repository.callReportJob(report) },
-        response = { response ->
-            if (response != null && response.success) repository.deleteJob()
-            reportJobResponse.value = response
-        }
+        response = { reportJobResponse.value = it }
     )
 
 }

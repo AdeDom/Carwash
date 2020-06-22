@@ -48,10 +48,7 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
 
     fun callJobAnswer(jobAnswer: JobAnswerRequest) = launchCallApi(
         request = { repository.callJobAnswer(jobAnswer) },
-        response = { response ->
-            response?.job?.let { repository.saveJob(it) }
-            jobAnswerResponse.value = response
-        }
+        response = { jobAnswerResponse.value = it }
     )
 
     fun callLogsActive(logsActive: LogsActiveRequest) = launchCallApi(

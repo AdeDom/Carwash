@@ -31,11 +31,7 @@ interface HeaderRepository {
 
     suspend fun callJobAnswer(jobAnswer: JobAnswerRequest): JobResponse
 
-    suspend fun saveJob(job: Job)
-
     fun getJob(): LiveData<Job>
-
-    suspend fun deleteJob()
 
     suspend fun callPaymentJob(): BaseResponse
 
