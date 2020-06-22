@@ -38,10 +38,7 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
 
     fun callFetchUserInfo() = launchCallApi(
         request = { repository.callFetchUserInfo() },
-        response = { response ->
-            userInfoResponse.value = response
-            response?.user?.let { repository.saveUser(it) }
-        }
+        response = { userInfoResponse.value = it }
     )
 
     fun callJobQuestion() = launchCallApi(

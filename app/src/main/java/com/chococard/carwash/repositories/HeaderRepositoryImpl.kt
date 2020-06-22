@@ -23,7 +23,7 @@ class HeaderRepositoryImpl(
         return response
     }
 
-    override suspend fun saveUser(user: User) = db.getUserDao().saveUser(user)
+    private suspend fun saveUser(user: User) = db.getUserDao().saveUser(user)
     override fun getUser() = db.getUserDao().getUser()
     private suspend fun deleteUser() = db.getUserDao().deleteUser()
     // user

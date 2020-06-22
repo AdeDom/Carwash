@@ -13,8 +13,6 @@ interface HeaderRepository {
 
     suspend fun callFetchUserInfo(): UserResponse
 
-    suspend fun saveUser(user: User)
-
     fun getUser(): LiveData<User>
 
     suspend fun callChangeImageProfile(file: MultipartBody.Part): ResponseBody
