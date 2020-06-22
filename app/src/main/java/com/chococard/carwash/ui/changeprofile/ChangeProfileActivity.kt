@@ -42,6 +42,7 @@ class ChangeProfileActivity : BaseActivity() {
             if (user == null) return@Observer
             val (_, _, _, phone, _, image) = user
             et_phone.setText(phone)
+            et_phone.setSelection(et_phone.length())
             iv_photo.setImageCircle(image)
         })
 
@@ -77,16 +78,6 @@ class ChangeProfileActivity : BaseActivity() {
             progress_bar.hide()
             val (_, message) = response
             toast(message)
-        })
-
-        viewModel.getUserInfo.observe(this, Observer { response ->
-            val (success, message, _) = response
-            progress_bar.hide()
-            if (success) {
-                finish()
-            } else {
-                toast(message, Toast.LENGTH_LONG)
-            }
         })
 
         viewModel.getLogout.observe(this, Observer { response ->

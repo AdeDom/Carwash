@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.request.ChangePhoneRequest
 import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
-import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.repositories.HeaderRepository
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
@@ -13,10 +12,6 @@ import okhttp3.ResponseBody
 class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseViewModel() {
 
     val getDbUser = repository.getUser()
-
-    private val userInfoResponse = MutableLiveData<UserResponse>()
-    val getUserInfo: LiveData<UserResponse>
-        get() = userInfoResponse
 
     private val changeImageProfileResponse = MutableLiveData<ResponseBody>()
     val getChangeImageProfile: LiveData<ResponseBody>
@@ -41,18 +36,7 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
 
     fun callChangePhone(changePhone: ChangePhoneRequest) = launchCallApi(
         request = { repository.callChangePhone(changePhone) },
-        response = { response ->
-            if (response != null && response.success) callFetchUserInfo()
-            changePhoneResponse.value = response
-        }
-    )
-
-    private fun callFetchUserInfo() = launchCallApi(
-        request = { repository.callFetchUserInfo() },
-        response = { response ->
-            userInfoResponse.value = response
-            response?.user?.let { repository.saveUser(it) }
-        }
+        response = { changePhoneResponse.value = it }
     )
 
     fun callLogout() = launchCallApi(

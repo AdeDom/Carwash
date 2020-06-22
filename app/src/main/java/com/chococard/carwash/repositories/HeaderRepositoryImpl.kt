@@ -7,6 +7,7 @@ import com.chococard.carwash.data.networks.HeaderAppService
 import com.chococard.carwash.data.networks.SafeApiRequest
 import com.chococard.carwash.data.networks.request.*
 import com.chococard.carwash.data.networks.response.BaseResponse
+import com.chococard.carwash.data.networks.response.UserResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
@@ -16,10 +17,16 @@ class HeaderRepositoryImpl(
 ) : SafeApiRequest(), HeaderRepository {
 
     // user
-    override suspend fun callFetchUserInfo() = apiRequest { api.callFetchUserInfo() }
+    override suspend fun callFetchUserInfo(): UserResponse {
+        val response = apiRequest { api.callFetchUserInfo() }
+        if (response.success && response.user != null) saveUser(response.user)
+        return response
+    }
+
     override suspend fun saveUser(user: User) = db.getUserDao().saveUser(user)
     override fun getUser() = db.getUserDao().getUser()
     private suspend fun deleteUser() = db.getUserDao().deleteUser()
+    // user
 
     override suspend fun callChangeImageProfile(file: MultipartBody.Part) =
         apiRequest { api.callChangeImageProfile(file) }
@@ -30,8 +37,11 @@ class HeaderRepositoryImpl(
         return response
     }
 
-    override suspend fun callChangePhone(changePhone: ChangePhoneRequest) =
-        apiRequest { api.callChangePhone(changePhone) }
+    override suspend fun callChangePhone(changePhone: ChangePhoneRequest): BaseResponse {
+        val response = apiRequest { api.callChangePhone(changePhone) }
+        if (response.success) callFetchUserInfo()
+        return response
+    }
 
     override suspend fun callChangePassword(changePassword: ChangePasswordRequest): BaseResponse {
         val response = apiRequest { api.callChangePassword(changePassword) }
