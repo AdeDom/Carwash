@@ -87,7 +87,7 @@ interface HeaderAppService {
     @POST("api/job/uploadimageservice")
     suspend fun callUploadImageService(
         @Part file: MultipartBody.Part,
-        @Part(ApiConstant.STATUS_SERVICE) statusService: RequestBody
+        @Part(ApiConstant.STATUS_SERVICE) statusService: RequestBody?
     ): Response<ServiceImageResponse>
 
     // fetch data old image job service

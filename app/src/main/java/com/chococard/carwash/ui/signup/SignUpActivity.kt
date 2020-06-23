@@ -138,12 +138,12 @@ class SignUpActivity : BaseActivity() {
         }
 
         progress_bar.show()
-        val username = RequestBody.create(MultipartBody.FORM, et_username.getContents())
-        val password = RequestBody.create(MultipartBody.FORM, et_password.getContents())
-        val fullName = RequestBody.create(MultipartBody.FORM, et_full_name.getContents())
-        val identityCard = RequestBody.create(MultipartBody.FORM, et_identity_card.getContents())
-        val phone = RequestBody.create(MultipartBody.FORM, et_phone.getContents())
-        val role = RequestBody.create(MultipartBody.FORM, FlagConstant.EMPLOYEE.toString())
+        val username = et_username.getContents().toRequestBody()
+        val password = et_password.getContents().toRequestBody()
+        val fullName = et_full_name.getContents().toRequestBody()
+        val identityCard = et_identity_card.getContents().toRequestBody()
+        val phone = et_phone.getContents().toRequestBody()
+        val role = FlagConstant.EMPLOYEE.toRequestBody()
         val multipartBody = convertToMultipartBody(viewModel.getValueFileUri()!!)
         viewModel.callSignUp(username, password, fullName, identityCard, phone, role, multipartBody)
 

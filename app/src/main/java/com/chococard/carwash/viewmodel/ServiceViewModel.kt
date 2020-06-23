@@ -28,7 +28,7 @@ class ServiceViewModel(private val repository: HeaderRepository) : BaseViewModel
 
     fun callUploadImageService(
         file: MultipartBody.Part,
-        statusService: RequestBody
+        statusService: RequestBody?
     ) = launchCallApi(
         request = { repository.callUploadImageService(file, statusService) },
         response = { uploadImageServiceResponse.value = it }

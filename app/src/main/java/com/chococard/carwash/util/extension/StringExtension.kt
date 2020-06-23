@@ -1,5 +1,8 @@
 package com.chococard.carwash.util.extension
 
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+
 fun String.isVerifyIdentityCard(): Boolean {
     val identityCard = this.substring(0, 12)
     var sumIdentityCard = 0
@@ -23,3 +26,5 @@ fun String.isVerifyPhone(): Boolean {
     }
     return isPhone
 }
+
+fun String?.toRequestBody(): RequestBody = RequestBody.create(MultipartBody.FORM, this.toString())

@@ -49,7 +49,7 @@ interface HeaderRepository {
 
     suspend fun callHomeScore(): HomeScoreResponse
 
-    suspend fun callUploadImageService(file: MultipartBody.Part, statusService: RequestBody): ServiceImageResponse
+    suspend fun callUploadImageService(file: MultipartBody.Part, statusService: RequestBody?): ServiceImageResponse
 
     suspend fun callFetchImageService(): ServiceImageResponse
 

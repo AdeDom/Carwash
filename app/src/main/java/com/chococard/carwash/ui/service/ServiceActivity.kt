@@ -24,8 +24,6 @@ import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.ServiceViewModel
 import kotlinx.android.synthetic.main.activity_service.*
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ServiceActivity : BaseActivity() {
@@ -207,86 +205,60 @@ class ServiceActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && data != null) {
-            mListOtherImage.add(ImageService())
-            validateMaximumOtherImage()
-            val multipartBody = convertToMultipartBody(data.data!!)
-            var statusService: RequestBody? = null
-            when (requestCode) {
+            val statusService: Int? = when (requestCode) {
                 CommonsConstant.REQUEST_CODE_IMAGE_FRONT_BEFORE -> {
                     iv_camera_front_before.visibility = View.INVISIBLE
                     progress_bar_front_before.show()
-                    statusService = RequestBody.create(
-                        MultipartBody.FORM,
-                        FlagConstant.STATUS_SERVICE_FRONT_BEFORE.toString()
-                    )
+                    FlagConstant.STATUS_SERVICE_FRONT_BEFORE
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_BACK_BEFORE -> {
                     iv_camera_back_before.visibility = View.INVISIBLE
                     progress_bar_back_before.show()
-                    statusService = RequestBody.create(
-                        MultipartBody.FORM,
-                        FlagConstant.STATUS_SERVICE_BACK_BEFORE.toString()
-                    )
+                    FlagConstant.STATUS_SERVICE_BACK_BEFORE
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_LEFT_BEFORE -> {
                     iv_camera_left_before.visibility = View.INVISIBLE
                     progress_bar_left_before.show()
-                    statusService = RequestBody.create(
-                        MultipartBody.FORM,
-                        FlagConstant.STATUS_SERVICE_LEFT_BEFORE.toString()
-                    )
+                    FlagConstant.STATUS_SERVICE_LEFT_BEFORE
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_RIGHT_BEFORE -> {
                     iv_camera_right_before.visibility = View.INVISIBLE
                     progress_bar_right_before.show()
-                    statusService = RequestBody.create(
-                        MultipartBody.FORM,
-                        FlagConstant.STATUS_SERVICE_RIGHT_BEFORE.toString()
-                    )
+                    FlagConstant.STATUS_SERVICE_RIGHT_BEFORE
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_FRONT_AFTER -> {
                     iv_camera_front_after.visibility = View.INVISIBLE
                     progress_bar_front_after.show()
-                    statusService = RequestBody.create(
-                        MultipartBody.FORM,
-                        FlagConstant.STATUS_SERVICE_FRONT_AFTER.toString()
-                    )
+                    FlagConstant.STATUS_SERVICE_FRONT_AFTER
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_BACK_AFTER -> {
                     iv_camera_back_after.visibility = View.INVISIBLE
                     progress_bar_back_after.show()
-                    statusService = RequestBody.create(
-                        MultipartBody.FORM,
-                        FlagConstant.STATUS_SERVICE_BACK_AFTER.toString()
-                    )
+                    FlagConstant.STATUS_SERVICE_BACK_AFTER
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_LEFT_AFTER -> {
                     iv_camera_left_after.visibility = View.INVISIBLE
                     progress_bar_left_after.show()
-                    statusService = RequestBody.create(
-                        MultipartBody.FORM,
-                        FlagConstant.STATUS_SERVICE_LEFT_AFTER.toString()
-                    )
+                    FlagConstant.STATUS_SERVICE_LEFT_AFTER
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_RIGHT_AFTER -> {
                     iv_camera_right_after.visibility = View.INVISIBLE
                     progress_bar_right_after.show()
-                    statusService = RequestBody.create(
-                        MultipartBody.FORM,
-                        FlagConstant.STATUS_SERVICE_RIGHT_AFTER.toString()
-                    )
+                    FlagConstant.STATUS_SERVICE_RIGHT_AFTER
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_OTHER_IMAGE -> {
+                    mListOtherImage.add(ImageService())
+                    validateMaximumOtherImage()
                     progress_bar_other_image.show()
-                    statusService = RequestBody.create(
-                        MultipartBody.FORM,
-                        FlagConstant.STATUS_SERVICE_OTHER_IMAGE.toString()
-                    )
+                    FlagConstant.STATUS_SERVICE_OTHER_IMAGE
                 }
+                else -> null
             }
 
-            if (statusService != null)
-                viewModel.callUploadImageService(multipartBody, statusService)
+            viewModel.callUploadImageService(
+                convertToMultipartBody(data.data!!),
+                statusService.toRequestBody()
+            )
         }
     }
 

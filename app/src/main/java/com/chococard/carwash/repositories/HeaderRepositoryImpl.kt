@@ -100,7 +100,7 @@ class HeaderRepositoryImpl(
 
     override suspend fun callUploadImageService(
         file: MultipartBody.Part,
-        statusService: RequestBody
+        statusService: RequestBody?
     ) = apiRequest { api.callUploadImageService(file, statusService) }
 
     override suspend fun callFetchImageService() = apiRequest { api.callFetchImageService() }
