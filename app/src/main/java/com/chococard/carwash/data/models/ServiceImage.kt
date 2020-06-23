@@ -4,9 +4,13 @@ import com.chococard.carwash.data.networks.ApiConstant
 import com.google.gson.annotations.SerializedName
 
 data class ServiceImage(
-    @SerializedName(ApiConstant.IMAGE_FRONT) val imageFront: String? = null,
-    @SerializedName(ApiConstant.IMAGE_BACK) val imageBack: String? = null,
-    @SerializedName(ApiConstant.IMAGE_LEFT) val imageLeft: String? = null,
-    @SerializedName(ApiConstant.IMAGE_RIGHT) val imageRight: String? = null,
-    @SerializedName(ApiConstant.OTHER_IMAGES) val otherImages: List<OtherImage>? = null
+    @SerializedName(ApiConstant.FRONT_BEFORE) val frontBefore: String? = null,
+    @SerializedName(ApiConstant.BACK_BEFORE) val backBefore: String? = null,
+    @SerializedName(ApiConstant.LEFT_BEFORE) val leftBefore: String? = null,
+    @SerializedName(ApiConstant.RIGHT_BEFORE) val rightBefore: String? = null,
+    @SerializedName(ApiConstant.FRONT_AFTER) val frontAfter: String? = null,
+    @SerializedName(ApiConstant.BACK_AFTER) val backAfter: String? = null,
+    @SerializedName(ApiConstant.LEFT_AFTER) val leftAfter: String? = null,
+    @SerializedName(ApiConstant.RIGHT_AFTER) val rightAfter: String? = null,
+    @SerializedName(ApiConstant.OTHER_IMAGES_SERVICE) val otherImageService: List<ImageService>? = null
 )

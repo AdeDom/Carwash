@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/MatchMatch"
-    android:fillViewport="true">
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    android:paddingBottom="@dimen/base_hundred">
 
     <RelativeLayout
         style="@style/RelativeLayout"
@@ -28,7 +30,7 @@
         </RelativeLayout>
 
         <GridLayout
-            android:id="@+id/layout_service"
+            android:id="@+id/layout_before_service"
             style="@style/WrapWrap"
             android:layout_below="@id/layout_toolbar"
             android:layout_centerHorizontal="true"
@@ -54,22 +56,22 @@
                     android:layout_marginTop="@dimen/base_pow_five">
 
                     <ImageView
-                        android:id="@+id/iv_image_front"
+                        android:id="@+id/iv_image_front_before"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop" />
 
                     <ImageView
-                        android:id="@+id/iv_camera_front"
+                        android:id="@+id/iv_camera_front_before"
                         android:layout_width="@dimen/base_fifty"
                         android:layout_height="@dimen/base_fifty"
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_camera_blue" />
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/card_remove_front"
+                        android:id="@+id/card_remove_front_before"
                         style="@style/CardViewRemoveImage"
-                        android:layout_alignEnd="@id/iv_image_front">
+                        android:layout_alignEnd="@id/iv_image_front_before">
 
                         <ImageView
                             style="@style/MatchMatch"
@@ -78,7 +80,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <ProgressBar
-                        android:id="@+id/progress_bar_front"
+                        android:id="@+id/progress_bar_front_before"
                         style="@style/ProgressBar" />
 
                 </RelativeLayout>
@@ -97,22 +99,22 @@
                     android:layout_marginTop="@dimen/base_pow_five">
 
                     <ImageView
-                        android:id="@+id/iv_image_back"
+                        android:id="@+id/iv_image_back_before"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop" />
 
                     <ImageView
-                        android:id="@+id/iv_camera_back"
+                        android:id="@+id/iv_camera_back_before"
                         android:layout_width="@dimen/base_fifty"
                         android:layout_height="@dimen/base_fifty"
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_camera_blue" />
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/card_remove_back"
+                        android:id="@+id/card_remove_back_before"
                         style="@style/CardViewRemoveImage"
-                        android:layout_alignEnd="@id/iv_image_back">
+                        android:layout_alignEnd="@id/iv_image_back_before">
 
                         <ImageView
                             style="@style/MatchMatch"
@@ -121,7 +123,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <ProgressBar
-                        android:id="@+id/progress_bar_back"
+                        android:id="@+id/progress_bar_back_before"
                         style="@style/ProgressBar" />
 
                 </RelativeLayout>
@@ -140,22 +142,22 @@
                     android:layout_marginTop="@dimen/base_pow_five">
 
                     <ImageView
-                        android:id="@+id/iv_image_left"
+                        android:id="@+id/iv_image_left_before"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop" />
 
                     <ImageView
-                        android:id="@+id/iv_camera_left"
+                        android:id="@+id/iv_camera_left_before"
                         android:layout_width="@dimen/base_fifty"
                         android:layout_height="@dimen/base_fifty"
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_camera_blue" />
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/card_remove_left"
+                        android:id="@+id/card_remove_left_before"
                         style="@style/CardViewRemoveImage"
-                        android:layout_alignEnd="@id/iv_image_left">
+                        android:layout_alignEnd="@id/iv_image_left_before">
 
                         <ImageView
                             style="@style/MatchMatch"
@@ -164,7 +166,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <ProgressBar
-                        android:id="@+id/progress_bar_left"
+                        android:id="@+id/progress_bar_left_before"
                         style="@style/ProgressBar" />
 
                 </RelativeLayout>
@@ -183,22 +185,22 @@
                     android:layout_marginTop="@dimen/base_pow_five">
 
                     <ImageView
-                        android:id="@+id/iv_image_right"
+                        android:id="@+id/iv_image_right_before"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop" />
 
                     <ImageView
-                        android:id="@+id/iv_camera_right"
+                        android:id="@+id/iv_camera_right_before"
                         android:layout_width="@dimen/base_fifty"
                         android:layout_height="@dimen/base_fifty"
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_camera_blue" />
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/card_remove_right"
+                        android:id="@+id/card_remove_right_before"
                         style="@style/CardViewRemoveImage"
-                        android:layout_alignEnd="@id/iv_image_right">
+                        android:layout_alignEnd="@id/iv_image_right_before">
 
                         <ImageView
                             style="@style/MatchMatch"
@@ -207,7 +209,196 @@
                     </androidx.cardview.widget.CardView>
 
                     <ProgressBar
-                        android:id="@+id/progress_bar_right"
+                        android:id="@+id/progress_bar_right_before"
+                        style="@style/ProgressBar" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </GridLayout>
+
+        <GridLayout
+            android:id="@+id/layout_after_service"
+            style="@style/WrapWrap"
+            android:layout_below="@id/layout_before_service"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/base_pow_four"
+            android:columnCount="2"
+            android:rowCount="3">
+
+            <TextView
+                style="@style/TextViewMediumGray"
+                android:layout_columnSpan="2"
+                android:layout_marginStart="@dimen/base_pow_four"
+                android:text="@string/photo_service_from_all_4_sides" />
+
+            <androidx.cardview.widget.CardView style="@style/StyleCardViewService">
+
+                <TextView
+                    style="@style/TextViewLargeApplication"
+                    android:text="@string/front"
+                    android:textColor="@color/colorAccent" />
+
+                <RelativeLayout
+                    style="@style/WrapWrap"
+                    android:layout_marginTop="@dimen/base_pow_five">
+
+                    <ImageView
+                        android:id="@+id/iv_image_front_after"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+
+                    <ImageView
+                        android:id="@+id/iv_camera_front_after"
+                        android:layout_width="@dimen/base_fifty"
+                        android:layout_height="@dimen/base_fifty"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_camera_blue" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_remove_front_after"
+                        style="@style/CardViewRemoveImage"
+                        android:layout_alignEnd="@id/iv_image_front_after">
+
+                        <ImageView
+                            style="@style/MatchMatch"
+                            android:src="@drawable/ic_remove_blue" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar_front_after"
+                        style="@style/ProgressBar" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView style="@style/StyleCardViewService">
+
+                <TextView
+                    style="@style/TextViewLargeApplication"
+                    android:text="@string/back"
+                    android:textColor="@color/colorAccent" />
+
+                <RelativeLayout
+                    style="@style/WrapWrap"
+                    android:layout_marginTop="@dimen/base_pow_five">
+
+                    <ImageView
+                        android:id="@+id/iv_image_back_after"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+
+                    <ImageView
+                        android:id="@+id/iv_camera_back_after"
+                        android:layout_width="@dimen/base_fifty"
+                        android:layout_height="@dimen/base_fifty"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_camera_blue" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_remove_back_after"
+                        style="@style/CardViewRemoveImage"
+                        android:layout_alignEnd="@id/iv_image_back_after">
+
+                        <ImageView
+                            style="@style/MatchMatch"
+                            android:src="@drawable/ic_remove_blue" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar_back_after"
+                        style="@style/ProgressBar" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView style="@style/StyleCardViewService">
+
+                <TextView
+                    style="@style/TextViewLargeApplication"
+                    android:text="@string/left"
+                    android:textColor="@color/colorAccent" />
+
+                <RelativeLayout
+                    style="@style/WrapWrap"
+                    android:layout_marginTop="@dimen/base_pow_five">
+
+                    <ImageView
+                        android:id="@+id/iv_image_left_after"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+
+                    <ImageView
+                        android:id="@+id/iv_camera_left_after"
+                        android:layout_width="@dimen/base_fifty"
+                        android:layout_height="@dimen/base_fifty"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_camera_blue" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_remove_left_after"
+                        style="@style/CardViewRemoveImage"
+                        android:layout_alignEnd="@id/iv_image_left_after">
+
+                        <ImageView
+                            style="@style/MatchMatch"
+                            android:src="@drawable/ic_remove_blue" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar_left_after"
+                        style="@style/ProgressBar" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView style="@style/StyleCardViewService">
+
+                <TextView
+                    style="@style/TextViewLargeApplication"
+                    android:text="@string/right"
+                    android:textColor="@color/colorAccent" />
+
+                <RelativeLayout
+                    style="@style/WrapWrap"
+                    android:layout_marginTop="@dimen/base_pow_five">
+
+                    <ImageView
+                        android:id="@+id/iv_image_right_after"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+
+                    <ImageView
+                        android:id="@+id/iv_camera_right_after"
+                        android:layout_width="@dimen/base_fifty"
+                        android:layout_height="@dimen/base_fifty"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_camera_blue" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_remove_right_after"
+                        style="@style/CardViewRemoveImage"
+                        android:layout_alignEnd="@id/iv_image_right_after">
+
+                        <ImageView
+                            style="@style/MatchMatch"
+                            android:src="@drawable/ic_remove_blue" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar_right_after"
                         style="@style/ProgressBar" />
 
                 </RelativeLayout>
@@ -217,9 +408,10 @@
         </GridLayout>
 
         <RelativeLayout
+            android:id="@+id/layout_other_image_service"
             android:layout_width="@dimen/base_four_hundred"
             android:layout_height="wrap_content"
-            android:layout_below="@id/layout_service"
+            android:layout_below="@id/layout_after_service"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="@dimen/base_pow_five"
             android:layout_marginEnd="@dimen/base_pow_five"
@@ -266,7 +458,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
-                style="@style/WrapWrap"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
                 android:layout_below="@id/other_head"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -279,7 +472,11 @@
 
         </RelativeLayout>
 
-        <LinearLayout style="@style/LinearLayoutButtonPair">
+        <LinearLayout
+            style="@style/LinearLayoutButtonPair"
+            android:layout_below="@+id/layout_other_image_service"
+            android:layout_alignParentBottom="false"
+            android:layout_marginTop="@dimen/base_pow_four">
 
             <androidx.cardview.widget.CardView style="@style/CardViewButtonPair">
 
