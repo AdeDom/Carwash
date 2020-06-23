@@ -46,8 +46,8 @@ object ApiConstant {
     const val SERVICE_IMAGE = "ServiceImage"
     const val IMAGE_ID = "ImageId"
     const val DISTANCE = "Distance"
-    const val IMAGE_BEFORE_SERVICE = "ImageBeforeService"
-    const val IMAGE_AFTER_SERVICE = "ImagesAfterService"
-    const val OTHER_IMAGE_SERVICE = "OtherImageService"
+    const val IMAGES_BEFORE_SERVICE = "ImagesBeforeService"
+    const val IMAGES_AFTER_SERVICE = "ImagesAfterService"
+    const val OTHER_IMAGES_SERVICE = "OtherImagesService"
 
 }

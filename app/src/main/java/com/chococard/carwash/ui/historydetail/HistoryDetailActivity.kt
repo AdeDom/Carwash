@@ -9,7 +9,6 @@ import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.getLocality
 import com.chococard.carwash.util.extension.setImageCircle
-import com.chococard.carwash.util.extension.setImageFromInternet
 import com.chococard.carwash.util.extension.startActivity
 import kotlinx.android.synthetic.main.activity_history_detail.*
 
@@ -27,7 +26,7 @@ class HistoryDetailActivity : BaseActivity() {
         val history = intent.getParcelableExtra<History>(CommonsConstant.HISTORY)
         if (history == null) finish()
         val (_, fullName, imageProfile, packageName, latitude, longitude, vehicleRegistration, price,
-            jobDateTime, imageBeforeService, imagesAfterService, otherImageService, comment) = history!!
+            jobDateTime, imagesBeforeService, imagesAfterService, otherImagesService, comment) = history!!
 
         // set widget
         tv_full_name.text = fullName
@@ -38,36 +37,54 @@ class HistoryDetailActivity : BaseActivity() {
         tv_price.text = price
         tv_date_time.text = jobDateTime
         iv_photo.setImageCircle(imageProfile)
-//        if (imageFront != null) {
-//            iv_image_front_place_holder.visibility = View.INVISIBLE
-//            iv_image_front.setImageFromInternet(imageFront)
-//        }
-//        if (imageBack != null) {
-//            iv_image_back_place_holder.visibility = View.INVISIBLE
-//            iv_image_back.setImageFromInternet(imageBack)
-//        }
-//        if (imageLeft != null) {
-//            iv_image_left_place_holder.visibility = View.INVISIBLE
-//            iv_image_left.setImageFromInternet(imageLeft)
-//        }
-//        if (imageRight != null) {
-//            iv_image_right_place_holder.visibility = View.INVISIBLE
-//            iv_image_right.setImageFromInternet(imageRight)
-//        }
         tv_comment.text = comment
 
         // recycler view
-        if (otherImageService?.size == 0) {
+        // before
+        if (imagesBeforeService?.size == 0) {
+            card_before_image.visibility = View.GONE
+        } else {
+            val adtImagesBeforeService = HistoryDetailAdapter()
+            recycler_view_before_service.apply {
+                layoutManager = LinearLayoutManager(baseContext)
+                adapter = adtImagesBeforeService
+            }
+            adtImagesBeforeService.setList(imagesBeforeService)
+            adtImagesBeforeService.onClick = { beforeService ->
+                startActivity<ViewImageActivity> {
+                    it.putExtra(CommonsConstant.IMAGE, beforeService.image)
+                }
+            }
+        }
+
+        // after
+        if (imagesAfterService?.size == 0) {
+            card_after_image.visibility = View.GONE
+        } else {
+            val adtImagesAfterService = HistoryDetailAdapter()
+            recycler_view_after_service.apply {
+                layoutManager = LinearLayoutManager(baseContext)
+                adapter = adtImagesAfterService
+            }
+            adtImagesAfterService.setList(imagesAfterService)
+            adtImagesAfterService.onClick = { afterService ->
+                startActivity<ViewImageActivity> {
+                    it.putExtra(CommonsConstant.IMAGE, afterService.image)
+                }
+            }
+        }
+
+        // other image
+        if (otherImagesService?.size == 0) {
             card_other_image.visibility = View.GONE
         } else {
-            val adt = HistoryDetailAdapter()
+            val adtOtherImageService = HistoryDetailAdapter()
             recycler_view_other_image.apply {
                 layoutManager = LinearLayoutManager(baseContext)
-                adapter = adt
+                adapter = adtOtherImageService
             }
-            adt.setList(otherImageService)
-
-            adt.onClick = { otherImage ->
+            adtOtherImageService.setList(otherImagesService)
+            adtOtherImageService.onClick = { otherImage ->
                 startActivity<ViewImageActivity> {
                     it.putExtra(CommonsConstant.IMAGE, otherImage.image)
                 }
@@ -76,31 +93,6 @@ class HistoryDetailActivity : BaseActivity() {
 
         //set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
-
-//        iv_image_front.setOnClickListener {
-//            startActivity<ViewImageActivity> {
-//                it.putExtra(CommonsConstant.IMAGE, imageFront)
-//            }
-//        }
-//
-//        iv_image_back.setOnClickListener {
-//            startActivity<ViewImageActivity> {
-//                it.putExtra(CommonsConstant.IMAGE, imageBack)
-//            }
-//        }
-//
-//        iv_image_left.setOnClickListener {
-//            startActivity<ViewImageActivity> {
-//                it.putExtra(CommonsConstant.IMAGE, imageLeft)
-//            }
-//        }
-//
-//        iv_image_right.setOnClickListener {
-//            startActivity<ViewImageActivity> {
-//                it.putExtra(CommonsConstant.IMAGE, imageRight)
-//            }
-//        }
-
     }
 
 }

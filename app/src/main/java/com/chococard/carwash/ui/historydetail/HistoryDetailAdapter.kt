@@ -12,7 +12,7 @@ class HistoryDetailAdapter : BaseRecyclerView<ImageService>() {
     override fun getLayout(): Int = R.layout.item_image_history_detail
 
     override fun onBindViewHolder(view: View, entity: ImageService) {
-        view.iv_other_image.setImageFromInternet(entity.image)
+        view.iv_image_service.setImageFromInternet(entity.image)
     }
 
 }

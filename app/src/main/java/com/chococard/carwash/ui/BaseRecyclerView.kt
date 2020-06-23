@@ -27,8 +27,10 @@ abstract class BaseRecyclerView<T : Any> : RecyclerView.Adapter<BaseRecyclerView
     abstract fun onBindViewHolder(view: View, entity: T)
 
     fun setList(list: List<T>?) {
-        this.list = list as MutableList<T>
-        notifyDataSetChanged()
+        if (!list.isNullOrEmpty()) {
+            this.list = list as MutableList<T>
+            notifyDataSetChanged()
+        }
     }
 
     inner class BaseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
