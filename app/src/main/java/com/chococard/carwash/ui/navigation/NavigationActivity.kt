@@ -78,7 +78,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             mJob = job
             fab_call.setOnClickListener {
                 setFabMenuVisibility()
-                startActivity(Intent.ACTION_DIAL, "tel:${job.phone}")
+                startActivityActionDial(job.phone)
             }
         })
 
@@ -217,9 +217,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.option_contact_admin -> {
-                startActivity(Intent.ACTION_DIAL, getString(R.string.contact_admin_tel))
-            }
+            R.id.option_contact_admin -> startActivityActionDial()
         }
         return super.onOptionsItemSelected(item)
     }

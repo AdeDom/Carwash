@@ -153,9 +153,7 @@ class ChangeProfileActivity : BaseActivity() {
                     finish()
                 }
             }
-            R.id.option_contact_admin -> {
-                startActivity(Intent.ACTION_DIAL, getString(R.string.contact_admin_tel))
-            }
+            R.id.option_contact_admin -> startActivityActionDial()
             R.id.option_logout -> dialogLogout {
                 FirebaseAuth.getInstance().signOut()
                 viewModel.callLogout()

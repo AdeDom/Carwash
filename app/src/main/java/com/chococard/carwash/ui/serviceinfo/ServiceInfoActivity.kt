@@ -11,6 +11,7 @@ import com.chococard.carwash.ui.base.BaseLocationActivity
 import com.chococard.carwash.util.extension.getLocality
 import com.chococard.carwash.util.extension.setImageCircle
 import com.chococard.carwash.util.extension.startActivity
+import com.chococard.carwash.util.extension.startActivityActionDial
 import com.chococard.carwash.viewmodel.ServiceInfoViewModel
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_service_info.*
@@ -50,7 +51,7 @@ class ServiceInfoActivity : BaseLocationActivity() {
 
             // set event
             tv_phone.setOnClickListener {
-                startActivity(Intent.ACTION_DIAL, "tel:$phone")
+                startActivityActionDial(phone)
             }
         })
 
@@ -87,9 +88,7 @@ class ServiceInfoActivity : BaseLocationActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.option_contact_admin -> {
-                startActivity(Intent.ACTION_DIAL, getString(R.string.contact_admin_tel))
-            }
+            R.id.option_contact_admin -> startActivityActionDial()
         }
         return super.onOptionsItemSelected(item)
     }

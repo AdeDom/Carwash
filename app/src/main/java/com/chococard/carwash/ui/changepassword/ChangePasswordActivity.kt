@@ -47,7 +47,7 @@ class ChangePasswordActivity : BaseActivity() {
 
         //toggle password
         et_old_password.onTextChanged {
-            et_old_password setTogglePassword  iv_toggle_old_password
+            et_old_password setTogglePassword iv_toggle_old_password
         }
 
         iv_toggle_old_password.setOnClickListener {
@@ -129,9 +129,7 @@ class ChangePasswordActivity : BaseActivity() {
                     finish()
                 }
             }
-            R.id.option_contact_admin -> {
-                startActivity(Intent.ACTION_DIAL, getString(R.string.contact_admin_tel))
-            }
+            R.id.option_contact_admin -> startActivityActionDial()
             R.id.option_logout -> dialogLogout {
                 FirebaseAuth.getInstance().signOut()
                 viewModel.callLogout()

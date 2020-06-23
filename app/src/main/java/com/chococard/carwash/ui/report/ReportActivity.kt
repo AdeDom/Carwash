@@ -77,9 +77,7 @@ class ReportActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.option_contact_admin -> {
-                startActivity(Intent.ACTION_DIAL, getString(R.string.contact_admin_tel))
-            }
+            R.id.option_contact_admin -> startActivityActionDial()
         }
         return super.onOptionsItemSelected(item)
     }

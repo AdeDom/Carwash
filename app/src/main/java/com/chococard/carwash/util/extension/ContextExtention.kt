@@ -43,6 +43,13 @@ fun Context.startActivity(action: String, url: String) {
     }
 }
 
+fun Context.startActivityActionDial(phone: String? = getString(R.string.contact_admin_tel)) {
+    Intent(Intent.ACTION_DIAL).apply {
+        data = Uri.parse("tel:$phone")
+        startActivity(this)
+    }
+}
+
 fun Context?.toast(message: String?, duration: Int = Toast.LENGTH_SHORT) =
     Toast.makeText(this, message, duration).show()
 
