@@ -27,7 +27,7 @@ class HistoryDetailActivity : BaseActivity() {
         val history = intent.getParcelableExtra<History>(CommonsConstant.HISTORY)
         if (history == null) finish()
         val (_, fullName, imageProfile, packageName, latitude, longitude, vehicleRegistration, price,
-            jobDateTime, imageFront, imageBack, imageLeft, imageRight, otherImages, comment) = history!!
+            jobDateTime, imageBeforeService, imagesAfterService, otherImageService, comment) = history!!
 
         // set widget
         tv_full_name.text = fullName
@@ -57,7 +57,7 @@ class HistoryDetailActivity : BaseActivity() {
         tv_comment.text = comment
 
         // recycler view
-        if (otherImages?.size == 0) {
+        if (otherImageService?.size == 0) {
             card_other_image.visibility = View.GONE
         } else {
             val adt = HistoryDetailAdapter()
@@ -65,7 +65,7 @@ class HistoryDetailActivity : BaseActivity() {
                 layoutManager = LinearLayoutManager(baseContext)
                 adapter = adt
             }
-            adt.setList(otherImages)
+            adt.setList(otherImageService)
 
             adt.onClick = { otherImage ->
                 startActivity<ViewImageActivity> {

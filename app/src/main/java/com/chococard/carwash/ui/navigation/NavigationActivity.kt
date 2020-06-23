@@ -106,6 +106,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         })
 
         viewModel.getError.observe(this, Observer {
+            progress_bar.hide()
             dialogError(it)
         })
     }

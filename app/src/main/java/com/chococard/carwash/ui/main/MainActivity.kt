@@ -125,6 +125,7 @@ class MainActivity : BaseLocationActivity(),
         })
 
         viewModel.getError.observe(this, Observer {
+            progress_bar.hide()
             dialogError(it)
         })
     }

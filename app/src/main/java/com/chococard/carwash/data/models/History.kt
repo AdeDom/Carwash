@@ -15,11 +15,9 @@ data class History(
     @SerializedName(ApiConstant.VEHICLE_REGISTRATION) val vehicleRegistration: String? = null,
     @SerializedName(ApiConstant.PRICE) val price: String? = null,
     @SerializedName(ApiConstant.JOB_DATE_TIME) val jobDateTime: String? = null,
-    @SerializedName(ApiConstant.IMAGE_FRONT) val imageFront: String? = null,
-    @SerializedName(ApiConstant.IMAGE_BACK) val imageBack: String? = null,
-    @SerializedName(ApiConstant.IMAGE_LEFT) val imageLeft: String? = null,
-    @SerializedName(ApiConstant.IMAGE_RIGHT) val imageRight: String? = null,
-    @SerializedName(ApiConstant.OTHER_IMAGES) var otherImages: List<OtherImage>? = null,
+    @SerializedName(ApiConstant.IMAGE_BEFORE_SERVICE) val imageBeforeService: List<ImageService>? = null,
+    @SerializedName(ApiConstant.IMAGE_AFTER_SERVICE) val imagesAfterService: List<ImageService>? = null,
+    @SerializedName(ApiConstant.OTHER_IMAGE_SERVICE) val otherImageService: List<ImageService>? = null,
     @SerializedName(ApiConstant.COMMENT) val comment: String? = null
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -32,11 +30,9 @@ data class History(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.createTypedArrayList(OtherImage),
+        parcel.createTypedArrayList(ImageService),
+        parcel.createTypedArrayList(ImageService),
+        parcel.createTypedArrayList(ImageService),
         parcel.readString()
     )
 
@@ -50,11 +46,9 @@ data class History(
         parcel.writeString(vehicleRegistration)
         parcel.writeString(price)
         parcel.writeString(jobDateTime)
-        parcel.writeString(imageFront)
-        parcel.writeString(imageBack)
-        parcel.writeString(imageLeft)
-        parcel.writeString(imageRight)
-        parcel.writeTypedList(otherImages)
+        parcel.writeTypedList(imageBeforeService)
+        parcel.writeTypedList(imagesAfterService)
+        parcel.writeTypedList(otherImageService)
         parcel.writeString(comment)
     }
 
