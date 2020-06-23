@@ -66,20 +66,32 @@ class ServiceActivity : BaseActivity() {
         // set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
 
-        iv_image_front_before.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_FRONT) }
-        iv_image_back_before.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_BACK) }
-        iv_image_left_before.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_LEFT) }
-        iv_image_right_before.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_RIGHT) }
+        iv_image_front_before.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_FRONT_BEFORE) }
+        iv_image_back_before.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_BACK_BEFORE) }
+        iv_image_left_before.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_LEFT_BEFORE) }
+        iv_image_right_before.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_RIGHT_BEFORE) }
+        iv_image_front_after.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_FRONT_AFTER) }
+        iv_image_back_after.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_BACK_AFTER) }
+        iv_image_left_after.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_LEFT_AFTER) }
+        iv_image_right_after.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_RIGHT_AFTER) }
 
-        iv_image_front_before.setOnLongClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_FRONT) }
-        iv_image_back_before.setOnLongClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_BACK) }
-        iv_image_left_before.setOnLongClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_LEFT) }
-        iv_image_right_before.setOnLongClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_RIGHT) }
+        iv_image_front_before.setOnLongClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_FRONT_BEFORE) }
+        iv_image_back_before.setOnLongClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_BACK_BEFORE) }
+        iv_image_left_before.setOnLongClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_LEFT_BEFORE) }
+        iv_image_right_before.setOnLongClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_RIGHT_BEFORE) }
+        iv_image_front_after.setOnLongClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_FRONT_AFTER) }
+        iv_image_back_after.setOnLongClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_BACK_AFTER) }
+        iv_image_left_after.setOnLongClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_LEFT_AFTER) }
+        iv_image_right_after.setOnLongClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_RIGHT_AFTER) }
 
-        card_remove_front_before.setOnClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_FRONT) }
-        card_remove_back_before.setOnClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_BACK) }
-        card_remove_left_before.setOnClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_LEFT) }
-        card_remove_right_before.setOnClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_RIGHT) }
+        card_remove_front_before.setOnClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_FRONT_BEFORE) }
+        card_remove_back_before.setOnClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_BACK_BEFORE) }
+        card_remove_left_before.setOnClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_LEFT_BEFORE) }
+        card_remove_right_before.setOnClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_RIGHT_BEFORE) }
+        card_remove_front_after.setOnClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_FRONT_AFTER) }
+        card_remove_back_after.setOnClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_BACK_AFTER) }
+        card_remove_left_after.setOnClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_LEFT_AFTER) }
+        card_remove_right_after.setOnClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_RIGHT_AFTER) }
 
         iv_add_other_image.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_OTHER_IMAGE) }
 
@@ -143,6 +155,10 @@ class ServiceActivity : BaseActivity() {
             progress_bar_back_before.hide()
             progress_bar_left_before.hide()
             progress_bar_right_before.hide()
+            progress_bar_right_after.hide()
+            progress_bar_right_after.hide()
+            progress_bar_right_after.hide()
+            progress_bar_right_after.hide()
             progress_bar_other_image.hide()
             dialogError(it)
         })
@@ -156,10 +172,14 @@ class ServiceActivity : BaseActivity() {
     private fun deleteImageService(statusService: Int): Boolean {
         dialogNegative(R.string.delete_image_service, R.string.delete_image_service_questions) {
             when (statusService) {
-                FlagConstant.STATUS_SERVICE_FRONT -> progress_bar_front_before.show()
-                FlagConstant.STATUS_SERVICE_BACK -> progress_bar_back_before.show()
-                FlagConstant.STATUS_SERVICE_LEFT -> progress_bar_left_before.show()
-                FlagConstant.STATUS_SERVICE_RIGHT -> progress_bar_right_before.show()
+                FlagConstant.STATUS_SERVICE_FRONT_BEFORE -> progress_bar_front_before.show()
+                FlagConstant.STATUS_SERVICE_BACK_BEFORE -> progress_bar_back_before.show()
+                FlagConstant.STATUS_SERVICE_LEFT_BEFORE -> progress_bar_left_before.show()
+                FlagConstant.STATUS_SERVICE_RIGHT_BEFORE -> progress_bar_right_before.show()
+                FlagConstant.STATUS_SERVICE_FRONT_AFTER -> progress_bar_front_after.show()
+                FlagConstant.STATUS_SERVICE_BACK_AFTER -> progress_bar_back_after.show()
+                FlagConstant.STATUS_SERVICE_LEFT_AFTER -> progress_bar_left_after.show()
+                FlagConstant.STATUS_SERVICE_RIGHT_AFTER -> progress_bar_right_after.show()
             }
             val deleteImageService = DeleteImageServiceRequest(statusService)
             viewModel.callDeleteServiceImage(deleteImageService)
@@ -192,36 +212,68 @@ class ServiceActivity : BaseActivity() {
             val multipartBody = convertToMultipartBody(data.data!!)
             var statusService: RequestBody? = null
             when (requestCode) {
-                CommonsConstant.REQUEST_CODE_IMAGE_FRONT -> {
+                CommonsConstant.REQUEST_CODE_IMAGE_FRONT_BEFORE -> {
                     iv_camera_front_before.visibility = View.INVISIBLE
                     progress_bar_front_before.show()
                     statusService = RequestBody.create(
                         MultipartBody.FORM,
-                        FlagConstant.STATUS_SERVICE_FRONT.toString()
+                        FlagConstant.STATUS_SERVICE_FRONT_BEFORE.toString()
                     )
                 }
-                CommonsConstant.REQUEST_CODE_IMAGE_BACK -> {
+                CommonsConstant.REQUEST_CODE_IMAGE_BACK_BEFORE -> {
                     iv_camera_back_before.visibility = View.INVISIBLE
                     progress_bar_back_before.show()
                     statusService = RequestBody.create(
                         MultipartBody.FORM,
-                        FlagConstant.STATUS_SERVICE_BACK.toString()
+                        FlagConstant.STATUS_SERVICE_BACK_BEFORE.toString()
                     )
                 }
-                CommonsConstant.REQUEST_CODE_IMAGE_LEFT -> {
+                CommonsConstant.REQUEST_CODE_IMAGE_LEFT_BEFORE -> {
                     iv_camera_left_before.visibility = View.INVISIBLE
                     progress_bar_left_before.show()
                     statusService = RequestBody.create(
                         MultipartBody.FORM,
-                        FlagConstant.STATUS_SERVICE_LEFT.toString()
+                        FlagConstant.STATUS_SERVICE_LEFT_BEFORE.toString()
                     )
                 }
-                CommonsConstant.REQUEST_CODE_IMAGE_RIGHT -> {
+                CommonsConstant.REQUEST_CODE_IMAGE_RIGHT_BEFORE -> {
                     iv_camera_right_before.visibility = View.INVISIBLE
                     progress_bar_right_before.show()
                     statusService = RequestBody.create(
                         MultipartBody.FORM,
-                        FlagConstant.STATUS_SERVICE_RIGHT.toString()
+                        FlagConstant.STATUS_SERVICE_RIGHT_BEFORE.toString()
+                    )
+                }
+                CommonsConstant.REQUEST_CODE_IMAGE_FRONT_AFTER -> {
+                    iv_camera_front_after.visibility = View.INVISIBLE
+                    progress_bar_front_after.show()
+                    statusService = RequestBody.create(
+                        MultipartBody.FORM,
+                        FlagConstant.STATUS_SERVICE_FRONT_AFTER.toString()
+                    )
+                }
+                CommonsConstant.REQUEST_CODE_IMAGE_BACK_AFTER -> {
+                    iv_camera_back_after.visibility = View.INVISIBLE
+                    progress_bar_back_after.show()
+                    statusService = RequestBody.create(
+                        MultipartBody.FORM,
+                        FlagConstant.STATUS_SERVICE_BACK_AFTER.toString()
+                    )
+                }
+                CommonsConstant.REQUEST_CODE_IMAGE_LEFT_AFTER -> {
+                    iv_camera_left_after.visibility = View.INVISIBLE
+                    progress_bar_left_after.show()
+                    statusService = RequestBody.create(
+                        MultipartBody.FORM,
+                        FlagConstant.STATUS_SERVICE_LEFT_AFTER.toString()
+                    )
+                }
+                CommonsConstant.REQUEST_CODE_IMAGE_RIGHT_AFTER -> {
+                    iv_camera_right_after.visibility = View.INVISIBLE
+                    progress_bar_right_after.show()
+                    statusService = RequestBody.create(
+                        MultipartBody.FORM,
+                        FlagConstant.STATUS_SERVICE_RIGHT_AFTER.toString()
                     )
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_OTHER_IMAGE -> {
@@ -274,6 +326,34 @@ class ServiceActivity : BaseActivity() {
             iv_camera_right_before,
             card_remove_right_before,
             progress_bar_right_before
+        )
+        setImageView(
+            frontAfter,
+            iv_image_front_after,
+            iv_camera_front_after,
+            card_remove_front_after,
+            progress_bar_front_after
+        )
+        setImageView(
+            backAfter,
+            iv_image_back_after,
+            iv_camera_back_after,
+            card_remove_back_after,
+            progress_bar_back_after
+        )
+        setImageView(
+            leftAfter,
+            iv_image_left_after,
+            iv_camera_left_after,
+            card_remove_left_after,
+            progress_bar_left_after
+        )
+        setImageView(
+            rightAfter,
+            iv_image_right_after,
+            iv_camera_right_after,
+            card_remove_right_after,
+            progress_bar_right_after
         )
         mServiceAdapter?.setList(otherImageService)
 
