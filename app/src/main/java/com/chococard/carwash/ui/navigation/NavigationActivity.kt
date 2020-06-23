@@ -114,6 +114,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
     private fun setFabMenuVisibility() {
         if (fab_main.tag == FlagConstant.FAB_VISIBILITY_ON) {
             fab_main.tag = FlagConstant.FAB_VISIBILITY_OFF
+            fab_main.setImageResource(R.drawable.ic_close_white)
             view_shadow.visibility = View.VISIBLE
             layout_arrive.startAnimation(mFabOpenAnim)
             layout_navigation.startAnimation(mFabOpenAnim)
@@ -121,6 +122,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             layout_call.startAnimation(mFabOpenAnim)
         } else {
             fab_main.tag = FlagConstant.FAB_VISIBILITY_ON
+            fab_main.setImageResource(R.drawable.ic_menu_white)
             view_shadow.visibility = View.INVISIBLE
             layout_arrive.startAnimation(mFabCloseAnim)
             layout_navigation.startAnimation(mFabCloseAnim)
