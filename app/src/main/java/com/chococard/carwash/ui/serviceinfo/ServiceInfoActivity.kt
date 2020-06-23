@@ -1,6 +1,5 @@
 package com.chococard.carwash.ui.serviceinfo
 
-import android.content.Intent
 import android.location.Location
 import android.os.Bundle
 import android.view.Menu
@@ -10,8 +9,8 @@ import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseLocationActivity
 import com.chococard.carwash.util.extension.getLocality
 import com.chococard.carwash.util.extension.setImageCircle
-import com.chococard.carwash.util.extension.startActivity
 import com.chococard.carwash.util.extension.startActivityActionDial
+import com.chococard.carwash.util.extension.startActivityGoogleMapNavigation
 import com.chococard.carwash.viewmodel.ServiceInfoViewModel
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_service_info.*
@@ -62,23 +61,18 @@ class ServiceInfoActivity : BaseLocationActivity() {
 
     override fun onLocationChanged(location: Location?) {
         if (location == null) return
-        val latLng = LatLng(location.latitude, location.longitude)
 
         tv_location.setOnClickListener {
-            navigation(latLng, mLatLngCustomer)
+            val latitude = mLatLngCustomer?.latitude
+            val longitude = mLatLngCustomer?.longitude
+            if (latitude != null && longitude != null)
+                startActivityGoogleMapNavigation(
+                    location.latitude,
+                    location.longitude,
+                    latitude,
+                    longitude
+                )
         }
-    }
-
-    private fun navigation(beginLatLng: LatLng?, endLatLng: LatLng?) {
-        startActivity(
-            Intent.ACTION_VIEW, getString(
-                R.string.google_maps_navigation,
-                beginLatLng?.latitude,
-                beginLatLng?.longitude,
-                endLatLng?.latitude,
-                endLatLng?.longitude
-            )
-        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

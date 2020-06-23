@@ -36,18 +36,28 @@ inline fun <reified T : Activity> Context.startActivity(noinline intent: ((Inten
     }
 }
 
-fun Context.startActivity(action: String, url: String) {
-    Intent(action).apply {
-        data = Uri.parse(url)
-        startActivity(this)
-    }
-}
-
 fun Context.startActivityActionDial(phone: String? = getString(R.string.contact_admin_tel)) {
     Intent(Intent.ACTION_DIAL).apply {
         data = Uri.parse("tel:$phone")
         startActivity(this)
     }
+}
+
+fun Context.startActivityGoogleMapNavigation(
+    beginLatitude: Double,
+    beginLongitude: Double,
+    endLatitude: Double,
+    endLongitude: Double
+) = Intent(Intent.ACTION_VIEW).apply {
+    val url = getString(
+        R.string.google_maps_navigation,
+        beginLatitude,
+        beginLongitude,
+        endLatitude,
+        endLongitude
+    )
+    data = Uri.parse(url)
+    startActivity(this)
 }
 
 fun Context?.toast(message: String?, duration: Int = Toast.LENGTH_SHORT) =

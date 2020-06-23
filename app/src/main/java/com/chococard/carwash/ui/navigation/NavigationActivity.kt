@@ -1,6 +1,5 @@
 package com.chococard.carwash.ui.navigation
 
-import android.content.Intent
 import android.location.Location
 import android.os.Bundle
 import android.view.Menu
@@ -152,11 +151,17 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             mGoogleMap?.moveCamera(cameraUpdate)
         }
 
-        if (mJob?.latitude != null && mJob?.longitude != null) {
-            val latLngCustomer = LatLng(mJob?.latitude!!, mJob?.longitude!!)
+        val latitude = mJob?.latitude
+        val longitude = mJob?.longitude
+        if (latitude != null && longitude != null) {
             fab_navigation.setOnClickListener {
                 setFabMenuVisibility()
-                navigation(latLng, latLngCustomer)
+                startActivityGoogleMapNavigation(
+                    location.latitude,
+                    location.longitude,
+                    latitude,
+                    longitude
+                )
             }
         }
 
@@ -196,18 +201,6 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
                 }
             )
         }
-    }
-
-    private fun navigation(beginLatLng: LatLng?, endLatLng: LatLng?) {
-        startActivity(
-            Intent.ACTION_VIEW, getString(
-                R.string.google_maps_navigation,
-                beginLatLng?.latitude,
-                beginLatLng?.longitude,
-                endLatLng?.latitude,
-                endLatLng?.longitude
-            )
-        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
