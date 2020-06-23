@@ -1,13 +1,13 @@
 package com.chococard.carwash.ui.historydetail
 
 import android.os.Bundle
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.History
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.getLocality
+import com.chococard.carwash.util.extension.gone
 import com.chococard.carwash.util.extension.setImageCircle
 import com.chococard.carwash.util.extension.startActivity
 import kotlinx.android.synthetic.main.activity_history_detail.*
@@ -42,7 +42,7 @@ class HistoryDetailActivity : BaseActivity() {
         // recycler view
         // before
         if (imagesBeforeService?.size == 0) {
-            card_before_image.visibility = View.GONE
+            card_before_image.gone()
         } else {
             val adtImagesBeforeService = HistoryDetailAdapter()
             recycler_view_before_service.apply {
@@ -59,7 +59,7 @@ class HistoryDetailActivity : BaseActivity() {
 
         // after
         if (imagesAfterService?.size == 0) {
-            card_after_image.visibility = View.GONE
+            card_after_image.gone()
         } else {
             val adtImagesAfterService = HistoryDetailAdapter()
             recycler_view_after_service.apply {
@@ -76,7 +76,7 @@ class HistoryDetailActivity : BaseActivity() {
 
         // other image
         if (otherImagesService?.size == 0) {
-            card_other_image.visibility = View.GONE
+            card_other_image.gone()
         } else {
             val adtOtherImageService = HistoryDetailAdapter()
             recycler_view_other_image.apply {

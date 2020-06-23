@@ -2,7 +2,6 @@ package com.chococard.carwash.util.extension
 
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import com.chococard.carwash.R
@@ -78,14 +77,14 @@ fun EditText.onTextChanged(text: (String) -> Unit) {
 
 infix fun EditText.setTogglePassword(imageView: ImageView) {
     if (this.text.length > 0) {
-        imageView.visibility = View.VISIBLE
+        imageView.show()
         if (imageView.tag == FlagConstant.TOGGLE_PASSWORD_OFF) {
             imageView.setImageResource(R.drawable.ic_visibility_off)
         } else {
             imageView.setImageResource(R.drawable.ic_visibility)
         }
     } else {
-        imageView.visibility = View.INVISIBLE
+        imageView.hide()
         imageView.setImageResource(0)
     }
 }

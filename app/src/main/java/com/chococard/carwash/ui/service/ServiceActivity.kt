@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -207,42 +206,42 @@ class ServiceActivity : BaseActivity() {
         if (resultCode == Activity.RESULT_OK && data != null) {
             val statusService: Int? = when (requestCode) {
                 CommonsConstant.REQUEST_CODE_IMAGE_FRONT_BEFORE -> {
-                    iv_camera_front_before.visibility = View.INVISIBLE
+                    iv_camera_front_before.hide()
                     progress_bar_front_before.show()
                     FlagConstant.STATUS_SERVICE_FRONT_BEFORE
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_BACK_BEFORE -> {
-                    iv_camera_back_before.visibility = View.INVISIBLE
+                    iv_camera_back_before.hide()
                     progress_bar_back_before.show()
                     FlagConstant.STATUS_SERVICE_BACK_BEFORE
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_LEFT_BEFORE -> {
-                    iv_camera_left_before.visibility = View.INVISIBLE
+                    iv_camera_left_before.hide()
                     progress_bar_left_before.show()
                     FlagConstant.STATUS_SERVICE_LEFT_BEFORE
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_RIGHT_BEFORE -> {
-                    iv_camera_right_before.visibility = View.INVISIBLE
+                    iv_camera_right_before.hide()
                     progress_bar_right_before.show()
                     FlagConstant.STATUS_SERVICE_RIGHT_BEFORE
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_FRONT_AFTER -> {
-                    iv_camera_front_after.visibility = View.INVISIBLE
+                    iv_camera_front_after.hide()
                     progress_bar_front_after.show()
                     FlagConstant.STATUS_SERVICE_FRONT_AFTER
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_BACK_AFTER -> {
-                    iv_camera_back_after.visibility = View.INVISIBLE
+                    iv_camera_back_after.hide()
                     progress_bar_back_after.show()
                     FlagConstant.STATUS_SERVICE_BACK_AFTER
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_LEFT_AFTER -> {
-                    iv_camera_left_after.visibility = View.INVISIBLE
+                    iv_camera_left_after.hide()
                     progress_bar_left_after.show()
                     FlagConstant.STATUS_SERVICE_LEFT_AFTER
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_RIGHT_AFTER -> {
-                    iv_camera_right_after.visibility = View.INVISIBLE
+                    iv_camera_right_after.hide()
                     progress_bar_right_after.show()
                     FlagConstant.STATUS_SERVICE_RIGHT_AFTER
                 }
@@ -334,11 +333,11 @@ class ServiceActivity : BaseActivity() {
 
     private fun validateMaximumOtherImage() {
         if (mListOtherImage.size >= 5) {
-            card_add_other_image.visibility = View.INVISIBLE
-            tv_maximum_other_image.visibility = View.VISIBLE
+            card_add_other_image.hide()
+            tv_maximum_other_image.show()
         } else {
-            card_add_other_image.visibility = View.VISIBLE
-            tv_maximum_other_image.visibility = View.INVISIBLE
+            card_add_other_image.show()
+            tv_maximum_other_image.hide()
         }
     }
 
@@ -351,13 +350,13 @@ class ServiceActivity : BaseActivity() {
     ) {
         progress_bar.hide()
         if (url != null) {
-            ivCamera.visibility = View.INVISIBLE
+            ivCamera.hide()
             ivImage.setImageFromInternet(url)
-            cardRemove.visibility = View.VISIBLE
+            cardRemove.show()
         } else {
-            ivCamera.visibility = View.VISIBLE
+            ivCamera.show()
             ivImage.setImageResource(0)
-            cardRemove.visibility = View.INVISIBLE
+            cardRemove.hide()
         }
     }
 

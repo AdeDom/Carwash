@@ -1,7 +1,6 @@
 package com.chococard.carwash.ui.home
 
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
@@ -69,11 +68,11 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private fun switchButton() {
         val switch = context?.readPref(CommonsConstant.SWITCH)
         if (switch == FlagConstant.SWITCH_OFF.toString()) {
-            iv_switch_off.visibility = View.VISIBLE
-            iv_switch_on.visibility = View.INVISIBLE
+            iv_switch_off.show()
+            iv_switch_on.hide()
         } else {
-            iv_switch_off.visibility = View.INVISIBLE
-            iv_switch_on.visibility = View.VISIBLE
+            iv_switch_off.hide()
+            iv_switch_on.show()
         }
     }
 

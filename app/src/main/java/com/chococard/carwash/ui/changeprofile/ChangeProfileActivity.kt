@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -55,7 +54,7 @@ class ChangeProfileActivity : BaseActivity() {
 
         card_remove_profile.setOnClickListener {
             iv_photo.setImageResource(R.drawable.ic_user)
-            card_remove_profile.visibility = View.INVISIBLE
+            card_remove_profile.hide()
         }
 
         root_layout.setOnClickListener { hideSoftKeyboard() }
@@ -113,7 +112,7 @@ class ChangeProfileActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CommonsConstant.REQUEST_CODE_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
             val fileUri = data.data!!
-            card_remove_profile.visibility = View.VISIBLE
+            card_remove_profile.show()
             iv_photo.setImageCircle(fileUri.toString())
             progress_bar.show()
             val multipartBody = convertToMultipartBody(fileUri)

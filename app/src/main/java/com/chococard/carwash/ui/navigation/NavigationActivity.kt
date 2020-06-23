@@ -5,7 +5,6 @@ import android.location.Location
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -115,7 +114,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         if (fab_main.tag == FlagConstant.FAB_VISIBILITY_ON) {
             fab_main.tag = FlagConstant.FAB_VISIBILITY_OFF
             fab_main.setImageResource(R.drawable.ic_close_white)
-            view_shadow.visibility = View.VISIBLE
+            view_shadow.show()
             layout_arrive.startAnimation(mFabOpenAnim)
             layout_navigation.startAnimation(mFabOpenAnim)
             layout_service_info.startAnimation(mFabOpenAnim)
@@ -123,7 +122,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         } else {
             fab_main.tag = FlagConstant.FAB_VISIBILITY_ON
             fab_main.setImageResource(R.drawable.ic_menu_white)
-            view_shadow.visibility = View.INVISIBLE
+            view_shadow.hide()
             layout_arrive.startAnimation(mFabCloseAnim)
             layout_navigation.startAnimation(mFabCloseAnim)
             layout_service_info.startAnimation(mFabCloseAnim)

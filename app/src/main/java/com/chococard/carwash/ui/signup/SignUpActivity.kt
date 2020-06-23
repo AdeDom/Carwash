@@ -3,7 +3,6 @@ package com.chococard.carwash.ui.signup
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -17,8 +16,6 @@ import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.SignUpViewModel
 import kotlinx.android.synthetic.main.activity_sign_up.*
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignUpActivity : BaseActivity() {
@@ -84,10 +81,10 @@ class SignUpActivity : BaseActivity() {
         //observe
         viewModel.getFileUri.observe(this, Observer { uri ->
             if (uri == null) {
-                card_remove_profile.visibility = View.INVISIBLE
+                card_remove_profile.hide()
                 iv_photo.setImageResource(R.drawable.ic_user)
             } else {
-                card_remove_profile.visibility = View.VISIBLE
+                card_remove_profile.show()
                 iv_photo.setImageCircle(uri.toString())
             }
         })
