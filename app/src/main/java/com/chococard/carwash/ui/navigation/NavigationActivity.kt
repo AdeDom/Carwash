@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.db.entities.Job
+import com.chococard.carwash.data.db.entities.User
 import com.chococard.carwash.data.networks.request.SetNavigationRequest
 import com.chococard.carwash.ui.base.BaseLocationActivity
 import com.chococard.carwash.ui.service.ServiceActivity
@@ -36,7 +37,8 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
     private var mIsFlagMoveCamera: Boolean = true
     private var mMarkerMyLocation: Marker? = null
     private var mMarkerCustomer: Marker? = null
-    private var mJob: Job? = null
+    private var mDbUser: User? = null
+    private var mDbJob: Job? = null
     private var mFabCloseAnim: Animation? = null
     private var mFabOpenAnim: Animation? = null
 
@@ -71,14 +73,20 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             startActivity<ServiceInfoActivity>()
         }
 
+        fab_call.setOnClickListener {
+            setFabMenuVisibility()
+            startActivityActionDial(mDbJob?.phone)
+        }
+
         // observe
         viewModel.getDbJob.observe(this, Observer { job ->
             if (job == null) return@Observer
-            mJob = job
-            fab_call.setOnClickListener {
-                setFabMenuVisibility()
-                startActivityActionDial(job.phone)
-            }
+            mDbJob = job
+        })
+
+        viewModel.getDbUser.observe(this, Observer { user ->
+            if (user == null) return@Observer
+            mDbUser = user
         })
 
         viewModel.getNavigation.observe(this, Observer { response ->
@@ -151,8 +159,8 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             mGoogleMap?.moveCamera(cameraUpdate)
         }
 
-        val latitude = mJob?.latitude
-        val longitude = mJob?.longitude
+        val latitude = mDbJob?.latitude
+        val longitude = mDbJob?.longitude
         if (latitude != null && longitude != null) {
             fab_navigation.setOnClickListener {
                 setFabMenuVisibility()
@@ -165,23 +173,18 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             }
         }
 
-        viewModel.getDbUser.observe(this, Observer { user ->
-            if (user == null) return@Observer
-
-            mMarkerMyLocation?.remove()
-
-            baseContext.setImageCircle(user.image) { bitmap ->
-                val bmp = baseContext.setImageMarkerCircle(bitmap)
-                val bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(bmp)
-                mMarkerMyLocation = mGoogleMap?.addMarker(
-                    MarkerOptions().apply {
-                        position(latLng)
-                        icon(bitmapDescriptor)
-                        title(user.fullName)
-                    }
-                )
-            }
-        })
+        mMarkerMyLocation?.remove()
+        baseContext.setImageCircle(mDbUser?.image) { bitmap ->
+            val bmp = baseContext.setImageMarkerCircle(bitmap)
+            val bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(bmp)
+            mMarkerMyLocation = mGoogleMap?.addMarker(
+                MarkerOptions().apply {
+                    position(latLng)
+                    icon(bitmapDescriptor)
+                    title(mDbUser?.fullName)
+                }
+            )
+        }
 
         val setNavigation = SetNavigationRequest(latLng.latitude, latLng.longitude)
         viewModel.callSetNavigation(setNavigation)
@@ -190,14 +193,14 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
     private fun setLocationCustomer(latLng: LatLng) {
         mMarkerCustomer?.remove()
 
-        baseContext.setImageCircle(mJob?.imageProfile) { bitmap ->
+        baseContext.setImageCircle(mDbJob?.imageProfile) { bitmap ->
             val bmp = baseContext.setImageMarkerCircle(bitmap)
             val bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(bmp)
             mMarkerCustomer = mGoogleMap?.addMarker(
                 MarkerOptions().apply {
                     position(latLng)
                     icon(bitmapDescriptor)
-                    title(mJob?.fullName)
+                    title(mDbJob?.fullName)
                 }
             )
         }
