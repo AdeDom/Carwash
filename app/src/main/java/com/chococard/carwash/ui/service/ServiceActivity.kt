@@ -31,7 +31,6 @@ class ServiceActivity : BaseActivity() {
     private var mImageUrlBack: String? = null
     private var mImageUrlLeft: String? = null
     private var mImageUrlRight: String? = null
-    private var mServiceAdapter: ServiceAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,16 +44,16 @@ class ServiceActivity : BaseActivity() {
         setToolbar(toolbar)
 
         // set widget
-        mServiceAdapter = ServiceAdapter()
+        val adt = ServiceAdapter()
         recycler_view.apply {
             layoutManager = LinearLayoutManager(baseContext, LinearLayoutManager.HORIZONTAL, false)
-            adapter = mServiceAdapter
+            adapter = adt
         }
-        mServiceAdapter?.onLongClick = { otherImage ->
+        adt.onLongClick = { otherImage ->
             otherImage.imageId?.let { deleteOtherImageService(it) }
             true
         }
-        mServiceAdapter?.onRemoveOtherImage = { otherImage ->
+        adt.onRemoveOtherImage = { otherImage ->
             otherImage.imageId?.let { deleteOtherImageService(it) }
         }
 
@@ -109,6 +108,7 @@ class ServiceActivity : BaseActivity() {
             progress_bar_other_image.hide()
             val (success, message, serviceImage) = response
             if (success) {
+                adt.setList(serviceImage?.otherImageService)
                 serviceImage?.let { setImageJobService(it) }
             } else {
                 toast(message, Toast.LENGTH_LONG)
@@ -119,6 +119,7 @@ class ServiceActivity : BaseActivity() {
             progress_bar.hide()
             val (success, message, serviceImage) = response
             if (success) {
+                adt.setList(serviceImage?.otherImageService)
                 serviceImage?.let { setImageJobService(it) }
             } else {
                 toast(message, Toast.LENGTH_LONG)
@@ -138,6 +139,7 @@ class ServiceActivity : BaseActivity() {
             progress_bar_other_image.hide()
             val (success, message, serviceImage) = response
             if (success) {
+                adt.setList(serviceImage?.otherImageService)
                 serviceImage?.let { setImageJobService(it) }
             } else {
                 toast(message, Toast.LENGTH_LONG)
@@ -268,7 +270,7 @@ class ServiceActivity : BaseActivity() {
     }
 
     private fun setImageJobService(serviceImage: ServiceImage) {
-        val (frontBefore, backBefore, leftBefore, rightBefore, frontAfter, backAfter, leftAfter, rightAfter, otherImageService) = serviceImage
+        val (frontBefore, backBefore, leftBefore, rightBefore, frontAfter, backAfter, leftAfter, rightAfter, _) = serviceImage
         mImageUrlFront = frontBefore
         mImageUrlBack = backBefore
         mImageUrlLeft = leftBefore
@@ -330,7 +332,6 @@ class ServiceActivity : BaseActivity() {
             card_remove_right_after,
             progress_bar_right_after
         )
-        mServiceAdapter?.setList(otherImageService)
     }
 
     private fun setImageView(
