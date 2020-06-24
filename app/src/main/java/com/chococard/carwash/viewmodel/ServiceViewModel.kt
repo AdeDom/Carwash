@@ -26,6 +26,10 @@ class ServiceViewModel(private val repository: HeaderRepository) : BaseViewModel
     val getDeleteServiceOtherImage: LiveData<ServiceImageResponse>
         get() = deleteServiceOtherImageResponse
 
+    private val validateMaximumOtherImage = MutableLiveData<Int>()
+    val getValidateMaximumOtherImage: LiveData<Int>
+        get() = validateMaximumOtherImage
+
     fun callUploadImageService(
         file: MultipartBody.Part,
         statusService: RequestBody?
@@ -36,7 +40,10 @@ class ServiceViewModel(private val repository: HeaderRepository) : BaseViewModel
 
     fun callFetchImageService() = launchCallApi(
         request = { repository.callFetchImageService() },
-        response = { imageServiceResponse.value = it }
+        response = {
+            setValueValidateMaximumOtherImage(it?.serviceImage?.otherImageService?.size ?: 0)
+            imageServiceResponse.value = it
+        }
     )
 
     fun callDeleteServiceImage(deleteImageService: DeleteImageServiceRequest) = launchCallApi(
@@ -48,5 +55,11 @@ class ServiceViewModel(private val repository: HeaderRepository) : BaseViewModel
         request = { repository.callDeleteServiceOtherImage(deleteImageService) },
         response = { deleteServiceOtherImageResponse.value = it }
     )
+
+    fun setValueValidateMaximumOtherImage(count: Int) {
+        validateMaximumOtherImage.value = count
+    }
+
+    fun getValueValidateMaximumOtherImage() = validateMaximumOtherImage.value ?: 0
 
 }

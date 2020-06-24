@@ -12,7 +12,6 @@ import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chococard.carwash.R
-import com.chococard.carwash.data.models.ImageService
 import com.chococard.carwash.data.models.ServiceImage
 import com.chococard.carwash.data.networks.request.DeleteImageServiceRequest
 import com.chococard.carwash.ui.base.BaseActivity
@@ -32,7 +31,6 @@ class ServiceActivity : BaseActivity() {
     private var mImageUrlBack: String? = null
     private var mImageUrlLeft: String? = null
     private var mImageUrlRight: String? = null
-    private var mListOtherImage = ArrayList<ImageService>()
     private var mServiceAdapter: ServiceAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -146,6 +144,16 @@ class ServiceActivity : BaseActivity() {
             }
         })
 
+        viewModel.getValidateMaximumOtherImage.observe(this, Observer {
+            if (it >= 5) {
+                card_add_other_image.hide()
+                tv_maximum_other_image.show()
+            } else {
+                card_add_other_image.show()
+                tv_maximum_other_image.hide()
+            }
+        })
+
         viewModel.getError.observe(this, Observer {
             progress_bar.hide()
             progress_bar_front_before.hide()
@@ -244,8 +252,8 @@ class ServiceActivity : BaseActivity() {
                     FlagConstant.STATUS_SERVICE_RIGHT_AFTER
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_OTHER_IMAGE -> {
-                    mListOtherImage.add(ImageService())
-                    validateMaximumOtherImage()
+                    val count: Int = viewModel.getValueValidateMaximumOtherImage()
+                    viewModel.setValueValidateMaximumOtherImage(count.plus(1))
                     progress_bar_other_image.show()
                     FlagConstant.STATUS_SERVICE_OTHER_IMAGE
                 }
@@ -265,8 +273,6 @@ class ServiceActivity : BaseActivity() {
         mImageUrlBack = backBefore
         mImageUrlLeft = leftBefore
         mImageUrlRight = rightBefore
-        if (otherImageService != null)
-            mListOtherImage = otherImageService as ArrayList<ImageService>
 
         setImageView(
             frontBefore,
@@ -325,18 +331,6 @@ class ServiceActivity : BaseActivity() {
             progress_bar_right_after
         )
         mServiceAdapter?.setList(otherImageService)
-
-        validateMaximumOtherImage()
-    }
-
-    private fun validateMaximumOtherImage() {
-        if (mListOtherImage.size >= 5) {
-            card_add_other_image.hide()
-            tv_maximum_other_image.show()
-        } else {
-            card_add_other_image.show()
-            tv_maximum_other_image.hide()
-        }
     }
 
     private fun setImageView(
