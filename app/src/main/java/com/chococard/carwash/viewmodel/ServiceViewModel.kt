@@ -51,10 +51,13 @@ class ServiceViewModel(private val repository: HeaderRepository) : BaseViewModel
         response = { deleteServiceImageResponse.value = it }
     )
 
-    fun callDeleteServiceOtherImage(deleteImageService: DeleteImageServiceRequest) = launchCallApi(
-        request = { repository.callDeleteServiceOtherImage(deleteImageService) },
-        response = { deleteServiceOtherImageResponse.value = it }
-    )
+    fun callDeleteServiceOtherImage(deleteImageService: DeleteImageServiceRequest) {
+        setValueValidateMaximumOtherImage(getValueValidateMaximumOtherImage().minus(1))
+        launchCallApi(
+            request = { repository.callDeleteServiceOtherImage(deleteImageService) },
+            response = { deleteServiceOtherImageResponse.value = it }
+        )
+    }
 
     fun setValueValidateMaximumOtherImage(count: Int) {
         validateMaximumOtherImage.value = count
