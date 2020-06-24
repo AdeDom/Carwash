@@ -118,5 +118,6 @@
     <string name="distance">Distance</string>
     <string name="after_service">After service</string>
     <string name="before_service">Before service</string>
+    <string name="other_images">Other images</string>
 
 </resources>

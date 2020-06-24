@@ -27,10 +27,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ServiceActivity : BaseActivity() {
 
     val viewModel: ServiceViewModel by viewModel()
-    private var mImageUrlFront: String? = null
-    private var mImageUrlBack: String? = null
-    private var mImageUrlLeft: String? = null
-    private var mImageUrlRight: String? = null
+    private val mListImageService = ArrayList<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,7 +89,7 @@ class ServiceActivity : BaseActivity() {
         bt_report.setOnClickListener { startActivity<ReportActivity>() }
 
         bt_payment.setOnClickListener {
-            if (mImageUrlFront != null && mImageUrlBack != null && mImageUrlLeft != null && mImageUrlRight != null) {
+            if (mListImageService.size == 8) {
                 startActivity<PaymentActivity>()
             } else {
                 dialogError(getString(R.string.error_empty_image))
@@ -140,7 +137,6 @@ class ServiceActivity : BaseActivity() {
             val (success, message, serviceImage) = response
             if (success) {
                 adt.setList(serviceImage?.otherImageService)
-                serviceImage?.let { setImageJobService(it) }
             } else {
                 toast(message, Toast.LENGTH_LONG)
             }
@@ -271,10 +267,7 @@ class ServiceActivity : BaseActivity() {
 
     private fun setImageJobService(serviceImage: ServiceImage) {
         val (frontBefore, backBefore, leftBefore, rightBefore, frontAfter, backAfter, leftAfter, rightAfter, _) = serviceImage
-        mImageUrlFront = frontBefore
-        mImageUrlBack = backBefore
-        mImageUrlLeft = leftBefore
-        mImageUrlRight = rightBefore
+        mListImageService.clear()
 
         setImageView(
             frontBefore,
@@ -343,6 +336,7 @@ class ServiceActivity : BaseActivity() {
     ) {
         progress_bar.hide()
         if (url != null) {
+            mListImageService.add(1)
             ivCamera.hide()
             ivImage.setImageFromInternet(url)
             cardRemove.show()

@@ -39,10 +39,11 @@
             android:rowCount="3">
 
             <TextView
-                style="@style/TextViewMediumGray"
+                style="@style/TextViewLargeApplication"
                 android:layout_columnSpan="2"
                 android:layout_marginStart="@dimen/base_pow_four"
-                android:text="@string/photo_service_from_all_4_sides" />
+                android:text="@string/before_service"
+                android:textStyle="normal" />
 
             <androidx.cardview.widget.CardView style="@style/StyleCardViewService">
 
@@ -223,15 +224,16 @@
             style="@style/WrapWrap"
             android:layout_below="@id/layout_before_service"
             android:layout_centerHorizontal="true"
-            android:layout_margin="@dimen/base_pow_four"
+            android:layout_margin="@dimen/base_pow_three"
             android:columnCount="2"
             android:rowCount="3">
 
             <TextView
-                style="@style/TextViewMediumGray"
+                style="@style/TextViewLargeApplication"
                 android:layout_columnSpan="2"
                 android:layout_marginStart="@dimen/base_pow_four"
-                android:text="@string/photo_service_from_all_4_sides" />
+                android:text="@string/after_service"
+                android:textStyle="normal" />
 
             <androidx.cardview.widget.CardView style="@style/StyleCardViewService">
 
@@ -423,8 +425,9 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    style="@style/TextViewMediumGray"
-                    android:text="@string/other_related_images" />
+                    style="@style/TextViewLargeApplication"
+                    android:text="@string/other_images"
+                    android:textStyle="normal" />
 
                 <RelativeLayout style="@style/WrapWrap">
 
