@@ -18,7 +18,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dialog_job) {
 
     val viewModel: MainViewModel by viewModel()
-    private var mIsTimer: Boolean = true
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -51,38 +50,25 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
         setCountTime()
 
         // set event
-        bt_cancel.setOnClickListener { rejectJob() }
-        bt_confirm.setOnClickListener { receiveJob() }
+        bt_cancel.setOnClickListener {
+            viewModel.setValueJobFlag(FlagConstant.JOB_REJECT)
+        }
+        bt_confirm.setOnClickListener {
+            viewModel.setValueJobFlag(FlagConstant.JOB_RECEIVE)
+        }
     }
 
     private fun setCountTime() {
         Coroutines.main {
-            for (t in 0 until CommonsConstant.MAX_COUNT_TIME) {
-                if (mIsTimer) {
-                    viewModel.setValueCountTime(CommonsConstant.MAX_COUNT_TIME - t)
-                    delay(1000)
-                } else {
-                    return@main
-                }
+            var isTime = true
+            var time: Int = CommonsConstant.MAX_COUNT_TIME
+            while (isTime) {
+                isTime = time > 0
+                viewModel.setValueCountTime(time--)
+                delay(1000)
             }
-
-            rejectJob()
+            viewModel.setValueJobFlag(FlagConstant.JOB_REJECT_TIME_OUT)
         }
-    }
-
-    private fun receiveJob() {
-        mIsTimer = false
-        viewModel.setValueJobFlag(FlagConstant.JOB_RECEIVE)
-    }
-
-    private fun rejectJob() {
-        mIsTimer = false
-        viewModel.setValueJobFlag(FlagConstant.JOB_REJECT)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        rejectJob()
     }
 
 }
