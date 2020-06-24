@@ -18,7 +18,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dialog_job) {
 
     val viewModel: MainViewModel by viewModel()
-    private var mFlagJob: Int = 0
     private var mIsTimer: Boolean = true
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -39,8 +38,14 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
         tv_distance.text = distance
         iv_photo.setImageCircle(imageProfile)
 
+        // observe
         viewModel.getCountTime.observe(viewLifecycleOwner, Observer {
             tv_count_time.text = it.toString()
+        })
+
+        viewModel.getJobFlag.observe(viewLifecycleOwner, Observer {
+            listener.onFlag(it)
+            dismiss()
         })
 
         setCountTime()
@@ -67,19 +72,17 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
 
     private fun receiveJob() {
         mIsTimer = false
-        mFlagJob = FlagConstant.JOB_RECEIVE
-        dismiss()
+        viewModel.setValueJobFlag(FlagConstant.JOB_RECEIVE)
     }
 
     private fun rejectJob() {
         mIsTimer = false
-        mFlagJob = FlagConstant.JOB_REJECT
-        dismiss()
+        viewModel.setValueJobFlag(FlagConstant.JOB_REJECT)
     }
 
-    override fun dismiss() {
-        listener.onFlag(mFlagJob)
-        super.dismiss()
+    override fun onPause() {
+        super.onPause()
+        rejectJob()
     }
 
 }
