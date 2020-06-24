@@ -19,7 +19,6 @@ import com.chococard.carwash.ui.serviceinfo.ServiceInfoActivity
 import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.NavigationViewModel
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapFragment
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -56,7 +55,6 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         // set fab
         mFabOpenAnim = AnimationUtils.loadAnimation(baseContext, R.anim.fab_open)
         mFabCloseAnim = AnimationUtils.loadAnimation(baseContext, R.anim.fab_close)
-        fab_main.tag = FlagConstant.FAB_VISIBILITY_ON
 
         // set event
         fab_main.setOnClickListener { setFabMenuVisibility() }
@@ -118,15 +116,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
     }
 
     private fun setFabMenuVisibility() {
-        if (fab_main.tag == FlagConstant.FAB_VISIBILITY_ON) {
-            fab_main.tag = FlagConstant.FAB_VISIBILITY_OFF
-            fab_main.setImageResource(R.drawable.ic_close_white)
-            view_shadow.show()
-            layout_arrive.startAnimation(mFabOpenAnim)
-            layout_navigation.startAnimation(mFabOpenAnim)
-            layout_service_info.startAnimation(mFabOpenAnim)
-            layout_call.startAnimation(mFabOpenAnim)
-        } else {
+        if (fab_main.tag == FlagConstant.FAB_VISIBILITY_OFF) {
             fab_main.tag = FlagConstant.FAB_VISIBILITY_ON
             fab_main.setImageResource(R.drawable.ic_menu_white)
             view_shadow.hide()
@@ -134,6 +124,14 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             layout_navigation.startAnimation(mFabCloseAnim)
             layout_service_info.startAnimation(mFabCloseAnim)
             layout_call.startAnimation(mFabCloseAnim)
+        } else {
+            fab_main.tag = FlagConstant.FAB_VISIBILITY_OFF
+            fab_main.setImageResource(R.drawable.ic_close_white)
+            view_shadow.show()
+            layout_arrive.startAnimation(mFabOpenAnim)
+            layout_navigation.startAnimation(mFabOpenAnim)
+            layout_service_info.startAnimation(mFabOpenAnim)
+            layout_call.startAnimation(mFabOpenAnim)
         }
     }
 
@@ -147,6 +145,8 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         mGoogleMap?.isMyLocationEnabled = true
         mGoogleMap?.setMinZoomPreference(12F)
         mGoogleMap?.setMaxZoomPreference(16F)
+
+        mGoogleMap.animateCamera()
     }
 
     override fun onLocationChanged(location: Location?) {
@@ -155,8 +155,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
 
         if (mIsFlagMoveCamera) {
             mIsFlagMoveCamera = false
-            val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 14F)
-            mGoogleMap?.moveCamera(cameraUpdate)
+            mGoogleMap.animateCamera(latLng)
         }
 
         val latitude = mDbJob?.latitude

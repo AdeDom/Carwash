@@ -48,7 +48,6 @@ class SignInActivity : BaseActivity() {
             hideSoftKeyboard()
         }
 
-        iv_toggle_password.tag = FlagConstant.TOGGLE_PASSWORD_ON
         iv_toggle_password.setOnClickListener {
             iv_toggle_password setTogglePassword et_password
         }
