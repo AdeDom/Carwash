@@ -1,6 +1,5 @@
 package com.chococard.carwash.ui.main
 
-import android.content.Intent
 import android.location.Location
 import android.os.Bundle
 import android.view.MenuItem
@@ -32,8 +31,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 class MainActivity : BaseLocationActivity(),
-    BottomNavigationView.OnNavigationItemSelectedListener,
-    FlagJobListener {
+    BottomNavigationView.OnNavigationItemSelectedListener {
 
     val viewModel: MainViewModel by viewModel()
 
@@ -48,6 +46,13 @@ class MainActivity : BaseLocationActivity(),
 
         bt_has_job.setOnClickListener {
             viewModel.callJobQuestion()
+        }
+
+        val listener: FlagJobListener = object : FlagJobListener {
+            override fun onFlag(flag: Int) {
+                progress_bar.show()
+                viewModel.callJobAnswer(JobAnswerRequest(flag))
+            }
         }
 
         val currentUser = FirebaseAuth.getInstance().currentUser
@@ -86,7 +91,7 @@ class MainActivity : BaseLocationActivity(),
                 val bundle = Bundle()
                 bundle.putParcelable(CommonsConstant.JOB, jobQuestion)
 
-                val jobDialog = JobDialog()
+                val jobDialog = JobDialog(listener)
                 jobDialog.arguments = bundle
                 jobDialog.show(supportFragmentManager, null)
             } else {
@@ -167,11 +172,6 @@ class MainActivity : BaseLocationActivity(),
         // set user logs active
         val logsKeys = readPref(CommonsConstant.LOGS_KEYS)
         viewModel.callLogsActive(LogsActiveRequest(logsKeys, FlagConstant.LOGS_STATUS_INACTIVE))
-    }
-
-    override fun onFlag(flag: Int) {
-        progress_bar.show()
-        viewModel.callJobAnswer(JobAnswerRequest(flag))
     }
 
     override fun onLocationChanged(location: Location?) {

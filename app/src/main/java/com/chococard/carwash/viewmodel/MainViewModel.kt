@@ -36,6 +36,10 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
     val getLocation: LiveData<BaseResponse>
         get() = locationResponse
 
+    private val countTime = MutableLiveData<Int>()
+    val getCountTime: LiveData<Int>
+        get() = countTime
+
     fun callFetchUserInfo() = launchCallApi(
         request = { repository.callFetchUserInfo() },
         response = { userInfoResponse.value = it }
@@ -65,5 +69,9 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
         request = { repository.callSetLocation(setLocation) },
         response = { locationResponse.value = it }
     )
+
+    fun setValueCountTime(countTime: Int) {
+        this.countTime.value = countTime
+    }
 
 }

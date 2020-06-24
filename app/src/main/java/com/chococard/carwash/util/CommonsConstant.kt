@@ -17,6 +17,8 @@ object CommonsConstant {
     const val REQUEST_CODE_IMAGE_RIGHT_AFTER = 18
     const val REQUEST_CODE_IMAGE_OTHER_IMAGE = 19
 
+    const val MAX_COUNT_TIME = 15
+
     const val PREF_FILE = "pref_file"
     const val TOKEN = "token"
     const val REFRESH_TOKEN = "refresh_token"

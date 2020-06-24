@@ -1,6 +1,7 @@
 package com.chococard.carwash.ui.main
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.ui.BaseDialog
@@ -9,12 +10,14 @@ import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.getLocality
 import com.chococard.carwash.util.extension.setImageCircle
+import com.chococard.carwash.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.dialog_job.*
 import kotlinx.coroutines.delay
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class JobDialog : BaseDialog(R.layout.dialog_job) {
+class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dialog_job) {
 
-    private lateinit var listener: FlagJobListener
+    val viewModel: MainViewModel by viewModel()
     private var mFlagJob: Int = 0
     private var mIsTimer: Boolean = true
 
@@ -25,8 +28,6 @@ class JobDialog : BaseDialog(R.layout.dialog_job) {
     }
 
     private fun init() {
-        listener = context as FlagJobListener
-
         val job = arguments?.getParcelable(CommonsConstant.JOB) as Job? ?: return
 
         // set widgets
@@ -38,6 +39,10 @@ class JobDialog : BaseDialog(R.layout.dialog_job) {
         tv_distance.text = distance
         iv_photo.setImageCircle(imageProfile)
 
+        viewModel.getCountTime.observe(viewLifecycleOwner, Observer {
+            tv_count_time.text = it.toString()
+        })
+
         setCountTime()
 
         // set event
@@ -47,10 +52,9 @@ class JobDialog : BaseDialog(R.layout.dialog_job) {
 
     private fun setCountTime() {
         Coroutines.main {
-            for (t in 0..14) {
+            for (t in 0 until CommonsConstant.MAX_COUNT_TIME) {
                 if (mIsTimer) {
-                    val time = 15 - t
-                    tv_count_time.text = time.toString()
+                    viewModel.setValueCountTime(CommonsConstant.MAX_COUNT_TIME - t)
                     delay(1000)
                 } else {
                     return@main
