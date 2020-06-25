@@ -119,7 +119,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_before_service"
-                style="@style/MatchWrap"
+                android:layout_width="match_parent"
+                android:layout_height="800dp"
                 android:layout_marginTop="@dimen/base_forty"
                 tools:itemCount="4"
                 tools:listitem="@layout/item_image_history_detail" />
@@ -138,7 +139,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_after_service"
-                style="@style/MatchWrap"
+                android:layout_width="match_parent"
+                android:layout_height="800dp"
                 android:layout_marginTop="@dimen/base_forty"
                 tools:itemCount="4"
                 tools:listitem="@layout/item_image_history_detail" />

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
@@ -269,61 +268,62 @@ class ServiceActivity : BaseActivity() {
         val (frontBefore, backBefore, leftBefore, rightBefore, frontAfter, backAfter, leftAfter, rightAfter, _) = serviceImage
         mListImageService.clear()
 
+        progress_bar_front_before.hide()
+        progress_bar_back_before.hide()
+        progress_bar_left_before.hide()
+        progress_bar_right_before.hide()
+        progress_bar_front_after.hide()
+        progress_bar_back_after.hide()
+        progress_bar_left_after.hide()
+        progress_bar_right_after.hide()
+
         setImageView(
             frontBefore,
             iv_image_front_before,
             iv_camera_front_before,
-            card_remove_front_before,
-            progress_bar_front_before
+            card_remove_front_before
         )
         setImageView(
             backBefore,
             iv_image_back_before,
             iv_camera_back_before,
-            card_remove_back_before,
-            progress_bar_back_before
+            card_remove_back_before
         )
         setImageView(
             leftBefore,
             iv_image_left_before,
             iv_camera_left_before,
-            card_remove_left_before,
-            progress_bar_left_before
+            card_remove_left_before
         )
         setImageView(
             rightBefore,
             iv_image_right_before,
             iv_camera_right_before,
-            card_remove_right_before,
-            progress_bar_right_before
+            card_remove_right_before
         )
         setImageView(
             frontAfter,
             iv_image_front_after,
             iv_camera_front_after,
-            card_remove_front_after,
-            progress_bar_front_after
+            card_remove_front_after
         )
         setImageView(
             backAfter,
             iv_image_back_after,
             iv_camera_back_after,
-            card_remove_back_after,
-            progress_bar_back_after
+            card_remove_back_after
         )
         setImageView(
             leftAfter,
             iv_image_left_after,
             iv_camera_left_after,
-            card_remove_left_after,
-            progress_bar_left_after
+            card_remove_left_after
         )
         setImageView(
             rightAfter,
             iv_image_right_after,
             iv_camera_right_after,
-            card_remove_right_after,
-            progress_bar_right_after
+            card_remove_right_after
         )
     }
 
@@ -331,10 +331,8 @@ class ServiceActivity : BaseActivity() {
         url: String?,
         ivImage: ImageView,
         ivCamera: ImageView,
-        cardRemove: CardView,
-        progress_bar: ProgressBar
+        cardRemove: CardView
     ) {
-        progress_bar.hide()
         if (url != null) {
             mListImageService.add(1)
             ivCamera.hide()

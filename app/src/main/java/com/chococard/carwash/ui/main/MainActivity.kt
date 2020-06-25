@@ -62,13 +62,10 @@ class MainActivity : BaseLocationActivity(),
 
         //observe
         viewModel.getDbUser.observe(this, Observer { user ->
-            // fetch user info
+            // fetch user info & sign in firebase
             if (user == null) {
                 viewModel.callFetchUserInfo()
-            }
-
-            // sign in firebase
-            if (FirebaseAuth.getInstance().currentUser == null) {
+            } else if (FirebaseAuth.getInstance().currentUser == null) {
                 startActivity<VPSignInActivity> { intent ->
                     intent.putExtra(CommonsConstant.PHONE, user.phone)
                 }
