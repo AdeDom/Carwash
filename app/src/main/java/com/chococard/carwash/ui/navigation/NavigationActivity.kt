@@ -14,6 +14,7 @@ import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.db.entities.User
 import com.chococard.carwash.data.networks.request.SetNavigationRequest
 import com.chococard.carwash.ui.base.BaseLocationActivity
+import com.chococard.carwash.ui.report.ReportActivity
 import com.chococard.carwash.ui.service.ServiceActivity
 import com.chococard.carwash.ui.serviceinfo.ServiceInfoActivity
 import com.chococard.carwash.util.FlagConstant
@@ -213,6 +214,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.option_contact_admin -> startActivityActionDial()
+            R.id.option_report -> startActivity<ReportActivity>()
         }
         return super.onOptionsItemSelected(item)
     }

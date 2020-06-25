@@ -1,6 +1,5 @@
 package com.chococard.carwash.ui.payment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -64,6 +63,7 @@ class PaymentActivity : BaseActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_option_busy, menu)
+        menu?.findItem(R.id.option_report)?.isVisible = false
         return true
     }
 

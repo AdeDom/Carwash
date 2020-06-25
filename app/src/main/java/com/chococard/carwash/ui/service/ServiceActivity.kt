@@ -15,7 +15,6 @@ import com.chococard.carwash.data.models.ServiceImage
 import com.chococard.carwash.data.networks.request.DeleteImageServiceRequest
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.payment.PaymentActivity
-import com.chococard.carwash.ui.report.ReportActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.*
@@ -84,8 +83,6 @@ class ServiceActivity : BaseActivity() {
         card_remove_right_after.setOnClickListener { deleteImageService(FlagConstant.STATUS_SERVICE_RIGHT_AFTER) }
 
         iv_add_other_image.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_OTHER_IMAGE) }
-
-        bt_report.setOnClickListener { startActivity<ReportActivity>() }
 
         bt_payment.setOnClickListener {
             if (mListImageService.size == 8) {
@@ -168,6 +165,7 @@ class ServiceActivity : BaseActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_option_busy, menu)
+        menu?.findItem(R.id.option_report)?.isVisible = false
         return true
     }
 

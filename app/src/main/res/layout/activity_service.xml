@@ -475,31 +475,18 @@
 
         </RelativeLayout>
 
-        <LinearLayout
-            style="@style/LinearLayoutButtonPair"
+        <androidx.cardview.widget.CardView
+            style="@style/CardViewButton"
             android:layout_below="@+id/layout_other_image_service"
-            android:layout_alignParentBottom="false"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/base_pow_four">
 
-            <androidx.cardview.widget.CardView style="@style/CardViewButtonPair">
+            <Button
+                android:id="@+id/bt_payment"
+                style="@style/ButtonBlueLong"
+                android:text="@string/payment" />
 
-                <Button
-                    android:id="@+id/bt_report"
-                    style="@style/ButtonWhiteShort"
-                    android:text="@string/report" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView style="@style/CardViewButtonPair">
-
-                <Button
-                    android:id="@+id/bt_payment"
-                    style="@style/ButtonBlueShort"
-                    android:text="@string/payment" />
-
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <ProgressBar
             android:id="@+id/progress_bar"

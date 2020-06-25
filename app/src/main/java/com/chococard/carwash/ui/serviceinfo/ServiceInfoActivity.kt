@@ -7,10 +7,8 @@ import android.view.MenuItem
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseLocationActivity
-import com.chococard.carwash.util.extension.getLocality
-import com.chococard.carwash.util.extension.setImageCircle
-import com.chococard.carwash.util.extension.startActivityActionDial
-import com.chococard.carwash.util.extension.startActivityGoogleMapNavigation
+import com.chococard.carwash.ui.report.ReportActivity
+import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.ServiceInfoViewModel
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_service_info.*
@@ -83,6 +81,7 @@ class ServiceInfoActivity : BaseLocationActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.option_contact_admin -> startActivityActionDial()
+            R.id.option_report -> startActivity<ReportActivity>()
         }
         return super.onOptionsItemSelected(item)
     }
