@@ -29,8 +29,11 @@ class HeaderRepositoryImpl(
     private suspend fun deleteUser() = db.getUserDao().deleteUser()
     // user
 
-    override suspend fun callChangeImageProfile(file: MultipartBody.Part) =
-        apiRequest { api.callChangeImageProfile(file) }
+    override suspend fun callChangeImageProfile(file: MultipartBody.Part): BaseResponse {
+        val response = apiRequest { api.callChangeImageProfile(file) }
+        if (response.success) callFetchUserInfo()
+        return response
+    }
 
     override suspend fun callLogout(): BaseResponse {
         val response = apiRequest { api.callLogout() }

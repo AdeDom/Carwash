@@ -4,7 +4,6 @@ import com.chococard.carwash.data.networks.request.*
 import com.chococard.carwash.data.networks.response.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -17,7 +16,7 @@ interface HeaderAppService {
     //upload image from android to server when selected image.
     @Multipart
     @POST("api/account/changeprofile")
-    suspend fun callChangeImageProfile(@Part file: MultipartBody.Part): Response<ResponseBody>
+    suspend fun callChangeImageProfile(@Part file: MultipartBody.Part): Response<BaseResponse>
 
     //logout
     @POST("api/account/logout")
@@ -102,9 +101,10 @@ interface HeaderAppService {
     suspend fun callDeleteServiceOtherImage(@Body deleteImageService: DeleteImageServiceRequest): Response<ServiceImageResponse>
 
     companion object {
-        operator fun invoke(networkHeaderInterceptor: NetworkHeaderInterceptor) =
-            RetrofitClient.instant(networkHeaderInterceptor)
+        operator fun invoke(networkHeaderInterceptor: NetworkHeaderInterceptor): HeaderAppService {
+            return RetrofitClient.instant(networkHeaderInterceptor)
                 .create(HeaderAppService::class.java)
+        }
     }
 
 }

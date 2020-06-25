@@ -36,9 +36,10 @@ interface ConnectionAppService {
     suspend fun callValidatePhone(@Body validatePhone: ValidatePhoneRequest): Response<BaseResponse>
 
     companion object {
-        operator fun invoke(networkConnectionInterceptor: NetworkConnectionInterceptor) =
-            RetrofitClient.instant(networkConnectionInterceptor)
+        operator fun invoke(networkConnectionInterceptor: NetworkConnectionInterceptor): ConnectionAppService {
+            return RetrofitClient.instant(networkConnectionInterceptor)
                 .create(ConnectionAppService::class.java)
+        }
     }
 
 }

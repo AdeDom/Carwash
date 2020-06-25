@@ -7,14 +7,13 @@ import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.repositories.HeaderRepository
 import okhttp3.MultipartBody
-import okhttp3.ResponseBody
 
 class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseViewModel() {
 
     val getDbUser = repository.getUser()
 
-    private val changeImageProfileResponse = MutableLiveData<ResponseBody>()
-    val getChangeImageProfile: LiveData<ResponseBody>
+    private val changeImageProfileResponse = MutableLiveData<BaseResponse>()
+    val getChangeImageProfile: LiveData<BaseResponse>
         get() = changeImageProfileResponse
 
     private val changePhoneResponse = MutableLiveData<BaseResponse>()

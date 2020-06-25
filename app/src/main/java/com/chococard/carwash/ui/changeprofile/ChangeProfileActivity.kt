@@ -21,7 +21,6 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_change_profile.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-// TODO: 29/05/2563 re-check get db user info from room database
 class ChangeProfileActivity : BaseActivity() {
 
     val viewModel: ChangeProfileViewModel by viewModel()
@@ -69,8 +68,10 @@ class ChangeProfileActivity : BaseActivity() {
         bt_confirm.setOnClickListener { validatePhone() }
 
         //observe
-        viewModel.getChangeImageProfile.observe(this, Observer {
+        viewModel.getChangeImageProfile.observe(this, Observer { response ->
+            val (success, message) = response
             progress_bar.hide()
+            if (!success) toast(message, Toast.LENGTH_LONG)
         })
 
         viewModel.getChangePhone.observe(this, Observer { response ->

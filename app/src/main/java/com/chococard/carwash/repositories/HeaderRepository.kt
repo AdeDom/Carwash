@@ -7,7 +7,6 @@ import com.chococard.carwash.data.networks.request.*
 import com.chococard.carwash.data.networks.response.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.ResponseBody
 
 interface HeaderRepository {
 
@@ -15,7 +14,7 @@ interface HeaderRepository {
 
     fun getUser(): LiveData<User>
 
-    suspend fun callChangeImageProfile(file: MultipartBody.Part): ResponseBody
+    suspend fun callChangeImageProfile(file: MultipartBody.Part): BaseResponse
 
     suspend fun callLogout(): BaseResponse
 
@@ -49,7 +48,10 @@ interface HeaderRepository {
 
     suspend fun callHomeScore(): HomeScoreResponse
 
-    suspend fun callUploadImageService(file: MultipartBody.Part, statusService: RequestBody?): ServiceImageResponse
+    suspend fun callUploadImageService(
+        file: MultipartBody.Part,
+        statusService: RequestBody?
+    ): ServiceImageResponse
 
     suspend fun callFetchImageService(): ServiceImageResponse
 
