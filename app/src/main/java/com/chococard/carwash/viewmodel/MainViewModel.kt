@@ -12,6 +12,8 @@ import com.chococard.carwash.repositories.HeaderRepository
 
 class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() {
 
+    val getDbUser = repository.getUser()
+
     private val userInfoResponse = MutableLiveData<UserResponse>()
     val getUserInfo: LiveData<UserResponse>
         get() = userInfoResponse

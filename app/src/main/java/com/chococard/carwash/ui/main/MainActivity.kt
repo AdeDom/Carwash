@@ -55,24 +55,29 @@ class MainActivity : BaseLocationActivity(),
             }
         }
 
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        if (currentUser == null) viewModel.callFetchUserInfo()
-
         //call api
         val logsKeys = UUID.randomUUID().toString().replace("-", "")
         writePref(CommonsConstant.LOGS_KEYS, logsKeys)
         viewModel.callLogsActive(LogsActiveRequest(logsKeys, FlagConstant.LOGS_STATUS_ACTIVE))
 
         //observe
-        viewModel.getUserInfo.observe(this, Observer { response ->
-            val (success, message, user) = response
-            if (success) {
-                if (currentUser == null) {
-                    startActivity<VPSignInActivity> { intent ->
-                        intent.putExtra(CommonsConstant.PHONE, user?.phone)
-                    }
+        viewModel.getDbUser.observe(this, Observer { user ->
+            // fetch user info
+            if (user == null) {
+                viewModel.callFetchUserInfo()
+            }
+
+            // sign in firebase
+            if (FirebaseAuth.getInstance().currentUser == null) {
+                startActivity<VPSignInActivity> { intent ->
+                    intent.putExtra(CommonsConstant.PHONE, user.phone)
                 }
-            } else {
+            }
+        })
+
+        viewModel.getUserInfo.observe(this, Observer { response ->
+            val (success, message, _) = response
+            if (!success) {
                 finishAffinity()
                 toast(message, Toast.LENGTH_LONG)
             }
