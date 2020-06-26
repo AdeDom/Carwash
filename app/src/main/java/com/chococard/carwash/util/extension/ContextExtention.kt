@@ -12,6 +12,7 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -147,3 +148,11 @@ fun Context.dialogNegative(title: Int, message: Int, negative: () -> Unit) =
         setCancelable(false)
         show()
     }
+
+fun Context.startAnimationFabOpen(view: View) {
+    view.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fab_open))
+}
+
+fun Context.startAnimationFabClose(view: View) {
+    view.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fab_close))
+}

@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
@@ -39,8 +37,6 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
     private var mMarkerCustomer: Marker? = null
     private var mDbUser: User? = null
     private var mDbJob: Job? = null
-    private var mFabCloseAnim: Animation? = null
-    private var mFabOpenAnim: Animation? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,10 +48,6 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
 
         val mapFragment = fragmentManager.findFragmentById(R.id.map_fragment) as MapFragment
         mapFragment.getMapAsync(this@NavigationActivity)
-
-        // set fab
-        mFabOpenAnim = AnimationUtils.loadAnimation(baseContext, R.anim.fab_open)
-        mFabCloseAnim = AnimationUtils.loadAnimation(baseContext, R.anim.fab_close)
 
         // set event
         fab_main.setOnClickListener { setFabMenuVisibility() }
@@ -121,18 +113,18 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             fab_main.tag = FlagConstant.FAB_VISIBILITY_ON
             fab_main.setImageResource(R.drawable.ic_menu_white)
             view_shadow.hide()
-            layout_arrive.startAnimation(mFabCloseAnim)
-            layout_navigation.startAnimation(mFabCloseAnim)
-            layout_service_info.startAnimation(mFabCloseAnim)
-            layout_call.startAnimation(mFabCloseAnim)
+            startAnimationFabClose(layout_arrive)
+            startAnimationFabClose(layout_navigation)
+            startAnimationFabClose(layout_service_info)
+            startAnimationFabClose(layout_call)
         } else {
             fab_main.tag = FlagConstant.FAB_VISIBILITY_OFF
             fab_main.setImageResource(R.drawable.ic_close_white)
             view_shadow.show()
-            layout_arrive.startAnimation(mFabOpenAnim)
-            layout_navigation.startAnimation(mFabOpenAnim)
-            layout_service_info.startAnimation(mFabOpenAnim)
-            layout_call.startAnimation(mFabOpenAnim)
+            startAnimationFabOpen(layout_arrive)
+            startAnimationFabOpen(layout_navigation)
+            startAnimationFabOpen(layout_service_info)
+            startAnimationFabOpen(layout_call)
         }
     }
 
