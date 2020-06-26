@@ -27,7 +27,7 @@
         <activity
             android:name=".ui.navigation.NavigationActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.historydetail.ViewImageActivity" />
+        <activity android:name=".ui.viewimage.ViewImageActivity" />
         <activity
             android:name=".ui.historydetail.HistoryDetailActivity"
             android:screenOrientation="portrait" />

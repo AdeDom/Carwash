@@ -7,7 +7,9 @@
         android:id="@+id/layout_toolbar"
         style="@style/MatchWrap">
 
-        <androidx.appcompat.widget.Toolbar style="@style/Toolbar" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar" />
 
         <ImageView
             android:id="@+id/iv_arrow_back"
@@ -28,5 +30,9 @@
         android:id="@+id/iv_image_place_holder"
         style="@style/ImageViewLogoPlaceHolder"
         android:layout_centerInParent="true" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/ProgressBar" />
 
 </RelativeLayout>

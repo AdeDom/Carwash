@@ -43,5 +43,7 @@ val appModule = module {
     viewModel { ReportViewModel(get()) }
     viewModel { ServiceViewModel(get()) }
     viewModel { ServiceInfoViewModel(get()) }
+    viewModel { HistoryDetailViewModel(get()) }
+    viewModel { ViewImageViewModel(get()) }
 
 }

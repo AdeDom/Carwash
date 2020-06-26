@@ -1,18 +1,27 @@
 package com.chococard.carwash.ui.historydetail
 
 import android.os.Bundle
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.History
 import com.chococard.carwash.ui.base.BaseActivity
+import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
+import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
+import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
+import com.chococard.carwash.ui.viewimage.ViewImageActivity
 import com.chococard.carwash.util.CommonsConstant
-import com.chococard.carwash.util.extension.getLocality
-import com.chococard.carwash.util.extension.gone
-import com.chococard.carwash.util.extension.setImageCircle
-import com.chococard.carwash.util.extension.startActivity
+import com.chococard.carwash.util.extension.*
+import com.chococard.carwash.viewmodel.HistoryDetailViewModel
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_history_detail.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HistoryDetailActivity : BaseActivity() {
+
+    val viewModel: HistoryDetailViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +31,9 @@ class HistoryDetailActivity : BaseActivity() {
     }
 
     private fun init() {
+        //set toolbar
+        setToolbar(toolbar)
+
         // get data history fragment
         val history = intent.getParcelableExtra<History>(CommonsConstant.HISTORY)
         if (history == null) finish()
@@ -93,6 +105,37 @@ class HistoryDetailActivity : BaseActivity() {
 
         //set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
+
+        // observe
+        viewModel.getLogout.observe(this, Observer { response ->
+            val (success, message) = response
+            if (success) {
+                writePref(CommonsConstant.TOKEN, "")
+                writePref(CommonsConstant.REFRESH_TOKEN, "")
+                startActivity<SplashScreenActivity> {
+                    finishAffinity()
+                }
+            } else {
+                toast(message, Toast.LENGTH_LONG)
+            }
+        })
+
+        viewModel.getError.observe(this, Observer {
+            dialogError(it)
+        })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.option_change_profile -> startActivity<ChangeProfileActivity>()
+            R.id.option_change_password -> startActivity<ChangePasswordActivity>()
+            R.id.option_contact_admin -> startActivityActionDial()
+            R.id.option_logout -> dialogLogout {
+                FirebaseAuth.getInstance().signOut()
+                viewModel.callLogout()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }

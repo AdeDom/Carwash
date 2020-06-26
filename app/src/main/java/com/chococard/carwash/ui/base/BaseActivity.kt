@@ -1,6 +1,5 @@
 package com.chococard.carwash.ui.base
 
-import android.graphics.PorterDuff
 import android.view.Menu
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -17,10 +16,6 @@ abstract class BaseActivity : AppCompatActivity() {
     fun setToolbar(toolbar: Toolbar) {
         toolbar.title = ""
         setSupportActionBar(toolbar)
-        toolbar.overflowIcon?.setColorFilter(
-            resources.getColor(android.R.color.white),
-            PorterDuff.Mode.SRC_ATOP
-        )
     }
 
     fun dialogLogout(logout: () -> Unit) = AlertDialog.Builder(this).apply {

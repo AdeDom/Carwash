@@ -8,8 +8,7 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            style="@style/MatchWrap"
-            android:background="@color/colorPrimary" />
+            style="@style/Toolbar" />
 
         <ImageView
             android:id="@+id/iv_arrow_back"
