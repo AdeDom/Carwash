@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.db.entities.Job
@@ -15,12 +16,15 @@ import com.chococard.carwash.ui.base.BaseLocationActivity
 import com.chococard.carwash.ui.report.ReportActivity
 import com.chococard.carwash.ui.service.ServiceActivity
 import com.chococard.carwash.ui.serviceinfo.ServiceInfoActivity
+import com.chococard.carwash.util.CommonsConstant.ACCESS_COARSE_LOCATION
+import com.chococard.carwash.util.CommonsConstant.ACCESS_FINE_LOCATION
+import com.chococard.carwash.util.CommonsConstant.GRANTED
 import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.NavigationViewModel
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapFragment
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
@@ -46,7 +50,8 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
 
         setToolbar(toolbar)
 
-        val mapFragment = fragmentManager.findFragmentById(R.id.map_fragment) as MapFragment
+        val mapFragment =
+            supportFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
         mapFragment.getMapAsync(this@NavigationActivity)
 
         // set event
@@ -135,6 +140,9 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap?) {
         mGoogleMap = googleMap
+        if (ActivityCompat.checkSelfPermission(baseContext, ACCESS_FINE_LOCATION) != GRANTED &&
+            ActivityCompat.checkSelfPermission(baseContext, ACCESS_COARSE_LOCATION) != GRANTED
+        ) return
         mGoogleMap?.isMyLocationEnabled = true
         mGoogleMap?.setMinZoomPreference(12F)
         mGoogleMap?.setMaxZoomPreference(16F)
@@ -162,8 +170,8 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         }
 
         mMarkerMyLocation?.remove()
-        baseContext.setImageCircle(mDbUser?.image) { bitmap ->
-            val bmp = baseContext.setImageMarkerCircle(bitmap)
+        setImageCircle(mDbUser?.image) { bitmap ->
+            val bmp = setImageMarkerCircle(bitmap)
             val bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(bmp)
             mMarkerMyLocation = mGoogleMap?.addMarker(
                 MarkerOptions().apply {
@@ -181,8 +189,8 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
     private fun setLocationCustomer(latLng: LatLng) {
         mMarkerCustomer?.remove()
 
-        baseContext.setImageCircle(mDbJob?.imageProfile) { bitmap ->
-            val bmp = baseContext.setImageMarkerCircle(bitmap)
+        setImageCircle(mDbJob?.imageProfile) { bitmap ->
+            val bmp = setImageMarkerCircle(bitmap)
             val bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(bmp)
             mMarkerCustomer = mGoogleMap?.addMarker(
                 MarkerOptions().apply {

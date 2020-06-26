@@ -1,7 +1,5 @@
 package com.chococard.carwash.ui.splashscreen
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import androidx.core.content.ContextCompat
@@ -12,6 +10,9 @@ import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.ui.navigation.NavigationActivity
 import com.chococard.carwash.util.CommonsConstant
+import com.chococard.carwash.util.CommonsConstant.ACCESS_COARSE_LOCATION
+import com.chococard.carwash.util.CommonsConstant.ACCESS_FINE_LOCATION
+import com.chococard.carwash.util.CommonsConstant.GRANTED
 import com.chococard.carwash.util.extension.readPref
 import com.chococard.carwash.util.extension.startActivity
 import com.chococard.carwash.viewmodel.SplashScreenViewModel
@@ -20,10 +21,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SplashScreenActivity : BaseActivity() {
 
     val viewModel: SplashScreenViewModel by viewModel()
-
-    private val GRANTED = PackageManager.PERMISSION_GRANTED
-    private val ACCESS_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
-    private val ACCESS_COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
