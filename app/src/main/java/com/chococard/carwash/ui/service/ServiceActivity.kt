@@ -84,7 +84,7 @@ class ServiceActivity : BaseActivity() {
 
         iv_add_other_image.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_OTHER_IMAGE) }
 
-        bt_payment.setOnClickListener {
+        bt_service.setOnClickListener {
             if (mListImageService.size == 8) {
                 startActivity<PaymentActivity>()
             } else {

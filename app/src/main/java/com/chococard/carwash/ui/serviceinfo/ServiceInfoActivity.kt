@@ -10,14 +10,13 @@ import com.chococard.carwash.ui.base.BaseLocationActivity
 import com.chococard.carwash.ui.report.ReportActivity
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.ServiceInfoViewModel
-import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_service_info.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ServiceInfoActivity : BaseLocationActivity() {
 
     val viewModel: ServiceInfoViewModel by viewModel()
-    private var mLatLngCustomer: LatLng? = null
+    private var mLatLngCustomer: Pair<Double, Double>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +39,7 @@ class ServiceInfoActivity : BaseLocationActivity() {
             tv_phone.text = phone
             if (latitude != null && longitude != null) {
                 tv_location.text = getLocality(latitude, longitude)
-                mLatLngCustomer = LatLng(latitude, longitude)
+                mLatLngCustomer = Pair(latitude, longitude)
             }
             tv_vehicle_registration.text = vehicleRegistration
             tv_price.text = price
@@ -52,6 +51,18 @@ class ServiceInfoActivity : BaseLocationActivity() {
             }
         })
 
+        viewModel.getServiceNavigation.observe(this, Observer { navigation ->
+            val (latitude, longitude) = navigation
+            tv_location.setOnClickListener {
+                startActivityGoogleMapNavigation(
+                    latitude,
+                    longitude,
+                    mLatLngCustomer?.first,
+                    mLatLngCustomer?.second
+                )
+            }
+        })
+
         viewModel.getError.observe(this, Observer {
             dialogError(it)
         })
@@ -60,17 +71,8 @@ class ServiceInfoActivity : BaseLocationActivity() {
     override fun onLocationChanged(location: Location?) {
         if (location == null) return
 
-        tv_location.setOnClickListener {
-            val latitude = mLatLngCustomer?.latitude
-            val longitude = mLatLngCustomer?.longitude
-            if (latitude != null && longitude != null)
-                startActivityGoogleMapNavigation(
-                    location.latitude,
-                    location.longitude,
-                    latitude,
-                    longitude
-                )
-        }
+        val navigation = Pair(location.latitude, location.longitude)
+        viewModel.setValueServiceNavigation(navigation)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

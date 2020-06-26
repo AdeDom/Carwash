@@ -482,9 +482,9 @@
             android:layout_marginTop="@dimen/base_pow_four">
 
             <Button
-                android:id="@+id/bt_payment"
+                android:id="@+id/bt_service"
                 style="@style/ButtonBlueLong"
-                android:text="@string/payment" />
+                android:text="@string/service" />
 
         </androidx.cardview.widget.CardView>
 

@@ -159,18 +159,14 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             mGoogleMap.animateCamera(latLng)
         }
 
-        val latitude = mDbJob?.latitude
-        val longitude = mDbJob?.longitude
-        if (latitude != null && longitude != null) {
-            fab_navigation.setOnClickListener {
-                setFabMenuVisibility()
-                startActivityGoogleMapNavigation(
-                    location.latitude,
-                    location.longitude,
-                    latitude,
-                    longitude
-                )
-            }
+        fab_navigation.setOnClickListener {
+            setFabMenuVisibility()
+            startActivityGoogleMapNavigation(
+                location.latitude,
+                location.longitude,
+                mDbJob?.latitude,
+                mDbJob?.longitude
+            )
         }
 
         mMarkerMyLocation?.remove()

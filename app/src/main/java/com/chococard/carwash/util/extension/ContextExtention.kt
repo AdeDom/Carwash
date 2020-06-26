@@ -44,10 +44,10 @@ fun Context.startActivityActionDial(phone: String? = getString(R.string.contact_
 }
 
 fun Context.startActivityGoogleMapNavigation(
-    beginLatitude: Double,
-    beginLongitude: Double,
-    endLatitude: Double,
-    endLongitude: Double
+    beginLatitude: Double?,
+    beginLongitude: Double?,
+    endLatitude: Double?,
+    endLongitude: Double?
 ) = Intent(Intent.ACTION_VIEW).apply {
     val url = getString(
         R.string.google_maps_navigation,
