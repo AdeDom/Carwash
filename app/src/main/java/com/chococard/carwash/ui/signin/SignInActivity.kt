@@ -10,7 +10,6 @@ import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.ui.signup.SignUpActivity
 import com.chococard.carwash.util.CommonsConstant
-import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.SignInViewModel
 import kotlinx.android.synthetic.main.activity_sign_in.*
@@ -39,7 +38,7 @@ class SignInActivity : BaseActivity() {
             }
         }
 
-        et_password.setOnEditorActionListener { v, actionId, event ->
+        et_password.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) signIn()
             false
         }

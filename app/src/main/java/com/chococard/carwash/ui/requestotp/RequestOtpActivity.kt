@@ -31,7 +31,7 @@ class RequestOtpActivity : BaseActivity() {
             hideSoftKeyboard()
         }
 
-        et_phone.setOnEditorActionListener { v, actionId, event ->
+        et_phone.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) requestOtp()
             false
         }
@@ -76,7 +76,7 @@ class RequestOtpActivity : BaseActivity() {
     private fun dialogValidatePhone(message: String) = AlertDialog.Builder(this).apply {
         setTitle(R.string.validate_phone)
         setMessage(message)
-        setPositiveButton(android.R.string.ok) { dialog, which ->
+        setPositiveButton(android.R.string.ok) { dialog, _ ->
             dialog.dismiss()
         }
         setCancelable(false)

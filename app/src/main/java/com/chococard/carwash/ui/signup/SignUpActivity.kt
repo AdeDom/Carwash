@@ -65,7 +65,7 @@ class SignUpActivity : BaseActivity() {
             hideSoftKeyboard()
         }
 
-        et_identity_card.setOnEditorActionListener { v, actionId, event ->
+        et_identity_card.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) signUp()
             false
         }
@@ -149,7 +149,7 @@ class SignUpActivity : BaseActivity() {
     private fun dialogContactAdmin() = AlertDialog.Builder(this).apply {
         setTitle(R.string.contact_admin)
         setMessage(R.string.please_contact_car_wash)
-        setPositiveButton(android.R.string.ok) { dialog, which ->
+        setPositiveButton(android.R.string.ok) { dialog, _ ->
             dialog.dismiss()
             startActivity<SplashScreenActivity> {
                 finishAffinity()

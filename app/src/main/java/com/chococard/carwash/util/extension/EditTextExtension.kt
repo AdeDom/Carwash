@@ -76,7 +76,7 @@ fun EditText.onTextChanged(text: (String) -> Unit) {
 }
 
 infix fun EditText.setTogglePassword(imageView: ImageView) {
-    if (this.text.length > 0) {
+    if (this.text.isNotEmpty()) {
         imageView.show()
         if (imageView.tag == FlagConstant.TOGGLE_PASSWORD_OFF) {
             imageView.setImageResource(R.drawable.ic_visibility_off)

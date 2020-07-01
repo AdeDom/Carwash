@@ -1,6 +1,5 @@
 package com.chococard.carwash.ui.changepassword
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
@@ -36,7 +35,7 @@ class ChangePasswordActivity : BaseActivity() {
 
         root_layout.setOnClickListener { hideSoftKeyboard() }
 
-        et_re_password.setOnEditorActionListener { v, actionId, event ->
+        et_re_password.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) changePassword()
             false
         }

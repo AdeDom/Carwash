@@ -19,7 +19,7 @@ abstract class BaseFragment(private val layout: Int) : Fragment() {
         AlertDialog.Builder(it).apply {
             setTitle(R.string.error)
             setMessage(message)
-            setPositiveButton(android.R.string.ok) { dialog, which ->
+            setPositiveButton(android.R.string.ok) { dialog, _ ->
                 dialog.dismiss()
             }
             setCancelable(false)

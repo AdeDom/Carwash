@@ -3,6 +3,7 @@ package com.chococard.carwash.util.extension
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
@@ -73,7 +74,7 @@ fun Context.getLocality(latitude: Double, longitude: Double): String {
     }
 }
 
-fun Context.writePref(key: String, values: String) =
+fun Context.writePref(key: String, values: String): SharedPreferences.Editor =
     getSharedPreferences(CommonsConstant.PREF_FILE, Context.MODE_PRIVATE).edit().apply {
         putString(key, values)
         apply()
@@ -94,7 +95,7 @@ fun Context.convertToMultipartBody(fileUri: Uri): MultipartBody.Part {
     val requestFile = RequestBody
         .create(MediaType.parse(contentResolver.getType(fileUri)), file)
 
-    return MultipartBody.Part.createFormData("file", file?.name, requestFile)
+    return MultipartBody.Part.createFormData("file", file.name, requestFile)
 }
 
 fun Context.setImageCircle(
@@ -121,7 +122,6 @@ fun Context?.setImageMarkerCircle(image: Bitmap): Bitmap {
     val view: View = inflater.inflate(R.layout.layout_my_location, null)
     view.findViewById<ImageView>(R.id.iv_photo).setImageBitmap(image)
     val displayMetrics = DisplayMetrics()
-//    (this as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
     view.layoutParams = ViewGroup.LayoutParams(100, ViewGroup.LayoutParams.WRAP_CONTENT)
     view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels)
     view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels)
@@ -139,10 +139,10 @@ fun Context.dialogNegative(title: Int, message: Int, negative: () -> Unit) =
     AlertDialog.Builder(this).apply {
         setTitle(title)
         setMessage(message)
-        setPositiveButton(android.R.string.no) { dialog, which ->
+        setPositiveButton(android.R.string.no) { dialog, _ ->
             dialog.dismiss()
         }
-        setNegativeButton(android.R.string.yes) { dialog, which ->
+        setNegativeButton(android.R.string.yes) { _, _ ->
             negative.invoke()
         }
         setCancelable(false)

@@ -21,10 +21,10 @@ abstract class BaseActivity : AppCompatActivity() {
     fun dialogLogout(logout: () -> Unit) = AlertDialog.Builder(this).apply {
         setTitle(R.string.logout)
         setMessage(R.string.do_you_really_want_to_log_out)
-        setPositiveButton(android.R.string.cancel) { dialog, which ->
+        setPositiveButton(android.R.string.cancel) { dialog, _ ->
             dialog.dismiss()
         }
-        setNegativeButton(android.R.string.ok) { dialog, which ->
+        setNegativeButton(android.R.string.ok) { _, _ ->
             logout.invoke()
         }
         setCancelable(false)
@@ -34,7 +34,7 @@ abstract class BaseActivity : AppCompatActivity() {
     fun dialogError(message: String) = AlertDialog.Builder(this).apply {
         setTitle(R.string.error)
         setMessage(message)
-        setPositiveButton(android.R.string.ok) { dialog, which ->
+        setPositiveButton(android.R.string.ok) { dialog, _ ->
             dialog.dismiss()
         }
         setCancelable(false)

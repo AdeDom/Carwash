@@ -58,7 +58,7 @@ class ChangeProfileActivity : BaseActivity() {
 
         root_layout.setOnClickListener { hideSoftKeyboard() }
 
-        et_phone.setOnEditorActionListener { v, actionId, event ->
+        et_phone.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) validatePhone()
             false
         }

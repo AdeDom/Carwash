@@ -36,7 +36,7 @@ abstract class BaseVerifyPhoneActivity : BaseActivity() {
             hideSoftKeyboard()
         }
 
-        et_verify_otp.setOnEditorActionListener { v, actionId, event ->
+        et_verify_otp.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) verifyPhone()
             false
         }
