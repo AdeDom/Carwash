@@ -28,7 +28,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
 
 class MainActivity : BaseLocationActivity(),
     BottomNavigationView.OnNavigationItemSelectedListener {
@@ -56,9 +55,7 @@ class MainActivity : BaseLocationActivity(),
         }
 
         //call api
-        val logsKeys = UUID.randomUUID().toString().replace("-", "")
-        writePref(CommonsConstant.LOGS_KEYS, logsKeys)
-        viewModel.callLogsActive(LogsActiveRequest(logsKeys, FlagConstant.LOGS_STATUS_ACTIVE))
+        viewModel.callLogsActive(LogsActiveRequest(FlagConstant.LOGS_STATUS_ACTIVE))
 
         //observe
         viewModel.getDbUser.observe(this, Observer { user ->
@@ -172,8 +169,7 @@ class MainActivity : BaseLocationActivity(),
     override fun onPause() {
         super.onPause()
         // set user logs active
-        val logsKeys = readPref(CommonsConstant.LOGS_KEYS)
-        viewModel.callLogsActive(LogsActiveRequest(logsKeys, FlagConstant.LOGS_STATUS_INACTIVE))
+        viewModel.callLogsActive(LogsActiveRequest(FlagConstant.LOGS_STATUS_INACTIVE))
     }
 
     override fun onLocationChanged(location: Location?) {

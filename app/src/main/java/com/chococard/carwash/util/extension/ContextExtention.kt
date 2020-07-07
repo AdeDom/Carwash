@@ -74,6 +74,7 @@ fun Context.getLocality(latitude: Double, longitude: Double): String {
     }
 }
 
+// todo shared pref to repository
 fun Context.writePref(key: String, values: String): SharedPreferences.Editor =
     getSharedPreferences(CommonsConstant.PREF_FILE, Context.MODE_PRIVATE).edit().apply {
         putString(key, values)
