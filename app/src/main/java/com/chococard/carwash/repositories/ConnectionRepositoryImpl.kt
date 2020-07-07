@@ -1,16 +1,21 @@
 package com.chococard.carwash.repositories
 
+import android.content.Context
 import com.chococard.carwash.data.db.AppDatabase
 import com.chococard.carwash.data.networks.ConnectionAppService
 import com.chococard.carwash.data.networks.SafeApiRequest
 import com.chococard.carwash.data.networks.request.SignInRequest
 import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
+import com.chococard.carwash.data.networks.response.SignInResponse
+import com.chococard.carwash.util.CommonsConstant
+import com.chococard.carwash.util.extension.writePref
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 class ConnectionRepositoryImpl(
     private val api: ConnectionAppService,
-    private val db: AppDatabase
+    private val db: AppDatabase,
+    private val context: Context
 ) : SafeApiRequest(), ConnectionRepository {
 
     override fun getJob() = db.getJobDao().getJob()
@@ -25,7 +30,14 @@ class ConnectionRepositoryImpl(
         file: MultipartBody.Part
     ) = apiRequest { api.callSignUp(username, password, fullName, identityCard, phone, role, file) }
 
-    override suspend fun callSignIn(signIn: SignInRequest) = apiRequest { api.callSignIn(signIn) }
+    override suspend fun callSignIn(signIn: SignInRequest): SignInResponse {
+        val response = apiRequest { api.callSignIn(signIn) }
+        if (response.success) {
+            response.token?.let { context.writePref(CommonsConstant.ACCESS_TOKEN, it) }
+            response.refreshToken?.let { context.writePref(CommonsConstant.REFRESH_TOKEN, it) }
+        }
+        return response
+    }
 
     override suspend fun callValidatePhone(validatePhone: ValidatePhoneRequest) =
         apiRequest { api.callValidatePhone(validatePhone) }

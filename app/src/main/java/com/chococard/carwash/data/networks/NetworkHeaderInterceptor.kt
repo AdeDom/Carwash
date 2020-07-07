@@ -18,7 +18,7 @@ class NetworkHeaderInterceptor(private val context: Context) : Interceptor {
         if (!isInternetAvailable())
             throw NoInternetException("Make sure you have an active data connection")
 
-        val token = context.readPref(CommonsConstant.TOKEN)
+        val token = context.readPref(CommonsConstant.ACCESS_TOKEN)
 
         val request = chain.request()
             .newBuilder()

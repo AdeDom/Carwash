@@ -9,7 +9,6 @@ import com.chococard.carwash.data.networks.request.SignInRequest
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.ui.signup.SignUpActivity
-import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.SignInViewModel
 import kotlinx.android.synthetic.main.activity_sign_in.*
@@ -57,11 +56,9 @@ class SignInActivity : BaseActivity() {
 
         //observe
         viewModel.getSignIn.observe(this, Observer { response ->
-            val (success, message, token, refreshToken) = response
+            val (success, message, _, _) = response
             progress_bar.hide()
             if (success) {
-                token?.let { writePref(CommonsConstant.TOKEN, it) }
-                refreshToken?.let { writePref(CommonsConstant.REFRESH_TOKEN, it) }
                 startActivity<MainActivity> {
                     finishAffinity()
                 }

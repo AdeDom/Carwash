@@ -27,10 +27,9 @@ object CommonsConstant {
     const val MAX_COUNT_TIME = 15
 
     const val PREF_FILE = "pref_file"
-    const val TOKEN = "token"
+    const val ACCESS_TOKEN = "access_token"
     const val REFRESH_TOKEN = "refresh_token"
     const val JOB = "job"
-    const val LOGS_KEYS = "logs_keys"
     const val SWITCH = "switch"
     const val PHONE = "phone"
     const val DATE_RANGE_PICKER = "date_range_picker"

@@ -69,7 +69,7 @@ class SplashScreenActivity : BaseActivity() {
     }
 
     private fun onReadyCarWash() {
-        val token = readPref(CommonsConstant.TOKEN)
+        val token = readPref(CommonsConstant.ACCESS_TOKEN)
         if (token.isEmpty()) {
             startActivity<AuthActivity> {
                 finish()

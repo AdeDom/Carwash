@@ -41,7 +41,7 @@ class ViewImageActivity : BaseActivity() {
             val (success, message) = response
             progress_bar.hide()
             if (success) {
-                writePref(CommonsConstant.TOKEN, "")
+                writePref(CommonsConstant.ACCESS_TOKEN, "")
                 writePref(CommonsConstant.REFRESH_TOKEN, "")
                 startActivity<SplashScreenActivity> {
                     finishAffinity()
