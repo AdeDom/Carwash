@@ -69,7 +69,7 @@ class PaymentActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.option_contact_admin -> startActivityActionDial()
+            R.id.option_contact_admin -> dialogContactAdmin { startActivityActionDial() }
         }
         return super.onOptionsItemSelected(item)
     }

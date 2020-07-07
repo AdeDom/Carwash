@@ -18,6 +18,19 @@ abstract class BaseActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
     }
 
+    fun dialogContactAdmin(contactAdmin: () -> Unit) = AlertDialog.Builder(this).apply {
+        setTitle(R.string.contact_admin)
+        setMessage(R.string.contact_admin_message)
+        setPositiveButton(android.R.string.ok) { _, _ ->
+            contactAdmin.invoke()
+        }
+        setNegativeButton(android.R.string.cancel) { dialog, _ ->
+            dialog.dismiss()
+        }
+        setCancelable(false)
+        show()
+    }
+
     fun dialogLogout(logout: () -> Unit) = AlertDialog.Builder(this).apply {
         setTitle(R.string.logout)
         setMessage(R.string.do_you_really_want_to_log_out)

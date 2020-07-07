@@ -128,7 +128,7 @@ class ChangePasswordActivity : BaseActivity() {
                     finish()
                 }
             }
-            R.id.option_contact_admin -> startActivityActionDial()
+            R.id.option_contact_admin -> dialogContactAdmin { startActivityActionDial() }
             R.id.option_logout -> dialogLogout {
                 FirebaseAuth.getInstance().signOut()
                 viewModel.callLogout()
