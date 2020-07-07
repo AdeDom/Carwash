@@ -88,6 +88,7 @@
                     style="@style/TextViewLargeApplicationSub"
                     android:layout_gravity="end"
                     android:text="@string/phone"
+                    android:textColor="@color/colorAccent"
                     android:textSize="@dimen/text_medium" />
 
                 <TextView
@@ -99,6 +100,7 @@
                     style="@style/TextViewLargeApplicationSub"
                     android:layout_gravity="end"
                     android:text="@string/location"
+                    android:textColor="@color/colorAccent"
                     android:textSize="@dimen/text_medium" />
 
                 <TextView

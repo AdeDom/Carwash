@@ -36,9 +36,9 @@ class ServiceInfoActivity : BaseLocationActivity() {
             tv_date_time.text = dateTime
             tv_full_name.text = fullName
             tv_service.text = packageName
-            tv_phone.text = phone
+            tv_phone.text = phone.toUnderline()
             if (latitude != null && longitude != null) {
-                tv_location.text = getLocality(latitude, longitude)
+                tv_location.text = getLocality(latitude, longitude).toUnderline()
                 mLatLngCustomer = Pair(latitude, longitude)
             }
             tv_vehicle_registration.text = vehicleRegistration

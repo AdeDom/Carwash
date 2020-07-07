@@ -1,5 +1,7 @@
 package com.chococard.carwash.util.extension
 
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
@@ -28,3 +30,9 @@ fun String.isVerifyPhone(): Boolean {
 }
 
 fun String?.toRequestBody(): RequestBody = RequestBody.create(MultipartBody.FORM, this.toString())
+
+fun String?.toUnderline(): SpannableString {
+    val spannableString = SpannableString(this)
+    spannableString.setSpan(UnderlineSpan(), 0, spannableString.length, 0)
+    return spannableString
+}
