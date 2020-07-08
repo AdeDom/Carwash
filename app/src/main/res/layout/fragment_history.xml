@@ -8,6 +8,26 @@
         style="@style/RecyclerView"
         tools:listitem="@layout/item_history" />
 
+    <LinearLayout
+        android:id="@+id/layout_not_found"
+        style="@style/WrapWrap"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/base_hundred"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <ImageView
+            style="@style/WrapWrap"
+            android:src="@drawable/ic_not_feeling_well" />
+
+        <TextView
+            style="@style/TextViewMediumGray"
+            android:gravity="center"
+            android:text="@string/you_don_t_have_any_work_history_this_month" />
+
+    </LinearLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         style="@style/FloatingActionButton"

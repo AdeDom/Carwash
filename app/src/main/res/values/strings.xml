@@ -120,5 +120,6 @@
     <string name="before_service">Before service</string>
     <string name="other_images">Other images</string>
     <string name="contact_admin_message">Do you want to contact the admin?</string>
+    <string name="you_don_t_have_any_work_history_this_month">You don\'t have\nany work history this month</string>
 
 </resources>
