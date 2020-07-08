@@ -51,7 +51,7 @@
             style="@style/WrapWrap"
             android:background="@drawable/shape_tv_navigation"
             android:text="@string/arrive"
-            android:textColor="@color/colorTextGray"
+            android:textColor="@color/colorGray"
             android:textSize="@dimen/text_small" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -76,7 +76,7 @@
             style="@style/WrapWrap"
             android:background="@drawable/shape_tv_navigation"
             android:text="@string/navigation"
-            android:textColor="@color/colorTextGray"
+            android:textColor="@color/colorGray"
             android:textSize="@dimen/text_small" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -108,7 +108,7 @@
             style="@style/WrapWrap"
             android:background="@drawable/shape_tv_navigation"
             android:text="@string/service_info"
-            android:textColor="@color/colorTextGray"
+            android:textColor="@color/colorGray"
             android:textSize="@dimen/text_small" />
 
     </LinearLayout>
@@ -133,7 +133,7 @@
             style="@style/WrapWrap"
             android:background="@drawable/shape_tv_navigation"
             android:text="@string/call"
-            android:textColor="@color/colorTextGray"
+            android:textColor="@color/colorGray"
             android:textSize="@dimen/text_small" />
 
     </LinearLayout>

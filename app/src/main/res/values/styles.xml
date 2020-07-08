@@ -64,7 +64,7 @@
 
     <style name="TextViewMediumGray" parent="WrapWrap">
         <item name="android:textSize">@dimen/text_medium</item>
-        <item name="android:textColor">@color/colorTextGray</item>
+        <item name="android:textColor">@color/colorGray</item>
     </style>
 
     <style name="TextViewMediumBlack" parent="WrapWrap">
@@ -74,7 +74,7 @@
 
     <style name="TextViewLargeApplication" parent="WrapWrap">
         <item name="android:textSize">@dimen/text_large</item>
-        <item name="android:textColor">@color/colorTextGray</item>
+        <item name="android:textColor">@color/colorGray</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:layout_centerInParent">true</item>
