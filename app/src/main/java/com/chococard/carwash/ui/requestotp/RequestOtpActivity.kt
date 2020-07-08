@@ -66,11 +66,9 @@ class RequestOtpActivity : BaseActivity() {
 
         viewModel.validatePhone.observe(this, Observer {
             if (it) {
-                bt_request_otp.isClickable = true
-                bt_request_otp.setBackgroundResource(R.drawable.shape_bt_blue)
+                bt_request_otp.ready()
             } else {
-                bt_request_otp.isClickable = false
-                bt_request_otp.setBackgroundResource(R.drawable.shape_bt_gray)
+                bt_request_otp.unready()
             }
         })
 

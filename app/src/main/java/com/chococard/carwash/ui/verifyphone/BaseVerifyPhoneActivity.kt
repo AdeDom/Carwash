@@ -64,16 +64,13 @@ abstract class BaseVerifyPhoneActivity : BaseActivity() {
     private fun validateOtp(otp: String) {
         when {
             otp.isEmpty() -> {
-                bt_verify_phone.isClickable = false
-                bt_verify_phone.setBackgroundResource(R.drawable.shape_bt_gray)
+                bt_verify_phone.unready()
             }
             otp.length != 6 -> {
-                bt_verify_phone.isClickable = false
-                bt_verify_phone.setBackgroundResource(R.drawable.shape_bt_gray)
+                bt_verify_phone.unready()
             }
             else -> {
-                bt_verify_phone.isClickable = true
-                bt_verify_phone.setBackgroundResource(R.drawable.shape_bt_blue)
+                bt_verify_phone.ready()
             }
         }
     }

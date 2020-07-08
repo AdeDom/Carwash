@@ -103,11 +103,9 @@ class ChangePasswordActivity : BaseActivity() {
 
         viewModel.validateChangePassword.observe(this, Observer {
             if (it) {
-                bt_confirm.isClickable = true
-                bt_confirm.setBackgroundResource(R.drawable.shape_bt_blue)
+                bt_confirm.ready()
             } else {
-                bt_confirm.isClickable = false
-                bt_confirm.setBackgroundResource(R.drawable.shape_bt_gray)
+                bt_confirm.unready()
             }
         })
 
