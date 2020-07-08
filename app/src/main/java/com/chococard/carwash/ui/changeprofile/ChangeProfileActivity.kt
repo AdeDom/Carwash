@@ -5,11 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.request.ChangePhoneRequest
-import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
 import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
@@ -61,13 +59,13 @@ class ChangeProfileActivity : BaseActivity() {
         root_layout.setOnClickListener { hideSoftKeyboard() }
 
         et_phone.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) validatePhone()
+            if (actionId == EditorInfo.IME_ACTION_DONE) callValidatePhone()
             false
         }
 
         bt_cancel.setOnClickListener { finish() }
 
-        bt_confirm.setOnClickListener { validatePhone() }
+        bt_confirm.setOnClickListener { callValidatePhone() }
 
         et_phone.onTextChanged { viewModel.setValueValidatePhone(it) }
 
@@ -75,13 +73,13 @@ class ChangeProfileActivity : BaseActivity() {
         viewModel.getChangeImageProfile.observe(this, Observer { response ->
             val (success, message) = response
             progress_bar.hide()
-            if (!success) toast(message, Toast.LENGTH_LONG)
+            if (!success) root_layout.snackbar(message)
         })
 
         viewModel.getChangePhone.observe(this, Observer { response ->
             progress_bar.hide()
             val (_, message) = response
-            toast(message)
+            root_layout.snackbar(message)
         })
 
         viewModel.getLogout.observe(this, Observer { response ->
@@ -91,7 +89,7 @@ class ChangeProfileActivity : BaseActivity() {
                     finishAffinity()
                 }
             } else {
-                toast(message, Toast.LENGTH_LONG)
+                root_layout.snackbar(message)
             }
         })
 
@@ -101,7 +99,7 @@ class ChangeProfileActivity : BaseActivity() {
             if (success) {
                 changeProfile()
             } else {
-                toast(message)
+                root_layout.snackbar(message)
             }
         })
 
@@ -113,6 +111,11 @@ class ChangeProfileActivity : BaseActivity() {
                 bt_confirm.isClickable = false
                 bt_confirm.setBackgroundResource(R.drawable.shape_bt_gray)
             }
+        })
+
+        viewModel.errorMessage.observe(this, Observer {
+            progress_bar.hide()
+            root_layout.snackbar(it)
         })
 
         viewModel.getError.observe(this, Observer {
@@ -138,17 +141,10 @@ class ChangeProfileActivity : BaseActivity() {
         }
     }
 
-    private fun validatePhone() {
-        when {
-            et_phone.isEmpty(getString(R.string.error_empty_phone)) -> return
-            et_phone.isEqualLength(10, getString(R.string.error_equal_length, 10)) -> return
-            et_phone.isVerifyPhone(getString(R.string.error_phone)) -> return
-        }
-
+    private fun callValidatePhone() {
         progress_bar.show()
         val phoneNumber = et_phone.getContents()
-        val validatePhone = ValidatePhoneRequest(phoneNumber)
-        viewModel.callValidatePhone(validatePhone)
+        viewModel.callValidatePhone(phoneNumber)
     }
 
     private fun changeProfile() {

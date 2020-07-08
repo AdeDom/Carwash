@@ -36,6 +36,10 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
     val validatePhone: LiveData<Boolean>
         get() = _validatePhone
 
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String>
+        get() = _errorMessage
+
     fun callChangeImageProfile(file: MultipartBody.Part) = launchCallApi(
         request = { repository.callChangeImageProfile(file) },
         response = { changeImageProfileResponse.value = it }
@@ -51,21 +55,38 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
         response = { logoutResponse.value = it }
     )
 
-    fun callValidatePhone(validatePhone: ValidatePhoneRequest) = launchCallApi(
-        request = { repository.callValidatePhone(validatePhone) },
-        response = { validatePhoneResponse.value = it }
-    )
+    fun callValidatePhone(phoneNumber: String) {
+        when {
+            user == null ->
+                _errorMessage.value = "User is null"
+            phoneNumber.isEmpty() ->
+                _errorMessage.value = "Please enter phone"
+            user?.phone == phoneNumber ->
+                _errorMessage.value = "Please enter a new phone number"
+            phoneNumber.length != 10 ->
+                _errorMessage.value = "Please enter a total of 10 characters"
+            phoneNumber.isVerifyPhone() ->
+                _errorMessage.value = "Please enter the correct phone number"
+            else -> {
+                val validatePhone = ValidatePhoneRequest(phoneNumber)
+                launchCallApi(
+                    request = { repository.callValidatePhone(validatePhone) },
+                    response = { validatePhoneResponse.value = it }
+                )
+            }
+        }
+    }
 
     fun setValueUser(user: User) {
         this.user = user
     }
 
-    fun setValueValidatePhone(phone: String) {
+    fun setValueValidatePhone(phoneNumber: String) {
         when {
             user == null -> _validatePhone.value = false
-            user?.phone == phone -> _validatePhone.value = false
-            phone.length != 10 -> _validatePhone.value = false
-            phone.isVerifyPhone() -> _validatePhone.value = false
+            user?.phone == phoneNumber -> _validatePhone.value = false
+            phoneNumber.length != 10 -> _validatePhone.value = false
+            phoneNumber.isVerifyPhone() -> _validatePhone.value = false
             else -> _validatePhone.value = true
         }
     }
