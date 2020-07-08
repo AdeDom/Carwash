@@ -10,7 +10,6 @@ import com.chococard.carwash.data.networks.request.ChangePasswordRequest
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
 import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
-import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.ChangePasswordViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -75,8 +74,6 @@ class ChangePasswordActivity : BaseActivity() {
             progress_bar.hide()
             toast(message)
             if (success) {
-                writePref(CommonsConstant.ACCESS_TOKEN, "")
-                writePref(CommonsConstant.REFRESH_TOKEN, "")
                 startActivity<SplashScreenActivity> {
                     finishAffinity()
                 }
@@ -86,8 +83,6 @@ class ChangePasswordActivity : BaseActivity() {
         viewModel.getLogout.observe(this, Observer { response ->
             val (success, message) = response
             if (success) {
-                writePref(CommonsConstant.ACCESS_TOKEN, "")
-                writePref(CommonsConstant.REFRESH_TOKEN, "")
                 startActivity<SplashScreenActivity> {
                     finishAffinity()
                 }

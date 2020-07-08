@@ -1,5 +1,6 @@
 package com.chococard.carwash.repositories
 
+import android.content.Context
 import com.chococard.carwash.data.db.AppDatabase
 import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.db.entities.User
@@ -9,12 +10,15 @@ import com.chococard.carwash.data.networks.request.*
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.networks.response.UserResponse
+import com.chococard.carwash.util.CommonsConstant
+import com.chococard.carwash.util.extension.writePref
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 class HeaderRepositoryImpl(
     private val api: HeaderAppService,
-    private val db: AppDatabase
+    private val db: AppDatabase,
+    private val context: Context
 ) : SafeApiRequest(), HeaderRepository {
 
     // user
@@ -37,7 +41,7 @@ class HeaderRepositoryImpl(
 
     override suspend fun callLogout(): BaseResponse {
         val response = apiRequest { api.callLogout() }
-        if (response.success) deleteUser()
+        if (response.success) clearUserAndToken()
         return response
     }
 
@@ -49,8 +53,14 @@ class HeaderRepositoryImpl(
 
     override suspend fun callChangePassword(changePassword: ChangePasswordRequest): BaseResponse {
         val response = apiRequest { api.callChangePassword(changePassword) }
-        if (response.success) deleteUser()
+        if (response.success) clearUserAndToken()
         return response
+    }
+
+    private suspend fun clearUserAndToken() {
+        deleteUser()
+        context.writePref(CommonsConstant.ACCESS_TOKEN, "")
+        context.writePref(CommonsConstant.REFRESH_TOKEN, "")
     }
 
     override suspend fun callSetLocation(setLocation: SetLocationRequest) =
