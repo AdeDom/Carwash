@@ -42,6 +42,8 @@ class ChangeProfileActivity : BaseActivity() {
             et_phone.setText(phone)
             et_phone.setSelection(et_phone.length())
             iv_photo.setImageCircle(image)
+
+            viewModel.setValueUser(user)
         })
 
         //set event
@@ -66,6 +68,8 @@ class ChangeProfileActivity : BaseActivity() {
         bt_cancel.setOnClickListener { finish() }
 
         bt_confirm.setOnClickListener { validatePhone() }
+
+        et_phone.onTextChanged { viewModel.setValueValidatePhone(it) }
 
         //observe
         viewModel.getChangeImageProfile.observe(this, Observer { response ->
@@ -98,6 +102,16 @@ class ChangeProfileActivity : BaseActivity() {
                 changeProfile()
             } else {
                 toast(message)
+            }
+        })
+
+        viewModel.validatePhone.observe(this, Observer {
+            if (it) {
+                bt_confirm.isClickable = true
+                bt_confirm.setBackgroundResource(R.drawable.shape_bt_blue)
+            } else {
+                bt_confirm.isClickable = false
+                bt_confirm.setBackgroundResource(R.drawable.shape_bt_gray)
             }
         })
 
