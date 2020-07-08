@@ -2,10 +2,8 @@ package com.chococard.carwash.ui.signin
 
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.networks.request.SignInRequest
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.main.MainActivity
 import com.chococard.carwash.ui.signup.SignUpActivity
@@ -29,7 +27,7 @@ class SignInActivity : BaseActivity() {
         //event
         iv_arrow_back.setOnClickListener { onBackPressed() }
 
-        bt_sign_in.setOnClickListener { signIn() }
+        bt_sign_in.setOnClickListener { callSignIn() }
 
         tv_sign_up.setOnClickListener {
             startActivity<SignUpActivity> {
@@ -38,7 +36,7 @@ class SignInActivity : BaseActivity() {
         }
 
         et_password.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) signIn()
+            if (actionId == EditorInfo.IME_ACTION_DONE) callSignIn()
             false
         }
 
@@ -63,8 +61,13 @@ class SignInActivity : BaseActivity() {
                     finishAffinity()
                 }
             } else {
-                toast(message, Toast.LENGTH_LONG)
+                root_layout.snackbar(message)
             }
+        })
+
+        viewModel.errorMessage.observe(this, Observer {
+            progress_bar.hide()
+            root_layout.snackbar(it)
         })
 
         viewModel.getError.observe(this, Observer {
@@ -73,17 +76,11 @@ class SignInActivity : BaseActivity() {
         })
     }
 
-    private fun signIn() {
-        when {
-            et_username.isEmpty(getString(R.string.error_empty_username)) -> return
-            et_username.isMinLength(4, getString(R.string.error_least_length, 4)) -> return
-            et_password.isEmpty(getString(R.string.error_empty_password)) -> return
-            et_password.isMinLength(8, getString(R.string.error_least_length, 8)) -> return
-        }
-
+    private fun callSignIn() {
         progress_bar.show()
-        val signIn = SignInRequest(et_username.getContents(), et_password.getContents())
-        viewModel.callSignIn(signIn)
+        val username = et_username.getContents()
+        val password = et_password.getContents()
+        viewModel.callSignIn(username, password)
     }
 
 }

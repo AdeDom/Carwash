@@ -12,9 +12,24 @@ class SignInViewModel(private val repository: ConnectionRepository) : BaseViewMo
     val getSignIn: LiveData<SignInResponse>
         get() = signInResponse
 
-    fun callSignIn(signIn: SignInRequest) = launchCallApi(
-        request = { repository.callSignIn(signIn) },
-        response = { signInResponse.value = it }
-    )
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String>
+        get() = _errorMessage
+
+    fun callSignIn(username: String, password: String) {
+        when {
+            username.isEmpty() -> _errorMessage.value = "Please enter username"
+            username.length < 4 -> _errorMessage.value = "Please enter at least 4 characters"
+            password.isEmpty() -> _errorMessage.value = "Please enter password"
+            password.length < 8 -> _errorMessage.value = "Please enter at least 8 characters"
+            else -> {
+                val signIn = SignInRequest(username, password)
+                launchCallApi(
+                    request = { repository.callSignIn(signIn) },
+                    response = { signInResponse.value = it }
+                )
+            }
+        }
+    }
 
 }
