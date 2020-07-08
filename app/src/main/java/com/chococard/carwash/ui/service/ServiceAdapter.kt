@@ -13,11 +13,11 @@ class ServiceAdapter : BaseRecyclerView<ImageService>() {
 
     override fun getLayout() = R.layout.item_other_image_service
 
-    override fun onBindViewHolder(view: View, entity: ImageService) {
-        view.iv_other_image.setImageFromInternet(entity.image)
+    override fun View.onBindViewHolder(data: ImageService) {
+        iv_other_image.setImageFromInternet(data.image)
 
-        view.card_remove_other_image.setOnClickListener {
-            onRemoveOtherImage?.invoke(entity)
+        card_remove_other_image.setOnClickListener {
+            onRemoveOtherImage?.invoke(data)
         }
     }
 

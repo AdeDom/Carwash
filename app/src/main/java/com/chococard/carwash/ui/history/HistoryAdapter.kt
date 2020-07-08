@@ -11,14 +11,14 @@ class HistoryAdapter : BaseRecyclerView<History>() {
 
     override fun getLayout() = R.layout.item_history
 
-    override fun onBindViewHolder(view: View, entity: History) {
-        val (_, fullName, imageProfile, _, _, _, _, _, jobDateTime) = entity
+    override fun View.onBindViewHolder(data: History) {
+        val (_, fullName, imageProfile, _, _, _, _, _, jobDateTime) = data
 
-        view.tv_full_name.text = fullName
+        tv_full_name.text = fullName
 
-        view.tv_date_time.text = jobDateTime
+        tv_date_time.text = jobDateTime
 
-        view.iv_photo.setImageCircle(imageProfile)
+        iv_photo.setImageCircle(imageProfile)
     }
 
 }
