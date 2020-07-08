@@ -1,9 +1,8 @@
 package com.chococard.carwash.ui.verifyphone
 
 import android.app.Activity
-import android.widget.Toast
 import com.chococard.carwash.util.extension.hide
-import com.chococard.carwash.util.extension.toast
+import com.chococard.carwash.util.extension.snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import kotlinx.android.synthetic.main.activity_verify_phone.*
@@ -18,7 +17,7 @@ class VPChangeProfileActivity : BaseVerifyPhoneActivity() {
                     setResult(Activity.RESULT_OK)
                     finish()
                 } else {
-                    toast(task.exception?.message, Toast.LENGTH_LONG)
+                    root_layout.snackbar(task.exception?.message)
                 }
             }
     }

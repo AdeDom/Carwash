@@ -2,7 +2,6 @@ package com.chococard.carwash.ui.verifyphone
 
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.util.CommonsConstant
@@ -46,9 +45,8 @@ abstract class BaseVerifyPhoneActivity : BaseActivity() {
                 mIsReSendMessage = false
                 requestOtp()
             } else {
-                toast(
-                    getString(R.string.please_check_message_phone_number, mPhoneNumber),
-                    Toast.LENGTH_LONG
+                root_layout.snackbar(
+                    getString(R.string.please_check_message_phone_number, mPhoneNumber)
                 )
             }
         }
@@ -68,7 +66,7 @@ abstract class BaseVerifyPhoneActivity : BaseActivity() {
                 val credential = PhoneAuthProvider.getCredential(mVerificationId!!, smsCode)
                 firebaseAuthPhone(credential)
             }
-            else -> toast(getString(R.string.please_re_send_message), Toast.LENGTH_LONG)
+            else -> root_layout.snackbar(getString(R.string.please_re_send_message))
         }
     }
 
@@ -80,7 +78,7 @@ abstract class BaseVerifyPhoneActivity : BaseActivity() {
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
-                toast(e.message, Toast.LENGTH_LONG)
+                root_layout.snackbar(e.message)
             }
 
             override fun onCodeSent(
