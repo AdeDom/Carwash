@@ -30,6 +30,9 @@ abstract class BaseVerifyPhoneActivity : BaseActivity() {
         mPhoneNumber = intent.getStringExtra(CommonsConstant.PHONE)
         if (mPhoneNumber == null) finish() else requestOtp()
 
+        // set widget button verify phone
+        validateOtp(et_verify_otp.getContents())
+
         //set event
         root_layout.setOnClickListener {
             hideSoftKeyboard()
@@ -54,12 +57,33 @@ abstract class BaseVerifyPhoneActivity : BaseActivity() {
         bt_verify_phone.setOnClickListener {
             verifyPhone()
         }
+
+        et_verify_otp.onTextChanged { validateOtp(it) }
+    }
+
+    private fun validateOtp(otp: String) {
+        when {
+            otp.isEmpty() -> {
+                bt_verify_phone.isClickable = false
+                bt_verify_phone.setBackgroundResource(R.drawable.shape_bt_gray)
+            }
+            otp.length != 6 -> {
+                bt_verify_phone.isClickable = false
+                bt_verify_phone.setBackgroundResource(R.drawable.shape_bt_gray)
+            }
+            else -> {
+                bt_verify_phone.isClickable = true
+                bt_verify_phone.setBackgroundResource(R.drawable.shape_bt_blue)
+            }
+        }
     }
 
     private fun verifyPhone() {
+        val otp = et_verify_otp.getContents()
+
         when {
-            et_verify_otp.isEmpty(getString(R.string.error_empty_otp)) -> return
-            et_verify_otp.isEqualLength(6, getString(R.string.error_equal_length, 6)) -> return
+            otp.isEmpty() -> root_layout.snackbar(getString(R.string.error_empty_otp))
+            otp.length != 6 -> root_layout.snackbar(getString(R.string.error_equal_length, 6))
             mVerificationId != null -> {
                 progress_bar.show()
                 val smsCode = et_verify_otp.getContents()
