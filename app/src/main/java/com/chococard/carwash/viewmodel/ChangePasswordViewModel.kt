@@ -20,6 +20,10 @@ class ChangePasswordViewModel(private val repository: HeaderRepository) : BaseVi
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
+    private val _validateChangePassword = MutableLiveData<Boolean>()
+    val validateChangePassword: LiveData<Boolean>
+        get() = _validateChangePassword
+
     fun callChangePassword(oldPassword: String, newPassword: String, rePassword: String) {
         when {
             oldPassword.isEmpty() ->
@@ -50,5 +54,18 @@ class ChangePasswordViewModel(private val repository: HeaderRepository) : BaseVi
         request = { repository.callLogout() },
         response = { logoutResponse.value = it }
     )
+
+    fun setValueValidateChangePassword(oldPassword: String, newPassword: String, rePassword: String) {
+        when {
+            oldPassword.isEmpty() -> _validateChangePassword.value = false
+            oldPassword.length < 8 -> _validateChangePassword.value = false
+            newPassword.isEmpty() -> _validateChangePassword.value = false
+            newPassword.length < 8 -> _validateChangePassword.value = false
+            rePassword.isEmpty() -> _validateChangePassword.value = false
+            rePassword.length < 8 -> _validateChangePassword.value = false
+            newPassword != rePassword -> _validateChangePassword.value = false
+            else -> _validateChangePassword.value = true
+        }
+    }
 
 }

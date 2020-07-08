@@ -28,6 +28,10 @@ class ChangePasswordActivity : BaseActivity() {
     private fun init() {
         setToolbar(toolbar)
 
+        // set widget button confirm
+        validateChangePassword()
+
+        // set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
 
         root_layout.setOnClickListener { hideSoftKeyboard() }
@@ -43,6 +47,7 @@ class ChangePasswordActivity : BaseActivity() {
 
         //toggle password
         et_old_password.onTextChanged {
+            validateChangePassword()
             et_old_password setTogglePassword iv_toggle_old_password
         }
 
@@ -51,6 +56,7 @@ class ChangePasswordActivity : BaseActivity() {
         }
 
         et_new_password.onTextChanged {
+            validateChangePassword()
             et_new_password setTogglePassword iv_toggle_new_password
         }
 
@@ -59,6 +65,7 @@ class ChangePasswordActivity : BaseActivity() {
         }
 
         et_re_password.onTextChanged {
+            validateChangePassword()
             et_re_password setTogglePassword iv_toggle_re_password
         }
 
@@ -94,11 +101,27 @@ class ChangePasswordActivity : BaseActivity() {
             root_layout.snackbar(it)
         })
 
+        viewModel.validateChangePassword.observe(this, Observer {
+            if (it) {
+                bt_confirm.isClickable = true
+                bt_confirm.setBackgroundResource(R.drawable.shape_bt_blue)
+            } else {
+                bt_confirm.isClickable = false
+                bt_confirm.setBackgroundResource(R.drawable.shape_bt_gray)
+            }
+        })
+
         viewModel.getError.observe(this, Observer {
             progress_bar.hide()
             dialogError(it)
         })
     }
+
+    private fun validateChangePassword() = viewModel.setValueValidateChangePassword(
+        et_old_password.getContents(),
+        et_new_password.getContents(),
+        et_re_password.getContents()
+    )
 
     private fun callChangePassword() {
         progress_bar.show()
