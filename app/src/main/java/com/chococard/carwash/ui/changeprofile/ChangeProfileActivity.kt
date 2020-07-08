@@ -83,8 +83,6 @@ class ChangeProfileActivity : BaseActivity() {
         viewModel.getLogout.observe(this, Observer { response ->
             val (success, message) = response
             if (success) {
-                writePref(CommonsConstant.ACCESS_TOKEN, "")
-                writePref(CommonsConstant.REFRESH_TOKEN, "")
                 startActivity<SplashScreenActivity> {
                     finishAffinity()
                 }
