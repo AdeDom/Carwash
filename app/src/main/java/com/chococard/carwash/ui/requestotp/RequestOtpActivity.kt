@@ -5,7 +5,6 @@ import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.verifyphone.VPSignUpActivity
 import com.chococard.carwash.util.CommonsConstant
@@ -32,12 +31,12 @@ class RequestOtpActivity : BaseActivity() {
         }
 
         et_phone.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) requestOtp()
+            if (actionId == EditorInfo.IME_ACTION_DONE) callRequestOtp()
             false
         }
 
         bt_request_otp.setOnClickListener {
-            requestOtp()
+            callRequestOtp()
         }
 
         viewModel.getValidatePhone.observe(this, Observer { response ->
@@ -54,23 +53,21 @@ class RequestOtpActivity : BaseActivity() {
             }
         })
 
+        viewModel.errorMessage.observe(this, Observer {
+            progress_bar.hide()
+            root_layout.snackbar(it)
+        })
+
         viewModel.getError.observe(this, Observer {
             progress_bar.hide()
             dialogError(it)
         })
     }
 
-    private fun requestOtp() {
-        when {
-            et_phone.isEmpty(getString(R.string.error_empty_phone)) -> return
-            et_phone.isEqualLength(10, getString(R.string.error_equal_length, 10)) -> return
-            et_phone.isVerifyPhone(getString(R.string.error_phone)) -> return
-        }
-
+    private fun callRequestOtp() {
         progress_bar.show()
         val phoneNumber = et_phone.getContents()
-        val validatePhone = ValidatePhoneRequest(phoneNumber)
-        viewModel.callValidatePhone(validatePhone)
+        viewModel.callValidatePhone(phoneNumber)
     }
 
     private fun dialogValidatePhone(message: String) = AlertDialog.Builder(this).apply {

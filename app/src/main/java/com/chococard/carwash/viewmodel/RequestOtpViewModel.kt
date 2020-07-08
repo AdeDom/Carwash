@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.repositories.ConnectionRepository
+import com.chococard.carwash.util.extension.isVerifyPhone
 
 class RequestOtpViewModel(private val repository: ConnectionRepository) : BaseViewModel() {
 
@@ -12,9 +13,26 @@ class RequestOtpViewModel(private val repository: ConnectionRepository) : BaseVi
     val getValidatePhone: LiveData<BaseResponse>
         get() = validatePhoneResponse
 
-    fun callValidatePhone(validatePhone: ValidatePhoneRequest) = launchCallApi(
-        request = { repository.callValidatePhone(validatePhone) },
-        response = { validatePhoneResponse.value = it }
-    )
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String>
+        get() = _errorMessage
+
+    fun callValidatePhone(phoneNumber: String) {
+        when {
+            phoneNumber.isEmpty() ->
+                _errorMessage.value = "Please enter phone"
+            phoneNumber.length != 10 ->
+                _errorMessage.value = "Please enter a total of 10 characters"
+            phoneNumber.isVerifyPhone() ->
+                _errorMessage.value = "Please enter the correct phone number"
+            else -> {
+                val validatePhone = ValidatePhoneRequest(phoneNumber)
+                launchCallApi(
+                    request = { repository.callValidatePhone(validatePhone) },
+                    response = { validatePhoneResponse.value = it }
+                )
+            }
+        }
+    }
 
 }
