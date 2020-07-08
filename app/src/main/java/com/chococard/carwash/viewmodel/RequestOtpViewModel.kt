@@ -17,6 +17,10 @@ class RequestOtpViewModel(private val repository: ConnectionRepository) : BaseVi
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
+    private val _validatePhone = MutableLiveData<Boolean>()
+    val validatePhone: LiveData<Boolean>
+        get() = _validatePhone
+
     fun callValidatePhone(phoneNumber: String) {
         when {
             phoneNumber.isEmpty() ->
@@ -32,6 +36,15 @@ class RequestOtpViewModel(private val repository: ConnectionRepository) : BaseVi
                     response = { validatePhoneResponse.value = it }
                 )
             }
+        }
+    }
+
+    fun validatePhone(phoneNumber: String) {
+        when {
+            phoneNumber.isEmpty() -> _validatePhone.value = false
+            phoneNumber.length != 10 -> _validatePhone.value = false
+            phoneNumber.isVerifyPhone() -> _validatePhone.value = false
+            else -> _validatePhone.value = true
         }
     }
 

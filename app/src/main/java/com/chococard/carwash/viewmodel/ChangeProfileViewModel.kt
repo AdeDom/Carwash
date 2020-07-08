@@ -84,6 +84,7 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
     fun setValueValidatePhone(phoneNumber: String) {
         when {
             user == null -> _validatePhone.value = false
+            phoneNumber.isEmpty() -> _validatePhone.value = false
             user?.phone == phoneNumber -> _validatePhone.value = false
             phoneNumber.length != 10 -> _validatePhone.value = false
             phoneNumber.isVerifyPhone() -> _validatePhone.value = false

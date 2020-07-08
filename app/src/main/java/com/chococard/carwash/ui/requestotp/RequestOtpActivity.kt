@@ -25,6 +25,9 @@ class RequestOtpActivity : BaseActivity() {
     }
 
     private fun init() {
+        // set widget
+        viewModel.validatePhone(et_phone.getContents())
+
         //set event
         root_layout.setOnClickListener {
             hideSoftKeyboard()
@@ -39,6 +42,9 @@ class RequestOtpActivity : BaseActivity() {
             callRequestOtp()
         }
 
+        et_phone.onTextChanged { viewModel.validatePhone(et_phone.getContents()) }
+
+        // observe
         viewModel.getValidatePhone.observe(this, Observer { response ->
             val (success, message) = response
             progress_bar.hide()
@@ -56,6 +62,16 @@ class RequestOtpActivity : BaseActivity() {
         viewModel.errorMessage.observe(this, Observer {
             progress_bar.hide()
             root_layout.snackbar(it)
+        })
+
+        viewModel.validatePhone.observe(this, Observer {
+            if (it) {
+                bt_request_otp.isClickable = true
+                bt_request_otp.setBackgroundResource(R.drawable.shape_bt_blue)
+            } else {
+                bt_request_otp.isClickable = false
+                bt_request_otp.setBackgroundResource(R.drawable.shape_bt_gray)
+            }
         })
 
         viewModel.getError.observe(this, Observer {
