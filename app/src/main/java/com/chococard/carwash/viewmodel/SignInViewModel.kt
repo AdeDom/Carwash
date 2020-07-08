@@ -16,6 +16,10 @@ class SignInViewModel(private val repository: ConnectionRepository) : BaseViewMo
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
+    private val _validateSignIn = MutableLiveData<Boolean>()
+    val validateSignIn: LiveData<Boolean>
+        get() = _validateSignIn
+
     fun callSignIn(username: String, password: String) {
         when {
             username.isEmpty() -> _errorMessage.value = "Please enter username"
@@ -29,6 +33,16 @@ class SignInViewModel(private val repository: ConnectionRepository) : BaseViewMo
                     response = { signInResponse.value = it }
                 )
             }
+        }
+    }
+
+    fun validateSignIn(username: String, password: String) {
+        when {
+            username.isEmpty() -> _validateSignIn.value = false
+            username.length < 4 -> _validateSignIn.value = false
+            password.isEmpty() -> _validateSignIn.value = false
+            password.length < 8 -> _validateSignIn.value = false
+            else -> _validateSignIn.value = true
         }
     }
 

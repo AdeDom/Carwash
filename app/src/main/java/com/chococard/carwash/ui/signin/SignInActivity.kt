@@ -24,6 +24,9 @@ class SignInActivity : BaseActivity() {
     }
 
     private fun init() {
+        // set widgets
+        validateSignIn()
+
         //event
         iv_arrow_back.setOnClickListener { onBackPressed() }
 
@@ -44,12 +47,18 @@ class SignInActivity : BaseActivity() {
             hideSoftKeyboard()
         }
 
+        // toggle password
         iv_toggle_password.setOnClickListener {
             iv_toggle_password setTogglePassword et_password
         }
 
         et_password.onTextChanged {
+            validateSignIn()
             et_password setTogglePassword iv_toggle_password
+        }
+
+        et_username.onTextChanged {
+            validateSignIn()
         }
 
         //observe
@@ -70,10 +79,24 @@ class SignInActivity : BaseActivity() {
             root_layout.snackbar(it)
         })
 
+        viewModel.validateSignIn.observe(this, Observer {
+            if (it) {
+                bt_sign_in.ready()
+            } else {
+                bt_sign_in.unready()
+            }
+        })
+
         viewModel.getError.observe(this, Observer {
             progress_bar.hide()
             dialogError(it)
         })
+    }
+
+    private fun validateSignIn() {
+        val username = et_username.getContents()
+        val password = et_password.getContents()
+        viewModel.validateSignIn(username, password)
     }
 
     private fun callSignIn() {
