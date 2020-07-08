@@ -3,10 +3,8 @@ package com.chococard.carwash.ui.changepassword
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.networks.request.ChangePasswordRequest
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
 import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
@@ -35,13 +33,13 @@ class ChangePasswordActivity : BaseActivity() {
         root_layout.setOnClickListener { hideSoftKeyboard() }
 
         et_re_password.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) changePassword()
+            if (actionId == EditorInfo.IME_ACTION_DONE) callChangePassword()
             false
         }
 
         bt_cancel.setOnClickListener { finish() }
 
-        bt_confirm.setOnClickListener { changePassword() }
+        bt_confirm.setOnClickListener { callChangePassword() }
 
         //toggle password
         et_old_password.onTextChanged {
@@ -72,7 +70,7 @@ class ChangePasswordActivity : BaseActivity() {
         viewModel.getChangePassword.observe(this, Observer { response ->
             val (success, message) = response
             progress_bar.hide()
-            toast(message)
+            root_layout.snackbar(message)
             if (success) {
                 startActivity<SplashScreenActivity> {
                     finishAffinity()
@@ -87,8 +85,13 @@ class ChangePasswordActivity : BaseActivity() {
                     finishAffinity()
                 }
             } else {
-                toast(message, Toast.LENGTH_LONG)
+                root_layout.snackbar(message)
             }
+        })
+
+        viewModel.errorMessage.observe(this, Observer {
+            progress_bar.hide()
+            root_layout.snackbar(it)
         })
 
         viewModel.getError.observe(this, Observer {
@@ -97,23 +100,12 @@ class ChangePasswordActivity : BaseActivity() {
         })
     }
 
-    private fun changePassword() {
-        when {
-            et_old_password.isEmpty(getString(R.string.error_empty_old_password)) -> return
-            et_new_password.isEmpty(getString(R.string.error_empty_new_password)) -> return
-            et_re_password.isEmpty(getString(R.string.error_empty_re_password)) -> return
-            et_old_password.isMinLength(8, getString(R.string.error_least_length, 8)) -> return
-            et_new_password.isMinLength(8, getString(R.string.error_least_length, 8)) -> return
-            et_re_password.isMinLength(8, getString(R.string.error_least_length, 8)) -> return
-            et_new_password.isMatched(et_re_password, getString(R.string.error_matched)) -> return
-        }
-
+    private fun callChangePassword() {
         progress_bar.show()
-        val changePassword = ChangePasswordRequest(
-            et_old_password.getContents(),
-            et_new_password.getContents()
-        )
-        viewModel.callChangePassword(changePassword)
+        val oldPassword = et_old_password.getContents()
+        val newPassword = et_new_password.getContents()
+        val rePassword = et_re_password.getContents()
+        viewModel.callChangePassword(oldPassword, newPassword, rePassword)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

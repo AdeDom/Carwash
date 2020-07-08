@@ -16,10 +16,35 @@ class ChangePasswordViewModel(private val repository: HeaderRepository) : BaseVi
     val getLogout: LiveData<BaseResponse>
         get() = logoutResponse
 
-    fun callChangePassword(changePassword: ChangePasswordRequest) = launchCallApi(
-        request = { repository.callChangePassword(changePassword) },
-        response = { changePasswordResponse.value = it }
-    )
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String>
+        get() = _errorMessage
+
+    fun callChangePassword(oldPassword: String, newPassword: String, rePassword: String) {
+        when {
+            oldPassword.isEmpty() ->
+                _errorMessage.value = "Please enter old password"
+            oldPassword.length < 8 ->
+                _errorMessage.value = "Please enter an old password of at least 8 characters"
+            newPassword.isEmpty() ->
+                _errorMessage.value = "Please enter new password"
+            newPassword.length < 8 ->
+                _errorMessage.value = "Please enter an new password of at least 8 characters"
+            rePassword.isEmpty() ->
+                _errorMessage.value = "Please enter re-password"
+            rePassword.length < 8 ->
+                _errorMessage.value = "Please enter an re-password of at least 8 characters"
+            newPassword != rePassword ->
+                _errorMessage.value = "Please enter the password to match"
+            else -> {
+                val changePassword = ChangePasswordRequest(oldPassword, newPassword)
+                launchCallApi(
+                    request = { repository.callChangePassword(changePassword) },
+                    response = { changePasswordResponse.value = it }
+                )
+            }
+        }
+    }
 
     fun callLogout() = launchCallApi(
         request = { repository.callLogout() },
