@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
@@ -93,7 +92,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
                     setLocationCustomer(latLng)
                 }
             } else {
-                toast(message, Toast.LENGTH_LONG)
+                root_layout.snackbar(message)
             }
         })
 
@@ -103,7 +102,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             if (success) {
                 startActivity<ServiceActivity>()
             } else {
-                toast(message, Toast.LENGTH_LONG)
+                root_layout.snackbar(message)
             }
         })
 

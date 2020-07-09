@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
@@ -95,7 +94,7 @@ class SignUpActivity : BaseActivity() {
             if (success) {
                 dialogContactAdmin()
             } else {
-                toast(message, Toast.LENGTH_LONG)
+                root_layout.snackbar(message)
             }
         })
 
@@ -129,7 +128,7 @@ class SignUpActivity : BaseActivity() {
             et_phone.isEqualLength(10, getString(R.string.error_equal_length, 10)) -> return
             et_phone.isVerifyPhone(getString(R.string.error_phone)) -> return
             viewModel.isValueFileUri() -> {
-                toast(getString(R.string.please_select_profile_picture), Toast.LENGTH_LONG)
+                root_layout.snackbar(getString(R.string.please_select_profile_picture))
                 return
             }
         }

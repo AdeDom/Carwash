@@ -9,6 +9,7 @@ import com.chococard.carwash.util.FlagConstant
 
 fun EditText.getContents() = this.text.toString().trim()
 
+// todo delete edit text set error
 fun EditText.isEmpty(error: String = ""): Boolean {
     if (this.getContents().isEmpty()) {
         this.requestFocus()

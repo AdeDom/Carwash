@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -104,7 +103,7 @@ class ServiceActivity : BaseActivity() {
                 adt.setList(serviceImage?.otherImageService)
                 serviceImage?.let { setImageJobService(it) }
             } else {
-                toast(message, Toast.LENGTH_LONG)
+                root_layout.snackbar(message)
             }
         })
 
@@ -115,7 +114,7 @@ class ServiceActivity : BaseActivity() {
                 adt.setList(serviceImage?.otherImageService)
                 serviceImage?.let { setImageJobService(it) }
             } else {
-                toast(message, Toast.LENGTH_LONG)
+                root_layout.snackbar(message)
             }
         })
 
@@ -124,7 +123,7 @@ class ServiceActivity : BaseActivity() {
             if (success) {
                 serviceImage?.let { setImageJobService(it) }
             } else {
-                toast(message, Toast.LENGTH_LONG)
+                root_layout.snackbar(message)
             }
         })
 
@@ -134,7 +133,7 @@ class ServiceActivity : BaseActivity() {
             if (success) {
                 adt.setList(serviceImage?.otherImageService)
             } else {
-                toast(message, Toast.LENGTH_LONG)
+                root_layout.snackbar(message)
             }
         })
 

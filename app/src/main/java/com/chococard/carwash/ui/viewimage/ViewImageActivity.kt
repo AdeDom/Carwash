@@ -2,7 +2,6 @@ package com.chococard.carwash.ui.viewimage
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
@@ -45,7 +44,7 @@ class ViewImageActivity : BaseActivity() {
                     finishAffinity()
                 }
             } else {
-                toast(message, Toast.LENGTH_LONG)
+                root_layout.snackbar(message)
             }
         })
 

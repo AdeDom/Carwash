@@ -62,6 +62,7 @@ fun Context.startActivityGoogleMapNavigation(
     startActivity(this)
 }
 
+// todo replace toast to snackbar
 fun Context?.toast(message: String?, duration: Int = Toast.LENGTH_SHORT) =
     Toast.makeText(this, message, duration).show()
 
@@ -74,7 +75,6 @@ fun Context.getLocality(latitude: Double, longitude: Double): String {
     }
 }
 
-// todo shared pref to repository
 fun Context.writePref(key: String, values: String): SharedPreferences.Editor =
     getSharedPreferences(CommonsConstant.PREF_FILE, Context.MODE_PRIVATE).edit().apply {
         putString(key, values)

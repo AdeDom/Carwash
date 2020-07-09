@@ -3,7 +3,6 @@ package com.chococard.carwash.ui.report
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.request.ReportRequest
@@ -45,7 +44,7 @@ class ReportActivity : BaseActivity() {
                     finishAffinity()
                 }
             } else {
-                toast(message, Toast.LENGTH_LONG)
+                root_layout.snackbar(message)
             }
         })
 

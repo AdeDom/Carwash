@@ -3,7 +3,6 @@ package com.chococard.carwash.ui.main
 import android.location.Location
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
@@ -73,15 +72,13 @@ class MainActivity : BaseLocationActivity(),
             val (success, message, _) = response
             if (!success) {
                 finishAffinity()
-                toast(message, Toast.LENGTH_LONG)
+                root_layout.snackbar(message)
             }
         })
 
         viewModel.getLogsActive.observe(this, Observer { response ->
             val (success, message) = response
-            if (!success) {
-                toast(message, Toast.LENGTH_LONG)
-            }
+            if (!success) root_layout.snackbar(message)
         })
 
         viewModel.getJobQuestion.observe(this, Observer { request ->
@@ -94,7 +91,7 @@ class MainActivity : BaseLocationActivity(),
                 jobDialog.arguments = bundle
                 jobDialog.show(supportFragmentManager, null)
             } else {
-                toast(message, Toast.LENGTH_LONG)
+                root_layout.snackbar(message)
             }
         })
 
@@ -115,15 +112,13 @@ class MainActivity : BaseLocationActivity(),
                     finishAffinity()
                 }
             } else {
-                toast(message, Toast.LENGTH_LONG)
+                root_layout.snackbar(message)
             }
         })
 
         viewModel.getLocation.observe(this, Observer { response ->
             val (success, message) = response
-            if (!success) {
-                toast(message, Toast.LENGTH_LONG)
-            }
+            if (!success) root_layout.snackbar(message)
         })
 
         viewModel.getError.observe(this, Observer {
