@@ -84,11 +84,10 @@ class ServiceActivity : BaseActivity() {
         iv_add_other_image.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_OTHER_IMAGE) }
 
         bt_service.setOnClickListener {
-            if (mListImageService.size == 8) {
+            if (mListImageService.size == 8)
                 startActivity<PaymentActivity>()
-            } else {
+            else
                 dialogError(getString(R.string.error_empty_image))
-            }
         }
 
         // call api
@@ -120,21 +119,19 @@ class ServiceActivity : BaseActivity() {
 
         viewModel.getDeleteServiceImage.observe(this, Observer { response ->
             val (success, message, serviceImage) = response
-            if (success) {
+            if (success)
                 serviceImage?.let { setImageJobService(it) }
-            } else {
+            else
                 root_layout.snackbar(message)
-            }
         })
 
         viewModel.getDeleteServiceOtherImage.observe(this, Observer { response ->
             progress_bar_other_image.hide()
             val (success, message, serviceImage) = response
-            if (success) {
+            if (success)
                 adt.setList(serviceImage?.otherImageService)
-            } else {
+            else
                 root_layout.snackbar(message)
-            }
         })
 
         viewModel.getValidateMaximumOtherImage.observe(this, Observer {

@@ -54,9 +54,8 @@ abstract class BaseLocationActivity : BaseActivity(),
             baseContext.contentResolver,
             LocationManager.GPS_PROVIDER
         )
-        if (!isLocationProviderEnabled && requestCode == CommonsConstant.REQUEST_CODE_LOCATION) {
+        if (!isLocationProviderEnabled && requestCode == CommonsConstant.REQUEST_CODE_LOCATION)
             finishAffinity()
-        }
     }
 
     private fun setReceiverLocation() {
@@ -68,9 +67,8 @@ abstract class BaseLocationActivity : BaseActivity(),
                     val isGpsEnabled =
                         locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) //NETWORK_PROVIDER
 
-                    if (!isGpsEnabled) {
+                    if (!isGpsEnabled)
                         settingLocation()
-                    }
                 }
             }
         }

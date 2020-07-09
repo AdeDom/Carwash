@@ -13,11 +13,7 @@ class VPSignInActivity : BaseVerifyPhoneActivity() {
         FirebaseAuth.getInstance().signInWithCredential(credential)
             .addOnCompleteListener { task ->
                 progress_bar.hide()
-                if (task.isSuccessful) {
-                    finish()
-                } else {
-                    root_layout.snackbar(task.exception?.message)
-                }
+                if (task.isSuccessful) finish() else root_layout.snackbar(task.exception?.message)
             }
     }
 

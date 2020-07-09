@@ -80,11 +80,7 @@ class SignInActivity : BaseActivity() {
         })
 
         viewModel.validateSignIn.observe(this, Observer {
-            if (it) {
-                bt_sign_in.ready()
-            } else {
-                bt_sign_in.unready()
-            }
+            if (it) bt_sign_in.ready() else bt_sign_in.unready()
         })
 
         viewModel.getError.observe(this, Observer {

@@ -99,11 +99,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         viewModel.getJobStatusService.observe(this, Observer { response ->
             progress_bar.hide()
             val (success, message) = response
-            if (success) {
-                startActivity<ServiceActivity>()
-            } else {
-                root_layout.snackbar(message)
-            }
+            if (success) startActivity<ServiceActivity>() else root_layout.snackbar(message)
         })
 
         viewModel.getError.observe(this, Observer {

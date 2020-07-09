@@ -96,19 +96,11 @@ class ChangeProfileActivity : BaseActivity() {
         viewModel.getValidatePhone.observe(this, Observer { response ->
             progress_bar.hide()
             val (success, message) = response
-            if (success) {
-                changeProfile()
-            } else {
-                root_layout.snackbar(message)
-            }
+            if (success) changeProfile() else root_layout.snackbar(message)
         })
 
         viewModel.validatePhone.observe(this, Observer {
-            if (it) {
-                bt_confirm.ready()
-            } else {
-                bt_confirm.unready()
-            }
+            if (it) bt_confirm.ready() else bt_confirm.unready()
         })
 
         viewModel.errorMessage.observe(this, Observer {

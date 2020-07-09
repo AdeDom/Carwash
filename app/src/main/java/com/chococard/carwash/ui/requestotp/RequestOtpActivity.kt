@@ -65,11 +65,7 @@ class RequestOtpActivity : BaseActivity() {
         })
 
         viewModel.validatePhone.observe(this, Observer {
-            if (it) {
-                bt_request_otp.ready()
-            } else {
-                bt_request_otp.unready()
-            }
+            if (it) bt_request_otp.ready() else bt_request_otp.unready()
         })
 
         viewModel.getError.observe(this, Observer {

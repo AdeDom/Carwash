@@ -102,11 +102,7 @@ class ChangePasswordActivity : BaseActivity() {
         })
 
         viewModel.validateChangePassword.observe(this, Observer {
-            if (it) {
-                bt_confirm.ready()
-            } else {
-                bt_confirm.unready()
-            }
+            if (it) bt_confirm.ready() else bt_confirm.unready()
         })
 
         viewModel.getError.observe(this, Observer {

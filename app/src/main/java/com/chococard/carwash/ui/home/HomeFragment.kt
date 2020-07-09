@@ -36,11 +36,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         viewModel.callSwitchSystem.observe(viewLifecycleOwner, Observer { response ->
             progress_bar.hide()
             val (success, message) = response
-            if (success) {
-                switchButton()
-            } else {
-                root_layout.snackbar(message)
-            }
+            if (success) switchButton() else root_layout.snackbar(message)
         })
 
         viewModel.getHomeScore.observe(viewLifecycleOwner, Observer { response ->
