@@ -28,9 +28,12 @@ class SignUpActivity : BaseActivity() {
     }
 
     private fun init() {
-        // set widgets
+        // get value intent
         val phoneNumber = intent.getStringExtra(CommonsConstant.PHONE)
         if (phoneNumber == null) finish() else et_phone.setText(phoneNumber)
+
+        // set widgets
+        validateSignUp()
 
         //event
         iv_arrow_back.setOnClickListener { onBackPressed() }
@@ -43,7 +46,17 @@ class SignUpActivity : BaseActivity() {
             viewModel.setValueFileUri(null)
         }
 
+        // text changed
+        et_username.onTextChanged { validateSignUp() }
+
+        et_full_name.onTextChanged { validateSignUp() }
+
+        et_identity_card.onTextChanged { validateSignUp() }
+
+        et_phone.onTextChanged { validateSignUp() }
+
         et_password.onTextChanged {
+            validateSignUp()
             et_password setTogglePassword iv_toggle_password
         }
 
@@ -52,6 +65,7 @@ class SignUpActivity : BaseActivity() {
         }
 
         et_re_password.onTextChanged {
+            validateSignUp()
             et_re_password setTogglePassword iv_toggle_re_password
         }
 
@@ -90,16 +104,16 @@ class SignUpActivity : BaseActivity() {
         viewModel.getSignUp.observe(this, Observer { response ->
             val (success, message) = response
             progress_bar.hide()
-            if (success) {
-                dialogContactAdmin()
-            } else {
-                root_layout.snackbar(message)
-            }
+            if (success) dialogContactAdmin() else root_layout.snackbar(message)
         })
 
         viewModel.errorMessage.observe(this, Observer {
             progress_bar.hide()
             root_layout.snackbar(it)
+        })
+
+        viewModel.validateSignUp.observe(this, Observer {
+            if (it) bt_sign_up.ready() else bt_sign_up.unready()
         })
 
         viewModel.getError.observe(this, Observer {
@@ -108,11 +122,20 @@ class SignUpActivity : BaseActivity() {
         })
     }
 
+    private fun validateSignUp() {
+        val username = et_username.getContents()
+        val password = et_password.getContents()
+        val rePassword = et_re_password.getContents()
+        val fullName = et_full_name.getContents()
+        val identityCard = et_identity_card.getContents()
+        val phone = et_phone.getContents()
+        viewModel.validateSignUp(username, password, rePassword, fullName, identityCard, phone)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == CommonsConstant.REQUEST_CODE_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == CommonsConstant.REQUEST_CODE_IMAGE && resultCode == Activity.RESULT_OK && data != null)
             viewModel.setValueFileUri(data.data)
-        }
     }
 
     private fun callSignUp() {

@@ -22,6 +22,10 @@ class SignUpViewModel(private val repository: ConnectionRepository) : BaseViewMo
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
+    private val _validateSignUp = MutableLiveData<Boolean>()
+    val validateSignUp: LiveData<Boolean>
+        get() = _validateSignUp
+
     fun callSignUp(
         username: String,
         password: String,
@@ -76,6 +80,34 @@ class SignUpViewModel(private val repository: ConnectionRepository) : BaseViewMo
                     response = { signUpResponse.value = it }
                 )
             }
+        }
+    }
+
+    fun validateSignUp(
+        username: String,
+        password: String,
+        rePassword: String,
+        fullName: String,
+        identityCard: String,
+        phone: String
+    ) {
+        when {
+            username.isEmpty() -> _validateSignUp.value = false
+            username.length < 4 -> _validateSignUp.value = false
+            password.isEmpty() -> _validateSignUp.value = false
+            password.length < 8 -> _validateSignUp.value = false
+            rePassword.isEmpty() -> _validateSignUp.value = false
+            rePassword.length < 8 -> _validateSignUp.value = false
+            password != rePassword -> _validateSignUp.value = false
+            fullName.isEmpty() -> _validateSignUp.value = false
+            identityCard.isEmpty() -> _validateSignUp.value = false
+            identityCard.length != 13 -> _validateSignUp.value = false
+            identityCard.isVerifyIdentityCard() -> _validateSignUp.value = false
+            phone.isEmpty() -> _validateSignUp.value = false
+            phone.length != 10 -> _validateSignUp.value = false
+            phone.isVerifyPhone() -> _validateSignUp.value = false
+            fileUri.value == null -> _validateSignUp.value = false
+            else -> _validateSignUp.value = true
         }
     }
 
