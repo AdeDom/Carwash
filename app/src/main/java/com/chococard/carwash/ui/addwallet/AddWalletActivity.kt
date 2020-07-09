@@ -6,7 +6,7 @@ import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.selectImage
-import com.chococard.carwash.util.extension.toast
+import com.chococard.carwash.util.extension.snackbar
 import com.chococard.carwash.viewmodel.AddWalletViewModel
 import kotlinx.android.synthetic.main.activity_add_wallet.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -39,7 +39,7 @@ class AddWalletActivity : BaseActivity() {
     }
 
     private fun addWallet() {
-        toast("Add wallet")
+        root_layout.snackbar("Add wallet")
         finish()
     }
 

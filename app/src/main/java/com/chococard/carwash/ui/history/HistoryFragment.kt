@@ -3,7 +3,6 @@ package com.chococard.carwash.ui.history
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chococard.carwash.R
@@ -14,7 +13,7 @@ import com.chococard.carwash.ui.historydetail.HistoryDetailActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.hide
 import com.chococard.carwash.util.extension.show
-import com.chococard.carwash.util.extension.toast
+import com.chococard.carwash.util.extension.snackbar
 import com.chococard.carwash.viewmodel.HistoryViewModel
 import kotlinx.android.synthetic.main.fragment_history.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -65,7 +64,7 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history) {
                 }
                 adt.setList(histories)
             } else {
-                context.toast(message, Toast.LENGTH_LONG)
+                root_layout.snackbar(message)
             }
         })
 

@@ -1,7 +1,6 @@
 package com.chococard.carwash.ui.home
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.request.SwitchSystemRequest
@@ -40,7 +39,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             if (success) {
                 switchButton()
             } else {
-                context.toast(message, Toast.LENGTH_LONG)
+                root_layout.snackbar(message)
             }
         })
 
@@ -52,7 +51,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                 tv_acceptance.text = homeScore?.acceptance
                 tv_cancellation.text = homeScore?.cancellation
             } else {
-                context.toast(message, Toast.LENGTH_LONG)
+                root_layout.snackbar(message)
             }
         })
 

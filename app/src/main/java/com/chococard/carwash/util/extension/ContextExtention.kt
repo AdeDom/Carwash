@@ -15,7 +15,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -61,10 +60,6 @@ fun Context.startActivityGoogleMapNavigation(
     data = Uri.parse(url)
     startActivity(this)
 }
-
-// todo replace toast to snackbar
-fun Context?.toast(message: String?, duration: Int = Toast.LENGTH_SHORT) =
-    Toast.makeText(this, message, duration).show()
 
 fun Context.getLocality(latitude: Double, longitude: Double): String {
     return try {
