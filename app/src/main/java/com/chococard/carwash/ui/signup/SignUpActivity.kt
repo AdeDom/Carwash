@@ -11,7 +11,6 @@ import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.signin.SignInActivity
 import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
 import com.chococard.carwash.util.CommonsConstant
-import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.SignUpViewModel
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -134,15 +133,12 @@ class SignUpActivity : BaseActivity() {
         }
 
         progress_bar.show()
-        val username = et_username.getContents().toRequestBody()
-        val password = et_password.getContents().toRequestBody()
-        val fullName = et_full_name.getContents().toRequestBody()
-        val identityCard = et_identity_card.getContents().toRequestBody()
-        val phone = et_phone.getContents().toRequestBody()
-        val role = FlagConstant.EMPLOYEE.toRequestBody()
-        val multipartBody = convertToMultipartBody(viewModel.getValueFileUri()!!)
-        viewModel.callSignUp(username, password, fullName, identityCard, phone, role, multipartBody)
-
+        val username = et_username.getContents()
+        val password = et_password.getContents()
+        val fullName = et_full_name.getContents()
+        val identityCard = et_identity_card.getContents()
+        val phone = et_phone.getContents()
+        viewModel.callSignUp(username, password, fullName, identityCard, phone)
     }
 
     private fun dialogContactAdmin() = AlertDialog.Builder(this).apply {
