@@ -17,9 +17,10 @@ fun View.gone() {
 
 fun View.snackbar(
     errorMessage: String?,
+    duration: Int = Snackbar.LENGTH_INDEFINITE,
     text: Int = android.R.string.ok,
     action: (() -> Unit)? = null
-) = Snackbar.make(this, errorMessage.toString(), Snackbar.LENGTH_LONG)
+) = Snackbar.make(this, errorMessage.toString(), duration)
     .setAction(text) {
         action?.invoke()
     }.show()

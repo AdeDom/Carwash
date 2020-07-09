@@ -64,11 +64,11 @@ class SignUpActivity : BaseActivity() {
         }
 
         et_identity_card.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) signUp()
+            if (actionId == EditorInfo.IME_ACTION_DONE) callSignUp()
             false
         }
 
-        bt_sign_up.setOnClickListener { signUp() }
+        bt_sign_up.setOnClickListener { callSignUp() }
 
         tv_sign_in.setOnClickListener {
             startActivity<SignInActivity> {
@@ -97,6 +97,11 @@ class SignUpActivity : BaseActivity() {
             }
         })
 
+        viewModel.errorMessage.observe(this, Observer {
+            progress_bar.hide()
+            root_layout.snackbar(it)
+        })
+
         viewModel.getError.observe(this, Observer {
             progress_bar.hide()
             dialogError(it)
@@ -110,35 +115,15 @@ class SignUpActivity : BaseActivity() {
         }
     }
 
-    private fun signUp() {
-        when {
-            et_username.isEmpty(getString(R.string.error_empty_username)) -> return
-            et_username.isMinLength(4, getString(R.string.error_least_length, 4)) -> return
-            et_password.isEmpty(getString(R.string.error_empty_password)) -> return
-            et_password.isMinLength(8, getString(R.string.error_least_length, 8)) -> return
-            et_re_password.isEmpty(getString(R.string.error_empty_re_password)) -> return
-            et_re_password.isMinLength(8, getString(R.string.error_least_length, 8)) -> return
-            et_password.isMatched(et_re_password, getString(R.string.error_matched)) -> return
-            et_full_name.isEmpty(getString(R.string.error_empty_name)) -> return
-            et_identity_card.isEmpty(getString(R.string.error_empty_identity_card)) -> return
-            et_identity_card.isEqualLength(13, getString(R.string.error_equal_length, 13)) -> return
-            et_identity_card.isVerifyIdentityCard(getString(R.string.error_identity_card)) -> return
-            et_phone.isEmpty(getString(R.string.error_empty_phone)) -> return
-            et_phone.isEqualLength(10, getString(R.string.error_equal_length, 10)) -> return
-            et_phone.isVerifyPhone(getString(R.string.error_phone)) -> return
-            viewModel.isValueFileUri() -> {
-                root_layout.snackbar(getString(R.string.please_select_profile_picture))
-                return
-            }
-        }
-
+    private fun callSignUp() {
         progress_bar.show()
         val username = et_username.getContents()
         val password = et_password.getContents()
+        val rePassword = et_re_password.getContents()
         val fullName = et_full_name.getContents()
         val identityCard = et_identity_card.getContents()
         val phone = et_phone.getContents()
-        viewModel.callSignUp(username, password, fullName, identityCard, phone)
+        viewModel.callSignUp(username, password, rePassword, fullName, identityCard, phone)
     }
 
     private fun dialogContactAdmin() = AlertDialog.Builder(this).apply {
