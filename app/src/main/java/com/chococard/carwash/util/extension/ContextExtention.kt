@@ -61,6 +61,7 @@ fun Context.startActivityGoogleMapNavigation(
     startActivity(this)
 }
 
+// TODO: 09/07/2563 change to response from server
 fun Context.getLocality(latitude: Double, longitude: Double): String {
     return try {
         val list = Geocoder(this).getFromLocation(latitude, longitude, 1)

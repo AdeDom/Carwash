@@ -23,6 +23,7 @@ fun ImageView.setImageFromInternet(url: String?) {
         .into(this)
 }
 
+// TODO: 09/07/2563 password length
 infix fun ImageView.setTogglePassword(editText: EditText) {
     if (this.tag == FlagConstant.TOGGLE_PASSWORD_OFF) {
         this.tag = FlagConstant.TOGGLE_PASSWORD_ON

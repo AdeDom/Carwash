@@ -236,6 +236,7 @@
         <item name="cardElevation">@dimen/base_pow_three</item>
     </style>
 
+<!--    todo progress dialog-->
     <style name="ProgressBar" parent="WrapWrap">
         <item name="android:layout_centerInParent">true</item>
         <item name="android:visibility">invisible</item>

@@ -14,7 +14,6 @@ import com.chococard.carwash.ui.viewimage.ViewImageActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.HistoryDetailViewModel
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_history_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -127,10 +126,7 @@ class HistoryDetailActivity : BaseActivity() {
             R.id.option_change_profile -> startActivity<ChangeProfileActivity>()
             R.id.option_change_password -> startActivity<ChangePasswordActivity>()
             R.id.option_contact_admin -> dialogContactAdmin { startActivityActionDial() }
-            R.id.option_logout -> dialogLogout {
-                FirebaseAuth.getInstance().signOut()
-                viewModel.callLogout()
-            }
+            R.id.option_logout -> dialogLogout { viewModel.callLogout() }
         }
         return super.onOptionsItemSelected(item)
     }

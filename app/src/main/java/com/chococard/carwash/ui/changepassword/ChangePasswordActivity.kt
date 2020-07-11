@@ -10,7 +10,6 @@ import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
 import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.ChangePasswordViewModel
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_change_password.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -86,6 +85,7 @@ class ChangePasswordActivity : BaseActivity() {
         })
 
         viewModel.getLogout.observe(this, Observer { response ->
+            progress_bar.hide()
             val (success, message) = response
             if (success) {
                 startActivity<SplashScreenActivity> {
@@ -127,14 +127,10 @@ class ChangePasswordActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.option_change_profile -> {
-                startActivity<ChangeProfileActivity> {
-                    finish()
-                }
-            }
+            R.id.option_change_profile -> startActivity<ChangeProfileActivity> { finish() }
             R.id.option_contact_admin -> dialogContactAdmin { startActivityActionDial() }
             R.id.option_logout -> dialogLogout {
-                FirebaseAuth.getInstance().signOut()
+                progress_bar.show()
                 viewModel.callLogout()
             }
         }

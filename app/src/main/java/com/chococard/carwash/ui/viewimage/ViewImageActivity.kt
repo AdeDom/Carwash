@@ -11,7 +11,6 @@ import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.ViewImageViewModel
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_view_image.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -37,6 +36,7 @@ class ViewImageActivity : BaseActivity() {
 
         // observe
         viewModel.getLogout.observe(this, Observer { response ->
+            progress_bar.hide()
             val (success, message) = response
             progress_bar.hide()
             if (success) {
@@ -61,7 +61,6 @@ class ViewImageActivity : BaseActivity() {
             R.id.option_contact_admin -> dialogContactAdmin { startActivityActionDial() }
             R.id.option_logout -> dialogLogout {
                 progress_bar.show()
-                FirebaseAuth.getInstance().signOut()
                 viewModel.callLogout()
             }
         }

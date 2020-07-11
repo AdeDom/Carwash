@@ -106,6 +106,7 @@ class MainActivity : BaseLocationActivity(),
         })
 
         viewModel.getLogout.observe(this, Observer { response ->
+            progress_bar.hide()
             val (success, message) = response
             if (success) {
                 startActivity<SplashScreenActivity> {
@@ -144,15 +145,11 @@ class MainActivity : BaseLocationActivity(),
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.option_change_profile -> {
-                startActivity<ChangeProfileActivity>()
-            }
-            R.id.option_change_password -> {
-                startActivity<ChangePasswordActivity>()
-            }
+            R.id.option_change_profile -> startActivity<ChangeProfileActivity>()
+            R.id.option_change_password -> startActivity<ChangePasswordActivity>()
             R.id.option_contact_admin -> dialogContactAdmin { startActivityActionDial() }
             R.id.option_logout -> dialogLogout {
-                FirebaseAuth.getInstance().signOut()
+                progress_bar.show()
                 viewModel.callLogout()
             }
         }
