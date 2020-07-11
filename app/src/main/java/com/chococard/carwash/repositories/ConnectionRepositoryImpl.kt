@@ -2,6 +2,7 @@ package com.chococard.carwash.repositories
 
 import android.content.Context
 import android.net.Uri
+import androidx.core.content.edit
 import com.chococard.carwash.data.db.AppDatabase
 import com.chococard.carwash.data.networks.ConnectionAppService
 import com.chococard.carwash.data.networks.SafeApiRequest
@@ -11,8 +12,8 @@ import com.chococard.carwash.data.networks.response.SignInResponse
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.convertToMultipartBody
+import com.chococard.carwash.util.extension.sharedPreferences
 import com.chococard.carwash.util.extension.toRequestBody
-import com.chococard.carwash.util.extension.writePref
 
 class ConnectionRepositoryImpl(
     private val api: ConnectionAppService,
@@ -44,8 +45,10 @@ class ConnectionRepositoryImpl(
     override suspend fun callSignIn(signIn: SignInRequest): SignInResponse {
         val response = apiRequest { api.callSignIn(signIn) }
         if (response.success) {
-            response.token?.let { context.writePref(CommonsConstant.ACCESS_TOKEN, it) }
-            response.refreshToken?.let { context.writePref(CommonsConstant.REFRESH_TOKEN, it) }
+            context.sharedPreferences().edit {
+                putString(CommonsConstant.ACCESS_TOKEN, response.token)
+                putString(CommonsConstant.REFRESH_TOKEN, response.refreshToken)
+            }
         }
         return response
     }

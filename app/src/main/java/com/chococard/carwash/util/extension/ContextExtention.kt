@@ -71,6 +71,10 @@ fun Context.getLocality(latitude: Double, longitude: Double): String {
     }
 }
 
+fun Context.sharedPreferences(): SharedPreferences {
+    return getSharedPreferences(CommonsConstant.PREF_FILE, Context.MODE_PRIVATE)
+}
+
 fun Context.writePref(key: String, values: String): SharedPreferences.Editor =
     getSharedPreferences(CommonsConstant.PREF_FILE, Context.MODE_PRIVATE).edit().apply {
         putString(key, values)

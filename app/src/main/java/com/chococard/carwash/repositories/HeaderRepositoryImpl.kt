@@ -1,6 +1,7 @@
 package com.chococard.carwash.repositories
 
 import android.content.Context
+import androidx.core.content.edit
 import com.chococard.carwash.data.db.AppDatabase
 import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.db.entities.User
@@ -11,7 +12,7 @@ import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.util.CommonsConstant
-import com.chococard.carwash.util.extension.writePref
+import com.chococard.carwash.util.extension.sharedPreferences
 import com.google.firebase.auth.FirebaseAuth
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -61,8 +62,10 @@ class HeaderRepositoryImpl(
     private suspend fun clearUserAndToken() {
         deleteUser()
         FirebaseAuth.getInstance().signOut()
-        context.writePref(CommonsConstant.ACCESS_TOKEN, "")
-        context.writePref(CommonsConstant.REFRESH_TOKEN, "")
+        context.sharedPreferences().edit {
+            putString(CommonsConstant.ACCESS_TOKEN, "")
+            putString(CommonsConstant.REFRESH_TOKEN, "")
+        }
     }
 
     override suspend fun callSetLocation(setLocation: SetLocationRequest) =

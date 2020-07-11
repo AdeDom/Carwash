@@ -71,6 +71,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         }
     }
 
+    // TODO: 11/07/2563 change code to flag and observe button switch
     private fun switchSystem() {
         progress_bar.show()
         val switch = context?.readPref(CommonsConstant.SWITCH)

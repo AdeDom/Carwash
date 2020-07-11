@@ -114,6 +114,7 @@ class ChangeProfileActivity : BaseActivity() {
         })
     }
 
+    // todo upload image change profile
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CommonsConstant.REQUEST_CODE_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
