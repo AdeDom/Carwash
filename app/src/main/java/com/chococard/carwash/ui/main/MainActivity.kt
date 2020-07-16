@@ -158,7 +158,8 @@ class MainActivity : BaseLocationActivity(),
 
     override fun onResume() {
         super.onResume()
-        viewModel.startSignalR()
+        viewModel.startSignalREmployeeHub()
+        viewModel.startSignalRTimeHub()
     }
 
     override fun onPause() {

@@ -11,11 +11,23 @@ import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.repositories.HeaderRepository
 import com.chococard.carwash.signalr.SignalREmployeeHub
+import com.chococard.carwash.signalr.SignalRTimeHub
 
-class MainViewModel(private val repository: HeaderRepository) : BaseViewModel(),
-    SignalREmployeeHub.SignalRListener {
+class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() {
 
-    private var signalREmployeeHub: SignalREmployeeHub = SignalREmployeeHub(this)
+    private var signalREmployeeHub =
+        SignalREmployeeHub(object : SignalREmployeeHub.SignalRListener {
+            override fun onReceive(data: String) {
+                Log.d(TAG, "SignalREmployeeHub onReceive: $data")
+            }
+        })
+
+    private var signalRTimeHub = SignalRTimeHub(object : SignalRTimeHub.SignalRListener {
+        override fun onReceive(data: String) {
+            Log.d(TAG, "SignalRTimeHub onReceive: $data")
+        }
+    })
+
     val getDbUser = repository.getUser()
 
     private val userInfoResponse = MutableLiveData<UserResponse>()
@@ -88,13 +100,13 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel(),
         jobFlag.value = flag
     }
 
-    fun startSignalR() = signalREmployeeHub.startSignalR()
+    fun startSignalREmployeeHub() = signalREmployeeHub.startSignalR()
 
-    fun stopSignalR() = signalREmployeeHub.stopSignalR()
+    fun stopSignalREmployeeHub() = signalREmployeeHub.stopSignalR()
 
-    override fun onReceive(data: String) {
-        Log.d(TAG, "onReceive: $data")
-    }
+    fun startSignalRTimeHub() = signalRTimeHub.startSignalR()
+
+    fun stopSignalRTimeHub() = signalRTimeHub.stopSignalR()
 
     companion object {
         private const val TAG = "MainViewModel"
