@@ -74,8 +74,6 @@ class HeaderRepositoryImpl(
     override suspend fun callFetchHistory(dateBegin: Long, dateEnd: Long) =
         apiRequest { api.callFetchHistory(dateBegin, dateEnd) }
 
-    override suspend fun callJobQuestion() = apiRequest { api.callJobQuestion() }
-
     // job
     override suspend fun callJobAnswer(jobAnswer: JobAnswerRequest): JobResponse {
         val response = apiRequest { api.callJobAnswer(jobAnswer) }

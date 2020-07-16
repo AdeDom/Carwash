@@ -42,10 +42,6 @@ class MainActivity : BaseLocationActivity(),
         bottom_navigation.setOnNavigationItemSelectedListener(this)
         if (savedInstanceState == null) replaceFragment(HomeFragment())
 
-        bt_has_job.setOnClickListener {
-            viewModel.callJobQuestion()
-        }
-
         val listener: FlagJobListener = object : FlagJobListener {
             override fun onFlag(flag: Int) {
                 progress_bar.show()
@@ -79,20 +75,6 @@ class MainActivity : BaseLocationActivity(),
         viewModel.getLogsActive.observe(this, Observer { response ->
             val (success, message) = response
             if (!success) root_layout.snackbar(message)
-        })
-
-        viewModel.getJobQuestion.observe(this, Observer { request ->
-            val (success, message, jobQuestion) = request
-            if (success) {
-                val bundle = Bundle()
-                bundle.putParcelable(CommonsConstant.JOB, jobQuestion)
-
-                val jobDialog = JobDialog(listener)
-                jobDialog.arguments = bundle
-                jobDialog.show(supportFragmentManager, null)
-            } else {
-                root_layout.snackbar(message)
-            }
         })
 
         viewModel.getJobAnswer.observe(this, Observer { response ->
@@ -164,6 +146,9 @@ class MainActivity : BaseLocationActivity(),
 
     override fun onPause() {
         super.onPause()
+        viewModel.stopSignalREmployeeHub()
+        viewModel.stopSignalRTimeHub()
+
         // set user logs active
         viewModel.callLogsActive(LogsActiveRequest(FlagConstant.LOGS_STATUS_INACTIVE))
     }
