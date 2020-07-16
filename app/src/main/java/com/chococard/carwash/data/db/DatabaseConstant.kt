@@ -20,5 +20,7 @@ object DatabaseConstant {
     const val DATE_TIME = "date_time"
     const val PACKAGE_NAME = "package_name"
     const val DISTANCE = "distance"
+    const val EMPLOYEE_ID = "EmployeeId"
+    const val LOCATION = "Location"
 
 }

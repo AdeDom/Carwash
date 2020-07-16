@@ -12,13 +12,15 @@ import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.repositories.HeaderRepository
 import com.chococard.carwash.signalr.SignalREmployeeHub
 import com.chococard.carwash.signalr.SignalRTimeHub
+import com.google.gson.Gson
 
 class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() {
 
     private var signalREmployeeHub =
         SignalREmployeeHub(object : SignalREmployeeHub.SignalRListener {
             override fun onReceive(data: String) {
-                Log.d(TAG, "SignalREmployeeHub onReceive: $data")
+                val fromJson = Gson().fromJson(data, JobResponse::class.java)
+                jobQuestionResponse.postValue(fromJson)
             }
         })
 
@@ -57,6 +59,10 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
     private val jobFlag = MutableLiveData<Int>()
     val getJobFlag: LiveData<Int>
         get() = jobFlag
+
+    private val jobQuestionResponse = MutableLiveData<JobResponse>()
+    val getJobQuestion: LiveData<JobResponse>
+        get() = jobQuestionResponse
 
     fun callFetchUserInfo() = launchCallApi(
         request = { repository.callFetchUserInfo() },

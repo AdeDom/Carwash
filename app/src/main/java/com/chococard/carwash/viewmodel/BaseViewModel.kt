@@ -7,6 +7,7 @@ import com.chococard.carwash.util.ApiException
 import com.chococard.carwash.util.NoInternetException
 import kotlinx.coroutines.*
 import java.io.EOFException
+import java.net.SocketTimeoutException
 import kotlin.coroutines.CoroutineContext
 
 abstract class BaseViewModel : ViewModel(), CoroutineScope {
@@ -38,6 +39,8 @@ abstract class BaseViewModel : ViewModel(), CoroutineScope {
                 error.value = e.message
             } catch (e: EOFException) {
                 error.value = "Server has a problem"
+            } catch (e: SocketTimeoutException) {
+                error.value = e.message
             }
         }
     }

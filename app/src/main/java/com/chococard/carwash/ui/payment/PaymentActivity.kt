@@ -25,7 +25,7 @@ class PaymentActivity : BaseActivity() {
         // set widgets
         viewModel.getDbJob.observe(this, Observer { job ->
             if (job == null) return@Observer
-            val (_, fullName, imageProfile, _, packageName, price, _, _, _, _, dateTime) = job
+            val (_, _, fullName, imageProfile, _, packageName, price, _, _, _, _, _, dateTime) = job
             tv_date_time.text = dateTime
             tv_full_name.text = fullName
             tv_service.text = packageName

@@ -32,15 +32,14 @@ class ServiceInfoActivity : BaseLocationActivity() {
             if (job == null) return@Observer
 
             // set widget
-            val (_, fullName, imageProfile, phone, packageName, price, vehicleRegistration, latitude, longitude, _, dateTime) = job
+            val (_, _, fullName, imageProfile, phone, packageName, price, vehicleRegistration, latitude, longitude, location, _, dateTime) = job
             tv_date_time.text = dateTime
             tv_full_name.text = fullName
             tv_service.text = packageName
             tv_phone.text = phone.toUnderline()
-            if (latitude != null && longitude != null) {
-                tv_location.text = getLocality(latitude, longitude).toUnderline()
+            tv_location.text = location.toUnderline()
+            if (latitude != null && longitude != null)
                 mLatLngCustomer = Pair(latitude, longitude)
-            }
             tv_vehicle_registration.text = vehicleRegistration
             tv_price.text = price
             iv_photo.setImageCircle(imageProfile)

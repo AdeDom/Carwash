@@ -8,7 +8,6 @@ import com.chococard.carwash.ui.BaseDialog
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.FlagConstant
-import com.chococard.carwash.util.extension.getLocality
 import com.chococard.carwash.util.extension.setImageCircle
 import com.chococard.carwash.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.dialog_job.*
@@ -29,11 +28,10 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
         val job = arguments?.getParcelable(CommonsConstant.JOB) as Job? ?: return
 
         // set widgets
-        val (_, fullName, imageProfile, _, packageName, _, _, latitude, longitude, distance, _) = job
+        val (_, _, fullName, imageProfile, _, packageName, _, _, _, _, location, distance, _) = job
         tv_full_name.text = fullName
         tv_service.text = packageName
-        if (latitude != null && longitude != null)
-            tv_location.text = context?.getLocality(latitude, longitude)
+        tv_location.text = location
         tv_distance.text = distance
         iv_photo.setImageCircle(imageProfile)
 
@@ -69,6 +67,10 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
             }
             viewModel.setValueJobFlag(FlagConstant.JOB_REJECT_TIME_OUT)
         }
+    }
+
+    interface FlagJobListener {
+        fun onFlag(flag: Int)
     }
 
 }

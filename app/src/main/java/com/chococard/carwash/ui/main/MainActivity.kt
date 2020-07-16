@@ -29,7 +29,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseLocationActivity(),
-    BottomNavigationView.OnNavigationItemSelectedListener {
+    BottomNavigationView.OnNavigationItemSelectedListener,
+    JobDialog.FlagJobListener {
 
     val viewModel: MainViewModel by viewModel()
 
@@ -41,13 +42,6 @@ class MainActivity : BaseLocationActivity(),
 
         bottom_navigation.setOnNavigationItemSelectedListener(this)
         if (savedInstanceState == null) replaceFragment(HomeFragment())
-
-        val listener: FlagJobListener = object : FlagJobListener {
-            override fun onFlag(flag: Int) {
-                progress_bar.show()
-                viewModel.callJobAnswer(JobAnswerRequest(flag))
-            }
-        }
 
         //call api
         viewModel.callLogsActive(LogsActiveRequest(FlagConstant.LOGS_STATUS_ACTIVE))
@@ -104,6 +98,20 @@ class MainActivity : BaseLocationActivity(),
             if (!success) root_layout.snackbar(message)
         })
 
+        viewModel.getJobQuestion.observe(this, Observer { response ->
+            val (success, message, job) = response
+            if (success) {
+                val bundle = Bundle()
+                bundle.putParcelable(CommonsConstant.JOB, job)
+
+                val jobDialog = JobDialog(this)
+                jobDialog.arguments = bundle
+                jobDialog.show(supportFragmentManager, null)
+            } else {
+                root_layout.snackbar(message)
+            }
+        })
+
         viewModel.getError.observe(this, Observer {
             progress_bar.hide()
             dialogError(it)
@@ -156,6 +164,11 @@ class MainActivity : BaseLocationActivity(),
     override fun onLocationChanged(location: Location?) {
         val setLocation = SetLocationRequest(location?.latitude, location?.longitude)
         viewModel.callSetLocation(setLocation)
+    }
+
+    override fun onFlag(flag: Int) {
+        progress_bar.show()
+        viewModel.callJobAnswer(JobAnswerRequest(flag))
     }
 
 }
