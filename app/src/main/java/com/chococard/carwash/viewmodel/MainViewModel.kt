@@ -1,6 +1,5 @@
 package com.chococard.carwash.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.request.JobAnswerRequest
@@ -11,24 +10,12 @@ import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.repositories.HeaderRepository
 import com.chococard.carwash.signalr.SignalREmployeeHub
-import com.chococard.carwash.signalr.SignalRTimeHub
 import com.google.gson.Gson
 
-class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() {
+class MainViewModel(private val repository: HeaderRepository) : BaseViewModel(),
+    SignalREmployeeHub.SignalRListener {
 
-    private var signalREmployeeHub =
-        SignalREmployeeHub(object : SignalREmployeeHub.SignalRListener {
-            override fun onReceive(data: String) {
-                val fromJson = Gson().fromJson(data, JobResponse::class.java)
-                jobQuestionResponse.postValue(fromJson)
-            }
-        })
-
-    private var signalRTimeHub = SignalRTimeHub(object : SignalRTimeHub.SignalRListener {
-        override fun onReceive(data: String) {
-            Log.d(TAG, "SignalRTimeHub onReceive: $data")
-        }
-    })
+    private var signalREmployeeHub = SignalREmployeeHub(this)
 
     val getDbUser = repository.getUser()
 
@@ -51,14 +38,6 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
     private val locationResponse = MutableLiveData<BaseResponse>()
     val getLocation: LiveData<BaseResponse>
         get() = locationResponse
-
-    private val countTime = MutableLiveData<Int>()
-    val getCountTime: LiveData<Int>
-        get() = countTime
-
-    private val jobFlag = MutableLiveData<Int>()
-    val getJobFlag: LiveData<Int>
-        get() = jobFlag
 
     private val jobQuestionResponse = MutableLiveData<JobResponse>()
     val getJobQuestion: LiveData<JobResponse>
@@ -89,24 +68,13 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
         response = { locationResponse.value = it }
     )
 
-    fun setValueCountTime(time: Int) {
-        countTime.value = time
-    }
-
-    fun setValueJobFlag(flag: Int) {
-        jobFlag.value = flag
+    override fun onReceive(data: String) {
+        val fromJson = Gson().fromJson(data, JobResponse::class.java)
+        jobQuestionResponse.postValue(fromJson)
     }
 
     fun startSignalREmployeeHub() = signalREmployeeHub.startSignalR()
 
     fun stopSignalREmployeeHub() = signalREmployeeHub.stopSignalR()
-
-    fun startSignalRTimeHub() = signalRTimeHub.startSignalR()
-
-    fun stopSignalRTimeHub() = signalRTimeHub.stopSignalR()
-
-    companion object {
-        private const val TAG = "MainViewModel"
-    }
 
 }

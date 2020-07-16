@@ -6,17 +6,15 @@ import com.chococard.carwash.R
 import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.ui.BaseDialog
 import com.chococard.carwash.util.CommonsConstant
-import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.setImageCircle
-import com.chococard.carwash.viewmodel.MainViewModel
+import com.chococard.carwash.viewmodel.TimerJobViewModel
 import kotlinx.android.synthetic.main.dialog_job.*
-import kotlinx.coroutines.delay
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dialog_job) {
 
-    val viewModel: MainViewModel by viewModel()
+    val viewModel: TimerJobViewModel by viewModel()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -28,7 +26,7 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
         val job = arguments?.getParcelable(CommonsConstant.JOB) as Job? ?: return
 
         // set widgets
-        val (_, _, fullName, imageProfile, _, packageName, _, _, _, _, location, distance, _) = job
+        val (_, employeeId, fullName, imageProfile, _, packageName, _, _, _, _, location, distance, _) = job
         tv_full_name.text = fullName
         tv_service.text = packageName
         tv_location.text = location
@@ -36,37 +34,35 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
         iv_photo.setImageCircle(imageProfile)
 
         // observe
-        viewModel.getCountTime.observe(viewLifecycleOwner, Observer {
-            tv_count_time.text = it.toString()
+        viewModel.getTimerJobQuestion.observe(viewLifecycleOwner, Observer { response ->
+            val (success, _, timer) = response
+            if (success && employeeId == timer?.employeeId) {
+                if (timer?.timer ?: 0 <= 0) dismiss()
+                tv_count_time.text = timer?.timer.toString()
+            }
         })
-
-        viewModel.getJobFlag.observe(viewLifecycleOwner, Observer {
-            listener.onFlag(it)
-            dismiss()
-        })
-
-        setCountTime()
 
         // set event
         bt_cancel.setOnClickListener {
-            viewModel.setValueJobFlag(FlagConstant.JOB_REJECT)
+            listener.onFlag(FlagConstant.JOB_REJECT)
+            dismiss()
         }
         bt_confirm.setOnClickListener {
-            viewModel.setValueJobFlag(FlagConstant.JOB_RECEIVE)
+            listener.onFlag(FlagConstant.JOB_RECEIVE)
+            dismiss()
         }
     }
 
-    private fun setCountTime() {
-        Coroutines.main {
-            var isTime = true
-            var time: Int = CommonsConstant.MAX_COUNT_TIME
-            while (isTime) {
-                isTime = time > 0
-                viewModel.setValueCountTime(time--)
-                delay(1000)
-            }
-            viewModel.setValueJobFlag(FlagConstant.JOB_REJECT_TIME_OUT)
-        }
+    override fun onResume() {
+        super.onResume()
+        viewModel.startSignalRTimeHub()
+    }
+
+    override fun onPause() {
+        viewModel.stopSignalRTimeHub()
+        listener.onFlag(FlagConstant.JOB_REJECT)
+        dismiss()
+        super.onPause()
     }
 
     interface FlagJobListener {

@@ -54,5 +54,6 @@ object ApiConstant {
     const val RIGHT_AFTER = "RightAfter"
     const val EMPLOYEE_ID = "EmployeeId"
     const val LOCATION = "Location"
+    const val TIMER = "Timer"
 
 }

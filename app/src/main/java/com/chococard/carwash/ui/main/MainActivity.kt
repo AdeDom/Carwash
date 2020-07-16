@@ -33,6 +33,7 @@ class MainActivity : BaseLocationActivity(),
     JobDialog.FlagJobListener {
 
     val viewModel: MainViewModel by viewModel()
+    private var mEmployeeId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +49,7 @@ class MainActivity : BaseLocationActivity(),
 
         //observe
         viewModel.getDbUser.observe(this, Observer { user ->
+            mEmployeeId = user.userId
             // fetch user info & sign in firebase
             if (user == null) {
                 viewModel.callFetchUserInfo()
@@ -101,12 +103,14 @@ class MainActivity : BaseLocationActivity(),
         viewModel.getJobQuestion.observe(this, Observer { response ->
             val (success, message, job) = response
             if (success) {
-                val bundle = Bundle()
-                bundle.putParcelable(CommonsConstant.JOB, job)
+                if (mEmployeeId == job?.employeeId) {
+                    val bundle = Bundle()
+                    bundle.putParcelable(CommonsConstant.JOB, job)
+                    val jobDialog = JobDialog(this)
 
-                val jobDialog = JobDialog(this)
-                jobDialog.arguments = bundle
-                jobDialog.show(supportFragmentManager, null)
+                    jobDialog.arguments = bundle
+                    jobDialog.show(supportFragmentManager, null)
+                }
             } else {
                 root_layout.snackbar(message)
             }
@@ -149,13 +153,11 @@ class MainActivity : BaseLocationActivity(),
     override fun onResume() {
         super.onResume()
         viewModel.startSignalREmployeeHub()
-        viewModel.startSignalRTimeHub()
     }
 
     override fun onPause() {
         super.onPause()
         viewModel.stopSignalREmployeeHub()
-        viewModel.stopSignalRTimeHub()
 
         // set user logs active
         viewModel.callLogsActive(LogsActiveRequest(FlagConstant.LOGS_STATUS_INACTIVE))

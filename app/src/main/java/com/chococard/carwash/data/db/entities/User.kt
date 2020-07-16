@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName
 @Entity(tableName = DatabaseConstant.USER)
 data class User(
     @PrimaryKey(autoGenerate = false)
-    @SerializedName(ApiConstant.USER_ID) @ColumnInfo(name = DatabaseConstant.USER_ID) val userId: String = "",
+    @SerializedName(ApiConstant.USER_ID) @ColumnInfo(name = DatabaseConstant.USER_ID) val userId: Int = 0,
     @SerializedName(ApiConstant.FULL_NAME) @ColumnInfo(name = DatabaseConstant.FULL_NAME) val fullName: String? = null,
     @SerializedName(ApiConstant.ID_CARD_NUMBER) @ColumnInfo(name = DatabaseConstant.ID_CARD_NUMBER) val idCardNumber: String? = null,
     @SerializedName(ApiConstant.PHONE) @ColumnInfo(name = DatabaseConstant.PHONE) val phone: String? = null,
