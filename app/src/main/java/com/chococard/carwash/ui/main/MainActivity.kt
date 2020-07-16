@@ -156,6 +156,11 @@ class MainActivity : BaseLocationActivity(),
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.startSignalR()
+    }
+
     override fun onPause() {
         super.onPause()
         // set user logs active

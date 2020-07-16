@@ -5,9 +5,9 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object RetrofitClient {
+const val BASE_URL = "https://dev.chococrm.com:1118/"
 
-    const val BASE_URL = "https://dev.chococrm.com:1118/"
+object RetrofitClient {
 
     fun instant(interceptor: Interceptor): Retrofit {
         val okHttpClient = OkHttpClient.Builder()

@@ -1,5 +1,6 @@
 package com.chococard.carwash.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.request.JobAnswerRequest
@@ -9,9 +10,12 @@ import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.repositories.HeaderRepository
+import com.chococard.carwash.signalr.SignalREmployeeHub
 
-class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() {
+class MainViewModel(private val repository: HeaderRepository) : BaseViewModel(),
+    SignalREmployeeHub.SignalRListener {
 
+    private var signalREmployeeHub: SignalREmployeeHub = SignalREmployeeHub(this)
     val getDbUser = repository.getUser()
 
     private val userInfoResponse = MutableLiveData<UserResponse>()
@@ -82,6 +86,18 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel() 
 
     fun setValueJobFlag(flag: Int) {
         jobFlag.value = flag
+    }
+
+    fun startSignalR() = signalREmployeeHub.startSignalR()
+
+    fun stopSignalR() = signalREmployeeHub.stopSignalR()
+
+    override fun onReceive(data: String) {
+        Log.d(TAG, "onReceive: $data")
+    }
+
+    companion object {
+        private const val TAG = "MainViewModel"
     }
 
 }

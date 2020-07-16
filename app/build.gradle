@@ -80,4 +80,7 @@ dependencies {
     // firebase authentication
     implementation 'com.google.firebase:firebase-auth:19.3.2'
 
+    // signalr
+    implementation 'com.microsoft.signalr:signalr:1.0.0'
+
 }
