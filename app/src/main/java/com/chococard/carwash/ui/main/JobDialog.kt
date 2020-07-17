@@ -1,9 +1,15 @@
 package com.chococard.carwash.ui.main
 
+import android.content.Context
+import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.db.entities.Job
+import com.chococard.carwash.data.models.Timer
 import com.chococard.carwash.data.networks.request.JobAnswerRequest
 import com.chococard.carwash.ui.BaseDialog
 import com.chococard.carwash.util.CommonsConstant
@@ -39,15 +45,30 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
         // observe
         viewModel.getTimerJobQuestion.observe(viewLifecycleOwner, Observer { response ->
             val (success, _, timer) = response
-            if (success && employeeId == timer?.employeeId) {
-                if (timer?.timer ?: 0 <= 0) jobAnswer(FlagConstant.JOB_TIME_OUT)
-                tv_count_time.text = timer?.timer.toString()
-            }
+            if (success && employeeId == timer?.employeeId) onAlertTimer(timer)
         })
 
         // set event
         bt_cancel.setOnClickListener { jobAnswer(FlagConstant.JOB_REJECT) }
         bt_confirm.setOnClickListener { jobAnswer(FlagConstant.JOB_RECEIVE) }
+    }
+
+    private fun onAlertTimer(timer: Timer?) {
+        // job answer
+        if (timer?.timer ?: 0 <= 0) jobAnswer(FlagConstant.JOB_TIME_OUT)
+
+        // sound
+        MediaPlayer.create(context, R.raw.sound_bell).start()
+
+        // vibrate
+        val vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
+        else
+            vibrator.vibrate(500)
+
+        // set text timer
+        tv_count_time.text = timer?.timer.toString()
     }
 
     override fun onResume() {
