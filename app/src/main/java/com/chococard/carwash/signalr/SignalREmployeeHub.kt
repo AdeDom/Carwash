@@ -2,6 +2,8 @@ package com.chococard.carwash.signalr
 
 import android.util.Log
 import com.chococard.carwash.data.networks.BASE_URL
+import com.chococard.carwash.data.networks.response.JobResponse
+import com.google.gson.Gson
 import com.microsoft.signalr.HubConnection
 import com.microsoft.signalr.HubConnectionBuilder
 import com.microsoft.signalr.HubConnectionState
@@ -18,7 +20,8 @@ class SignalREmployeeHub(listener: SignalRListener) {
     init {
         hubConnection.on("ReceiveEmployee", {
             try {
-                listener.onReceive(it)
+                val fromJson = Gson().fromJson(it, JobResponse::class.java)
+                listener.onReceive(fromJson)
             } catch (e: TimeoutException) {
                 Log.d(TAG, "SignalREmployeeHub : TimeoutException")
                 startSignalR()
@@ -27,6 +30,12 @@ class SignalREmployeeHub(listener: SignalRListener) {
                 startSignalR()
             } catch (e: TimeoutCancellationException) {
                 Log.d(TAG, "SignalREmployeeHub : TimeoutCancellationException")
+                startSignalR()
+            } catch (e: NullPointerException) {
+                Log.d(TAG, "SignalREmployeeHub : NullPointerException")
+                startSignalR()
+            } catch (e: Exception) {
+                Log.d(TAG, "SignalREmployeeHub : Exception")
                 startSignalR()
             }
         }, String::class.java)
@@ -43,7 +52,7 @@ class SignalREmployeeHub(listener: SignalRListener) {
     }
 
     interface SignalRListener {
-        fun onReceive(data: String)
+        fun onReceive(job: JobResponse)
     }
 
     companion object {

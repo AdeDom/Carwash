@@ -10,7 +10,6 @@ import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.repositories.HeaderRepository
 import com.chococard.carwash.signalr.SignalREmployeeHub
-import com.google.gson.Gson
 
 class MainViewModel(private val repository: HeaderRepository) : BaseViewModel(),
     SignalREmployeeHub.SignalRListener {
@@ -68,10 +67,7 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel(),
         response = { locationResponse.value = it }
     )
 
-    override fun onReceive(data: String) {
-        val fromJson = Gson().fromJson(data, JobResponse::class.java)
-        jobQuestionResponse.postValue(fromJson)
-    }
+    override fun onReceive(job: JobResponse) = jobQuestionResponse.postValue(job)
 
     fun startSignalREmployeeHub() = signalREmployeeHub.startSignalR()
 

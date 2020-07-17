@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.chococard.carwash.data.networks.response.TimerResponse
 import com.chococard.carwash.signalr.SignalRTimeHub
-import com.google.gson.Gson
 
 class TimerJobViewModel : ViewModel(), SignalRTimeHub.SignalRListener {
 
@@ -15,10 +14,7 @@ class TimerJobViewModel : ViewModel(), SignalRTimeHub.SignalRListener {
     val getTimerJobQuestion: LiveData<TimerResponse>
         get() = timerJobQuestion
 
-    override fun onReceive(data: String) {
-        val fromJson = Gson().fromJson(data, TimerResponse::class.java)
-        timerJobQuestion.postValue(fromJson)
-    }
+    override fun onReceive(timer: TimerResponse) = timerJobQuestion.postValue(timer)
 
     fun startSignalRTimeHub() = signalRTimeHub.startSignalR()
 
