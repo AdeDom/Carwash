@@ -2,6 +2,7 @@ package com.chococard.carwash.ui.main
 
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -33,7 +34,7 @@ class MainActivity : BaseLocationActivity(),
     JobDialog.FlagJobListener {
 
     val viewModel: MainViewModel by viewModel()
-    private var mEmployeeId: Int = 0
+    private var mEmployeeId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,14 +50,16 @@ class MainActivity : BaseLocationActivity(),
 
         //observe
         viewModel.getDbUser.observe(this, Observer { user ->
-            mEmployeeId = user.userId
             // fetch user info & sign in firebase
-            if (user == null) {
-                viewModel.callFetchUserInfo()
-            } else if (FirebaseAuth.getInstance().currentUser == null) {
-                startActivity<VPSignInActivity> { intent ->
-                    intent.putExtra(CommonsConstant.PHONE, user.phone)
+            when {
+                user == null -> viewModel.callFetchUserInfo()
+                FirebaseAuth.getInstance().currentUser == null -> {
+                    mEmployeeId = user.userId
+                    startActivity<VPSignInActivity> { intent ->
+                        intent.putExtra(CommonsConstant.PHONE, user.phone)
+                    }
                 }
+                else -> mEmployeeId = user.userId
             }
         })
 
@@ -101,9 +104,11 @@ class MainActivity : BaseLocationActivity(),
         })
 
         viewModel.getJobQuestion.observe(this, Observer { response ->
+            Log.d(TAG, "onCreate: $response")
             val (success, message, job) = response
             if (success) {
                 if (mEmployeeId == job?.employeeId) {
+                    viewModel.stopSignalREmployeeHub()
                     val bundle = Bundle()
                     bundle.putParcelable(CommonsConstant.JOB, job)
                     val jobDialog = JobDialog(this)
@@ -169,8 +174,13 @@ class MainActivity : BaseLocationActivity(),
     }
 
     override fun onFlag(flag: Int) {
+        viewModel.startSignalREmployeeHub()
         progress_bar.show()
         viewModel.callJobAnswer(JobAnswerRequest(flag))
+    }
+
+    companion object {
+        private const val TAG = "SignalR"
     }
 
 }

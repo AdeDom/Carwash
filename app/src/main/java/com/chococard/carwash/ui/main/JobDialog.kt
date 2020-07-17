@@ -37,20 +37,14 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
         viewModel.getTimerJobQuestion.observe(viewLifecycleOwner, Observer { response ->
             val (success, _, timer) = response
             if (success && employeeId == timer?.employeeId) {
-                if (timer?.timer ?: 0 <= 0) dismiss()
+                if (timer?.timer ?: 0 <= 0) jobAnswer(FlagConstant.JOB_TIME_OUT)
                 tv_count_time.text = timer?.timer.toString()
             }
         })
 
         // set event
-        bt_cancel.setOnClickListener {
-            listener.onFlag(FlagConstant.JOB_REJECT)
-            dismiss()
-        }
-        bt_confirm.setOnClickListener {
-            listener.onFlag(FlagConstant.JOB_RECEIVE)
-            dismiss()
-        }
+        bt_cancel.setOnClickListener { jobAnswer(FlagConstant.JOB_REJECT) }
+        bt_confirm.setOnClickListener { jobAnswer(FlagConstant.JOB_RECEIVE) }
     }
 
     override fun onResume() {
@@ -58,10 +52,13 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
         viewModel.startSignalRTimeHub()
     }
 
-    override fun onPause() {
+    private fun jobAnswer(flag: Int) {
         viewModel.stopSignalRTimeHub()
-        listener.onFlag(FlagConstant.JOB_REJECT)
+        listener.onFlag(flag)
         dismiss()
+    }
+    override fun onPause() {
+        jobAnswer(FlagConstant.JOB_REJECT)
         super.onPause()
     }
 
