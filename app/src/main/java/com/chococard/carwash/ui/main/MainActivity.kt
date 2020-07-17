@@ -173,10 +173,10 @@ class MainActivity : BaseLocationActivity(),
         viewModel.callSetLocation(setLocation)
     }
 
-    override fun onFlag(flag: Int) {
+    override fun onFlag(answer: JobAnswerRequest) {
         viewModel.startSignalREmployeeHub()
         progress_bar.show()
-        viewModel.callJobAnswer(JobAnswerRequest(flag))
+        viewModel.callJobAnswer(answer)
     }
 
     companion object {

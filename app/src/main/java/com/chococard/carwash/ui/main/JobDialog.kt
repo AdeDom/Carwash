@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.db.entities.Job
+import com.chococard.carwash.data.networks.request.JobAnswerRequest
 import com.chococard.carwash.ui.BaseDialog
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.FlagConstant
@@ -15,6 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dialog_job) {
 
     val viewModel: TimerJobViewModel by viewModel()
+    private var mJobId: Int = 0
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -26,7 +28,8 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
         val job = arguments?.getParcelable(CommonsConstant.JOB) as Job? ?: return
 
         // set widgets
-        val (_, employeeId, fullName, imageProfile, _, packageName, _, _, _, _, location, distance, _) = job
+        val (jobId, employeeId, fullName, imageProfile, _, packageName, _, _, _, _, location, distance, _) = job
+        mJobId = jobId
         tv_full_name.text = fullName
         tv_service.text = packageName
         tv_location.text = location
@@ -54,16 +57,17 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
 
     private fun jobAnswer(flag: Int) {
         viewModel.stopSignalRTimeHub()
-        listener.onFlag(flag)
+        listener.onFlag(JobAnswerRequest(mJobId, flag))
         dismiss()
     }
+
     override fun onPause() {
         jobAnswer(FlagConstant.JOB_REJECT)
         super.onPause()
     }
 
     interface FlagJobListener {
-        fun onFlag(flag: Int)
+        fun onFlag(answer: JobAnswerRequest)
     }
 
 }
