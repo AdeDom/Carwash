@@ -14,8 +14,6 @@ import com.chococard.carwash.signalr.SignalREmployeeHub
 class MainViewModel(private val repository: HeaderRepository) : BaseViewModel(),
     SignalREmployeeHub.SignalRListener {
 
-    private var signalREmployeeHub = SignalREmployeeHub(this)
-
     val getDbUser = repository.getUser()
 
     private val userInfoResponse = MutableLiveData<UserResponse>()
@@ -67,8 +65,8 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel(),
         response = { locationResponse.value = it }
     )
 
-    override fun onReceive(job: JobResponse) = jobQuestionResponse.postValue(job)
+    fun initSignalR(employeeId: Int) = SignalREmployeeHub(employeeId, this)
 
-    fun startSignalREmployeeHub() = signalREmployeeHub.startSignalR()
+    override fun onReceive(job: JobResponse) = jobQuestionResponse.postValue(job)
 
 }

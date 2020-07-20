@@ -34,7 +34,6 @@ class MainActivity : BaseLocationActivity(),
     JobDialog.FlagJobListener {
 
     val viewModel: MainViewModel by viewModel()
-    private var mEmployeeId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,12 +53,12 @@ class MainActivity : BaseLocationActivity(),
             when {
                 user == null -> viewModel.callFetchUserInfo()
                 FirebaseAuth.getInstance().currentUser == null -> {
-                    mEmployeeId = user.userId
+                    viewModel.initSignalR(user.userId)
                     startActivity<VPSignInActivity> { intent ->
                         intent.putExtra(CommonsConstant.PHONE, user.phone)
                     }
                 }
-                else -> mEmployeeId = user.userId
+                else -> viewModel.initSignalR(user.userId)
             }
         })
 
@@ -107,14 +106,12 @@ class MainActivity : BaseLocationActivity(),
             Log.d(TAG, "onCreate: $response")
             val (success, message, job) = response
             if (success) {
-                if (mEmployeeId == job?.employeeId) {
-                    val bundle = Bundle()
-                    bundle.putParcelable(CommonsConstant.JOB, job)
-                    val jobDialog = JobDialog(this)
+                val bundle = Bundle()
+                bundle.putParcelable(CommonsConstant.JOB, job)
+                val jobDialog = JobDialog(this)
 
-                    jobDialog.arguments = bundle
-                    jobDialog.show(supportFragmentManager, null)
-                }
+                jobDialog.arguments = bundle
+                jobDialog.show(supportFragmentManager, null)
             } else {
                 root_layout.snackbar(message)
             }
@@ -152,11 +149,6 @@ class MainActivity : BaseLocationActivity(),
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.startSignalREmployeeHub()
     }
 
     override fun onPause() {

@@ -12,7 +12,7 @@ import kotlinx.coroutines.TimeoutCancellationException
 import java.net.SocketTimeoutException
 import java.util.concurrent.TimeoutException
 
-class SignalREmployeeHub(listener: SignalRListener) {
+class SignalREmployeeHub(employerId: Int, listener: SignalRListener) {
 
     private val hubConnection: HubConnection = HubConnectionBuilder
         .create("${BASE_URL}carwash/signalr/employeehub")
@@ -20,7 +20,7 @@ class SignalREmployeeHub(listener: SignalRListener) {
         .build()
 
     init {
-        hubConnection.on("ReceiveEmployee", {
+        hubConnection.on("ReceiveEmployee$employerId", {
             try {
                 val fromJson = Gson().fromJson(it, JobResponse::class.java)
                 listener.onReceive(fromJson)
@@ -41,9 +41,11 @@ class SignalREmployeeHub(listener: SignalRListener) {
                 startSignalR()
             }
         }, String::class.java)
+
+        startSignalR()
     }
 
-    fun startSignalR() {
+    private fun startSignalR() {
         if (hubConnection.connectionState == HubConnectionState.DISCONNECTED)
             hubConnection.start()
     }
