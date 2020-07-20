@@ -48,11 +48,6 @@ class SignalREmployeeHub(listener: SignalRListener) {
             hubConnection.start()
     }
 
-    fun stopSignalR() {
-        if (hubConnection.connectionState == HubConnectionState.CONNECTED)
-            hubConnection.stop()
-    }
-
     interface SignalRListener {
         fun onReceive(job: JobResponse)
     }

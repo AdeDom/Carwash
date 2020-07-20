@@ -71,6 +71,4 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel(),
 
     fun startSignalREmployeeHub() = signalREmployeeHub.startSignalR()
 
-    fun stopSignalREmployeeHub() = signalREmployeeHub.stopSignalR()
-
 }

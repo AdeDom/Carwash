@@ -108,7 +108,6 @@ class MainActivity : BaseLocationActivity(),
             val (success, message, job) = response
             if (success) {
                 if (mEmployeeId == job?.employeeId) {
-                    viewModel.stopSignalREmployeeHub()
                     val bundle = Bundle()
                     bundle.putParcelable(CommonsConstant.JOB, job)
                     val jobDialog = JobDialog(this)
@@ -162,8 +161,6 @@ class MainActivity : BaseLocationActivity(),
 
     override fun onPause() {
         super.onPause()
-        viewModel.stopSignalREmployeeHub()
-
         // set user logs active
         viewModel.callLogsActive(LogsActiveRequest(FlagConstant.LOGS_STATUS_INACTIVE))
     }
@@ -174,7 +171,6 @@ class MainActivity : BaseLocationActivity(),
     }
 
     override fun onFlag(answer: JobAnswerRequest) {
-        viewModel.startSignalREmployeeHub()
         progress_bar.show()
         viewModel.callJobAnswer(answer)
     }
