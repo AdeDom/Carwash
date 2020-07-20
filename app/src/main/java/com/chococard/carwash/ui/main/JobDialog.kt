@@ -8,17 +8,19 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import com.chococard.carwash.R
 import com.chococard.carwash.data.db.entities.Job
-import com.chococard.carwash.data.models.Timer
 import com.chococard.carwash.data.networks.request.JobAnswerRequest
 import com.chococard.carwash.ui.BaseDialog
 import com.chococard.carwash.util.CommonsConstant
+import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.setImageCircle
 import kotlinx.android.synthetic.main.dialog_job.*
+import kotlinx.coroutines.delay
 
 class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dialog_job) {
 
     private var mJobId: Int = 0
+    private var mTimerDialog: Int = 15
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -38,32 +40,42 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
         tv_distance.text = distance
         iv_photo.setImageCircle(imageProfile)
 
-        // TODO: 20/07/2563 for loop time
+        setTimerDialog()
 
         // set event
         bt_cancel.setOnClickListener { jobAnswer(FlagConstant.JOB_REJECT) }
         bt_confirm.setOnClickListener { jobAnswer(FlagConstant.JOB_RECEIVE) }
     }
 
-    private fun onAlertTimer(timer: Timer?) {
-        // job answer
-        if (timer?.timer ?: 0 <= 0) jobAnswer(FlagConstant.JOB_TIME_OUT)
+    private fun setTimerDialog() {
+        Coroutines.main {
+            while (mTimerDialog >= 0) {
+                // job answer
+                if (mTimerDialog <= 0) jobAnswer(FlagConstant.JOB_TIME_OUT)
 
-        // sound
-        MediaPlayer.create(context, R.raw.sound_bell).start()
+                // sound
+                MediaPlayer.create(context, R.raw.sound_bell).start()
 
-        // vibrate
-        val vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
-        else
-            vibrator.vibrate(500)
+                // vibrate
+                val vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                    vibrator.vibrate(
+                        VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE)
+                    )
+                else
+                    vibrator.vibrate(500)
 
-        // set text timer
-        tv_count_time.text = timer?.timer.toString()
+                // set text timer
+                tv_count_time.text = mTimerDialog.toString()
+
+                mTimerDialog--
+                delay(1000)
+            }
+        }
     }
 
     private fun jobAnswer(flag: Int) {
+        mTimerDialog = -1
         listener.onFlag(JobAnswerRequest(mJobId, flag))
         dismiss()
     }
