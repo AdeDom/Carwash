@@ -7,6 +7,7 @@ import com.google.gson.Gson
 import com.microsoft.signalr.HubConnection
 import com.microsoft.signalr.HubConnectionBuilder
 import com.microsoft.signalr.HubConnectionState
+import com.microsoft.signalr.TransportEnum
 import kotlinx.coroutines.TimeoutCancellationException
 import java.net.SocketTimeoutException
 import java.util.concurrent.TimeoutException
@@ -15,6 +16,7 @@ class SignalREmployeeHub(listener: SignalRListener) {
 
     private val hubConnection: HubConnection = HubConnectionBuilder
         .create("${BASE_URL}carwash/signalr/employeehub")
+        .withTransport(TransportEnum.LONG_POLLING)
         .build()
 
     init {

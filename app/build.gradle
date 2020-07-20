@@ -81,6 +81,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.3.2'
 
     // signalr
-    implementation 'com.microsoft.signalr:signalr:1.0.0'
+    implementation 'com.microsoft.signalr:signalr:3.0.0-preview3-19153-02'
+    implementation 'org.slf4j:slf4j-jdk14:1.7.7'
 
 }
