@@ -46,7 +46,4 @@ val appModule = module {
     viewModel { HistoryDetailViewModel(get()) }
     viewModel { ViewImageViewModel(get()) }
 
-    // Signal R timer
-    viewModel { TimerJobViewModel() }
-
 }

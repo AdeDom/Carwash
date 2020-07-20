@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
-import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.models.Timer
@@ -15,13 +14,10 @@ import com.chococard.carwash.ui.BaseDialog
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.setImageCircle
-import com.chococard.carwash.viewmodel.TimerJobViewModel
 import kotlinx.android.synthetic.main.dialog_job.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dialog_job) {
 
-    val viewModel: TimerJobViewModel by viewModel()
     private var mJobId: Int = 0
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -42,11 +38,7 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
         tv_distance.text = distance
         iv_photo.setImageCircle(imageProfile)
 
-        // observe
-        viewModel.getTimerJobQuestion.observe(viewLifecycleOwner, Observer { response ->
-            val (success, _, timer) = response
-            if (success && employeeId == timer?.employeeId) onAlertTimer(timer)
-        })
+        // TODO: 20/07/2563 for loop time
 
         // set event
         bt_cancel.setOnClickListener { jobAnswer(FlagConstant.JOB_REJECT) }
@@ -71,13 +63,7 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
         tv_count_time.text = timer?.timer.toString()
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.startSignalRTimeHub()
-    }
-
     private fun jobAnswer(flag: Int) {
-        viewModel.stopSignalRTimeHub()
         listener.onFlag(JobAnswerRequest(mJobId, flag))
         dismiss()
     }
