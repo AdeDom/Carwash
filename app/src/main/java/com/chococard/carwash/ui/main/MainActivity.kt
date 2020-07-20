@@ -21,12 +21,14 @@ import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
 import com.chococard.carwash.ui.verifyphone.VPSignInActivity
 import com.chococard.carwash.ui.wallet.WalletFragment
 import com.chococard.carwash.util.CommonsConstant
+import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.delay
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseLocationActivity(),
@@ -34,6 +36,7 @@ class MainActivity : BaseLocationActivity(),
     JobDialog.FlagJobListener {
 
     val viewModel: MainViewModel by viewModel()
+    private var counterExit = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -165,6 +168,16 @@ class MainActivity : BaseLocationActivity(),
     override fun onFlag(answer: JobAnswerRequest) {
         progress_bar.show()
         viewModel.callJobAnswer(answer)
+    }
+
+    override fun onBackPressed() {
+        Coroutines.main {
+            toast(getString(R.string.finish_affinity))
+            if (counterExit > 0) finishAffinity()
+            counterExit++
+            delay(2000)
+            counterExit = 0
+        }
     }
 
     companion object {

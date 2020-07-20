@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -156,4 +157,8 @@ fun Context.startAnimationFabOpen(view: View) {
 
 fun Context.startAnimationFabClose(view: View) {
     view.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fab_close))
+}
+
+fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, message, duration).show()
 }
