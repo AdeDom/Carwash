@@ -1,7 +1,5 @@
 package com.chococard.carwash.repositories
 
-import android.content.Context
-import androidx.core.content.edit
 import com.chococard.carwash.data.db.AppDatabase
 import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.db.entities.User
@@ -11,8 +9,7 @@ import com.chococard.carwash.data.networks.request.*
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.networks.response.UserResponse
-import com.chococard.carwash.util.CommonsConstant
-import com.chococard.carwash.util.extension.sharedPreferences
+import com.chococard.carwash.data.sharedpreference.SharedPreference
 import com.google.firebase.auth.FirebaseAuth
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -20,7 +17,7 @@ import okhttp3.RequestBody
 class HeaderRepositoryImpl(
     private val api: HeaderAppService,
     private val db: AppDatabase,
-    private val context: Context
+    private val sharedPreference: SharedPreference
 ) : SafeApiRequest(), HeaderRepository {
 
     // user
@@ -62,10 +59,8 @@ class HeaderRepositoryImpl(
     private suspend fun clearUserAndToken() {
         deleteUser()
         FirebaseAuth.getInstance().signOut()
-        context.sharedPreferences().edit {
-            putString(CommonsConstant.ACCESS_TOKEN, "")
-            putString(CommonsConstant.REFRESH_TOKEN, "")
-        }
+        sharedPreference.accessToken = ""
+        sharedPreference.refreshToken = ""
     }
 
     override suspend fun callSetLocation(setLocation: SetLocationRequest) =
