@@ -34,4 +34,7 @@ object CommonsConstant {
     const val HISTORY = "history"
     const val IMAGE = "image"
 
+    const val CAR_WASH_CHANNEL = "CarWashChannel"
+    const val CAR_WASH_NAME = "Car Wash"
+
 }

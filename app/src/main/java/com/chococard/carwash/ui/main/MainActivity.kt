@@ -1,12 +1,19 @@
 package com.chococard.carwash.ui.main
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
+import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.networks.request.JobAnswerRequest
 import com.chococard.carwash.data.networks.request.LogsActiveRequest
 import com.chococard.carwash.data.networks.request.SetLocationRequest
@@ -109,16 +116,7 @@ class MainActivity : BaseLocationActivity(),
         viewModel.getJobQuestion.observe(this, Observer { response ->
             Log.d(TAG, "onCreate: $response")
             val (success, message, job) = response
-            if (success) {
-                val bundle = Bundle()
-                bundle.putParcelable(CommonsConstant.JOB, job)
-                val jobDialog = JobDialog(this)
-
-                jobDialog.arguments = bundle
-                jobDialog.show(supportFragmentManager, null)
-            } else {
-                root_layout.snackbar(message)
-            }
+            if (success) onHasJobAlert(job) else root_layout.snackbar(message)
         })
 
         viewModel.callSwitchSystem.observe(this, Observer { response ->
@@ -130,6 +128,45 @@ class MainActivity : BaseLocationActivity(),
             progress_bar.hide()
             dialogError(it)
         })
+    }
+
+    private fun onHasJobAlert(job: Job?) {
+        // Notification
+        val builder = NotificationCompat.Builder(
+            baseContext,
+            CommonsConstant.CAR_WASH_CHANNEL
+        ).apply {
+            setSmallIcon(R.mipmap.ic_launcher)
+            setSubText(job?.location)
+            setContentTitle(job?.fullName)
+            setContentText(job?.packageName)
+            priority = NotificationCompat.PRIORITY_HIGH
+        }.build()
+
+        val currentTime = System.currentTimeMillis().toInt()
+        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                CommonsConstant.CAR_WASH_CHANNEL,
+                CommonsConstant.CAR_WASH_NAME,
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                enableVibration(true)
+                enableLights(true)
+            }
+            manager.createNotificationChannel(channel)
+            NotificationManagerCompat.from(baseContext).notify(currentTime, builder)
+        } else {
+            manager.notify(currentTime, builder)
+        }
+
+        // dialog
+        val bundle = Bundle()
+        bundle.putParcelable(CommonsConstant.JOB, job)
+        val jobDialog = JobDialog(this)
+
+        jobDialog.arguments = bundle
+        jobDialog.show(supportFragmentManager, null)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
