@@ -5,13 +5,18 @@ import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.request.JobAnswerRequest
 import com.chococard.carwash.data.networks.request.LogsActiveRequest
 import com.chococard.carwash.data.networks.request.SetLocationRequest
+import com.chococard.carwash.data.networks.request.SwitchSystemRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.networks.response.UserResponse
+import com.chococard.carwash.data.sharedpreference.SharedPreference
 import com.chococard.carwash.repositories.HeaderRepository
 import com.chococard.carwash.signalr.SignalREmployeeHub
 
-class MainViewModel(private val repository: HeaderRepository) : BaseViewModel(),
+class MainViewModel(
+    private val repository: HeaderRepository,
+    private val sharedPreference: SharedPreference
+) : BaseViewModel(),
     SignalREmployeeHub.SignalRListener {
 
     val getDbUser = repository.getUser()
@@ -40,6 +45,10 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel(),
     val getJobQuestion: LiveData<JobResponse>
         get() = jobQuestionResponse
 
+    private val switchSystemResponse = MutableLiveData<BaseResponse>()
+    val callSwitchSystem: LiveData<BaseResponse>
+        get() = switchSystemResponse
+
     fun callFetchUserInfo() = launchCallApi(
         request = { repository.callFetchUserInfo() },
         response = { userInfoResponse.value = it }
@@ -64,6 +73,14 @@ class MainViewModel(private val repository: HeaderRepository) : BaseViewModel(),
         request = { repository.callSetLocation(setLocation) },
         response = { locationResponse.value = it }
     )
+
+    fun callSwitchSystem(switchSystem: SwitchSystemRequest) {
+        sharedPreference.switchFlag = switchSystem.state ?: 0
+        launchCallApi(
+            request = { repository.callSwitchSystem(switchSystem) },
+            response = { switchSystemResponse.value = it }
+        )
+    }
 
     fun initSignalR(employeeId: Int) = SignalREmployeeHub(employeeId, this)
 

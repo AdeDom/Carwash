@@ -40,7 +40,7 @@ val appModule = module {
     viewModel { ChangePasswordViewModel(get()) }
     viewModel { ChangeProfileViewModel(get()) }
     viewModel { HistoryViewModel(get()) }
-    viewModel { MainViewModel(get()) }
+    viewModel { MainViewModel(get(), get()) }
     viewModel { PaymentViewModel(get()) }
     viewModel { HomeViewModel(get(), get()) }
     viewModel { ProfileViewModel(get()) }

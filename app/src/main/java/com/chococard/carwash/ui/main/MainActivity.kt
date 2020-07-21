@@ -10,6 +10,7 @@ import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.request.JobAnswerRequest
 import com.chococard.carwash.data.networks.request.LogsActiveRequest
 import com.chococard.carwash.data.networks.request.SetLocationRequest
+import com.chococard.carwash.data.networks.request.SwitchSystemRequest
 import com.chococard.carwash.ui.base.BaseLocationActivity
 import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
@@ -120,6 +121,11 @@ class MainActivity : BaseLocationActivity(),
             }
         })
 
+        viewModel.callSwitchSystem.observe(this, Observer { response ->
+            val (success, message) = response
+            if (!success) root_layout.snackbar(message)
+        })
+
         viewModel.getError.observe(this, Observer {
             progress_bar.hide()
             dialogError(it)
@@ -154,9 +160,11 @@ class MainActivity : BaseLocationActivity(),
         return super.onOptionsItemSelected(item)
     }
 
-    // TODO: 21/07/2563 switch off
     override fun onPause() {
         super.onPause()
+        // switch
+        viewModel.callSwitchSystem(SwitchSystemRequest(FlagConstant.SWITCH_OFF))
+
         // set user logs active
         viewModel.callLogsActive(LogsActiveRequest(FlagConstant.LOGS_STATUS_INACTIVE))
     }
