@@ -24,7 +24,7 @@ interface ConnectionAppService {
         @Part(ApiConstant.ID_CARD_NUMBER) identityCard: RequestBody,
         @Part(ApiConstant.PHONE) phone: RequestBody,
         @Part(ApiConstant.ROLE) role: RequestBody,
-        @Part file: MultipartBody.Part
+        @Part file: MultipartBody.Part?
     ): Response<BaseResponse>
 
     //login for want token from server.

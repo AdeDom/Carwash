@@ -154,6 +154,7 @@ class MainActivity : BaseLocationActivity(),
         return super.onOptionsItemSelected(item)
     }
 
+    // TODO: 21/07/2563 switch off
     override fun onPause() {
         super.onPause()
         // set user logs active
@@ -175,7 +176,7 @@ class MainActivity : BaseLocationActivity(),
             toast(getString(R.string.finish_affinity))
             if (counterExit > 0) finishAffinity()
             counterExit++
-            delay(2000)
+            delay(2_000)
             counterExit = 0
         }
     }

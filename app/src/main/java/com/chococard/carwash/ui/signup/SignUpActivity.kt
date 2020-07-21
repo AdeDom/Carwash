@@ -146,7 +146,8 @@ class SignUpActivity : BaseActivity() {
         val fullName = et_full_name.getContents()
         val identityCard = et_identity_card.getContents()
         val phone = et_phone.getContents()
-        viewModel.callSignUp(username, password, rePassword, fullName, identityCard, phone)
+        val part = viewModel.getValueFileUri()?.let { convertToMultipartBody(it) }
+        viewModel.callSignUp(username, password, rePassword, fullName, identityCard, phone, part)
     }
 
     private fun dialogContactAdmin() = AlertDialog.Builder(this).apply {

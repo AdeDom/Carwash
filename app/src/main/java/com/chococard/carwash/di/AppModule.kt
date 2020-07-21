@@ -5,6 +5,8 @@ import com.chococard.carwash.data.networks.ConnectionAppService
 import com.chococard.carwash.data.networks.HeaderAppService
 import com.chococard.carwash.data.networks.NetworkConnectionInterceptor
 import com.chococard.carwash.data.networks.NetworkHeaderInterceptor
+import com.chococard.carwash.data.sharedpreference.SharedPreference
+import com.chococard.carwash.data.sharedpreference.SharedPreferenceImpl
 import com.chococard.carwash.repositories.ConnectionRepository
 import com.chococard.carwash.repositories.ConnectionRepositoryImpl
 import com.chococard.carwash.repositories.HeaderRepository
@@ -17,6 +19,9 @@ val appModule = module {
 
     // db
     single { AppDatabase(get()) }
+
+    // Shared Preference
+    single<SharedPreference> { SharedPreferenceImpl(get()) }
 
     //connection
     single { NetworkConnectionInterceptor(get()) }

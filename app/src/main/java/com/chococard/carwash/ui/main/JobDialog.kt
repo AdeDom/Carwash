@@ -69,7 +69,7 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
                 tv_count_time.text = mTimerDialog.toString()
 
                 mTimerDialog--
-                delay(1000)
+                delay(1_000)
             }
         }
     }

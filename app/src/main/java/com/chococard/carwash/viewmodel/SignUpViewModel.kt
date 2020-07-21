@@ -7,6 +7,7 @@ import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.repositories.ConnectionRepository
 import com.chococard.carwash.util.extension.isVerifyIdentityCard
 import com.chococard.carwash.util.extension.isVerifyPhone
+import okhttp3.MultipartBody
 
 class SignUpViewModel(private val repository: ConnectionRepository) : BaseViewModel() {
 
@@ -32,7 +33,8 @@ class SignUpViewModel(private val repository: ConnectionRepository) : BaseViewMo
         rePassword: String,
         fullName: String,
         identityCard: String,
-        phone: String
+        phone: String,
+        part: MultipartBody.Part?
     ) {
         when {
             username.isEmpty() ->
@@ -74,7 +76,7 @@ class SignUpViewModel(private val repository: ConnectionRepository) : BaseViewMo
                             fullName,
                             identityCard,
                             phone,
-                            fileUri.value!!
+                            part
                         )
                     },
                     response = { signUpResponse.value = it }
@@ -82,6 +84,8 @@ class SignUpViewModel(private val repository: ConnectionRepository) : BaseViewMo
             }
         }
     }
+
+    fun getValueFileUri() = fileUri.value
 
     fun validateSignUp(
         username: String,
