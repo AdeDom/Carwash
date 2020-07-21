@@ -21,7 +21,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.chococard.carwash.R
-import com.chococard.carwash.util.CommonsConstant
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -70,10 +69,6 @@ fun Context.getLocality(latitude: Double, longitude: Double): String {
         getString(R.string.unknown)
     }
 }
-
-fun Context.readPref(key: String) =
-    getSharedPreferences(CommonsConstant.PREF_FILE, Context.MODE_PRIVATE)
-        .getString(key, "") ?: ""
 
 fun Context.convertToMultipartBody(fileUri: Uri): MultipartBody.Part {
     val parcelFileDescriptor = contentResolver.openFileDescriptor(fileUri, "r", null)

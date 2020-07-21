@@ -30,10 +30,10 @@ val appModule = module {
     viewModel { SignInViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
     viewModel { RequestOtpViewModel(get()) }
-    viewModel { SplashScreenViewModel(get()) }
+    viewModel { SplashScreenViewModel(get(), get()) }
 
     //header connection
-    single { NetworkHeaderInterceptor(get()) }
+    single { NetworkHeaderInterceptor(get(), get()) }
     single { HeaderAppService.invoke(get()) }
     single<HeaderRepository> { HeaderRepositoryImpl(get(), get(), get()) }
     viewModel { AddWalletViewModel(get()) }
