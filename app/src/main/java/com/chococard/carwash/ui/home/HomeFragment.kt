@@ -20,9 +20,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        switchButton()
-
         // call api
         progress_bar.show()
         viewModel.callHomeScore()
@@ -38,7 +35,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         viewModel.callSwitchSystem.observe(viewLifecycleOwner, Observer { response ->
             progress_bar.hide()
             val (success, message) = response
-            if (success) switchButton() else root_layout.snackbar(message)
+            if (!success) root_layout.snackbar(message)
         })
 
         viewModel.getHomeScore.observe(viewLifecycleOwner, Observer { response ->
@@ -53,6 +50,16 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             }
         })
 
+        viewModel.switchFlag.observe(viewLifecycleOwner, Observer {
+            if (it == FlagConstant.SWITCH_OFF) {
+                iv_switch_off.show()
+                iv_switch_on.hide()
+            } else {
+                iv_switch_off.hide()
+                iv_switch_on.show()
+            }
+        })
+
         viewModel.getError.observe(viewLifecycleOwner, Observer {
             progress_bar.hide()
             dialogError(it)
@@ -62,25 +69,15 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         iv_switch_frame.setOnClickListener { switchSystem() }
     }
 
-    private fun switchButton() {
-        val switch = viewModel.getSharedPreference()
-        if (switch == FlagConstant.SWITCH_OFF) {
-            iv_switch_off.show()
-            iv_switch_on.hide()
-        } else {
-            iv_switch_off.hide()
-            iv_switch_on.show()
-        }
+    override fun onResume() {
+        super.onResume()
+        // set widget switch button
+        viewModel.initializeSwitchButton()
     }
 
-    // TODO: 11/07/2563 change code to flag and observe button switch
     private fun switchSystem() {
         progress_bar.show()
-        val switch = viewModel.getSharedPreference()
-        if (switch == FlagConstant.SWITCH_OFF)
-            viewModel.callSwitchSystem(SwitchSystemRequest(FlagConstant.SWITCH_ON))
-        else
-            viewModel.callSwitchSystem(SwitchSystemRequest(FlagConstant.SWITCH_OFF))
+        viewModel.callSwitchSystem()
     }
 
 }
