@@ -3,7 +3,6 @@ package com.chococard.carwash.util.extension
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
@@ -71,12 +70,6 @@ fun Context.getLocality(latitude: Double, longitude: Double): String {
         getString(R.string.unknown)
     }
 }
-
-fun Context.writePref(key: String, values: String): SharedPreferences.Editor =
-    getSharedPreferences(CommonsConstant.PREF_FILE, Context.MODE_PRIVATE).edit().apply {
-        putString(key, values)
-        apply()
-    }
 
 fun Context.readPref(key: String) =
     getSharedPreferences(CommonsConstant.PREF_FILE, Context.MODE_PRIVATE)

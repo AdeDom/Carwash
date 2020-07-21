@@ -42,7 +42,7 @@ val appModule = module {
     viewModel { HistoryViewModel(get()) }
     viewModel { MainViewModel(get()) }
     viewModel { PaymentViewModel(get()) }
-    viewModel { HomeViewModel(get()) }
+    viewModel { HomeViewModel(get(), get()) }
     viewModel { ProfileViewModel(get()) }
     viewModel { NavigationViewModel(get()) }
     viewModel { ReportViewModel(get()) }
