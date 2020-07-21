@@ -10,8 +10,7 @@ data class History(
     @SerializedName(ApiConstant.FULL_NAME) val fullName: String? = null,
     @SerializedName(ApiConstant.IMAGE_PROFILE) val imageProfile: String? = null,
     @SerializedName(ApiConstant.PACKAGE_NAME) val packageName: String? = null,
-    @SerializedName(ApiConstant.LATITUDE) val latitude: Double? = null,
-    @SerializedName(ApiConstant.LONGITUDE) val longitude: Double? = null,
+    @SerializedName(ApiConstant.LOCATION) val location: String? = null,
     @SerializedName(ApiConstant.VEHICLE_REGISTRATION) val vehicleRegistration: String? = null,
     @SerializedName(ApiConstant.PRICE) val price: String? = null,
     @SerializedName(ApiConstant.JOB_DATE_TIME) val jobDateTime: String? = null,
@@ -25,8 +24,7 @@ data class History(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readValue(Double::class.java.classLoader) as? Double,
-        parcel.readValue(Double::class.java.classLoader) as? Double,
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -41,8 +39,7 @@ data class History(
         parcel.writeString(fullName)
         parcel.writeString(imageProfile)
         parcel.writeString(packageName)
-        parcel.writeValue(latitude)
-        parcel.writeValue(longitude)
+        parcel.writeString(location)
         parcel.writeString(vehicleRegistration)
         parcel.writeString(price)
         parcel.writeString(jobDateTime)

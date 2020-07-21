@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
-import android.location.Geocoder
 import android.net.Uri
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
@@ -27,7 +26,6 @@ import okhttp3.RequestBody
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.io.IOException
 
 inline fun <reified T : Activity> Context.startActivity(noinline intent: ((Intent) -> Unit)? = null) {
     Intent(this, T::class.java).apply {
@@ -58,16 +56,6 @@ fun Context.startActivityGoogleMapNavigation(
     )
     data = Uri.parse(url)
     startActivity(this)
-}
-
-// TODO: 09/07/2563 change to response from server
-fun Context.getLocality(latitude: Double, longitude: Double): String {
-    return try {
-        val list = Geocoder(this).getFromLocation(latitude, longitude, 1)
-        if (list[0].locality != null) list[0].locality else getString(R.string.unknown)
-    } catch (e: IOException) {
-        getString(R.string.unknown)
-    }
 }
 
 fun Context.convertToMultipartBody(fileUri: Uri): MultipartBody.Part {

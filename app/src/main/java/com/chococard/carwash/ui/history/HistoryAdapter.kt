@@ -12,7 +12,7 @@ class HistoryAdapter : BaseRecyclerView<History>() {
     override fun getLayout() = R.layout.item_history
 
     override fun View.onBindViewHolder(data: History) {
-        val (_, fullName, imageProfile, _, _, _, _, _, jobDateTime) = data
+        val (_, fullName, imageProfile, _, _, _, _, jobDateTime) = data
 
         tv_full_name.text = fullName
 

@@ -35,14 +35,13 @@ class HistoryDetailActivity : BaseActivity() {
         // get data history fragment
         val history = intent.getParcelableExtra<History>(CommonsConstant.HISTORY)
         if (history == null) finish()
-        val (_, fullName, imageProfile, packageName, latitude, longitude, vehicleRegistration, price,
+        val (_, fullName, imageProfile, packageName, location, vehicleRegistration, price,
             jobDateTime, imagesBeforeService, imagesAfterService, otherImagesService, comment) = history!!
 
         // set widget
         tv_full_name.text = fullName
         tv_service.text = packageName
-        if (latitude != null && longitude != null)
-            tv_location.text = getLocality(latitude, longitude)
+        tv_location.text = location
         tv_vehicle_registration.text = vehicleRegistration
         tv_price.text = price
         tv_date_time.text = jobDateTime
