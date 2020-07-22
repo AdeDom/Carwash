@@ -109,8 +109,8 @@ abstract class BaseLocationActivity : BaseActivity(),
         mGoogleApiClient.connect()
 
         mLocationRequest = LocationRequest()
-            .setInterval(10_000)
-            .setFastestInterval(8_000)
+            .setInterval(20_000)
+            .setFastestInterval(15_000)
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
     }
 

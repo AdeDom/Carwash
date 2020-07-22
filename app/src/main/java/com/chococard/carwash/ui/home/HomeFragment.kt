@@ -69,6 +69,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         iv_switch_frame.setOnClickListener { switchSystem() }
     }
 
+    // TODO: 22/07/2563 observe switch real time
     override fun onResume() {
         super.onResume()
         // set widget switch button

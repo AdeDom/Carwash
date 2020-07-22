@@ -21,6 +21,7 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
 
     private var mJobId: Int = 0
     private var mTimerDialog: Int = 15
+    private var mIsOnPause = false
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -51,7 +52,10 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
         Coroutines.main {
             while (mTimerDialog >= 0) {
                 // job answer
-                if (mTimerDialog <= 0) jobAnswer(FlagConstant.JOB_TIME_OUT)
+                when {
+                    mTimerDialog <= 0 && !mIsOnPause -> jobAnswer(FlagConstant.JOB_TIME_OUT)
+                    mIsOnPause -> jobAnswer(FlagConstant.JOB_REJECT)
+                }
 
                 // sound
                 MediaPlayer.create(context, R.raw.sound_bell).start()
@@ -77,11 +81,16 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
     private fun jobAnswer(flag: Int) {
         mTimerDialog = -1
         listener.onFlag(JobAnswerRequest(mJobId, flag))
-        dismiss()
+        if (!mIsOnPause) dismiss()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (mTimerDialog <= -1) dismiss()
     }
 
     override fun onPause() {
-        jobAnswer(FlagConstant.JOB_REJECT)
+        mIsOnPause = true
         super.onPause()
     }
 
