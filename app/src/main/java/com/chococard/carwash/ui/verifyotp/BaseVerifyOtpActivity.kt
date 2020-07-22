@@ -1,4 +1,4 @@
-package com.chococard.carwash.ui.verifyphone
+package com.chococard.carwash.ui.verifyotp
 
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
@@ -9,10 +9,10 @@ import com.chococard.carwash.util.extension.*
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
-import kotlinx.android.synthetic.main.activity_verify_phone.*
+import kotlinx.android.synthetic.main.activity_verify_otp.*
 import java.util.concurrent.TimeUnit
 
-abstract class BaseVerifyPhoneActivity : BaseActivity() {
+abstract class BaseVerifyOtpActivity : BaseActivity() {
 
     private var mIsReSendMessage = true
     private var mVerificationId: String? = null
@@ -20,7 +20,7 @@ abstract class BaseVerifyPhoneActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_verify_phone)
+        setContentView(R.layout.activity_verify_otp)
 
         init()
     }
@@ -30,7 +30,7 @@ abstract class BaseVerifyPhoneActivity : BaseActivity() {
         mPhoneNumber = intent.getStringExtra(CommonsConstant.PHONE)
         if (mPhoneNumber == null) finish() else requestOtp()
 
-        // set widget button verify phone
+        // set widget button verify otp
         validateOtp(et_verify_otp.getContents())
 
         //set event
@@ -39,7 +39,7 @@ abstract class BaseVerifyPhoneActivity : BaseActivity() {
         }
 
         et_verify_otp.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) verifyPhone()
+            if (actionId == EditorInfo.IME_ACTION_DONE) verifyOtp()
             false
         }
 
@@ -54,8 +54,8 @@ abstract class BaseVerifyPhoneActivity : BaseActivity() {
             }
         }
 
-        bt_verify_phone.setOnClickListener {
-            verifyPhone()
+        bt_verify_otp.setOnClickListener {
+            verifyOtp()
         }
 
         et_verify_otp.onTextChanged { validateOtp(it) }
@@ -63,13 +63,13 @@ abstract class BaseVerifyPhoneActivity : BaseActivity() {
 
     private fun validateOtp(otp: String) {
         when {
-            otp.isEmpty() -> bt_verify_phone.unready()
-            otp.length != 6 -> bt_verify_phone.unready()
-            else -> bt_verify_phone.ready()
+            otp.isEmpty() -> bt_verify_otp.unready()
+            otp.length != 6 -> bt_verify_otp.unready()
+            else -> bt_verify_otp.ready()
         }
     }
 
-    private fun verifyPhone() {
+    private fun verifyOtp() {
         val otp = et_verify_otp.getContents()
 
         when {

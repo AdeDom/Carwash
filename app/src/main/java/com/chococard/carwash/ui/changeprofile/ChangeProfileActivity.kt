@@ -11,7 +11,7 @@ import com.chococard.carwash.data.networks.request.ChangePhoneRequest
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
 import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
-import com.chococard.carwash.ui.verifyphone.VPChangeProfileActivity
+import com.chococard.carwash.ui.verifyotp.OtpChangeProfileActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.ChangeProfileViewModel
@@ -139,7 +139,7 @@ class ChangeProfileActivity : BaseActivity() {
 
     private fun changeProfile() {
         val phoneNumber = et_phone.getContents()
-        Intent(baseContext, VPChangeProfileActivity::class.java).apply {
+        Intent(baseContext, OtpChangeProfileActivity::class.java).apply {
             putExtra(CommonsConstant.PHONE, phoneNumber)
             startActivityForResult(this, CommonsConstant.REQUEST_CODE_VERIFY_PHONE)
         }

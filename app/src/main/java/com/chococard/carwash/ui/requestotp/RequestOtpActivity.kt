@@ -6,7 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
-import com.chococard.carwash.ui.verifyphone.VPSignUpActivity
+import com.chococard.carwash.ui.verifyotp.OtpSignUpActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.RequestOtpViewModel
@@ -50,7 +50,7 @@ class RequestOtpActivity : BaseActivity() {
             progress_bar.hide()
             if (success) {
                 val phoneNumber = et_phone.getContents()
-                startActivity<VPSignUpActivity> { intent ->
+                startActivity<OtpSignUpActivity> { intent ->
                     intent.putExtra(CommonsConstant.PHONE, phoneNumber)
                     finish()
                 }

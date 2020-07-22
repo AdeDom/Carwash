@@ -26,7 +26,7 @@ import com.chococard.carwash.ui.home.HomeFragment
 import com.chococard.carwash.ui.navigation.NavigationActivity
 import com.chococard.carwash.ui.profile.ProfileFragment
 import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
-import com.chococard.carwash.ui.verifyphone.VPSignInActivity
+import com.chococard.carwash.ui.verifyotp.OtpSignInActivity
 import com.chococard.carwash.ui.wallet.WalletFragment
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.Coroutines
@@ -65,7 +65,7 @@ class MainActivity : BaseLocationActivity(),
                 user == null -> viewModel.callFetchUserInfo()
                 FirebaseAuth.getInstance().currentUser == null -> {
                     viewModel.initSignalR(user.userId)
-                    startActivity<VPSignInActivity> { intent ->
+                    startActivity<OtpSignInActivity> { intent ->
                         intent.putExtra(CommonsConstant.PHONE, user.phone)
                     }
                 }

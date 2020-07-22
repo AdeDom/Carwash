@@ -1,4 +1,4 @@
-package com.chococard.carwash.ui.verifyphone
+package com.chococard.carwash.ui.verifyotp
 
 import com.chococard.carwash.ui.signup.SignUpActivity
 import com.chococard.carwash.util.CommonsConstant
@@ -7,9 +7,9 @@ import com.chococard.carwash.util.extension.snackbar
 import com.chococard.carwash.util.extension.startActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
-import kotlinx.android.synthetic.main.activity_verify_phone.*
+import kotlinx.android.synthetic.main.activity_verify_otp.*
 
-class VPSignUpActivity : BaseVerifyPhoneActivity() {
+class OtpSignUpActivity : BaseVerifyOtpActivity() {
 
     override fun firebaseAuthPhone(credential: PhoneAuthCredential) {
         FirebaseAuth.getInstance().signInWithCredential(credential)
