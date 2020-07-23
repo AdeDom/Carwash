@@ -12,6 +12,8 @@ import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.data.sharedpreference.SharedPreference
 import com.chococard.carwash.repositories.HeaderRepository
 import com.chococard.carwash.signalr.SignalREmployeeHub
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val repository: HeaderRepository,
@@ -49,6 +51,10 @@ class MainViewModel(
     val callSwitchSystem: LiveData<BaseResponse>
         get() = switchSystemResponse
 
+    private val _counterExit = MutableLiveData<Int>()
+    val counterExit: LiveData<Int>
+        get() = _counterExit
+
     fun callFetchUserInfo() = launchCallApi(
         request = { repository.callFetchUserInfo() },
         response = { userInfoResponse.value = it }
@@ -80,6 +86,14 @@ class MainViewModel(
             request = { repository.callSwitchSystem(switchSystem) },
             response = { switchSystemResponse.value = it }
         )
+    }
+
+    fun setCounterExit() {
+        launch {
+            _counterExit.value = (_counterExit.value ?: 0).plus(1)
+            delay(2_000)
+            _counterExit.value = 0
+        }
     }
 
     fun initSignalR(employeeId: Int) = SignalREmployeeHub(employeeId, this)

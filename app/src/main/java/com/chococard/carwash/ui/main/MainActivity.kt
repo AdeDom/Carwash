@@ -29,14 +29,12 @@ import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
 import com.chococard.carwash.ui.verifyotp.OtpSignInActivity
 import com.chococard.carwash.ui.wallet.WalletFragment
 import com.chococard.carwash.util.CommonsConstant
-import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.delay
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseLocationActivity(),
@@ -44,7 +42,6 @@ class MainActivity : BaseLocationActivity(),
     JobDialog.FlagJobListener {
 
     val viewModel: MainViewModel by viewModel()
-    private var counterExit = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,6 +119,10 @@ class MainActivity : BaseLocationActivity(),
         viewModel.callSwitchSystem.observe(this, Observer { response ->
             val (success, message) = response
             if (!success) root_layout.snackbar(message)
+        })
+
+        viewModel.counterExit.observe(this, Observer {
+            if (it > 1) finishAffinity()
         })
 
         viewModel.getError.observe(this, Observer {
@@ -217,13 +218,8 @@ class MainActivity : BaseLocationActivity(),
     }
 
     override fun onBackPressed() {
-        Coroutines.main {
-            toast(getString(R.string.finish_affinity))
-            if (counterExit > 0) finishAffinity()
-            counterExit++
-            delay(2_000)
-            counterExit = 0
-        }
+        toast(getString(R.string.finish_affinity))
+        viewModel.setCounterExit()
     }
 
     companion object {
