@@ -3,7 +3,6 @@ package com.chococard.carwash.ui.report
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.request.ReportRequest
 import com.chococard.carwash.ui.base.BaseActivity
@@ -15,7 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ReportActivity : BaseActivity() {
 
-    val viewModel: ReportViewModel by viewModel()
+    val viewModel by viewModel<ReportViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +35,7 @@ class ReportActivity : BaseActivity() {
         bt_report.setOnClickListener { reportJob() }
 
         // observe
-        viewModel.getReportJob.observe(this, Observer { response ->
+        viewModel.getReportJob.observe { response ->
             progress_bar.hide()
             val (success, message) = response
             if (success) {
@@ -46,12 +45,12 @@ class ReportActivity : BaseActivity() {
             } else {
                 root_layout.snackbar(message)
             }
-        })
+        }
 
-        viewModel.getError.observe(this, Observer {
+        viewModel.getError.observe {
             progress_bar.hide()
             dialogError(it)
-        })
+        }
     }
 
     private fun reportJob() {

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.signin.SignInActivity
@@ -18,7 +17,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignUpActivity : BaseActivity() {
 
-    val viewModel: SignUpViewModel by viewModel()
+    val viewModel by viewModel<SignUpViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,7 +90,7 @@ class SignUpActivity : BaseActivity() {
         }
 
         //observe
-        viewModel.getFileUri.observe(this, Observer { uri ->
+        viewModel.getFileUri.observe { uri ->
             if (uri == null) {
                 card_remove_profile.hide()
                 iv_photo.setImageResource(R.drawable.ic_user)
@@ -99,27 +98,27 @@ class SignUpActivity : BaseActivity() {
                 card_remove_profile.show()
                 iv_photo.setImageCircle(uri.toString())
             }
-        })
+        }
 
-        viewModel.getSignUp.observe(this, Observer { response ->
+        viewModel.getSignUp.observe { response ->
             val (success, message) = response
             progress_bar.hide()
             if (success) dialogContactAdmin() else root_layout.snackbar(message)
-        })
+        }
 
-        viewModel.errorMessage.observe(this, Observer {
+        viewModel.errorMessage.observe {
             progress_bar.hide()
             root_layout.snackbar(it)
-        })
+        }
 
-        viewModel.validateSignUp.observe(this, Observer {
+        viewModel.validateSignUp.observe {
             if (it) bt_sign_up.ready() else bt_sign_up.unready()
-        })
+        }
 
-        viewModel.getError.observe(this, Observer {
+        viewModel.getError.observe {
             progress_bar.hide()
             dialogError(it)
-        })
+        }
     }
 
     private fun validateSignUp() {

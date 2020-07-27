@@ -3,7 +3,6 @@ package com.chococard.carwash.ui.splashscreen
 import android.os.Build
 import android.os.Bundle
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.auth.AuthActivity
 import com.chococard.carwash.ui.base.BaseActivity
@@ -19,7 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashScreenActivity : BaseActivity() {
 
-    val viewModel: SplashScreenViewModel by viewModel()
+    val viewModel by viewModel<SplashScreenViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +73,7 @@ class SplashScreenActivity : BaseActivity() {
                 finish()
             }
         } else {
-            viewModel.getDbJob.observe(this, Observer { job ->
+            viewModel.getDbJob.observe { job ->
                 if (job == null) {
                     startActivity<MainActivity> {
                         finish()
@@ -84,7 +83,7 @@ class SplashScreenActivity : BaseActivity() {
                         finish()
                     }
                 }
-            })
+            }
         }
     }
 

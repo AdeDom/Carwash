@@ -7,7 +7,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.ServiceImage
@@ -23,7 +22,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ServiceActivity : BaseActivity() {
 
-    val viewModel: ServiceViewModel by viewModel()
+    val viewModel by viewModel<ServiceViewModel>()
     private val mListImageService = ArrayList<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,7 +94,7 @@ class ServiceActivity : BaseActivity() {
         viewModel.callFetchImageService()
 
         // observe
-        viewModel.getUploadImageService.observe(this, Observer { response ->
+        viewModel.getUploadImageService.observe { response ->
             progress_bar_other_image.hide()
             val (success, message, serviceImage) = response
             if (success) {
@@ -104,9 +103,9 @@ class ServiceActivity : BaseActivity() {
             } else {
                 root_layout.snackbar(message)
             }
-        })
+        }
 
-        viewModel.getImageService.observe(this, Observer { response ->
+        viewModel.getImageService.observe { response ->
             progress_bar.hide()
             val (success, message, serviceImage) = response
             if (success) {
@@ -115,26 +114,26 @@ class ServiceActivity : BaseActivity() {
             } else {
                 root_layout.snackbar(message)
             }
-        })
+        }
 
-        viewModel.getDeleteServiceImage.observe(this, Observer { response ->
+        viewModel.getDeleteServiceImage.observe { response ->
             val (success, message, serviceImage) = response
             if (success)
                 serviceImage?.let { setImageJobService(it) }
             else
                 root_layout.snackbar(message)
-        })
+        }
 
-        viewModel.getDeleteServiceOtherImage.observe(this, Observer { response ->
+        viewModel.getDeleteServiceOtherImage.observe { response ->
             progress_bar_other_image.hide()
             val (success, message, serviceImage) = response
             if (success)
                 adt.setList(serviceImage?.otherImageService)
             else
                 root_layout.snackbar(message)
-        })
+        }
 
-        viewModel.getValidateMaximumOtherImage.observe(this, Observer {
+        viewModel.getValidateMaximumOtherImage.observe {
             if (it >= 5) {
                 card_add_other_image.hide()
                 tv_maximum_other_image.show()
@@ -142,9 +141,9 @@ class ServiceActivity : BaseActivity() {
                 card_add_other_image.show()
                 tv_maximum_other_image.hide()
             }
-        })
+        }
 
-        viewModel.getError.observe(this, Observer {
+        viewModel.getError.observe {
             progress_bar.hide()
             progress_bar_front_before.hide()
             progress_bar_back_before.hide()
@@ -156,7 +155,7 @@ class ServiceActivity : BaseActivity() {
             progress_bar_right_after.hide()
             progress_bar_other_image.hide()
             dialogError(it)
-        })
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

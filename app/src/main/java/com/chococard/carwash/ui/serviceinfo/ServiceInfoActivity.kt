@@ -4,7 +4,6 @@ import android.location.Location
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseLocationActivity
 import com.chococard.carwash.ui.report.ReportActivity
@@ -15,7 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ServiceInfoActivity : BaseLocationActivity() {
 
-    val viewModel: ServiceInfoViewModel by viewModel()
+    val viewModel by viewModel<ServiceInfoViewModel>()
     private var mLatLngCustomer: Pair<Double, Double>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,9 +27,7 @@ class ServiceInfoActivity : BaseLocationActivity() {
         iv_arrow_back.setOnClickListener { onBackPressed() }
 
         // observe
-        viewModel.getDbJob.observe(this, Observer { job ->
-            if (job == null) return@Observer
-
+        viewModel.getDbJob.observe { job ->
             // set widget
             val (_, _, fullName, imageProfile, phone, packageName, price, vehicleRegistration, latitude, longitude, location, _, dateTime) = job
             tv_date_time.text = dateTime
@@ -48,9 +45,9 @@ class ServiceInfoActivity : BaseLocationActivity() {
             tv_phone.setOnClickListener {
                 startActivityActionDial(phone)
             }
-        })
+        }
 
-        viewModel.getServiceNavigation.observe(this, Observer { navigation ->
+        viewModel.getServiceNavigation.observe { navigation ->
             val (latitude, longitude) = navigation
             tv_location.setOnClickListener {
                 startActivityGoogleMapNavigation(
@@ -60,11 +57,11 @@ class ServiceInfoActivity : BaseLocationActivity() {
                     endLongitude = mLatLngCustomer?.second
                 )
             }
-        })
+        }
 
-        viewModel.getError.observe(this, Observer {
+        viewModel.getError.observe {
             dialogError(it)
-        })
+        }
     }
 
     override fun onLocationChanged(location: Location?) {

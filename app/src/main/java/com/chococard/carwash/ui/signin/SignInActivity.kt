@@ -2,7 +2,6 @@ package com.chococard.carwash.ui.signin
 
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
-import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.main.MainActivity
@@ -14,7 +13,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignInActivity : BaseActivity() {
 
-    val viewModel: SignInViewModel by viewModel()
+    val viewModel by viewModel<SignInViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +61,7 @@ class SignInActivity : BaseActivity() {
         }
 
         //observe
-        viewModel.getSignIn.observe(this, Observer { response ->
+        viewModel.getSignIn.observe { response ->
             val (success, message, _, _) = response
             progress_bar.hide()
             if (success) {
@@ -72,21 +71,21 @@ class SignInActivity : BaseActivity() {
             } else {
                 root_layout.snackbar(message)
             }
-        })
+        }
 
-        viewModel.errorMessage.observe(this, Observer {
+        viewModel.errorMessage.observe {
             progress_bar.hide()
             root_layout.snackbar(it)
-        })
+        }
 
-        viewModel.validateSignIn.observe(this, Observer {
+        viewModel.validateSignIn.observe {
             if (it) bt_sign_in.ready() else bt_sign_in.unready()
-        })
+        }
 
-        viewModel.getError.observe(this, Observer {
+        viewModel.getError.observe {
             progress_bar.hide()
             dialogError(it)
-        })
+        }
     }
 
     private fun validateSignIn() {

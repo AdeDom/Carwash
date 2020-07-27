@@ -2,7 +2,6 @@ package com.chococard.carwash.ui.viewimage
 
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changepassword.ChangePasswordActivity
@@ -16,7 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ViewImageActivity : BaseActivity() {
 
-    val viewModel: ViewImageViewModel by viewModel()
+    val viewModel by viewModel<ViewImageViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +34,7 @@ class ViewImageActivity : BaseActivity() {
         iv_arrow_back.setOnClickListener { onBackPressed() }
 
         // observe
-        viewModel.getLogout.observe(this, Observer { response ->
+        viewModel.getLogout.observe { response ->
             progress_bar.hide()
             val (success, message) = response
             progress_bar.hide()
@@ -46,12 +45,12 @@ class ViewImageActivity : BaseActivity() {
             } else {
                 root_layout.snackbar(message)
             }
-        })
+        }
 
-        viewModel.getError.observe(this, Observer {
+        viewModel.getError.observe {
             progress_bar.hide()
             dialogError(it)
-        })
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

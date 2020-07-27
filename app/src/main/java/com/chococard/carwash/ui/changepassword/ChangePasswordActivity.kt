@@ -3,7 +3,6 @@ package com.chococard.carwash.ui.changepassword
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
-import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
@@ -15,7 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChangePasswordActivity : BaseActivity() {
 
-    val viewModel: ChangePasswordViewModel by viewModel()
+    val viewModel by viewModel<ChangePasswordViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +72,7 @@ class ChangePasswordActivity : BaseActivity() {
         }
 
         //observe
-        viewModel.getChangePassword.observe(this, Observer { response ->
+        viewModel.getChangePassword.observe { response ->
             val (success, message) = response
             progress_bar.hide()
             root_layout.snackbar(message)
@@ -82,9 +81,9 @@ class ChangePasswordActivity : BaseActivity() {
                     finishAffinity()
                 }
             }
-        })
+        }
 
-        viewModel.getLogout.observe(this, Observer { response ->
+        viewModel.getLogout.observe { response ->
             progress_bar.hide()
             val (success, message) = response
             if (success) {
@@ -94,21 +93,21 @@ class ChangePasswordActivity : BaseActivity() {
             } else {
                 root_layout.snackbar(message)
             }
-        })
+        }
 
-        viewModel.errorMessage.observe(this, Observer {
+        viewModel.errorMessage.observe {
             progress_bar.hide()
             root_layout.snackbar(it)
-        })
+        }
 
-        viewModel.validateChangePassword.observe(this, Observer {
+        viewModel.validateChangePassword.observe {
             if (it) bt_confirm.ready() else bt_confirm.unready()
-        })
+        }
 
-        viewModel.getError.observe(this, Observer {
+        viewModel.getError.observe {
             progress_bar.hide()
             dialogError(it)
-        })
+        }
     }
 
     private fun validateChangePassword() = viewModel.setValueValidateChangePassword(

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
-import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.request.ChangePhoneRequest
 import com.chococard.carwash.ui.base.BaseActivity
@@ -20,7 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChangeProfileActivity : BaseActivity() {
 
-    val viewModel: ChangeProfileViewModel by viewModel()
+    val viewModel by viewModel<ChangeProfileViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,15 +32,14 @@ class ChangeProfileActivity : BaseActivity() {
         setToolbar(toolbar)
 
         //set widgets
-        viewModel.getDbUser.observe(this, Observer { user ->
-            if (user == null) return@Observer
+        viewModel.getDbUser.observe { user ->
             val (_, _, _, phone, _, image) = user
             et_phone.setText(phone)
             et_phone.setSelection(et_phone.length())
             iv_photo.setImageCircle(image)
 
             viewModel.setValueUser(user)
-        })
+        }
 
         //set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
@@ -69,19 +67,19 @@ class ChangeProfileActivity : BaseActivity() {
         et_phone.onTextChanged { viewModel.setValueValidatePhone(it) }
 
         //observe
-        viewModel.getChangeImageProfile.observe(this, Observer { response ->
+        viewModel.getChangeImageProfile.observe { response ->
             val (success, message) = response
             progress_bar.hide()
             if (!success) root_layout.snackbar(message)
-        })
+        }
 
-        viewModel.getChangePhone.observe(this, Observer { response ->
+        viewModel.getChangePhone.observe { response ->
             progress_bar.hide()
             val (_, message) = response
             root_layout.snackbar(message)
-        })
+        }
 
-        viewModel.getLogout.observe(this, Observer { response ->
+        viewModel.getLogout.observe { response ->
             progress_bar.hide()
             val (success, message) = response
             if (success) {
@@ -91,27 +89,27 @@ class ChangeProfileActivity : BaseActivity() {
             } else {
                 root_layout.snackbar(message)
             }
-        })
+        }
 
-        viewModel.getValidatePhone.observe(this, Observer { response ->
+        viewModel.getValidatePhone.observe { response ->
             progress_bar.hide()
             val (success, message) = response
             if (success) changeProfile() else root_layout.snackbar(message)
-        })
+        }
 
-        viewModel.validatePhone.observe(this, Observer {
+        viewModel.validatePhone.observe {
             if (it) bt_confirm.ready() else bt_confirm.unready()
-        })
+        }
 
-        viewModel.errorMessage.observe(this, Observer {
+        viewModel.errorMessage.observe {
             progress_bar.hide()
             root_layout.snackbar(it)
-        })
+        }
 
-        viewModel.getError.observe(this, Observer {
+        viewModel.getError.observe {
             progress_bar.hide()
             dialogError(it)
-        })
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -6,7 +6,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.db.entities.User
@@ -33,7 +32,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
 
-    val viewModel: NavigationViewModel by viewModel()
+    val viewModel by viewModel<NavigationViewModel>()
     private var mGoogleMap: GoogleMap? = null
     private var mIsFlagMoveCamera: Boolean = true
     private var mMarkerMyLocation: Marker? = null
@@ -74,17 +73,15 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         }
 
         // observe
-        viewModel.getDbJob.observe(this, Observer { job ->
-            if (job == null) return@Observer
+        viewModel.getDbJob.observe { job ->
             mDbJob = job
-        })
+        }
 
-        viewModel.getDbUser.observe(this, Observer { user ->
-            if (user == null) return@Observer
+        viewModel.getDbUser.observe { user ->
             mDbUser = user
-        })
+        }
 
-        viewModel.getNavigation.observe(this, Observer { response ->
+        viewModel.getNavigation.observe { response ->
             val (success, message, navigation) = response
             if (success) {
                 if (navigation?.customerLatitude != null && navigation.customerLongitude != null) {
@@ -94,18 +91,18 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             } else {
                 root_layout.snackbar(message)
             }
-        })
+        }
 
-        viewModel.getJobStatusService.observe(this, Observer { response ->
+        viewModel.getJobStatusService.observe { response ->
             progress_bar.hide()
             val (success, message) = response
             if (success) startActivity<ServiceActivity>() else root_layout.snackbar(message)
-        })
+        }
 
-        viewModel.getError.observe(this, Observer {
+        viewModel.getError.observe {
             progress_bar.hide()
             dialogError(it)
-        })
+        }
     }
 
     private fun setFabMenuVisibility() {

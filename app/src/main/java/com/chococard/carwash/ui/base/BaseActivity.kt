@@ -5,6 +5,8 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -14,12 +16,23 @@ abstract class BaseActivity : AppCompatActivity() {
         return true
     }
 
-    fun setToolbar(toolbar: Toolbar) {
+    protected inline fun <reified T> LiveData<T>.observe(crossinline onNext: (T) -> Unit) {
+        observe(this@BaseActivity, Observer { onNext(it) })
+    }
+
+    protected fun LiveData<Throwable>.observeError() {
+        observe(this@BaseActivity, Observer {
+            it.printStackTrace()
+            dialogError("Error: ${it.message}")
+        })
+    }
+
+    protected fun setToolbar(toolbar: Toolbar) {
         toolbar.title = ""
         setSupportActionBar(toolbar)
     }
 
-    fun dialogContactAdmin(
+    protected fun dialogContactAdmin(
         @StringRes title: Int = R.string.contact_admin,
         @StringRes message: Int = R.string.contact_admin_message,
         contactAdmin: () -> Unit
@@ -36,7 +49,7 @@ abstract class BaseActivity : AppCompatActivity() {
         show()
     }
 
-    fun dialogLogout(
+    protected fun dialogLogout(
         @StringRes title: Int = R.string.logout,
         @StringRes message: Int = R.string.do_you_really_want_to_log_out,
         logout: () -> Unit
@@ -53,7 +66,7 @@ abstract class BaseActivity : AppCompatActivity() {
         show()
     }
 
-    fun dialogError(message: String) = AlertDialog.Builder(this).apply {
+    protected fun dialogError(message: String) = AlertDialog.Builder(this).apply {
         setTitle(R.string.error)
         setMessage(message)
         setPositiveButton(android.R.string.ok) { dialog, _ ->

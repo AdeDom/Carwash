@@ -11,7 +11,6 @@ import android.view.MenuItem
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.networks.request.JobAnswerRequest
@@ -41,7 +40,7 @@ class MainActivity : BaseLocationActivity(),
     BottomNavigationView.OnNavigationItemSelectedListener,
     JobDialog.FlagJobListener {
 
-    val viewModel: MainViewModel by viewModel()
+    val viewModel by viewModel<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +55,7 @@ class MainActivity : BaseLocationActivity(),
         viewModel.callLogsActive(LogsActiveRequest(FlagConstant.LOGS_STATUS_ACTIVE))
 
         //observe
-        viewModel.getDbUser.observe(this, Observer { user ->
+        viewModel.getDbUser.observe { user ->
             // fetch user info & sign in firebase
             when {
                 user == null -> viewModel.callFetchUserInfo()
@@ -68,22 +67,22 @@ class MainActivity : BaseLocationActivity(),
                 }
                 else -> viewModel.initSignalR(user.userId)
             }
-        })
+        }
 
-        viewModel.getUserInfo.observe(this, Observer { response ->
+        viewModel.getUserInfo.observe { response ->
             val (success, message, _) = response
             if (!success) {
                 finishAffinity()
                 root_layout.snackbar(message)
             }
-        })
+        }
 
-        viewModel.getLogsActive.observe(this, Observer { response ->
+        viewModel.getLogsActive.observe { response ->
             val (success, message) = response
             if (!success) root_layout.snackbar(message)
-        })
+        }
 
-        viewModel.getJobAnswer.observe(this, Observer { response ->
+        viewModel.getJobAnswer.observe { response ->
             progress_bar.hide()
             val (success, _, _) = response
             if (success) {
@@ -91,9 +90,9 @@ class MainActivity : BaseLocationActivity(),
                     finishAffinity()
                 }
             }
-        })
+        }
 
-        viewModel.getLogout.observe(this, Observer { response ->
+        viewModel.getLogout.observe { response ->
             progress_bar.hide()
             val (success, message) = response
             if (success) {
@@ -103,32 +102,32 @@ class MainActivity : BaseLocationActivity(),
             } else {
                 root_layout.snackbar(message)
             }
-        })
+        }
 
-        viewModel.getLocation.observe(this, Observer { response ->
+        viewModel.getLocation.observe { response ->
             val (success, message) = response
             if (!success) root_layout.snackbar(message)
-        })
+        }
 
-        viewModel.getJobQuestion.observe(this, Observer { response ->
+        viewModel.getJobQuestion.observe { response ->
             Log.d(TAG, "onCreate: $response")
             val (success, message, job) = response
             if (success) onHasJobAlert(job) else root_layout.snackbar(message)
-        })
+        }
 
-        viewModel.callSwitchSystem.observe(this, Observer { response ->
+        viewModel.callSwitchSystem.observe { response ->
             val (success, message) = response
             if (!success) root_layout.snackbar(message)
-        })
+        }
 
-        viewModel.counterExit.observe(this, Observer {
+        viewModel.counterExit.observe {
             if (it > 1) finishAffinity()
-        })
+        }
 
-        viewModel.getError.observe(this, Observer {
+        viewModel.getError.observe {
             progress_bar.hide()
             dialogError(it)
-        })
+        }
     }
 
     private fun onHasJobAlert(job: Job?) {

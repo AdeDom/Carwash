@@ -2,7 +2,6 @@ package com.chococard.carwash.ui.historydetail
 
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.History
@@ -19,7 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HistoryDetailActivity : BaseActivity() {
 
-    val viewModel: HistoryDetailViewModel by viewModel()
+    val viewModel by viewModel<HistoryDetailViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,7 +103,7 @@ class HistoryDetailActivity : BaseActivity() {
         iv_arrow_back.setOnClickListener { onBackPressed() }
 
         // observe
-        viewModel.getLogout.observe(this, Observer { response ->
+        viewModel.getLogout.observe { response ->
             val (success, message) = response
             if (success) {
                 startActivity<SplashScreenActivity> {
@@ -113,11 +112,11 @@ class HistoryDetailActivity : BaseActivity() {
             } else {
                 root_layout.snackbar(message)
             }
-        })
+        }
 
-        viewModel.getError.observe(this, Observer {
+        viewModel.getError.observe {
             dialogError(it)
-        })
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

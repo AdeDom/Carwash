@@ -3,7 +3,6 @@ package com.chococard.carwash.ui.requestotp
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.verifyotp.OtpSignUpActivity
@@ -15,7 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RequestOtpActivity : BaseActivity() {
 
-    val viewModel: RequestOtpViewModel by viewModel()
+    val viewModel by viewModel<RequestOtpViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +44,7 @@ class RequestOtpActivity : BaseActivity() {
         et_phone.onTextChanged { viewModel.validatePhone(et_phone.getContents()) }
 
         // observe
-        viewModel.getValidatePhone.observe(this, Observer { response ->
+        viewModel.getValidatePhone.observe { response ->
             val (success, message) = response
             progress_bar.hide()
             if (success) {
@@ -57,21 +56,21 @@ class RequestOtpActivity : BaseActivity() {
             } else {
                 message?.let { dialogValidatePhone(it) }
             }
-        })
+        }
 
-        viewModel.errorMessage.observe(this, Observer {
+        viewModel.errorMessage.observe {
             progress_bar.hide()
             root_layout.snackbar(it)
-        })
+        }
 
-        viewModel.validatePhone.observe(this, Observer {
+        viewModel.validatePhone.observe {
             if (it) bt_request_otp.ready() else bt_request_otp.unready()
-        })
+        }
 
-        viewModel.getError.observe(this, Observer {
+        viewModel.getError.observe {
             progress_bar.hide()
             dialogError(it)
-        })
+        }
     }
 
     private fun callRequestOtp() {

@@ -3,7 +3,6 @@ package com.chococard.carwash.ui.payment
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.main.MainActivity
@@ -14,7 +13,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PaymentActivity : BaseActivity() {
 
-    val viewModel: PaymentViewModel by viewModel()
+    val viewModel by viewModel<PaymentViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,21 +22,20 @@ class PaymentActivity : BaseActivity() {
         setToolbar(toolbar)
 
         // set widgets
-        viewModel.getDbJob.observe(this, Observer { job ->
-            if (job == null) return@Observer
+        viewModel.getDbJob.observe { job ->
             val (_, _, fullName, imageProfile, _, packageName, price, _, _, _, _, _, dateTime) = job
             tv_date_time.text = dateTime
             tv_full_name.text = fullName
             tv_service.text = packageName
             tv_price.text = price
             iv_photo.setImageCircle(imageProfile)
-        })
+        }
 
         iv_arrow_back.setOnClickListener { onBackPressed() }
         bt_payment.setOnClickListener { paymentService() }
 
         //observe
-        viewModel.getPaymentJob.observe(this, Observer { response ->
+        viewModel.getPaymentJob.observe { response ->
             progress_bar.hide()
             val (success, message) = response
             if (success) {
@@ -47,12 +45,12 @@ class PaymentActivity : BaseActivity() {
             } else {
                 root_layout.snackbar(message)
             }
-        })
+        }
 
-        viewModel.getError.observe(this, Observer {
+        viewModel.getError.observe {
             progress_bar.hide()
             dialogError(it)
-        })
+        }
     }
 
     private fun paymentService() {

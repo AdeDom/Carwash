@@ -1,7 +1,6 @@
 package com.chococard.carwash.ui.addwallet
 
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.util.CommonsConstant
@@ -13,7 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddWalletActivity : BaseActivity() {
 
-    val viewModel: AddWalletViewModel by viewModel()
+    val viewModel by viewModel<AddWalletViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,10 +25,9 @@ class AddWalletActivity : BaseActivity() {
         setToolbar(toolbar)
 
         // set widgets
-        viewModel.getDbUser.observe(this, Observer { user ->
-            if (user == null) return@Observer
+        viewModel.getDbUser.observe { user ->
             tv_full_name.text = user.fullName
-        })
+        }
 
         //set event
         iv_arrow_back.setOnClickListener { onBackPressed() }
