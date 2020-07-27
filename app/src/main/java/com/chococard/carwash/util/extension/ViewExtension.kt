@@ -1,6 +1,7 @@
 package com.chococard.carwash.util.extension
 
 import android.view.View
+import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
 
 fun View.show() {
@@ -18,7 +19,7 @@ fun View.gone() {
 fun View.snackbar(
     errorMessage: String?,
     duration: Int = Snackbar.LENGTH_INDEFINITE,
-    text: Int = android.R.string.ok,
+    @StringRes text: Int = android.R.string.ok,
     action: (() -> Unit)? = null
 ) = Snackbar.make(this, errorMessage.toString(), duration)
     .setAction(text) {

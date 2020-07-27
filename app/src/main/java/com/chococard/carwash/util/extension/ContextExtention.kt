@@ -14,6 +14,10 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.AnimRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -42,13 +46,14 @@ fun Context.startActivityActionDial(phone: String? = getString(R.string.contact_
 }
 
 fun Context.startActivityGoogleMapNavigation(
+    @StringRes googleMapsNavigation: Int = R.string.google_maps_navigation,
     beginLatitude: Double?,
     beginLongitude: Double?,
     endLatitude: Double?,
     endLongitude: Double?
 ) = Intent(Intent.ACTION_VIEW).apply {
     val url = getString(
-        R.string.google_maps_navigation,
+        googleMapsNavigation,
         beginLatitude,
         beginLongitude,
         endLatitude,
@@ -74,12 +79,13 @@ fun Context.convertToMultipartBody(fileUri: Uri): MultipartBody.Part {
 
 fun Context.setImageCircle(
     url: String?,
+    @DrawableRes placeholder: Int = R.drawable.ic_user,
     onResourceReady: (Bitmap) -> Unit
 ) {
     Glide.with(this)
         .asBitmap()
         .load(url)
-        .apply(RequestOptions.placeholderOf(R.drawable.ic_user))
+        .apply(RequestOptions.placeholderOf(placeholder))
         .circleCrop()
         .into(object : CustomTarget<Bitmap>() {
             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
@@ -91,9 +97,12 @@ fun Context.setImageCircle(
         })
 }
 
-fun Context?.setImageMarkerCircle(image: Bitmap): Bitmap {
+fun Context?.setImageMarkerCircle(
+    image: Bitmap,
+    @LayoutRes layout: Int = R.layout.layout_my_location
+): Bitmap {
     val inflater = this?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    val view: View = inflater.inflate(R.layout.layout_my_location, null)
+    val view: View = inflater.inflate(layout, null)
     view.findViewById<ImageView>(R.id.iv_photo).setImageBitmap(image)
     val displayMetrics = DisplayMetrics()
     view.layoutParams = ViewGroup.LayoutParams(100, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -109,7 +118,7 @@ fun Context?.setImageMarkerCircle(image: Bitmap): Bitmap {
     return bitmap
 }
 
-fun Context.dialogNegative(title: Int, message: Int, negative: () -> Unit) =
+fun Context.dialogNegative(@StringRes title: Int, @StringRes message: Int, negative: () -> Unit) =
     AlertDialog.Builder(this).apply {
         setTitle(title)
         setMessage(message)
@@ -123,12 +132,12 @@ fun Context.dialogNegative(title: Int, message: Int, negative: () -> Unit) =
         show()
     }
 
-fun Context.startAnimationFabOpen(view: View) {
-    view.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fab_open))
+fun Context.startAnimationFabOpen(view: View, @AnimRes anim: Int = R.anim.fab_open) {
+    view.startAnimation(AnimationUtils.loadAnimation(this, anim))
 }
 
-fun Context.startAnimationFabClose(view: View) {
-    view.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fab_close))
+fun Context.startAnimationFabClose(view: View, @AnimRes anim: Int = R.anim.fab_close) {
+    view.startAnimation(AnimationUtils.loadAnimation(this, anim))
 }
 
 fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {

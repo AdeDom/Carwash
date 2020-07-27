@@ -9,6 +9,7 @@ import com.chococard.carwash.util.FlagConstant
 
 fun EditText.getContents() = this.text.toString().trim()
 
+// TODO: 23/07/2563 update to fun addTextChangedListener kotlin extension
 fun EditText.onTextChanged(text: (String) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {}

@@ -3,23 +3,27 @@ package com.chococard.carwash.util.extension
 import android.text.InputType
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.chococard.carwash.R
 import com.chococard.carwash.util.FlagConstant
 
-fun ImageView.setImageCircle(url: String?) {
+fun ImageView.setImageCircle(url: String?, @DrawableRes placeholder: Int = R.drawable.ic_user) {
     Glide.with(this)
         .load(url)
-        .apply(RequestOptions.placeholderOf(R.drawable.ic_user))
+        .apply(RequestOptions.placeholderOf(placeholder))
         .circleCrop()
         .into(this)
 }
 
-fun ImageView.setImageFromInternet(url: String?) {
+fun ImageView.setImageFromInternet(
+    url: String?,
+    @DrawableRes placeholder: Int = R.drawable.img_logo_blue
+) {
     Glide.with(this)
         .load(url)
-        .apply(RequestOptions.placeholderOf(R.drawable.img_logo_blue))
+        .apply(RequestOptions.placeholderOf(placeholder))
         .into(this)
 }
 
