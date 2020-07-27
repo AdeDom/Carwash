@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
 
 abstract class BaseDialog(
-    private val layout: Int,
+    @LayoutRes private val layout: Int,
     private val isCancelDialog: Boolean = false
 ) : DialogFragment() {
 

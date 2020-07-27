@@ -54,10 +54,10 @@ class ServiceInfoActivity : BaseLocationActivity() {
             val (latitude, longitude) = navigation
             tv_location.setOnClickListener {
                 startActivityGoogleMapNavigation(
-                    latitude,
-                    longitude,
-                    mLatLngCustomer?.first,
-                    mLatLngCustomer?.second
+                    beginLatitude = latitude,
+                    beginLongitude = longitude,
+                    endLatitude = mLatLngCustomer?.first,
+                    endLongitude = mLatLngCustomer?.second
                 )
             }
         })

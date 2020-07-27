@@ -3,6 +3,7 @@ package com.chococard.carwash.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseRecyclerView<T : Any> : RecyclerView.Adapter<BaseRecyclerView<T>.BaseHolder>() {
@@ -23,6 +24,7 @@ abstract class BaseRecyclerView<T : Any> : RecyclerView.Adapter<BaseRecyclerView
         holder.itemView onBindViewHolder list[position]
     }
 
+    @LayoutRes
     abstract fun getLayout(): Int
 
     abstract infix fun View.onBindViewHolder(data: T)

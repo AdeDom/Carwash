@@ -157,10 +157,10 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         fab_navigation.setOnClickListener {
             setFabMenuVisibility()
             startActivityGoogleMapNavigation(
-                location.latitude,
-                location.longitude,
-                mDbJob?.latitude,
-                mDbJob?.longitude
+                beginLatitude = location.latitude,
+                beginLongitude = location.longitude,
+                endLatitude = mDbJob?.latitude,
+                endLongitude = mDbJob?.longitude
             )
         }
 
