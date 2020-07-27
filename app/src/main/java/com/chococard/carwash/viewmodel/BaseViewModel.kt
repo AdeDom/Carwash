@@ -12,10 +12,13 @@ import kotlin.coroutines.CoroutineContext
 
 abstract class BaseViewModel : ViewModel(), CoroutineScope {
 
-    private var job = Job()
+    private val job = SupervisorJob()
+    private val exceptionHandler = CoroutineExceptionHandler { _, err ->
+        error.value = err.message
+    }
 
     override val coroutineContext: CoroutineContext
-        get() = job + Dispatchers.Main
+        get() = job + Dispatchers.Main + exceptionHandler
 
     private val error = MutableLiveData<String>()
     val getError: LiveData<String>
@@ -23,7 +26,7 @@ abstract class BaseViewModel : ViewModel(), CoroutineScope {
 
     override fun onCleared() {
         super.onCleared()
-        job.cancel()
+        coroutineContext.cancel()
     }
 
     protected fun <T : Any> launchCallApi(request: suspend () -> T?,response: suspend (T?) -> Unit) {
@@ -40,6 +43,8 @@ abstract class BaseViewModel : ViewModel(), CoroutineScope {
             } catch (e: EOFException) {
                 error.value = "Server has a problem"
             } catch (e: SocketTimeoutException) {
+                error.value = e.message
+            } catch (e:Throwable) {
                 error.value = e.message
             }
         }
