@@ -3,7 +3,6 @@ package com.chococard.carwash.ui.history
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chococard.carwash.R
 import com.chococard.carwash.data.models.DateRangePicker
@@ -20,7 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HistoryFragment : BaseFragment(R.layout.fragment_history) {
 
-    val viewModel: HistoryViewModel by viewModel()
+    val viewModel by viewModel<HistoryViewModel>()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -53,7 +52,7 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history) {
         viewModel.callFetchHistory()
 
         // observe
-        viewModel.getHistory.observe(viewLifecycleOwner, Observer { response ->
+        viewModel.getHistory.observe { response ->
             val (success, message, histories) = response
             progress_bar.hide()
             if (success) {
@@ -62,12 +61,12 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history) {
             } else {
                 root_layout.snackbar(message)
             }
-        })
+        }
 
-        viewModel.getError.observe(viewLifecycleOwner, Observer {
+        viewModel.getError.observe {
             progress_bar.hide()
             dialogError(it)
-        })
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

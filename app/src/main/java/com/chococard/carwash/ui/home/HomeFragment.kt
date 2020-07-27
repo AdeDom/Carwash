@@ -1,9 +1,7 @@
 package com.chococard.carwash.ui.home
 
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import com.chococard.carwash.R
-import com.chococard.carwash.data.networks.request.SwitchSystemRequest
 import com.chococard.carwash.ui.base.BaseFragment
 import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.hide
@@ -16,7 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
-    val viewModel: HomeViewModel by viewModel()
+    val viewModel by viewModel<HomeViewModel>()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -25,20 +23,20 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         viewModel.callHomeScore()
 
         // observe
-        viewModel.getDbUser.observe(viewLifecycleOwner, Observer { user ->
-            if (user == null) return@Observer
+        viewModel.getDbUser.observe { user ->
+            if (user == null) return@observe
             val (_, fullName, _, _, _, image) = user
             tv_full_name.text = fullName
             iv_photo.setImageCircle(image)
-        })
+        }
 
-        viewModel.callSwitchSystem.observe(viewLifecycleOwner, Observer { response ->
+        viewModel.callSwitchSystem.observe { response ->
             progress_bar.hide()
             val (success, message) = response
             if (!success) root_layout.snackbar(message)
-        })
+        }
 
-        viewModel.getHomeScore.observe(viewLifecycleOwner, Observer { response ->
+        viewModel.getHomeScore.observe { response ->
             progress_bar.hide()
             val (success, message, homeScore) = response
             if (success) {
@@ -48,9 +46,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             } else {
                 root_layout.snackbar(message)
             }
-        })
+        }
 
-        viewModel.switchFlag.observe(viewLifecycleOwner, Observer {
+        viewModel.switchFlag.observe {
             if (it == FlagConstant.SWITCH_OFF) {
                 iv_switch_off.show()
                 iv_switch_on.hide()
@@ -58,12 +56,12 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                 iv_switch_off.hide()
                 iv_switch_on.show()
             }
-        })
+        }
 
-        viewModel.getError.observe(viewLifecycleOwner, Observer {
+        viewModel.getError.observe {
             progress_bar.hide()
             dialogError(it)
-        })
+        }
 
         // set event
         iv_switch_frame.setOnClickListener { switchSystem() }
