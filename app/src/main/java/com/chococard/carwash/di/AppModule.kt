@@ -19,8 +19,8 @@ val appModule = module {
 
     //connection
     single { NetworkConnectionInterceptor(get()) }
-    single { ConnectionAppServiceV2.invoke(get()) }
-    single<ConnectionRepositoryV2> { ConnectionRepositoryV2Impl(get(), get(), get()) }
+    single { ConnectionAppService.invoke(get()) }
+    single<ConnectionRepository> { ConnectionRepositoryImpl(get(), get(), get()) }
     viewModel { SignInViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
     viewModel { RequestOtpViewModel(get()) }

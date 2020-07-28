@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.request.SignInRequest
 import com.chococard.carwash.data.networks.response.SignInResponse
-import com.chococard.carwash.repositories.ConnectionRepositoryV2
+import com.chococard.carwash.repositories.ConnectionRepository
 import kotlinx.coroutines.launch
 
 data class SignInViewState(
@@ -12,7 +12,7 @@ data class SignInViewState(
 )
 
 class SignInViewModel(
-    private val repository: ConnectionRepositoryV2
+    private val repository: ConnectionRepository
 ) : BaseViewModelV2<SignInViewState>(SignInViewState()) {
 
     private val signInResponse = MutableLiveData<SignInResponse>()

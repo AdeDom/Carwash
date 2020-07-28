@@ -1,7 +1,7 @@
 package com.chococard.carwash.repositories
 
 import com.chococard.carwash.data.db.AppDatabase
-import com.chococard.carwash.data.networks.ConnectionAppServiceV2
+import com.chococard.carwash.data.networks.ConnectionAppService
 import com.chococard.carwash.data.networks.request.SignInRequest
 import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
@@ -11,11 +11,11 @@ import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.toRequestBody
 import okhttp3.MultipartBody
 
-class ConnectionRepositoryV2Impl(
-    private val api: ConnectionAppServiceV2,
+class ConnectionRepositoryImpl(
+    private val api: ConnectionAppService,
     private val db: AppDatabase,
     private val sharedPreference: SharedPreference
-) : ConnectionRepositoryV2 {
+) : ConnectionRepository {
 
     override fun getJob() = db.getJobDao().getJob()
 

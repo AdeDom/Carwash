@@ -11,7 +11,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 
-interface ConnectionAppServiceV2 {
+interface ConnectionAppService {
 
     //register for entire to system car wash.
     @Multipart
@@ -35,9 +35,9 @@ interface ConnectionAppServiceV2 {
     suspend fun callValidatePhone(@Body validatePhone: ValidatePhoneRequest): BaseResponse
 
     companion object {
-        operator fun invoke(networkConnectionInterceptor: NetworkConnectionInterceptor): ConnectionAppServiceV2 {
+        operator fun invoke(networkConnectionInterceptor: NetworkConnectionInterceptor): ConnectionAppService {
             return RetrofitClient.instant(networkConnectionInterceptor)
-                .create(ConnectionAppServiceV2::class.java)
+                .create(ConnectionAppService::class.java)
         }
     }
 

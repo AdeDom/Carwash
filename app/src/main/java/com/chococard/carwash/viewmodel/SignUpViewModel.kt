@@ -4,7 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.response.BaseResponse
-import com.chococard.carwash.repositories.ConnectionRepositoryV2
+import com.chococard.carwash.repositories.ConnectionRepository
 import com.chococard.carwash.util.extension.isVerifyIdentityCard
 import com.chococard.carwash.util.extension.isVerifyPhone
 import kotlinx.coroutines.launch
@@ -15,7 +15,7 @@ data class SignUpViewState(
 )
 
 class SignUpViewModel(
-    private val repository: ConnectionRepositoryV2
+    private val repository: ConnectionRepository
 ) : BaseViewModelV2<SignUpViewState>(SignUpViewState()) {
 
     private val signUpResponse = MutableLiveData<BaseResponse>()

@@ -8,7 +8,7 @@ import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.SignInResponse
 import okhttp3.MultipartBody
 
-interface ConnectionRepositoryV2 {
+interface ConnectionRepository {
 
     fun getJob(): LiveData<Job>
 
