@@ -25,19 +25,18 @@ class ViewImageActivity : BaseActivity() {
         setToolbar(toolbar)
 
         val image = intent.getStringExtra(CommonsConstant.IMAGE)
-
         if (image != null) {
             iv_image_place_holder.hide()
             iv_image.setImageFromInternet(image)
         }
 
-        iv_arrow_back.setOnClickListener { onBackPressed() }
-
         // observe
+        viewModel.state.observe { state ->
+            if (state.loading) progress_bar.show() else progress_bar.hide()
+        }
+
         viewModel.getLogout.observe { response ->
-            progress_bar.hide()
             val (success, message) = response
-            progress_bar.hide()
             if (success) {
                 startActivity<SplashScreenActivity> {
                     finishAffinity()
@@ -47,10 +46,10 @@ class ViewImageActivity : BaseActivity() {
             }
         }
 
-        viewModel.getError.observe {
-            progress_bar.hide()
-            dialogError(it)
-        }
+        viewModel.error.observeError()
+
+        // event
+        iv_arrow_back.setOnClickListener { onBackPressed() }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -58,10 +57,7 @@ class ViewImageActivity : BaseActivity() {
             R.id.option_change_profile -> startActivity<ChangeProfileActivity>()
             R.id.option_change_password -> startActivity<ChangePasswordActivity>()
             R.id.option_contact_admin -> dialogContactAdmin { startActivityActionDial() }
-            R.id.option_logout -> dialogLogout {
-                progress_bar.show()
-                viewModel.callLogout()
-            }
+            R.id.option_logout -> dialogLogout { viewModel.callLogout() }
         }
         return super.onOptionsItemSelected(item)
     }
