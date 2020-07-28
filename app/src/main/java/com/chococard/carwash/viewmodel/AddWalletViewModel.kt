@@ -1,9 +1,22 @@
 package com.chococard.carwash.viewmodel
 
-import com.chococard.carwash.repositories.HeaderRepository
+import com.chococard.carwash.data.db.entities.User
+import com.chococard.carwash.repositories.HeaderRepositoryV2
+import kotlinx.coroutines.launch
 
-class AddWalletViewModel(private val repository: HeaderRepository) : BaseViewModel() {
+data class AddWalletViewState(
+    val user: User? = User()
+)
 
-    val getDbUser = repository.getUser()
+class AddWalletViewModel(
+    private val repository: HeaderRepositoryV2
+) : BaseViewModelV2<AddWalletViewState>(AddWalletViewState()) {
+
+    init {
+        launch {
+            val user = repository.getDbUser()
+            setState { copy(user = user) }
+        }
+    }
 
 }

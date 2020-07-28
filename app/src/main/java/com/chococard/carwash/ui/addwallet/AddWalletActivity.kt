@@ -25,8 +25,8 @@ class AddWalletActivity : BaseActivity() {
         setToolbar(toolbar)
 
         // set widgets
-        viewModel.getDbUser.observe { user ->
-            tv_full_name.text = user.fullName
+        viewModel.state.observe { state ->
+            tv_full_name.text = state.user?.fullName
         }
 
         //set event
