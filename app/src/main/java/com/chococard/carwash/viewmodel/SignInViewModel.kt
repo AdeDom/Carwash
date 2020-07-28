@@ -4,9 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.request.SignInRequest
 import com.chococard.carwash.data.networks.response.SignInResponse
-import com.chococard.carwash.repositories.ConnectionRepository
+import com.chococard.carwash.repositories.ConnectionRepositoryV2
+import kotlinx.coroutines.launch
 
-class SignInViewModel(private val repository: ConnectionRepository) : BaseViewModel() {
+data class SignInViewState(
+    val loading: Boolean = false
+)
+
+class SignInViewModel(
+    private val repository: ConnectionRepositoryV2
+) : BaseViewModelV2<SignInViewState>(SignInViewState()) {
 
     private val signInResponse = MutableLiveData<SignInResponse>()
     val getSignIn: LiveData<SignInResponse>
@@ -27,11 +34,17 @@ class SignInViewModel(private val repository: ConnectionRepository) : BaseViewMo
             password.isEmpty() -> _errorMessage.value = "Please enter password"
             password.length < 8 -> _errorMessage.value = "Please enter at least 8 characters"
             else -> {
-                val signIn = SignInRequest(username, password)
-                launchCallApi(
-                    request = { repository.callSignIn(signIn) },
-                    response = { signInResponse.value = it }
-                )
+                launch {
+                    try {
+                        setState { copy(loading = true) }
+                        val response = repository.callSignIn(SignInRequest(username, password))
+                        signInResponse.value = response
+                        setState { copy(loading = false) }
+                    } catch (e: Throwable) {
+                        setState { copy(loading = false) }
+                        setError(e)
+                    }
+                }
             }
         }
     }
