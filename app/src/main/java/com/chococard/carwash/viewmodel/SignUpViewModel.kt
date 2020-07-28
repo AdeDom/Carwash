@@ -4,12 +4,19 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.response.BaseResponse
-import com.chococard.carwash.repositories.ConnectionRepository
+import com.chococard.carwash.repositories.ConnectionRepositoryV2
 import com.chococard.carwash.util.extension.isVerifyIdentityCard
 import com.chococard.carwash.util.extension.isVerifyPhone
+import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 
-class SignUpViewModel(private val repository: ConnectionRepository) : BaseViewModel() {
+data class SignUpViewState(
+    val loading: Boolean = false
+)
+
+class SignUpViewModel(
+    private val repository: ConnectionRepositoryV2
+) : BaseViewModelV2<SignUpViewState>(SignUpViewState()) {
 
     private val signUpResponse = MutableLiveData<BaseResponse>()
     val getSignUp: LiveData<BaseResponse>
@@ -68,9 +75,10 @@ class SignUpViewModel(private val repository: ConnectionRepository) : BaseViewMo
             fileUri.value == null ->
                 _errorMessage.value = "Please select a profile picture"
             else -> {
-                launchCallApi(
-                    request = {
-                        repository.callSignUp(
+                launch {
+                    try {
+                        setState { copy(loading = true) }
+                        val response = repository.callSignUp(
                             username,
                             password,
                             fullName,
@@ -78,9 +86,13 @@ class SignUpViewModel(private val repository: ConnectionRepository) : BaseViewMo
                             phone,
                             part
                         )
-                    },
-                    response = { signUpResponse.value = it }
-                )
+                        signUpResponse.value = response
+                        setState { copy(loading = false) }
+                    } catch (e: Throwable) {
+                        setState { copy(loading = false) }
+                        setError(e)
+                    }
+                }
             }
         }
     }

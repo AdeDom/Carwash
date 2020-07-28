@@ -116,10 +116,11 @@ class SignUpActivity : BaseActivity() {
             if (it) bt_sign_up.ready() else bt_sign_up.unready()
         }
 
-        viewModel.getError.observe {
-            progress_bar.hide()
-            dialogError(it)
+        viewModel.state.observe { state ->
+            if (state.loading) progress_bar.show() else progress_bar.hide()
         }
+
+        viewModel.error.observeError()
     }
 
     private fun validateSignUp() {
