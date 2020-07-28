@@ -3,6 +3,7 @@ package com.chococard.carwash.ui.requestotp
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.addTextChangedListener
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.verifyotp.OtpSignUpActivity
@@ -41,7 +42,7 @@ class RequestOtpActivity : BaseActivity() {
             callRequestOtp()
         }
 
-        et_phone.onTextChanged { viewModel.validatePhone(et_phone.getContents()) }
+        et_phone.addTextChangedListener { viewModel.validatePhone(it.toString()) }
 
         // observe
         viewModel.getValidatePhone.observe { response ->

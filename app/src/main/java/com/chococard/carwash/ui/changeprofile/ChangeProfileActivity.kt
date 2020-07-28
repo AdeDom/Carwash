@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
+import androidx.core.widget.addTextChangedListener
 import com.chococard.carwash.R
 import com.chococard.carwash.data.networks.request.ChangePhoneRequest
 import com.chococard.carwash.ui.base.BaseActivity
@@ -64,7 +65,7 @@ class ChangeProfileActivity : BaseActivity() {
 
         bt_confirm.setOnClickListener { callValidatePhone() }
 
-        et_phone.onTextChanged { viewModel.setValueValidatePhone(it) }
+        et_phone.addTextChangedListener { viewModel.setValueValidatePhone(it.toString()) }
 
         //observe
         viewModel.getChangeImageProfile.observe { response ->

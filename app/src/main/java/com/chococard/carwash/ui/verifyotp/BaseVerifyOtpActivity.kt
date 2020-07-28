@@ -2,6 +2,7 @@ package com.chococard.carwash.ui.verifyotp
 
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
+import androidx.core.widget.addTextChangedListener
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.util.CommonsConstant
@@ -58,7 +59,7 @@ abstract class BaseVerifyOtpActivity : BaseActivity() {
             verifyOtp()
         }
 
-        et_verify_otp.onTextChanged { validateOtp(it) }
+        et_verify_otp.addTextChangedListener { validateOtp(it.toString()) }
     }
 
     private fun validateOtp(otp: String) {

@@ -3,6 +3,7 @@ package com.chococard.carwash.ui.changepassword
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
+import androidx.core.widget.addTextChangedListener
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.changeprofile.ChangeProfileActivity
@@ -44,7 +45,7 @@ class ChangePasswordActivity : BaseActivity() {
         bt_confirm.setOnClickListener { callChangePassword() }
 
         //toggle password
-        et_old_password.onTextChanged {
+        et_old_password.addTextChangedListener {
             validateChangePassword()
             et_old_password setTogglePassword iv_toggle_old_password
         }
@@ -53,7 +54,7 @@ class ChangePasswordActivity : BaseActivity() {
             iv_toggle_old_password setTogglePassword et_old_password
         }
 
-        et_new_password.onTextChanged {
+        et_new_password.addTextChangedListener {
             validateChangePassword()
             et_new_password setTogglePassword iv_toggle_new_password
         }
@@ -62,7 +63,7 @@ class ChangePasswordActivity : BaseActivity() {
             iv_toggle_new_password setTogglePassword et_new_password
         }
 
-        et_re_password.onTextChanged {
+        et_re_password.addTextChangedListener {
             validateChangePassword()
             et_re_password setTogglePassword iv_toggle_re_password
         }

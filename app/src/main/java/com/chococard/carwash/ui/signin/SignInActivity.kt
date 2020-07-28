@@ -2,6 +2,7 @@ package com.chococard.carwash.ui.signin
 
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
+import androidx.core.widget.addTextChangedListener
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.main.MainActivity
@@ -51,12 +52,12 @@ class SignInActivity : BaseActivity() {
             iv_toggle_password setTogglePassword et_password
         }
 
-        et_password.onTextChanged {
+        et_password.addTextChangedListener {
             validateSignIn()
             et_password setTogglePassword iv_toggle_password
         }
 
-        et_username.onTextChanged {
+        et_username.addTextChangedListener {
             validateSignIn()
         }
 

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.addTextChangedListener
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.signin.SignInActivity
@@ -46,15 +47,15 @@ class SignUpActivity : BaseActivity() {
         }
 
         // text changed
-        et_username.onTextChanged { validateSignUp() }
+        et_username.addTextChangedListener { validateSignUp() }
 
-        et_full_name.onTextChanged { validateSignUp() }
+        et_full_name.addTextChangedListener { validateSignUp() }
 
-        et_identity_card.onTextChanged { validateSignUp() }
+        et_identity_card.addTextChangedListener { validateSignUp() }
 
-        et_phone.onTextChanged { validateSignUp() }
+        et_phone.addTextChangedListener { validateSignUp() }
 
-        et_password.onTextChanged {
+        et_password.addTextChangedListener {
             validateSignUp()
             et_password setTogglePassword iv_toggle_password
         }
@@ -63,7 +64,7 @@ class SignUpActivity : BaseActivity() {
             iv_toggle_password setTogglePassword et_password
         }
 
-        et_re_password.onTextChanged {
+        et_re_password.addTextChangedListener {
             validateSignUp()
             et_re_password setTogglePassword iv_toggle_re_password
         }
