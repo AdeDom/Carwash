@@ -6,13 +6,18 @@ import com.chococard.carwash.data.networks.request.SwitchSystemRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.HomeScoreResponse
 import com.chococard.carwash.data.sharedpreference.SharedPreference
-import com.chococard.carwash.repositories.HeaderRepository
+import com.chococard.carwash.repositories.HeaderRepositoryV2
 import com.chococard.carwash.util.FlagConstant
+import kotlinx.coroutines.launch
+
+data class HomeViewState(
+    val loading: Boolean = false
+)
 
 class HomeViewModel(
-    private val repository: HeaderRepository,
+    private val repository: HeaderRepositoryV2,
     private val sharedPreference: SharedPreference
-) : BaseViewModel() {
+) : BaseViewModelV2<HomeViewState>(HomeViewState()) {
 
     val getDbUser = repository.getUser()
 
@@ -35,19 +40,34 @@ class HomeViewModel(
             FlagConstant.SWITCH_OFF
         _switchFlag.value = flag
         sharedPreference.switchFlag = flag
-        launchCallApi(
-            request = { repository.callSwitchSystem(SwitchSystemRequest(flag)) },
-            response = { switchSystemResponse.value = it }
-        )
+        launch {
+            try {
+                setState { copy(loading = true) }
+                val response = repository.callSwitchSystem(SwitchSystemRequest(flag))
+                switchSystemResponse.value = response
+                setState { copy(loading = false) }
+            } catch (e: Throwable) {
+                setState { copy(loading = false) }
+                setError(e)
+            }
+        }
     }
 
     fun initializeSwitchButton() {
         _switchFlag.value = sharedPreference.switchFlag
     }
 
-    fun callHomeScore() = launchCallApi(
-        request = { repository.callHomeScore() },
-        response = { homeScoreResponse.value = it }
-    )
+    fun callHomeScore() {
+        launch {
+            try {
+                setState { copy(loading = true) }
+                homeScoreResponse.value = repository.callHomeScore()
+                setState { copy(loading = false) }
+            } catch (e: Throwable) {
+                setState { copy(loading = false) }
+                setError(e)
+            }
+        }
+    }
 
 }

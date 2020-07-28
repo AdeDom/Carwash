@@ -1,6 +1,7 @@
 package com.chococard.carwash.ui.home
 
 import android.os.Bundle
+import android.view.View
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseFragment
 import com.chococard.carwash.util.FlagConstant
@@ -58,13 +59,18 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             }
         }
 
-        viewModel.getError.observe {
-            progress_bar.hide()
-            dialogError(it)
-        }
-
         // set event
         iv_switch_frame.setOnClickListener { switchSystem() }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.state.observe { state ->
+            if (state.loading) progress_bar.show() else progress_bar.hide()
+        }
+
+        viewModel.error.observeError()
     }
 
     // TODO: 22/07/2563 observe switch real time
