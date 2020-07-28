@@ -2,6 +2,7 @@ package com.chococard.carwash.util.extension
 
 import android.app.Activity
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -131,6 +132,20 @@ fun Context.dialogNegative(@StringRes title: Int, @StringRes message: Int, negat
         setCancelable(false)
         show()
     }
+
+fun Context.dialogPositive(
+    @StringRes title: Int,
+    message: String?,
+    positive: (DialogInterface) -> Unit
+) = AlertDialog.Builder(this).apply {
+    setTitle(title)
+    setMessage(message)
+    setPositiveButton(android.R.string.ok) { dialog, _ ->
+        positive.invoke(dialog)
+    }
+    setCancelable(false)
+    show()
+}
 
 fun Context.startAnimationFabOpen(view: View, @AnimRes anim: Int = R.anim.fab_open) {
     view.startAnimation(AnimationUtils.loadAnimation(this, anim))

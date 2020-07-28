@@ -2,7 +2,6 @@ package com.chococard.carwash.ui.requestotp
 
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
-import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
@@ -26,19 +25,12 @@ class RequestOtpActivity : BaseActivity() {
     }
 
     private fun init() {
-        //set event
-        root_layout.setOnClickListener {
-            hideSoftKeyboard()
-        }
-
-        et_phone.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) viewModel.onValidatePhone()
-            false
-        }
-
-        bt_request_otp.setOnClickListener { viewModel.onValidatePhone() }
-
         // observe
+        viewModel.state.observe { state ->
+            if (state.loading) progress_bar.show() else progress_bar.hide()
+            if (state.isValidPhoneNumber) bt_request_otp.ready() else bt_request_otp.unready()
+        }
+
         viewModel.getValidatePhone.observe { response ->
             val (success, message) = response
             if (success) {
@@ -48,7 +40,7 @@ class RequestOtpActivity : BaseActivity() {
                     finish()
                 }
             } else {
-                message?.let { dialogValidatePhone(it) }
+                dialogPositive(R.string.validate_phone, message) { it.dismiss() }
             }
         }
 
@@ -64,27 +56,19 @@ class RequestOtpActivity : BaseActivity() {
             }
         }
 
-        viewModel.state.observe { state ->
-            if (state.loading) progress_bar.show() else progress_bar.hide()
-        }
-
         viewModel.error.observeError()
 
-        viewModel.state.observe { state ->
-            if (state.isValidPhoneNumber) bt_request_otp.ready() else bt_request_otp.unready()
-        }
-
         et_phone.addTextChangedListener { viewModel.setPhoneNumber(it.toString()) }
-    }
 
-    private fun dialogValidatePhone(message: String) = AlertDialog.Builder(this).apply {
-        setTitle(R.string.validate_phone)
-        setMessage(message)
-        setPositiveButton(android.R.string.ok) { dialog, _ ->
-            dialog.dismiss()
+        //set event
+        root_layout.setOnClickListener { hideSoftKeyboard() }
+
+        et_phone.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) viewModel.onValidatePhone()
+            false
         }
-        setCancelable(false)
-        show()
+
+        bt_request_otp.setOnClickListener { viewModel.onValidatePhone() }
     }
 
 }

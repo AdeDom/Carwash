@@ -25,32 +25,12 @@ class SignInActivity : BaseActivity() {
     }
 
     private fun init() {
-        //event
-        iv_arrow_back.setOnClickListener { onBackPressed() }
-
-        bt_sign_in.setOnClickListener { viewModel.onSignIn() }
-
-        tv_sign_up.setOnClickListener {
-            startActivity<SignUpActivity> {
-                finish()
-            }
-        }
-
-        et_password.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) viewModel.onSignIn()
-            false
-        }
-
-        root_layout.setOnClickListener {
-            hideSoftKeyboard()
-        }
-
-        // toggle password
-        iv_toggle_password.setOnClickListener {
-            iv_toggle_password setTogglePassword et_password
-        }
-
         //observe
+        viewModel.state.observe { state ->
+            if (state.loading) progress_bar.show() else progress_bar.hide()
+            if (state.isValidUsername && state.isValidPassword) bt_sign_in.ready() else bt_sign_in.unready()
+        }
+
         viewModel.getSignIn.observe { response ->
             val (success, message, _, _) = response
             if (success) {
@@ -76,11 +56,6 @@ class SignInActivity : BaseActivity() {
             }
         }
 
-        viewModel.state.observe { state ->
-            if (state.loading) progress_bar.show() else progress_bar.hide()
-            if (state.isValidUsername && state.isValidPassword) bt_sign_in.ready() else bt_sign_in.unready()
-        }
-
         viewModel.error.observeError()
 
         et_username.addTextChangedListener { viewModel.setUsername(it.toString()) }
@@ -89,6 +64,29 @@ class SignInActivity : BaseActivity() {
             viewModel.setPassword(it.toString())
             et_password setTogglePassword iv_toggle_password
         }
+
+        // toggle password
+        iv_toggle_password.setOnClickListener {
+            iv_toggle_password setTogglePassword et_password
+        }
+
+        //event
+        iv_arrow_back.setOnClickListener { onBackPressed() }
+
+        bt_sign_in.setOnClickListener { viewModel.onSignIn() }
+
+        tv_sign_up.setOnClickListener {
+            startActivity<SignUpActivity> {
+                finish()
+            }
+        }
+
+        et_password.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) viewModel.onSignIn()
+            false
+        }
+
+        root_layout.setOnClickListener { hideSoftKeyboard() }
     }
 
 }
