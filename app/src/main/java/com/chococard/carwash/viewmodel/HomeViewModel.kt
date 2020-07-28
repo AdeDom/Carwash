@@ -1,9 +1,6 @@
 package com.chococard.carwash.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.request.SwitchSystemRequest
-import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.HomeScoreResponse
 import com.chococard.carwash.data.sharedpreference.SharedPreference
 import com.chococard.carwash.repositories.HeaderRepositoryV2
@@ -11,6 +8,8 @@ import com.chococard.carwash.util.FlagConstant
 import kotlinx.coroutines.launch
 
 data class HomeViewState(
+    val homeScore: HomeScoreResponse = HomeScoreResponse(),
+    val switchSystem: Int = 0,
     val loading: Boolean = false
 )
 
@@ -21,30 +20,21 @@ class HomeViewModel(
 
     val getDbUser = repository.getUser()
 
-    private val switchSystemResponse = MutableLiveData<BaseResponse>()
-    val callSwitchSystem: LiveData<BaseResponse>
-        get() = switchSystemResponse
-
-    private val homeScoreResponse = MutableLiveData<HomeScoreResponse>()
-    val getHomeScore: LiveData<HomeScoreResponse>
-        get() = homeScoreResponse
-
-    private val _switchFlag = MutableLiveData<Int>()
-    val switchFlag: LiveData<Int>
-        get() = _switchFlag
+    init {
+        setState { copy(switchSystem = sharedPreference.switchFlag) }
+    }
 
     fun callSwitchSystem() {
         val flag = if (sharedPreference.switchFlag == FlagConstant.SWITCH_OFF)
             FlagConstant.SWITCH_ON
         else
             FlagConstant.SWITCH_OFF
-        _switchFlag.value = flag
         sharedPreference.switchFlag = flag
+        setState { copy(switchSystem = flag) }
         launch {
             try {
                 setState { copy(loading = true) }
-                val response = repository.callSwitchSystem(SwitchSystemRequest(flag))
-                switchSystemResponse.value = response
+                repository.callSwitchSystem(SwitchSystemRequest(flag))
                 setState { copy(loading = false) }
             } catch (e: Throwable) {
                 setState { copy(loading = false) }
@@ -53,16 +43,19 @@ class HomeViewModel(
         }
     }
 
-    fun initializeSwitchButton() {
-        _switchFlag.value = sharedPreference.switchFlag
-    }
-
     fun callHomeScore() {
         launch {
             try {
                 setState { copy(loading = true) }
-                homeScoreResponse.value = repository.callHomeScore()
-                setState { copy(loading = false) }
+                val response = repository.callHomeScore()
+                sharedPreference.switchFlag = response.switchFlag ?: 0
+                setState {
+                    copy(
+                        loading = false,
+                        homeScore = response,
+                        switchSystem = sharedPreference.switchFlag
+                    )
+                }
             } catch (e: Throwable) {
                 setState { copy(loading = false) }
                 setError(e)
