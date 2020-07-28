@@ -1,20 +1,55 @@
 package com.chococard.carwash.viewmodel
 
+import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.repositories.ConnectionRepository
+import com.chococard.carwash.util.extension.convertToMultipartBody
 import com.chococard.carwash.util.extension.isVerifyIdentityCard
 import com.chococard.carwash.util.extension.isVerifyPhone
 import kotlinx.coroutines.launch
-import okhttp3.MultipartBody
 
 data class SignUpViewState(
+    val username: String = "",
+    val password: String = "",
+    val rePassword: String = "",
+    val fullName: String = "",
+    val identityCard: String = "",
+    val phoneNumber: String = "",
+    val image: String = "",
+    val isValidUsername: Boolean = false,
+    val isValidPassword: Boolean = false,
+    val isValidRePassword: Boolean = false,
+    val isValidFullName: Boolean = false,
+    val isValidIdentityCard: Boolean = false,
+    val isValidPhoneNumber: Boolean = false,
+    val isValidImage: Boolean = false,
     val loading: Boolean = false
 )
 
+enum class ValidateSignUp {
+    USERNAME_EMPTY,
+    USERNAME_INCORRECT,
+    PASSWORD_EMPTY,
+    PASSWORD_INCORRECT,
+    RE_PASSWORD_EMPTY,
+    RE_PASSWORD_INCORRECT,
+    PASSWORD_NOT_MATCHED,
+    FULL_NAME_EMPTY,
+    IDENTITY_CARD_EMPTY,
+    IDENTITY_CARD_TOTAL_13,
+    IDENTITY_CARD_INCORRECT,
+    PHONE_EMPTY,
+    PHONE_TOTAL_10,
+    PHONE_INCORRECT,
+    IMAGE_EMPTY,
+    VALIDATE_SUCCESS
+}
+
 class SignUpViewModel(
+    private val context: Context,
     private val repository: ConnectionRepository
 ) : BaseViewModelV2<SignUpViewState>(SignUpViewState()) {
 
@@ -22,113 +57,115 @@ class SignUpViewModel(
     val getSignUp: LiveData<BaseResponse>
         get() = signUpResponse
 
-    private val fileUri = MutableLiveData<Uri>()
-    val getFileUri: LiveData<Uri>
-        get() = fileUri
+    private val _onSignUp = MutableLiveData<ValidateSignUp>()
+    val onSignUp: LiveData<ValidateSignUp>
+        get() = _onSignUp
 
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String>
-        get() = _errorMessage
+    fun onSignUp() {
+        _onSignUp.value = when {
+            state.value?.username.orEmpty().isBlank() -> ValidateSignUp.USERNAME_EMPTY
+            state.value?.username?.length ?: 0 < 4 -> ValidateSignUp.USERNAME_INCORRECT
+            state.value?.password.orEmpty().isBlank() -> ValidateSignUp.PASSWORD_EMPTY
+            state.value?.password?.length ?: 0 < 8 -> ValidateSignUp.PASSWORD_INCORRECT
+            state.value?.rePassword.orEmpty().isBlank() -> ValidateSignUp.RE_PASSWORD_EMPTY
+            state.value?.rePassword?.length ?: 0 < 8 -> ValidateSignUp.RE_PASSWORD_INCORRECT
+            state.value?.password != state.value?.rePassword -> ValidateSignUp.PASSWORD_NOT_MATCHED
+            state.value?.fullName.orEmpty().isBlank() -> ValidateSignUp.FULL_NAME_EMPTY
+            state.value?.identityCard.orEmpty().isBlank() -> ValidateSignUp.IDENTITY_CARD_EMPTY
+            state.value?.identityCard?.length ?: 0 != 13 -> ValidateSignUp.IDENTITY_CARD_TOTAL_13
+            state.value?.identityCard?.isVerifyIdentityCard()
+                ?: true -> ValidateSignUp.IDENTITY_CARD_INCORRECT
+            state.value?.phoneNumber.orEmpty().isBlank() -> ValidateSignUp.PHONE_EMPTY
+            state.value?.phoneNumber?.length ?: 0 != 10 -> ValidateSignUp.PHONE_TOTAL_10
+            state.value?.phoneNumber?.isVerifyPhone() ?: true -> ValidateSignUp.PHONE_INCORRECT
+            state.value?.image.orEmpty().isBlank() -> ValidateSignUp.IMAGE_EMPTY
+            else -> ValidateSignUp.VALIDATE_SUCCESS
+        }
+    }
 
-    private val _validateSignUp = MutableLiveData<Boolean>()
-    val validateSignUp: LiveData<Boolean>
-        get() = _validateSignUp
-
-    fun callSignUp(
-        username: String,
-        password: String,
-        rePassword: String,
-        fullName: String,
-        identityCard: String,
-        phone: String,
-        part: MultipartBody.Part?
-    ) {
-        when {
-            username.isEmpty() ->
-                _errorMessage.value = "Please enter username"
-            username.length < 4 ->
-                _errorMessage.value = "Please enter an username of at least 4 characters"
-            password.isEmpty() ->
-                _errorMessage.value = "Please enter password"
-            password.length < 8 ->
-                _errorMessage.value = "Please enter an password of at least 8 characters"
-            rePassword.isEmpty() ->
-                _errorMessage.value = "Please enter re-password"
-            rePassword.length < 8 ->
-                _errorMessage.value = "Please enter an re-password of at least 8 characters"
-            password != rePassword ->
-                _errorMessage.value = "Please enter the password to match"
-            fullName.isEmpty() ->
-                _errorMessage.value = "Please enter full name"
-            identityCard.isEmpty() ->
-                _errorMessage.value = "Please enter identity card"
-            identityCard.length != 13 ->
-                _errorMessage.value = "Please enter a total of 13 characters"
-            identityCard.isVerifyIdentityCard() ->
-                _errorMessage.value = "Please enter the correct Identity card"
-            phone.isEmpty() ->
-                _errorMessage.value = "Please enter phone"
-            phone.length != 10 ->
-                _errorMessage.value = "Please enter a total of 10 characters"
-            phone.isVerifyPhone() ->
-                _errorMessage.value = "Please enter the correct phone number"
-            fileUri.value == null ->
-                _errorMessage.value = "Please select a profile picture"
-            else -> {
-                launch {
-                    try {
-                        setState { copy(loading = true) }
-                        val response = repository.callSignUp(
-                            username,
-                            password,
-                            fullName,
-                            identityCard,
-                            phone,
-                            part
-                        )
-                        signUpResponse.value = response
-                        setState { copy(loading = false) }
-                    } catch (e: Throwable) {
-                        setState { copy(loading = false) }
-                        setError(e)
-                    }
-                }
+    fun callSignUp() {
+        launch {
+            try {
+                setState { copy(loading = true) }
+                val response = repository.callSignUp(
+                    state.value?.username,
+                    state.value?.password,
+                    state.value?.fullName,
+                    state.value?.identityCard,
+                    state.value?.phoneNumber,
+                    context.convertToMultipartBody(Uri.parse(state.value?.image))
+                )
+                signUpResponse.value = response
+                setState { copy(loading = false) }
+            } catch (e: Throwable) {
+                setState { copy(loading = false) }
+                setError(e)
             }
         }
     }
 
-    fun getValueFileUri() = fileUri.value
-
-    fun validateSignUp(
-        username: String,
-        password: String,
-        rePassword: String,
-        fullName: String,
-        identityCard: String,
-        phone: String
-    ) {
-        when {
-            username.isEmpty() -> _validateSignUp.value = false
-            username.length < 4 -> _validateSignUp.value = false
-            password.isEmpty() -> _validateSignUp.value = false
-            password.length < 8 -> _validateSignUp.value = false
-            rePassword.isEmpty() -> _validateSignUp.value = false
-            rePassword.length < 8 -> _validateSignUp.value = false
-            password != rePassword -> _validateSignUp.value = false
-            fullName.isEmpty() -> _validateSignUp.value = false
-            identityCard.isEmpty() -> _validateSignUp.value = false
-            identityCard.length != 13 -> _validateSignUp.value = false
-            identityCard.isVerifyIdentityCard() -> _validateSignUp.value = false
-            phone.isEmpty() -> _validateSignUp.value = false
-            phone.length != 10 -> _validateSignUp.value = false
-            phone.isVerifyPhone() -> _validateSignUp.value = false
-            fileUri.value == null -> _validateSignUp.value = false
-            else -> _validateSignUp.value = true
+    fun setUsername(username: String) {
+        setState {
+            copy(
+                username = username,
+                isValidUsername = username.isNotBlank() && username.length >= 4
+            )
         }
     }
 
-    fun setValueFileUri(file: Uri?) {
-        fileUri.value = file
+    fun setPassword(password: String) {
+        setState {
+            copy(
+                password = password,
+                isValidPassword = password.isNotBlank() && password.length >= 8
+            )
+        }
+    }
+
+    fun setRePassword(rePassword: String) {
+        setState {
+            copy(
+                rePassword = rePassword,
+                isValidRePassword = rePassword.isNotBlank() && rePassword.length >= 8 &&
+                        state.value?.password.orEmpty() == rePassword
+            )
+        }
+    }
+
+    fun setFullName(fullName: String) {
+        setState {
+            copy(
+                fullName = fullName,
+                isValidFullName = fullName.isNotBlank()
+            )
+        }
+    }
+
+    fun setIdentityCard(identityCard: String) {
+        setState {
+            copy(
+                identityCard = identityCard,
+                isValidIdentityCard = identityCard.isNotBlank() && identityCard.length == 13 && !identityCard.isVerifyIdentityCard()
+            )
+        }
+    }
+
+    fun setPhoneNumber(phoneNumber: String) {
+        setState {
+            copy(
+                phoneNumber = phoneNumber,
+                isValidPhoneNumber = phoneNumber.isNotBlank() && phoneNumber.length == 10 && !phoneNumber.isVerifyPhone()
+            )
+        }
+    }
+
+    fun setImage(uri: String) {
+        setState {
+            copy(
+                image = uri,
+                isValidImage = uri.isNotBlank()
+            )
+        }
     }
 
 }

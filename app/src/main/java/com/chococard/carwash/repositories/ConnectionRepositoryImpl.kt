@@ -20,11 +20,11 @@ class ConnectionRepositoryImpl(
     override fun getJob() = db.getJobDao().getJob()
 
     override suspend fun callSignUp(
-        username: String,
-        password: String,
-        fullName: String,
-        identityCard: String,
-        phone: String,
+        username: String?,
+        password: String?,
+        fullName: String?,
+        identityCard: String?,
+        phone: String?,
         part: MultipartBody.Part?
     ): BaseResponse {
         return api.callSignUp(

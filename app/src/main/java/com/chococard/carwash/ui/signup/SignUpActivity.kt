@@ -13,6 +13,7 @@ import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.SignUpViewModel
+import com.chococard.carwash.viewmodel.ValidateSignUp
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -32,8 +33,7 @@ class SignUpActivity : BaseActivity() {
         val phoneNumber = intent.getStringExtra(CommonsConstant.PHONE)
         if (phoneNumber == null) finish() else et_phone.setText(phoneNumber)
 
-        // set widgets
-        validateSignUp()
+        viewModel.setPhoneNumber(phoneNumber!!)
 
         //event
         iv_arrow_back.setOnClickListener { onBackPressed() }
@@ -42,31 +42,10 @@ class SignUpActivity : BaseActivity() {
 
         iv_camera.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE) }
 
-        card_remove_profile.setOnClickListener {
-            viewModel.setValueFileUri(null)
-        }
-
-        // text changed
-        et_username.addTextChangedListener { validateSignUp() }
-
-        et_full_name.addTextChangedListener { validateSignUp() }
-
-        et_identity_card.addTextChangedListener { validateSignUp() }
-
-        et_phone.addTextChangedListener { validateSignUp() }
-
-        et_password.addTextChangedListener {
-            validateSignUp()
-            et_password setTogglePassword iv_toggle_password
-        }
+        card_remove_profile.setOnClickListener { viewModel.setImage("") }
 
         iv_toggle_password.setOnClickListener {
             iv_toggle_password setTogglePassword et_password
-        }
-
-        et_re_password.addTextChangedListener {
-            validateSignUp()
-            et_re_password setTogglePassword iv_toggle_re_password
         }
 
         iv_toggle_re_password.setOnClickListener {
@@ -78,11 +57,11 @@ class SignUpActivity : BaseActivity() {
         }
 
         et_identity_card.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) callSignUp()
+            if (actionId == EditorInfo.IME_ACTION_DONE) viewModel.onSignUp()
             false
         }
 
-        bt_sign_up.setOnClickListener { callSignUp() }
+        bt_sign_up.setOnClickListener { viewModel.onSignUp() }
 
         tv_sign_in.setOnClickListener {
             startActivity<SignInActivity> {
@@ -91,64 +70,95 @@ class SignUpActivity : BaseActivity() {
         }
 
         //observe
-        viewModel.getFileUri.observe { uri ->
-            if (uri == null) {
-                card_remove_profile.hide()
-                iv_photo.setImageResource(R.drawable.ic_user)
-            } else {
-                card_remove_profile.show()
-                iv_photo.setImageCircle(uri.toString())
-            }
-        }
-
         viewModel.getSignUp.observe { response ->
             val (success, message) = response
             progress_bar.hide()
             if (success) dialogContactAdmin() else root_layout.snackbar(message)
         }
 
-        viewModel.errorMessage.observe {
-            progress_bar.hide()
-            root_layout.snackbar(it)
-        }
-
-        viewModel.validateSignUp.observe {
-            if (it) bt_sign_up.ready() else bt_sign_up.unready()
+        viewModel.onSignUp.observe {
+            when (it) {
+                ValidateSignUp.USERNAME_EMPTY ->
+                    root_layout.snackbar(getString(R.string.error_empty_username))
+                ValidateSignUp.USERNAME_INCORRECT ->
+                    root_layout.snackbar(getString(R.string.error_least_length, 4))
+                ValidateSignUp.PASSWORD_EMPTY ->
+                    root_layout.snackbar(getString(R.string.error_empty_password))
+                ValidateSignUp.PASSWORD_INCORRECT ->
+                    root_layout.snackbar(getString(R.string.error_least_length, 8))
+                ValidateSignUp.RE_PASSWORD_EMPTY ->
+                    root_layout.snackbar(getString(R.string.error_empty_re_password))
+                ValidateSignUp.RE_PASSWORD_INCORRECT ->
+                    root_layout.snackbar(getString(R.string.error_least_length, 8))
+                ValidateSignUp.PASSWORD_NOT_MATCHED ->
+                    root_layout.snackbar(getString(R.string.error_matched))
+                ValidateSignUp.FULL_NAME_EMPTY ->
+                    root_layout.snackbar(getString(R.string.error_empty_name))
+                ValidateSignUp.IDENTITY_CARD_EMPTY ->
+                    root_layout.snackbar(getString(R.string.error_empty_identity_card))
+                ValidateSignUp.IDENTITY_CARD_TOTAL_13 ->
+                    root_layout.snackbar(getString(R.string.error_equal_length, 13))
+                ValidateSignUp.IDENTITY_CARD_INCORRECT ->
+                    root_layout.snackbar(getString(R.string.error_identity_card))
+                ValidateSignUp.PHONE_EMPTY ->
+                    root_layout.snackbar(getString(R.string.error_empty_phone))
+                ValidateSignUp.PHONE_TOTAL_10 ->
+                    root_layout.snackbar(getString(R.string.error_equal_length, 10))
+                ValidateSignUp.PHONE_INCORRECT ->
+                    root_layout.snackbar(getString(R.string.error_phone))
+                ValidateSignUp.IMAGE_EMPTY ->
+                    root_layout.snackbar(getString(R.string.please_select_profile_picture))
+                else -> viewModel.callSignUp()
+            }
         }
 
         viewModel.state.observe { state ->
+            // progress bar
             if (state.loading) progress_bar.show() else progress_bar.hide()
+
+            // button
+            if (state.isValidUsername && state.isValidPassword && state.isValidRePassword &&
+                state.isValidFullName && state.isValidIdentityCard && state.isValidPhoneNumber &&
+                state.isValidImage
+            ) {
+                bt_sign_up.ready()
+            } else {
+                bt_sign_up.unready()
+            }
+
+            // image
+            if (state.isValidImage) {
+                card_remove_profile.show()
+                iv_photo.setImageCircle(state.image)
+            } else {
+                card_remove_profile.hide()
+                iv_photo.setImageResource(R.drawable.ic_user)
+            }
         }
 
         viewModel.error.observeError()
-    }
 
-    private fun validateSignUp() {
-        val username = et_username.getContents()
-        val password = et_password.getContents()
-        val rePassword = et_re_password.getContents()
-        val fullName = et_full_name.getContents()
-        val identityCard = et_identity_card.getContents()
-        val phone = et_phone.getContents()
-        viewModel.validateSignUp(username, password, rePassword, fullName, identityCard, phone)
+        et_username.addTextChangedListener { viewModel.setUsername(it.toString()) }
+
+        et_password.addTextChangedListener {
+            viewModel.setPassword(it.toString())
+            et_password setTogglePassword iv_toggle_password
+        }
+
+        et_re_password.addTextChangedListener {
+            viewModel.setRePassword(it.toString())
+            et_re_password setTogglePassword iv_toggle_re_password
+        }
+
+        et_full_name.addTextChangedListener { viewModel.setFullName(it.toString()) }
+
+        et_identity_card.addTextChangedListener { viewModel.setIdentityCard(it.toString()) }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CommonsConstant.REQUEST_CODE_IMAGE && resultCode == Activity.RESULT_OK && data != null)
-            viewModel.setValueFileUri(data.data)
-    }
-
-    private fun callSignUp() {
-        progress_bar.show()
-        val username = et_username.getContents()
-        val password = et_password.getContents()
-        val rePassword = et_re_password.getContents()
-        val fullName = et_full_name.getContents()
-        val identityCard = et_identity_card.getContents()
-        val phone = et_phone.getContents()
-        val part = viewModel.getValueFileUri()?.let { convertToMultipartBody(it) }
-        viewModel.callSignUp(username, password, rePassword, fullName, identityCard, phone, part)
+            viewModel.setImage(data.data.toString())
     }
 
     private fun dialogContactAdmin() = AlertDialog.Builder(this).apply {

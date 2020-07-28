@@ -13,11 +13,11 @@ interface ConnectionRepository {
     fun getJob(): LiveData<Job>
 
     suspend fun callSignUp(
-        username: String,
-        password: String,
-        fullName: String,
-        identityCard: String,
-        phone: String,
+        username: String?,
+        password: String?,
+        fullName: String?,
+        identityCard: String?,
+        phone: String?,
         part: MultipartBody.Part?
     ): BaseResponse
 

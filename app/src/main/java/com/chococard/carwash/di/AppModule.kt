@@ -22,7 +22,7 @@ val appModule = module {
     single { ConnectionAppService.invoke(get()) }
     single<ConnectionRepository> { ConnectionRepositoryImpl(get(), get(), get()) }
     viewModel { SignInViewModel(get()) }
-    viewModel { SignUpViewModel(get()) }
+    viewModel { SignUpViewModel(get(), get()) }
     viewModel { RequestOtpViewModel(get()) }
     viewModel { SplashScreenViewModel(get(), get()) }
 
