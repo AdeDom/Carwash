@@ -44,7 +44,6 @@ class ServiceActivity : BaseActivity() {
         }
         adt.onLongClick = { otherImage ->
             otherImage.imageId?.let { deleteOtherImageService(it) }
-            true
         }
         adt.onRemoveOtherImage = { otherImage ->
             otherImage.imageId?.let { deleteOtherImageService(it) }

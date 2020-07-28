@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseRecyclerView<T : Any> : RecyclerView.Adapter<BaseRecyclerView<T>.BaseHolder>() {
 
-    private var list = mutableListOf<T>()
+    private val list by lazy { mutableListOf<T>() }
     var onClick: ((T) -> Unit)? = null
-    var onLongClick: ((T) -> Boolean)? = null
+    var onLongClick: ((T) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder =
         BaseHolder(
@@ -31,7 +31,8 @@ abstract class BaseRecyclerView<T : Any> : RecyclerView.Adapter<BaseRecyclerView
 
     fun setList(list: List<T>?) {
         if (list != null) {
-            this.list = list as MutableList<T>
+            this.list.clear()
+            this.list.addAll(list)
             notifyDataSetChanged()
         }
     }
@@ -46,7 +47,8 @@ abstract class BaseRecyclerView<T : Any> : RecyclerView.Adapter<BaseRecyclerView
 
             itemView.setOnLongClickListener {
                 val entity = list[adapterPosition]
-                onLongClick?.invoke(entity)!!
+                onLongClick?.invoke(entity)
+                true
             }
         }
 

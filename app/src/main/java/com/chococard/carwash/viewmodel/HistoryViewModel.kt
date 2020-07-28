@@ -1,19 +1,29 @@
 package com.chococard.carwash.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.chococard.carwash.data.networks.response.HistoryResponse
-import com.chococard.carwash.repositories.HeaderRepository
+import com.chococard.carwash.data.models.History
+import com.chococard.carwash.repositories.HeaderRepositoryV2
+import kotlinx.coroutines.launch
 
-class HistoryViewModel(private val repository: HeaderRepository) : BaseViewModel() {
+data class HistoryViewState(
+    val histories: List<History>? = emptyList(),
+    val loading: Boolean = false
+)
 
-    private val historyResponse = MutableLiveData<HistoryResponse>()
-    val getHistory: LiveData<HistoryResponse>
-        get() = historyResponse
+class HistoryViewModel(
+    private val repository: HeaderRepositoryV2
+) : BaseViewModelV2<HistoryViewState>(HistoryViewState()) {
 
-    fun callFetchHistory(dateBegin: Long = 0, dateEnd: Long = 0) = launchCallApi(
-        request = { repository.callFetchHistory(dateBegin, dateEnd) },
-        response = { historyResponse.value = it }
-    )
+    fun callFetchHistory(dateBegin: Long = 0, dateEnd: Long = 0) {
+        launch {
+            try {
+                setState { copy(loading = true) }
+                val response = repository.callFetchHistory(dateBegin, dateEnd)
+                setState { copy(loading = false, histories = response.histories) }
+            } catch (e: Throwable) {
+                setState { copy(loading = false) }
+                setError(e)
+            }
+        }
+    }
 
 }
