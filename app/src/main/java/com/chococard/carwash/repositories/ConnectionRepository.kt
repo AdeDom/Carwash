@@ -1,6 +1,5 @@
 package com.chococard.carwash.repositories
 
-import androidx.lifecycle.LiveData
 import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.networks.request.SignInRequest
 import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
@@ -10,7 +9,7 @@ import okhttp3.MultipartBody
 
 interface ConnectionRepository {
 
-    fun getJob(): LiveData<Job>
+    suspend fun getDbJob(): Job?
 
     suspend fun callSignUp(
         username: String?,

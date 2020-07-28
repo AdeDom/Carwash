@@ -12,6 +12,7 @@ import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.CommonsConstant.ACCESS_COARSE_LOCATION
 import com.chococard.carwash.util.CommonsConstant.ACCESS_FINE_LOCATION
 import com.chococard.carwash.util.CommonsConstant.GRANTED
+import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.extension.startActivity
 import com.chococard.carwash.viewmodel.SplashScreenViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -68,21 +69,16 @@ class SplashScreenActivity : BaseActivity() {
 
     private fun onReadyCarWash() {
         val token = viewModel.getSharedPreference()
-        if (token.isEmpty()) {
+        if (token.isBlank()) {
             startActivity<AuthActivity> {
                 finish()
             }
         } else {
-            viewModel.getDbJob.observe { job ->
-                if (job == null) {
-                    startActivity<MainActivity> {
-                        finish()
-                    }
-                } else {
-                    startActivity<NavigationActivity> {
-                        finish()
-                    }
-                }
+            Coroutines.main {
+                if (viewModel.getDbJob() == null)
+                    startActivity<MainActivity> { finish() }
+                else
+                    startActivity<NavigationActivity> { finish() }
             }
         }
     }

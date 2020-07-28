@@ -17,7 +17,7 @@ class ConnectionRepositoryImpl(
     private val sharedPreference: SharedPreference
 ) : ConnectionRepository {
 
-    override fun getJob() = db.getJobDao().getJob()
+    override suspend fun getDbJob() = db.getJobDao().getDbJob()
 
     override suspend fun callSignUp(
         username: String?,

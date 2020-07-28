@@ -9,7 +9,7 @@ class SplashScreenViewModel(
     private val sharedPreference: SharedPreference
 ) : ViewModel() {
 
-    val getDbJob = repository.getJob()
+    suspend fun getDbJob() = repository.getDbJob()
 
     fun getSharedPreference() = sharedPreference.accessToken
 

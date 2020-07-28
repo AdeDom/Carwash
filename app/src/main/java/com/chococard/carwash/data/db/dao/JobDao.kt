@@ -16,6 +16,9 @@ interface JobDao {
     @Query("SELECT * FROM job")
     fun getJob(): LiveData<Job>
 
+    @Query("SELECT * FROM job")
+    suspend fun getDbJob(): Job?
+
     @Query("DELETE FROM job")
     suspend fun deleteJob()
 
