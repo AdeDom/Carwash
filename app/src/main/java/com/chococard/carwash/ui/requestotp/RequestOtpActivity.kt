@@ -10,6 +10,7 @@ import com.chococard.carwash.ui.verifyotp.OtpSignUpActivity
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.RequestOtpViewModel
+import com.chococard.carwash.viewmodel.ValidatePhoneNumber
 import kotlinx.android.synthetic.main.activity_request_otp.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -25,29 +26,21 @@ class RequestOtpActivity : BaseActivity() {
     }
 
     private fun init() {
-        // set widget
-        viewModel.validatePhone(et_phone.getContents())
-
         //set event
         root_layout.setOnClickListener {
             hideSoftKeyboard()
         }
 
         et_phone.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) callRequestOtp()
+            if (actionId == EditorInfo.IME_ACTION_DONE) viewModel.onValidatePhone()
             false
         }
 
-        bt_request_otp.setOnClickListener {
-            callRequestOtp()
-        }
-
-        et_phone.addTextChangedListener { viewModel.validatePhone(it.toString()) }
+        bt_request_otp.setOnClickListener { viewModel.onValidatePhone() }
 
         // observe
         viewModel.getValidatePhone.observe { response ->
             val (success, message) = response
-            progress_bar.hide()
             if (success) {
                 val phoneNumber = et_phone.getContents()
                 startActivity<OtpSignUpActivity> { intent ->
@@ -59,13 +52,16 @@ class RequestOtpActivity : BaseActivity() {
             }
         }
 
-        viewModel.errorMessage.observe {
-            progress_bar.hide()
-            root_layout.snackbar(it)
-        }
-
-        viewModel.validatePhone.observe {
-            if (it) bt_request_otp.ready() else bt_request_otp.unready()
+        viewModel.onValidatePhone.observe {
+            when (it) {
+                ValidatePhoneNumber.PHONE_EMPTY ->
+                    root_layout.snackbar(getString(R.string.error_empty_phone))
+                ValidatePhoneNumber.PHONE_TOTAL_10 ->
+                    root_layout.snackbar(getString(R.string.error_equal_length, 10))
+                ValidatePhoneNumber.PHONE_INCORRECT ->
+                    root_layout.snackbar(getString(R.string.error_phone))
+                else -> viewModel.callValidatePhone()
+            }
         }
 
         viewModel.state.observe { state ->
@@ -73,12 +69,12 @@ class RequestOtpActivity : BaseActivity() {
         }
 
         viewModel.error.observeError()
-    }
 
-    private fun callRequestOtp() {
-        progress_bar.show()
-        val phoneNumber = et_phone.getContents()
-        viewModel.callValidatePhone(phoneNumber)
+        viewModel.state.observe { state ->
+            if (state.isValidPhoneNumber) bt_request_otp.ready() else bt_request_otp.unready()
+        }
+
+        et_phone.addTextChangedListener { viewModel.setPhoneNumber(it.toString()) }
     }
 
     private fun dialogValidatePhone(message: String) = AlertDialog.Builder(this).apply {

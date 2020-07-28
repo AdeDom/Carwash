@@ -9,8 +9,17 @@ import com.chococard.carwash.util.extension.isVerifyPhone
 import kotlinx.coroutines.launch
 
 data class RequestOtpViewState(
+    val phoneNumber: String = "",
+    val isValidPhoneNumber: Boolean = false,
     val loading: Boolean = false
 )
+
+enum class ValidatePhoneNumber {
+    PHONE_EMPTY,
+    PHONE_TOTAL_10,
+    PHONE_INCORRECT,
+    VALIDATE_SUCCESS
+}
 
 class RequestOtpViewModel(
     private val repository: ConnectionRepository
@@ -20,45 +29,39 @@ class RequestOtpViewModel(
     val getValidatePhone: LiveData<BaseResponse>
         get() = validatePhoneResponse
 
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String>
-        get() = _errorMessage
+    private val _onValidatePhone = MutableLiveData<ValidatePhoneNumber>()
+    val onValidatePhone: LiveData<ValidatePhoneNumber>
+        get() = _onValidatePhone
 
-    private val _validatePhone = MutableLiveData<Boolean>()
-    val validatePhone: LiveData<Boolean>
-        get() = _validatePhone
+    fun onValidatePhone() {
+        _onValidatePhone.value = when {
+            state.value?.phoneNumber.orEmpty().isBlank() -> ValidatePhoneNumber.PHONE_EMPTY
+            state.value?.phoneNumber?.length != 10 -> ValidatePhoneNumber.PHONE_TOTAL_10
+            state.value?.phoneNumber.orEmpty().isVerifyPhone() -> ValidatePhoneNumber.PHONE_INCORRECT
+            else -> ValidatePhoneNumber.VALIDATE_SUCCESS
+        }
+    }
 
-    fun callValidatePhone(phoneNumber: String) {
-        when {
-            phoneNumber.isEmpty() ->
-                _errorMessage.value = "Please enter phone"
-            phoneNumber.length != 10 ->
-                _errorMessage.value = "Please enter a total of 10 characters"
-            phoneNumber.isVerifyPhone() ->
-                _errorMessage.value = "Please enter the correct phone number"
-            else -> {
-                val validatePhone = ValidatePhoneRequest(phoneNumber)
-                launch {
-                    try {
-                        setState { copy(loading = true) }
-                        val response = repository.callValidatePhone(validatePhone)
-                        validatePhoneResponse.value = response
-                        setState { copy(loading = false) }
-                    } catch (e: Throwable) {
-                        setState { copy(loading = false) }
-                        setError(e)
-                    }
-                }
+    fun callValidatePhone() {
+        launch {
+            try {
+                setState { copy(loading = true) }
+                val request = ValidatePhoneRequest(state.value?.phoneNumber)
+                validatePhoneResponse.value = repository.callValidatePhone(request)
+                setState { copy(loading = false) }
+            } catch (e: Throwable) {
+                setState { copy(loading = false) }
+                setError(e)
             }
         }
     }
 
-    fun validatePhone(phoneNumber: String) {
-        when {
-            phoneNumber.isEmpty() -> _validatePhone.value = false
-            phoneNumber.length != 10 -> _validatePhone.value = false
-            phoneNumber.isVerifyPhone() -> _validatePhone.value = false
-            else -> _validatePhone.value = true
+    fun setPhoneNumber(phoneNumber: String) {
+        setState {
+            copy(
+                phoneNumber = phoneNumber,
+                isValidPhoneNumber = phoneNumber.isNotBlank() && phoneNumber.length == 10 && !phoneNumber.isVerifyPhone()
+            )
         }
     }
 
