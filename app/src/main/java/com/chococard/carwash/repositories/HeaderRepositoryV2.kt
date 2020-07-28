@@ -12,7 +12,7 @@ interface HeaderRepositoryV2 {
 
     suspend fun callFetchUserInfo(): UserResponse
 
-    fun getUser(): LiveData<User>
+    suspend fun getDbUser(): User?
 
     suspend fun callChangeImageProfile(file: MultipartBody.Part): BaseResponse
 

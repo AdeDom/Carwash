@@ -20,6 +20,12 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         // observe
         viewModel.state.observe { state ->
+            // user
+            if (state.user != null) {
+                tv_full_name.text = state.user.fullName
+                iv_photo.setImageCircle(state.user.image)
+            }
+
             // progress bar
             if (state.loading) progress_bar.show() else progress_bar.hide()
 
@@ -39,13 +45,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                 tv_acceptance.text = homeScore?.acceptance
                 tv_cancellation.text = homeScore?.cancellation
             }
-        }
-
-        viewModel.getDbUser.observe { user ->
-            if (user == null) return@observe
-            val (_, fullName, _, _, _, image) = user
-            tv_full_name.text = fullName
-            iv_photo.setImageCircle(image)
         }
 
         viewModel.error.observeError()

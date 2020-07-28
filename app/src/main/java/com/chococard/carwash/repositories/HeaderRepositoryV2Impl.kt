@@ -27,7 +27,7 @@ class HeaderRepositoryV2Impl(
     }
 
     private suspend fun saveUser(user: User) = db.getUserDao().saveUser(user)
-    override fun getUser() = db.getUserDao().getUser()
+    override suspend fun getDbUser(): User? = db.getUserDao().getDbUser()
     private suspend fun deleteUser() = db.getUserDao().deleteUser()
     // user
 
