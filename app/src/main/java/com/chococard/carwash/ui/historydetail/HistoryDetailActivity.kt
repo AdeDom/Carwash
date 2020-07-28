@@ -99,9 +99,6 @@ class HistoryDetailActivity : BaseActivity() {
             }
         }
 
-        //set event
-        iv_arrow_back.setOnClickListener { onBackPressed() }
-
         // observe
         viewModel.getLogout.observe { response ->
             val (success, message) = response
@@ -114,9 +111,10 @@ class HistoryDetailActivity : BaseActivity() {
             }
         }
 
-        viewModel.getError.observe {
-            dialogError(it)
-        }
+        viewModel.error.observeError()
+
+        //set event
+        iv_arrow_back.setOnClickListener { onBackPressed() }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
