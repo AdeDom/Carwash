@@ -23,7 +23,7 @@ abstract class BaseActivity : AppCompatActivity() {
     protected fun LiveData<Throwable>.observeError() {
         observe(this@BaseActivity, Observer {
             it.printStackTrace()
-            dialogError("Error: ${it.message}")
+            dialogError(it.message)
         })
     }
 
@@ -66,7 +66,7 @@ abstract class BaseActivity : AppCompatActivity() {
         show()
     }
 
-    protected fun dialogError(message: String) = AlertDialog.Builder(this).apply {
+    protected fun dialogError(message: String?) = AlertDialog.Builder(this).apply {
         setTitle(R.string.error)
         setMessage(message)
         setPositiveButton(android.R.string.ok) { dialog, _ ->

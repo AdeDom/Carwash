@@ -68,10 +68,11 @@ class RequestOtpActivity : BaseActivity() {
             if (it) bt_request_otp.ready() else bt_request_otp.unready()
         }
 
-        viewModel.getError.observe {
-            progress_bar.hide()
-            dialogError(it)
+        viewModel.state.observe { state ->
+            if (state.loading) progress_bar.show() else progress_bar.hide()
         }
+
+        viewModel.error.observeError()
     }
 
     private fun callRequestOtp() {

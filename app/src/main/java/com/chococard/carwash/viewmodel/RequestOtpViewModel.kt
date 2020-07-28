@@ -4,10 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
-import com.chococard.carwash.repositories.ConnectionRepository
+import com.chococard.carwash.repositories.ConnectionRepositoryV2
 import com.chococard.carwash.util.extension.isVerifyPhone
+import kotlinx.coroutines.launch
 
-class RequestOtpViewModel(private val repository: ConnectionRepository) : BaseViewModel() {
+data class RequestOtpViewState(
+    val loading: Boolean = false
+)
+
+class RequestOtpViewModel(
+    private val repository: ConnectionRepositoryV2
+) : BaseViewModelV2<RequestOtpViewState>(RequestOtpViewState()) {
 
     private val validatePhoneResponse = MutableLiveData<BaseResponse>()
     val getValidatePhone: LiveData<BaseResponse>
@@ -31,10 +38,17 @@ class RequestOtpViewModel(private val repository: ConnectionRepository) : BaseVi
                 _errorMessage.value = "Please enter the correct phone number"
             else -> {
                 val validatePhone = ValidatePhoneRequest(phoneNumber)
-                launchCallApi(
-                    request = { repository.callValidatePhone(validatePhone) },
-                    response = { validatePhoneResponse.value = it }
-                )
+                launch {
+                    try {
+                        setState { copy(loading = true) }
+                        val response = repository.callValidatePhone(validatePhone)
+                        validatePhoneResponse.value = response
+                        setState { copy(loading = false) }
+                    } catch (e: Throwable) {
+                        setState { copy(loading = false) }
+                        setError(e)
+                    }
+                }
             }
         }
     }

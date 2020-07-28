@@ -25,11 +25,11 @@ abstract class BaseFragment(@LayoutRes private val layout: Int) : Fragment() {
     protected fun LiveData<Throwable>.observeError() {
         observe(this@BaseFragment, Observer {
             it?.printStackTrace()
-            dialogError("Error: ${it?.message}")
+            dialogError(it?.message)
         })
     }
 
-    protected fun dialogError(message: String) = context?.let {
+    protected fun dialogError(message: String?) = context?.let {
         AlertDialog.Builder(it).apply {
             setTitle(R.string.error)
             setMessage(message)
