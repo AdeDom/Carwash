@@ -8,8 +8,20 @@ import com.chococard.carwash.repositories.ConnectionRepository
 import kotlinx.coroutines.launch
 
 data class SignInViewState(
+    val username: String = "",
+    val password: String = "",
+    val isValidUsername: Boolean = false,
+    val isValidPassword: Boolean = false,
     val loading: Boolean = false
 )
+
+enum class ValidateSignIn {
+    USERNAME_EMPTY,
+    USERNAME_INCORRECT,
+    PASSWORD_EMPTY,
+    PASSWORD_INCORRECT,
+    VALIDATE_SUCCESS
+}
 
 class SignInViewModel(
     private val repository: ConnectionRepository
@@ -19,43 +31,49 @@ class SignInViewModel(
     val getSignIn: LiveData<SignInResponse>
         get() = signInResponse
 
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String>
-        get() = _errorMessage
+    private val _onSignIn = MutableLiveData<ValidateSignIn>()
+    val onSignIn: LiveData<ValidateSignIn>
+        get() = _onSignIn
 
-    private val _validateSignIn = MutableLiveData<Boolean>()
-    val validateSignIn: LiveData<Boolean>
-        get() = _validateSignIn
-
-    fun callSignIn(username: String, password: String) {
-        when {
-            username.isEmpty() -> _errorMessage.value = "Please enter username"
-            username.length < 4 -> _errorMessage.value = "Please enter at least 4 characters"
-            password.isEmpty() -> _errorMessage.value = "Please enter password"
-            password.length < 8 -> _errorMessage.value = "Please enter at least 8 characters"
-            else -> {
-                launch {
-                    try {
-                        setState { copy(loading = true) }
-                        val response = repository.callSignIn(SignInRequest(username, password))
-                        signInResponse.value = response
-                        setState { copy(loading = false) }
-                    } catch (e: Throwable) {
-                        setState { copy(loading = false) }
-                        setError(e)
-                    }
-                }
-            }
+    fun onSignIn() {
+        _onSignIn.value = when {
+            state.value?.username.orEmpty().isBlank() -> ValidateSignIn.USERNAME_EMPTY
+            state.value?.username?.length ?: 0 < 4 -> ValidateSignIn.USERNAME_INCORRECT
+            state.value?.password.orEmpty().isBlank() -> ValidateSignIn.PASSWORD_EMPTY
+            state.value?.password?.length ?: 0 < 8 -> ValidateSignIn.PASSWORD_INCORRECT
+            else -> ValidateSignIn.VALIDATE_SUCCESS
         }
     }
 
-    fun validateSignIn(username: String, password: String) {
-        when {
-            username.isEmpty() -> _validateSignIn.value = false
-            username.length < 4 -> _validateSignIn.value = false
-            password.isEmpty() -> _validateSignIn.value = false
-            password.length < 8 -> _validateSignIn.value = false
-            else -> _validateSignIn.value = true
+    fun setUsername(username: String) {
+        setState {
+            copy(
+                username = username,
+                isValidUsername = username.isNotBlank() && username.length >= 4
+            )
+        }
+    }
+
+    fun setPassword(password: String) {
+        setState {
+            copy(
+                password = password,
+                isValidPassword = password.isNotBlank() && password.length >= 8
+            )
+        }
+    }
+
+    fun callSignIn() {
+        launch {
+            try {
+                setState { copy(loading = true) }
+                val request = SignInRequest(state.value?.username, state.value?.password)
+                signInResponse.value = repository.callSignIn(request)
+                setState { copy(loading = false) }
+            } catch (e: Throwable) {
+                setState { copy(loading = false) }
+                setError(e)
+            }
         }
     }
 
