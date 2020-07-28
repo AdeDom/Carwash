@@ -2,6 +2,7 @@ package com.chococard.carwash.ui.profile
 
 import android.os.Bundle
 import com.chococard.carwash.R
+import com.chococard.carwash.data.db.entities.User
 import com.chococard.carwash.ui.base.BaseFragment
 import com.chococard.carwash.util.extension.setImageCircle
 import com.chococard.carwash.viewmodel.ProfileViewModel
@@ -15,8 +16,8 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.getDbUser.observe { user ->
-            val (_, fullName, idCardNumber, phone, _, image) = user
+        viewModel.state.observe { state ->
+            val (_, fullName, idCardNumber, phone, _, image) = state.user ?: User()
             tv_full_name.text = fullName
             tv_identity_card.text = idCardNumber
             tv_phone.text = phone
