@@ -6,10 +6,7 @@ import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.db.entities.UserInfo
 import com.chococard.carwash.data.networks.HeaderAppService
 import com.chococard.carwash.data.networks.request.*
-import com.chococard.carwash.data.networks.response.BaseResponse
-import com.chococard.carwash.data.networks.response.ChangeImageProfileResponse
-import com.chococard.carwash.data.networks.response.JobResponse
-import com.chococard.carwash.data.networks.response.UserResponse
+import com.chococard.carwash.data.networks.response.*
 import com.chococard.carwash.data.sharedpreference.SharedPreference
 import com.chococard.carwash.util.extension.toRequestBody
 import com.google.firebase.auth.FirebaseAuth
@@ -22,11 +19,6 @@ class HeaderRepositoryImpl(
 ) : HeaderRepository {
 
     // user info
-    private suspend fun callFetchUserInfo(): UserResponse {
-        val response = api.callFetchUserInfo()
-        if (response.success && response.user != null) saveUserInfo(response.user)
-        return response
-    }
     private suspend fun saveUserInfo(userInfo: UserInfo) = db.getUserInfoDao().saveUserInfo(userInfo)
     override suspend fun getDbUserInfo(): UserInfo? = db.getUserInfoDao().getDbUserInfo()
     override fun getDbUserInfoLiveData(): LiveData<UserInfo> = db.getUserInfoDao().getDbUserInfoLiveData()
@@ -45,9 +37,9 @@ class HeaderRepositoryImpl(
         return response
     }
 
-    override suspend fun callChangePhone(changePhone: ChangePhoneRequest): BaseResponse {
+    override suspend fun callChangePhone(changePhone: ChangePhoneRequest): ChangePhoneNumberResponse {
         val response = api.callChangePhone(changePhone)
-        if (response.success) callFetchUserInfo()
+        if (response.success && response.userInfo != null) saveUserInfo(response.userInfo)
         return response
     }
 

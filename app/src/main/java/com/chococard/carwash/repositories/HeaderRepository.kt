@@ -17,7 +17,7 @@ interface HeaderRepository {
 
     suspend fun callLogout(): BaseResponse
 
-    suspend fun callChangePhone(changePhone: ChangePhoneRequest): BaseResponse
+    suspend fun callChangePhone(changePhone: ChangePhoneRequest): ChangePhoneNumberResponse
 
     suspend fun callChangePassword(changePassword: ChangePasswordRequest): BaseResponse
 

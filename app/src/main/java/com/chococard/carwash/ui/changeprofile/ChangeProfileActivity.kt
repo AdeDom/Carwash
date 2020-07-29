@@ -74,8 +74,8 @@ class ChangeProfileActivity : BaseActivity() {
         }
 
         viewModel.getChangeImageProfile.observe { response ->
-            val (success, message) = response
-            if (!success) root_layout.snackbar(message)
+            val (_, message) = response
+            root_layout.snackbar(message)
         }
 
         viewModel.getChangePhone.observe { response ->

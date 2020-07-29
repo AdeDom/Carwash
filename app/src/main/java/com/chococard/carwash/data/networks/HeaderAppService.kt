@@ -8,10 +8,6 @@ import retrofit2.http.*
 
 interface HeaderAppService {
 
-    //get user info from data base keep to shared preferences.
-    @GET("api/account/userinfo")
-    suspend fun callFetchUserInfo(): UserResponse
-
     //upload image from android to server when selected image.
     @Multipart
     @POST("api/account/changeprofile")
@@ -23,7 +19,7 @@ interface HeaderAppService {
 
     //change data profile name, id card, phone etc.
     @POST("api/account/changephone")
-    suspend fun callChangePhone(@Body changePhone: ChangePhoneRequest): BaseResponse
+    suspend fun callChangePhone(@Body changePhone: ChangePhoneRequest): ChangePhoneNumberResponse
 
     //change password of username for security.
     @POST("api/account/changepassword")
