@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.repositories.HeaderRepositoryV2
 
-data class ServiceViewState(
+data class ServiceInfoViewState(
     val loading: Boolean = false
 )
 
 class ServiceInfoViewModel(
     private val repository: HeaderRepositoryV2
-) : BaseViewModelV2<ServiceViewState>(ServiceViewState()) {
+) : BaseViewModelV2<ServiceInfoViewState>(ServiceInfoViewState()) {
 
     val getDbJobLiveData = repository.getDbJobLiveData()
 

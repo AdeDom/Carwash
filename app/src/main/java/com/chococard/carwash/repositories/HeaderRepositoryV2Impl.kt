@@ -10,6 +10,7 @@ import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.data.sharedpreference.SharedPreference
+import com.chococard.carwash.util.extension.toRequestBody
 import com.google.firebase.auth.FirebaseAuth
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -112,8 +113,8 @@ class HeaderRepositoryV2Impl(
 
     override suspend fun callUploadImageService(
         file: MultipartBody.Part,
-        statusService: RequestBody?
-    ) = api.callUploadImageService(file, statusService)
+        statusService: Int
+    ) = api.callUploadImageService(file, statusService.toRequestBody())
 
     override suspend fun callFetchImageService() = api.callFetchImageService()
 

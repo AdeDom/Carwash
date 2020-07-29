@@ -89,12 +89,23 @@ class ServiceActivity : BaseActivity() {
         }
 
         // call api
-        progress_bar.show()
         viewModel.callFetchImageService()
 
         // observe
+        viewModel.state.observe { state ->
+            if (state.loading) progress_bar.show() else progress_bar.hide()
+            if (state.loadingFrontBefore) progress_bar_front_before.show() else progress_bar_front_before.hide()
+            if (state.loadingBackBefore) progress_bar_back_before.show() else progress_bar_back_before.hide()
+            if (state.loadingLeftBefore) progress_bar_left_before.show() else progress_bar_left_before.hide()
+            if (state.loadingRightBefore) progress_bar_right_before.show() else progress_bar_right_before.hide()
+            if (state.loadingFrontAfter) progress_bar_front_after.show() else progress_bar_front_after.hide()
+            if (state.loadingBackAfter) progress_bar_back_after.show() else progress_bar_back_after.hide()
+            if (state.loadingLeftAfter) progress_bar_left_after.show() else progress_bar_left_after.hide()
+            if (state.loadingRightAfter) progress_bar_right_after.show() else progress_bar_right_after.hide()
+            if (state.loadingOtherImage) progress_bar_other_image.show() else progress_bar_other_image.hide()
+        }
+
         viewModel.getUploadImageService.observe { response ->
-            progress_bar_other_image.hide()
             val (success, message, serviceImage) = response
             if (success) {
                 adt.setList(serviceImage?.otherImageService)
@@ -105,7 +116,6 @@ class ServiceActivity : BaseActivity() {
         }
 
         viewModel.getImageService.observe { response ->
-            progress_bar.hide()
             val (success, message, serviceImage) = response
             if (success) {
                 adt.setList(serviceImage?.otherImageService)
@@ -124,7 +134,6 @@ class ServiceActivity : BaseActivity() {
         }
 
         viewModel.getDeleteServiceOtherImage.observe { response ->
-            progress_bar_other_image.hide()
             val (success, message, serviceImage) = response
             if (success)
                 adt.setList(serviceImage?.otherImageService)
@@ -142,19 +151,7 @@ class ServiceActivity : BaseActivity() {
             }
         }
 
-        viewModel.getError.observe {
-            progress_bar.hide()
-            progress_bar_front_before.hide()
-            progress_bar_back_before.hide()
-            progress_bar_left_before.hide()
-            progress_bar_right_before.hide()
-            progress_bar_right_after.hide()
-            progress_bar_right_after.hide()
-            progress_bar_right_after.hide()
-            progress_bar_right_after.hide()
-            progress_bar_other_image.hide()
-            dialogError(it)
-        }
+        viewModel.error.observeError()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -165,25 +162,13 @@ class ServiceActivity : BaseActivity() {
 
     private fun deleteImageService(statusService: Int): Boolean {
         dialogNegative(R.string.delete_image_service, R.string.delete_image_service_questions) {
-            when (statusService) {
-                FlagConstant.STATUS_SERVICE_FRONT_BEFORE -> progress_bar_front_before.show()
-                FlagConstant.STATUS_SERVICE_BACK_BEFORE -> progress_bar_back_before.show()
-                FlagConstant.STATUS_SERVICE_LEFT_BEFORE -> progress_bar_left_before.show()
-                FlagConstant.STATUS_SERVICE_RIGHT_BEFORE -> progress_bar_right_before.show()
-                FlagConstant.STATUS_SERVICE_FRONT_AFTER -> progress_bar_front_after.show()
-                FlagConstant.STATUS_SERVICE_BACK_AFTER -> progress_bar_back_after.show()
-                FlagConstant.STATUS_SERVICE_LEFT_AFTER -> progress_bar_left_after.show()
-                FlagConstant.STATUS_SERVICE_RIGHT_AFTER -> progress_bar_right_after.show()
-            }
-            val deleteImageService = DeleteImageServiceRequest(statusService)
-            viewModel.callDeleteServiceImage(deleteImageService)
+            viewModel.callDeleteServiceImage(statusService)
         }
         return true
     }
 
     private fun deleteOtherImageService(imageId: Int) {
         dialogNegative(R.string.delete_image_service, R.string.delete_image_service_questions) {
-            progress_bar_other_image.show()
             val deleteImageService = DeleteImageServiceRequest(imageId)
             viewModel.callDeleteServiceOtherImage(deleteImageService)
         }
@@ -199,59 +184,50 @@ class ServiceActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && data != null) {
-            val statusService: Int? = when (requestCode) {
+            val statusService: Int = when (requestCode) {
                 CommonsConstant.REQUEST_CODE_IMAGE_FRONT_BEFORE -> {
                     iv_camera_front_before.hide()
-                    progress_bar_front_before.show()
                     FlagConstant.STATUS_SERVICE_FRONT_BEFORE
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_BACK_BEFORE -> {
                     iv_camera_back_before.hide()
-                    progress_bar_back_before.show()
                     FlagConstant.STATUS_SERVICE_BACK_BEFORE
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_LEFT_BEFORE -> {
                     iv_camera_left_before.hide()
-                    progress_bar_left_before.show()
                     FlagConstant.STATUS_SERVICE_LEFT_BEFORE
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_RIGHT_BEFORE -> {
                     iv_camera_right_before.hide()
-                    progress_bar_right_before.show()
                     FlagConstant.STATUS_SERVICE_RIGHT_BEFORE
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_FRONT_AFTER -> {
                     iv_camera_front_after.hide()
-                    progress_bar_front_after.show()
                     FlagConstant.STATUS_SERVICE_FRONT_AFTER
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_BACK_AFTER -> {
                     iv_camera_back_after.hide()
-                    progress_bar_back_after.show()
                     FlagConstant.STATUS_SERVICE_BACK_AFTER
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_LEFT_AFTER -> {
                     iv_camera_left_after.hide()
-                    progress_bar_left_after.show()
                     FlagConstant.STATUS_SERVICE_LEFT_AFTER
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_RIGHT_AFTER -> {
                     iv_camera_right_after.hide()
-                    progress_bar_right_after.show()
                     FlagConstant.STATUS_SERVICE_RIGHT_AFTER
                 }
                 CommonsConstant.REQUEST_CODE_IMAGE_OTHER_IMAGE -> {
                     val count: Int = viewModel.getValueValidateMaximumOtherImage()
                     viewModel.setValueValidateMaximumOtherImage(count.plus(1))
-                    progress_bar_other_image.show()
                     FlagConstant.STATUS_SERVICE_OTHER_IMAGE
                 }
-                else -> null
+                else -> 0
             }
 
             viewModel.callUploadImageService(
                 convertToMultipartBody(data.data!!),
-                statusService.toRequestBody()
+                statusService
             )
         }
     }
@@ -259,15 +235,6 @@ class ServiceActivity : BaseActivity() {
     private fun setImageJobService(serviceImage: ServiceImage) {
         val (frontBefore, backBefore, leftBefore, rightBefore, frontAfter, backAfter, leftAfter, rightAfter, _) = serviceImage
         mListImageService.clear()
-
-        progress_bar_front_before.hide()
-        progress_bar_back_before.hide()
-        progress_bar_left_before.hide()
-        progress_bar_right_before.hide()
-        progress_bar_front_after.hide()
-        progress_bar_back_after.hide()
-        progress_bar_left_after.hide()
-        progress_bar_right_after.hide()
 
         setImageView(
             frontBefore,

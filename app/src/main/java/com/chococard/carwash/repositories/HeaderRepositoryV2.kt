@@ -50,7 +50,7 @@ interface HeaderRepositoryV2 {
 
     suspend fun callUploadImageService(
         file: MultipartBody.Part,
-        statusService: RequestBody?
+        statusService: Int
     ): ServiceImageResponse
 
     suspend fun callFetchImageService(): ServiceImageResponse
