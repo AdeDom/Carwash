@@ -9,8 +9,6 @@ import okhttp3.MultipartBody
 
 interface HeaderRepository {
 
-    suspend fun callFetchUserInfo(): UserResponse
-
     suspend fun getDbUserInfo(): UserInfo?
 
     fun getDbUserInfoLiveData(): LiveData<UserInfo>

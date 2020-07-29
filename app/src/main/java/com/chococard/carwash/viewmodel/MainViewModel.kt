@@ -8,7 +8,6 @@ import com.chococard.carwash.data.networks.request.SetLocationRequest
 import com.chococard.carwash.data.networks.request.SwitchSystemRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.JobResponse
-import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.data.sharedpreference.SharedPreference
 import com.chococard.carwash.repositories.HeaderRepository
 import com.chococard.carwash.signalr.SignalREmployeeHub
@@ -25,11 +24,7 @@ class MainViewModel(
 ) : BaseViewModel<MainViewState>(MainViewState()),
     SignalREmployeeHub.SignalRListener {
 
-    val getDbUser = repository.getDbUserInfoLiveData()
-
-    private val userInfoResponse = MutableLiveData<UserResponse>()
-    val getUserInfo: LiveData<UserResponse>
-        get() = userInfoResponse
+    val getDbUserInfoLiveData = repository.getDbUserInfoLiveData()
 
     private val jobAnswerResponse = MutableLiveData<JobResponse>()
     val getJobAnswer: LiveData<JobResponse>
@@ -58,20 +53,6 @@ class MainViewModel(
     private val _counterExit = MutableLiveData<Int>()
     val counterExit: LiveData<Int>
         get() = _counterExit
-
-    fun callFetchUserInfo() {
-        launch {
-            try {
-                setState { copy(loading = true) }
-                val response = repository.callFetchUserInfo()
-                userInfoResponse.value = response
-                setState { copy(loading = false) }
-            } catch (e: Throwable) {
-                setState { copy(loading = false) }
-                setError(e)
-            }
-        }
-    }
 
     fun callJobAnswer(jobAnswer: JobAnswerRequest) {
         launch {

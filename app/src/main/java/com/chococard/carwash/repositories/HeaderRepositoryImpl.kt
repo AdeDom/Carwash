@@ -21,17 +21,16 @@ class HeaderRepositoryImpl(
 ) : HeaderRepository {
 
     // user info
-    override suspend fun callFetchUserInfo(): UserResponse {
+    private suspend fun callFetchUserInfo(): UserResponse {
         val response = api.callFetchUserInfo()
         if (response.success && response.user != null) saveUserInfo(response.user)
         return response
     }
-
     private suspend fun saveUserInfo(userInfo: UserInfo) = db.getUserInfoDao().saveUserInfo(userInfo)
     override suspend fun getDbUserInfo(): UserInfo? = db.getUserInfoDao().getDbUserInfo()
     override fun getDbUserInfoLiveData(): LiveData<UserInfo> = db.getUserInfoDao().getDbUserInfoLiveData()
     private suspend fun deleteUserInfo() = db.getUserInfoDao().deleteUserInfo()
-    // user
+    // user info
 
     override suspend fun callChangeImageProfile(file: MultipartBody.Part): BaseResponse {
         val response = api.callChangeImageProfile(file)

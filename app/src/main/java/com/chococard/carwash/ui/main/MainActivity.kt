@@ -59,25 +59,16 @@ class MainActivity : BaseLocationActivity(),
             if (state.loading) progress_bar.show() else progress_bar.hide()
         }
 
-        viewModel.getDbUser.observe { user ->
+        viewModel.getDbUserInfoLiveData.observe { userInfo ->
             // fetch user info & sign in firebase
-            when {
-                user == null -> viewModel.callFetchUserInfo()
-                FirebaseAuth.getInstance().currentUser == null -> {
-                    viewModel.initSignalR(user.userId)
+            when (FirebaseAuth.getInstance().currentUser) {
+                null -> {
+                    viewModel.initSignalR(userInfo.userId)
                     startActivity<OtpSignInActivity> { intent ->
-                        intent.putExtra(CommonsConstant.PHONE, user.phone)
+                        intent.putExtra(CommonsConstant.PHONE, userInfo.phone)
                     }
                 }
-                else -> viewModel.initSignalR(user.userId)
-            }
-        }
-
-        viewModel.getUserInfo.observe { response ->
-            val (success, message, _) = response
-            if (!success) {
-                finishAffinity()
-                root_layout.snackbar(message)
+                else -> viewModel.initSignalR(userInfo.userId)
             }
         }
 
