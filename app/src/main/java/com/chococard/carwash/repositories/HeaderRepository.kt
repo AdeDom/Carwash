@@ -6,9 +6,8 @@ import com.chococard.carwash.data.db.entities.User
 import com.chococard.carwash.data.networks.request.*
 import com.chococard.carwash.data.networks.response.*
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 
-interface HeaderRepositoryV2 {
+interface HeaderRepository {
 
     suspend fun callFetchUserInfo(): UserResponse
 

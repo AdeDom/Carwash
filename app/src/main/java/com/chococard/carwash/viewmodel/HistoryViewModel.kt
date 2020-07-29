@@ -1,7 +1,7 @@
 package com.chococard.carwash.viewmodel
 
 import com.chococard.carwash.data.models.History
-import com.chococard.carwash.repositories.HeaderRepositoryV2
+import com.chococard.carwash.repositories.HeaderRepository
 import kotlinx.coroutines.launch
 
 data class HistoryViewState(
@@ -10,8 +10,8 @@ data class HistoryViewState(
 )
 
 class HistoryViewModel(
-    private val repository: HeaderRepositoryV2
-) : BaseViewModelV2<HistoryViewState>(HistoryViewState()) {
+    private val repository: HeaderRepository
+) : BaseViewModel<HistoryViewState>(HistoryViewState()) {
 
     fun callFetchHistory(dateBegin: Long = 0, dateEnd: Long = 0) {
         launch {

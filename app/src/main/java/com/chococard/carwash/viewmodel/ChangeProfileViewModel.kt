@@ -6,7 +6,7 @@ import com.chococard.carwash.data.db.entities.User
 import com.chococard.carwash.data.networks.request.ChangePhoneRequest
 import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
-import com.chococard.carwash.repositories.HeaderRepositoryV2
+import com.chococard.carwash.repositories.HeaderRepository
 import com.chococard.carwash.util.extension.isVerifyPhone
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -16,8 +16,8 @@ data class ChangeProfileViewState(
 )
 
 class ChangeProfileViewModel(
-    private val repository: HeaderRepositoryV2
-) : BaseViewModelV2<ChangeProfileViewState>(ChangeProfileViewState()) {
+    private val repository: HeaderRepository
+) : BaseViewModel<ChangeProfileViewState>(ChangeProfileViewState()) {
 
     val getDbUser = repository.getDbUserLiveData()
 

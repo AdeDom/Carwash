@@ -3,7 +3,7 @@ package com.chococard.carwash.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.response.BaseResponse
-import com.chococard.carwash.repositories.HeaderRepositoryV2
+import com.chococard.carwash.repositories.HeaderRepository
 import kotlinx.coroutines.launch
 
 data class HistoryDetailViewState(
@@ -11,8 +11,8 @@ data class HistoryDetailViewState(
 )
 
 class HistoryDetailViewModel(
-    private val repository: HeaderRepositoryV2
-) : BaseViewModelV2<HistoryDetailViewState>(HistoryDetailViewState()) {
+    private val repository: HeaderRepository
+) : BaseViewModel<HistoryDetailViewState>(HistoryDetailViewState()) {
 
     private val logoutResponse = MutableLiveData<BaseResponse>()
     val getLogout: LiveData<BaseResponse>

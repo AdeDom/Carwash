@@ -3,7 +3,7 @@ package com.chococard.carwash.viewmodel
 import com.chococard.carwash.data.networks.request.SwitchSystemRequest
 import com.chococard.carwash.data.networks.response.HomeScoreResponse
 import com.chococard.carwash.data.sharedpreference.SharedPreference
-import com.chococard.carwash.repositories.HeaderRepositoryV2
+import com.chococard.carwash.repositories.HeaderRepository
 import com.chococard.carwash.util.FlagConstant
 import kotlinx.coroutines.launch
 
@@ -14,9 +14,9 @@ data class HomeViewState(
 )
 
 class HomeViewModel(
-    private val repository: HeaderRepositoryV2,
+    private val repository: HeaderRepository,
     private val sharedPreference: SharedPreference
-) : BaseViewModelV2<HomeViewState>(HomeViewState()) {
+) : BaseViewModel<HomeViewState>(HomeViewState()) {
 
     val getDbUserLiveData = repository.getDbUserLiveData()
 

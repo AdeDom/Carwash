@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.chococard.carwash.data.db.AppDatabase
 import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.db.entities.User
-import com.chococard.carwash.data.networks.HeaderAppServiceV2
+import com.chococard.carwash.data.networks.HeaderAppService
 import com.chococard.carwash.data.networks.request.*
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.JobResponse
@@ -13,13 +13,12 @@ import com.chococard.carwash.data.sharedpreference.SharedPreference
 import com.chococard.carwash.util.extension.toRequestBody
 import com.google.firebase.auth.FirebaseAuth
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 
-class HeaderRepositoryV2Impl(
-    private val api: HeaderAppServiceV2,
+class HeaderRepositoryImpl(
+    private val api: HeaderAppService,
     private val db: AppDatabase,
     private val sharedPreference: SharedPreference
-) : HeaderRepositoryV2 {
+) : HeaderRepository {
 
     // user
     override suspend fun callFetchUserInfo(): UserResponse {

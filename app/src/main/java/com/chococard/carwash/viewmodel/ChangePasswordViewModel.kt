@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.request.ChangePasswordRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
-import com.chococard.carwash.repositories.HeaderRepositoryV2
+import com.chococard.carwash.repositories.HeaderRepository
 import kotlinx.coroutines.launch
 
 data class ChangePasswordViewState(
@@ -12,8 +12,8 @@ data class ChangePasswordViewState(
 )
 
 class ChangePasswordViewModel(
-    private val repository: HeaderRepositoryV2
-) : BaseViewModelV2<ChangePasswordViewState>(ChangePasswordViewState()) {
+    private val repository: HeaderRepository
+) : BaseViewModel<ChangePasswordViewState>(ChangePasswordViewState()) {
 
     private val changePasswordResponse = MutableLiveData<BaseResponse>()
     val getChangePassword: LiveData<BaseResponse>

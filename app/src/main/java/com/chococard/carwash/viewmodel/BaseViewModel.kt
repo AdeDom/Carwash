@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-abstract class BaseViewModelV2<S : Any>(private val initialState: S) : ViewModel(), CoroutineScope {
+abstract class BaseViewModel<S : Any>(private val initialState: S) : ViewModel(), CoroutineScope {
 
     private val job = SupervisorJob()
     private val exceptionHandler = CoroutineExceptionHandler { _, err ->

@@ -6,7 +6,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
 
-interface HeaderAppServiceV2 {
+interface HeaderAppService {
 
     //get user info from data base keep to shared preferences.
     @GET("api/account/userinfo")
@@ -96,9 +96,9 @@ interface HeaderAppServiceV2 {
     suspend fun callDeleteServiceOtherImage(@Body deleteImageService: DeleteImageServiceRequest): ServiceImageResponse
 
     companion object {
-        operator fun invoke(networkHeaderInterceptor: NetworkHeaderInterceptor): HeaderAppServiceV2 {
+        operator fun invoke(networkHeaderInterceptor: NetworkHeaderInterceptor): HeaderAppService {
             return RetrofitClient.instant(networkHeaderInterceptor)
-                .create(HeaderAppServiceV2::class.java)
+                .create(HeaderAppService::class.java)
         }
     }
 

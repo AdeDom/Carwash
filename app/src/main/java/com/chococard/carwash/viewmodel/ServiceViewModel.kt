@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.request.DeleteImageServiceRequest
 import com.chococard.carwash.data.networks.response.ServiceImageResponse
-import com.chococard.carwash.repositories.HeaderRepositoryV2
+import com.chococard.carwash.repositories.HeaderRepository
 import com.chococard.carwash.util.FlagConstant
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -23,8 +23,8 @@ data class ServiceViewState(
 )
 
 class ServiceViewModel(
-    private val repository: HeaderRepositoryV2
-) : BaseViewModelV2<ServiceViewState>(ServiceViewState()) {
+    private val repository: HeaderRepository
+) : BaseViewModel<ServiceViewState>(ServiceViewState()) {
 
     private val uploadImageServiceResponse = MutableLiveData<ServiceImageResponse>()
     val getUploadImageService: LiveData<ServiceImageResponse>

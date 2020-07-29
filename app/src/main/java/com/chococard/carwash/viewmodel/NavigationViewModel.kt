@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.request.SetNavigationRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.NavigationResponse
-import com.chococard.carwash.repositories.HeaderRepositoryV2
+import com.chococard.carwash.repositories.HeaderRepository
 import kotlinx.coroutines.launch
 
 data class NavigationViewState(
@@ -13,8 +13,8 @@ data class NavigationViewState(
 )
 
 class NavigationViewModel(
-    private val repository: HeaderRepositoryV2
-) : BaseViewModelV2<NavigationViewState>(NavigationViewState()) {
+    private val repository: HeaderRepository
+) : BaseViewModel<NavigationViewState>(NavigationViewState()) {
 
     private val navigationResponse = MutableLiveData<NavigationResponse>()
     val getNavigation: LiveData<NavigationResponse>

@@ -28,8 +28,8 @@ val appModule = module {
 
     //header connection
     single { NetworkHeaderInterceptor(get(), get()) }
-    single { HeaderAppServiceV2.invoke(get()) }
-    single<HeaderRepositoryV2> { HeaderRepositoryV2Impl(get(), get(), get()) }
+    single { HeaderAppService.invoke(get()) }
+    single<HeaderRepository> { HeaderRepositoryImpl(get(), get(), get()) }
     viewModel { AddWalletViewModel(get()) }
     viewModel { ChangePasswordViewModel(get()) }
     viewModel { ChangeProfileViewModel(get()) }

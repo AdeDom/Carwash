@@ -23,7 +23,7 @@ enum class ValidatePhoneNumber {
 
 class RequestOtpViewModel(
     private val repository: ConnectionRepository
-) : BaseViewModelV2<RequestOtpViewState>(RequestOtpViewState()) {
+) : BaseViewModel<RequestOtpViewState>(RequestOtpViewState()) {
 
     private val validatePhoneResponse = MutableLiveData<BaseResponse>()
     val getValidatePhone: LiveData<BaseResponse>

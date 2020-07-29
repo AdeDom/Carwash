@@ -13,7 +13,7 @@ enum class RootNavigation {
 
 class SplashScreenViewModel(
     private val repository: ConnectionRepository
-) : BaseViewModelV2<SplashScreenViewState>(SplashScreenViewState) {
+) : BaseViewModel<SplashScreenViewState>(SplashScreenViewState) {
 
     private val _rootNavigation = MutableLiveData<RootNavigation>()
     val rootNavigation: LiveData<RootNavigation>

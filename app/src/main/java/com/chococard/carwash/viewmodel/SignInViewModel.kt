@@ -25,7 +25,7 @@ enum class ValidateSignIn {
 
 class SignInViewModel(
     private val repository: ConnectionRepository
-) : BaseViewModelV2<SignInViewState>(SignInViewState()) {
+) : BaseViewModel<SignInViewState>(SignInViewState()) {
 
     private val signInResponse = MutableLiveData<SignInResponse>()
     val getSignIn: LiveData<SignInResponse>

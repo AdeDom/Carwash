@@ -10,7 +10,7 @@ import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.data.sharedpreference.SharedPreference
-import com.chococard.carwash.repositories.HeaderRepositoryV2
+import com.chococard.carwash.repositories.HeaderRepository
 import com.chococard.carwash.signalr.SignalREmployeeHub
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -20,9 +20,9 @@ data class MainViewState(
 )
 
 class MainViewModel(
-    private val repository: HeaderRepositoryV2,
+    private val repository: HeaderRepository,
     private val sharedPreference: SharedPreference
-) : BaseViewModelV2<MainViewState>(MainViewState()),
+) : BaseViewModel<MainViewState>(MainViewState()),
     SignalREmployeeHub.SignalRListener {
 
     val getDbUser = repository.getDbUserLiveData()

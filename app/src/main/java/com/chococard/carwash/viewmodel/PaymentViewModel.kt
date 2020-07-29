@@ -3,7 +3,7 @@ package com.chococard.carwash.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.response.BaseResponse
-import com.chococard.carwash.repositories.HeaderRepositoryV2
+import com.chococard.carwash.repositories.HeaderRepository
 import kotlinx.coroutines.launch
 
 data class PaymentViewState(
@@ -11,8 +11,8 @@ data class PaymentViewState(
 )
 
 class PaymentViewModel(
-    private val repository: HeaderRepositoryV2
-) : BaseViewModelV2<PaymentViewState>(PaymentViewState()) {
+    private val repository: HeaderRepository
+) : BaseViewModel<PaymentViewState>(PaymentViewState()) {
 
     val getDbJobLiveData = repository.getDbJobLiveData()
 

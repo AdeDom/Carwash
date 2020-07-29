@@ -1,14 +1,14 @@
 package com.chococard.carwash.viewmodel
 
-import com.chococard.carwash.repositories.HeaderRepositoryV2
+import com.chococard.carwash.repositories.HeaderRepository
 
 data class AddWalletViewState(
     val loading: Boolean = false
 )
 
 class AddWalletViewModel(
-    private val repository: HeaderRepositoryV2
-) : BaseViewModelV2<AddWalletViewState>(AddWalletViewState()) {
+    private val repository: HeaderRepository
+) : BaseViewModel<AddWalletViewState>(AddWalletViewState()) {
 
     val getDbUserLiveData = repository.getDbUserLiveData()
 
