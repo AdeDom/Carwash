@@ -24,9 +24,9 @@ class NavigationViewModel(
     val getJobStatusService: LiveData<BaseResponse>
         get() = jobStatusServiceResponse
 
-    val getDbUser = repository.getDbUserLiveData()
+    val getDbUserLiveData = repository.getDbUserLiveData()
 
-    val getDbJob = repository.getJob()
+    val getDbJobLiveData = repository.getDbJobLiveData()
 
     fun callSetNavigation(setNavigation: SetNavigationRequest) {
         launch {

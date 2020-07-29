@@ -30,7 +30,7 @@ interface HeaderRepositoryV2 {
 
     suspend fun callJobAnswer(jobAnswer: JobAnswerRequest): JobResponse
 
-    fun getJob(): LiveData<Job>
+    fun getDbJobLiveData(): LiveData<Job>
 
     suspend fun callPaymentJob(): BaseResponse
 

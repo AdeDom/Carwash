@@ -77,11 +77,11 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             if (state.loading) progress_bar.show() else progress_bar.hide()
         }
 
-        viewModel.getDbJob.observe { job ->
+        viewModel.getDbJobLiveData.observe { job ->
             mDbJob = job
         }
 
-        viewModel.getDbUser.observe { user ->
+        viewModel.getDbUserLiveData.observe { user ->
             mDbUser = user
         }
 

@@ -22,7 +22,7 @@ class PaymentActivity : BaseActivity() {
         setToolbar(toolbar)
 
         // set widgets
-        viewModel.getDbJob.observe { job ->
+        viewModel.getDbJobLiveData.observe { job ->
             val (_, _, fullName, imageProfile, _, packageName, price, _, _, _, _, _, dateTime) = job
             tv_date_time.text = dateTime
             tv_full_name.text = fullName
@@ -32,11 +32,14 @@ class PaymentActivity : BaseActivity() {
         }
 
         iv_arrow_back.setOnClickListener { onBackPressed() }
-        bt_payment.setOnClickListener { paymentService() }
+        bt_payment.setOnClickListener { viewModel.callPaymentJob() }
 
         //observe
+        viewModel.state.observe { state ->
+            if (state.loading) progress_bar.show() else progress_bar.hide()
+        }
+
         viewModel.getPaymentJob.observe { response ->
-            progress_bar.hide()
             val (success, message) = response
             if (success) {
                 startActivity<MainActivity> {
@@ -47,15 +50,7 @@ class PaymentActivity : BaseActivity() {
             }
         }
 
-        viewModel.getError.observe {
-            progress_bar.hide()
-            dialogError(it)
-        }
-    }
-
-    private fun paymentService() {
-        progress_bar.show()
-        viewModel.callPaymentJob()
+        viewModel.error.observeError()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

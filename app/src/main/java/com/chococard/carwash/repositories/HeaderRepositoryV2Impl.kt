@@ -78,7 +78,7 @@ class HeaderRepositoryV2Impl(
     }
 
     private suspend fun saveJob(job: Job) = db.getJobDao().saveJob(job)
-    override fun getJob() = db.getJobDao().getJob()
+    override fun getDbJobLiveData() = db.getJobDao().getJob()
     private suspend fun deleteJob() = db.getJobDao().deleteJob()
     //job
 
