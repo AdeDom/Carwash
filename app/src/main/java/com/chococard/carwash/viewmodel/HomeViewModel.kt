@@ -1,6 +1,5 @@
 package com.chococard.carwash.viewmodel
 
-import com.chococard.carwash.data.db.entities.User
 import com.chococard.carwash.data.networks.request.SwitchSystemRequest
 import com.chococard.carwash.data.networks.response.HomeScoreResponse
 import com.chococard.carwash.data.sharedpreference.SharedPreference
@@ -9,7 +8,6 @@ import com.chococard.carwash.util.FlagConstant
 import kotlinx.coroutines.launch
 
 data class HomeViewState(
-    val user: User? = User(),
     val homeScore: HomeScoreResponse = HomeScoreResponse(),
     val switchSystem: Int = 0,
     val loading: Boolean = false
@@ -20,10 +18,11 @@ class HomeViewModel(
     private val sharedPreference: SharedPreference
 ) : BaseViewModelV2<HomeViewState>(HomeViewState()) {
 
+    val getDbUserLiveData = repository.getDbUserLiveData()
+
     init {
         launch {
-            val user = repository.getDbUser()
-            setState { copy(switchSystem = sharedPreference.switchFlag, user = user) }
+            setState { copy(switchSystem = sharedPreference.switchFlag) }
         }
     }
 

@@ -18,14 +18,14 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // set widget
+        viewModel.getDbUserLiveData.observe {
+            tv_full_name.text = it.fullName
+            iv_photo.setImageCircle(it.image)
+        }
+
         // observe
         viewModel.state.observe { state ->
-            // user
-            if (state.user != null) {
-                tv_full_name.text = state.user.fullName
-                iv_photo.setImageCircle(state.user.image)
-            }
-
             // progress bar
             if (state.loading) progress_bar.show() else progress_bar.hide()
 
