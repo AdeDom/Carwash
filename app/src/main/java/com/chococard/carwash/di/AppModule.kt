@@ -24,7 +24,7 @@ val appModule = module {
     viewModel { SignInViewModel(get()) }
     viewModel { SignUpViewModel(get(), get()) }
     viewModel { RequestOtpViewModel(get()) }
-    viewModel { SplashScreenViewModel(get(), get()) }
+    viewModel { SplashScreenViewModel(get()) }
 
     //header connection
     single { NetworkHeaderInterceptor(get(), get()) }

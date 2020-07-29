@@ -1,6 +1,8 @@
 package com.chococard.carwash.repositories
 
 import com.chococard.carwash.data.db.AppDatabase
+import com.chococard.carwash.data.db.entities.Job
+import com.chococard.carwash.data.db.entities.User
 import com.chococard.carwash.data.networks.ConnectionAppService
 import com.chococard.carwash.data.networks.request.SignInRequest
 import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
@@ -17,7 +19,9 @@ class ConnectionRepositoryImpl(
     private val sharedPreference: SharedPreference
 ) : ConnectionRepository {
 
-    override suspend fun getDbJob() = db.getJobDao().getDbJob()
+    override suspend fun getDbUser(): User? = db.getUserDao().getDbUser()
+
+    override suspend fun getDbJob(): Job? = db.getJobDao().getDbJob()
 
     override suspend fun callSignUp(
         username: String?,

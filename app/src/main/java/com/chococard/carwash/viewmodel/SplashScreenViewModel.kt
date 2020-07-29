@@ -1,16 +1,32 @@
 package com.chococard.carwash.viewmodel
 
-import androidx.lifecycle.ViewModel
-import com.chococard.carwash.data.sharedpreference.SharedPreference
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.repositories.ConnectionRepository
+import kotlinx.coroutines.launch
+
+object SplashScreenViewState
+
+enum class RootNavigation {
+    AUTHENTICATION, MAIN, HAS_JOB
+}
 
 class SplashScreenViewModel(
-    private val repository: ConnectionRepository,
-    private val sharedPreference: SharedPreference
-) : ViewModel() {
+    private val repository: ConnectionRepository
+) : BaseViewModelV2<SplashScreenViewState>(SplashScreenViewState) {
 
-    suspend fun getDbJob() = repository.getDbJob()
+    private val _rootNavigation = MutableLiveData<RootNavigation>()
+    val rootNavigation: LiveData<RootNavigation>
+        get() = _rootNavigation
 
-    fun getSharedPreference() = sharedPreference.accessToken
+    fun initialize() {
+        launch {
+            _rootNavigation.value = when {
+                repository.getDbJob() != null -> RootNavigation.HAS_JOB
+                repository.getDbUser() != null -> RootNavigation.MAIN
+                else -> RootNavigation.AUTHENTICATION
+            }
+        }
+    }
 
 }
