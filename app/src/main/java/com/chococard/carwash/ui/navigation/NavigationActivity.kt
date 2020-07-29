@@ -59,7 +59,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
 
         fab_arrive.setOnClickListener {
             setFabMenuVisibility()
-            arriveService()
+            viewModel.callJobStatusService()
         }
 
         fab_service_info.setOnClickListener {
@@ -73,6 +73,10 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         }
 
         // observe
+        viewModel.state.observe { state ->
+            if (state.loading) progress_bar.show() else progress_bar.hide()
+        }
+
         viewModel.getDbJob.observe { job ->
             mDbJob = job
         }
@@ -94,15 +98,11 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         }
 
         viewModel.getJobStatusService.observe { response ->
-            progress_bar.hide()
             val (success, message) = response
             if (success) startActivity<ServiceActivity>() else root_layout.snackbar(message)
         }
 
-        viewModel.getError.observe {
-            progress_bar.hide()
-            dialogError(it)
-        }
+        viewModel.error.observeError()
     }
 
     private fun setFabMenuVisibility() {
@@ -123,11 +123,6 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             startAnimationFabOpen(layout_service_info)
             startAnimationFabOpen(layout_call)
         }
-    }
-
-    private fun arriveService() {
-        progress_bar.show()
-        viewModel.callJobStatusService()
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {

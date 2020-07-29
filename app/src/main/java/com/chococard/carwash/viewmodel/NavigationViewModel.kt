@@ -5,9 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.request.SetNavigationRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.NavigationResponse
-import com.chococard.carwash.repositories.HeaderRepository
+import com.chococard.carwash.repositories.HeaderRepositoryV2
+import kotlinx.coroutines.launch
 
-class NavigationViewModel(private val repository: HeaderRepository) : BaseViewModel() {
+data class NavigationViewState(
+    val loading: Boolean = false
+)
+
+class NavigationViewModel(
+    private val repository: HeaderRepositoryV2
+) : BaseViewModelV2<NavigationViewState>(NavigationViewState()) {
 
     private val navigationResponse = MutableLiveData<NavigationResponse>()
     val getNavigation: LiveData<NavigationResponse>
@@ -17,18 +24,36 @@ class NavigationViewModel(private val repository: HeaderRepository) : BaseViewMo
     val getJobStatusService: LiveData<BaseResponse>
         get() = jobStatusServiceResponse
 
-    val getDbUser = repository.getUser()
+    val getDbUser = repository.getDbUserLiveData()
 
     val getDbJob = repository.getJob()
 
-    fun callSetNavigation(setNavigation: SetNavigationRequest) = launchCallApi(
-        request = { repository.callSetNavigation(setNavigation) },
-        response = { navigationResponse.value = it }
-    )
+    fun callSetNavigation(setNavigation: SetNavigationRequest) {
+        launch {
+            try {
+                setState { copy(loading = true) }
+                val response = repository.callSetNavigation(setNavigation)
+                navigationResponse.value = response
+                setState { copy(loading = false) }
+            } catch (e: Throwable) {
+                setState { copy(loading = false) }
+                setError(e)
+            }
+        }
+    }
 
-    fun callJobStatusService() = launchCallApi(
-        request = { repository.callJobStatusService() },
-        response = { jobStatusServiceResponse.value = it }
-    )
+    fun callJobStatusService() {
+        launch {
+            try {
+                setState { copy(loading = true) }
+                val response = repository.callJobStatusService()
+                jobStatusServiceResponse.value = response
+                setState { copy(loading = false) }
+            } catch (e: Throwable) {
+                setState { copy(loading = false) }
+                setError(e)
+            }
+        }
+    }
 
 }
