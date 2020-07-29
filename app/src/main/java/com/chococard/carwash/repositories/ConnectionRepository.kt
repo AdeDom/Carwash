@@ -6,6 +6,7 @@ import com.chococard.carwash.data.networks.request.SignInRequest
 import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.SignInResponse
+import com.chococard.carwash.data.networks.response.ValidatePhoneResponse
 import okhttp3.MultipartBody
 
 interface ConnectionRepository {
@@ -25,6 +26,6 @@ interface ConnectionRepository {
 
     suspend fun callSignIn(signIn: SignInRequest): SignInResponse
 
-    suspend fun callValidatePhone(validatePhone: ValidatePhoneRequest): BaseResponse
+    suspend fun callValidatePhone(validatePhone: ValidatePhoneRequest): ValidatePhoneResponse
 
 }

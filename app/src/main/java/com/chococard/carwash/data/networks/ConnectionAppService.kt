@@ -1,9 +1,10 @@
 package com.chococard.carwash.data.networks
 
-import com.chococard.carwash.data.networks.response.SignInResponse
 import com.chococard.carwash.data.networks.request.SignInRequest
 import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
+import com.chococard.carwash.data.networks.response.SignInResponse
+import com.chococard.carwash.data.networks.response.ValidatePhoneResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -32,7 +33,7 @@ interface ConnectionAppService {
 
     //verify phone before authentication firebase
     @POST("api/account/checkphone")
-    suspend fun callValidatePhone(@Body validatePhone: ValidatePhoneRequest): BaseResponse
+    suspend fun callValidatePhone(@Body validatePhone: ValidatePhoneRequest): ValidatePhoneResponse
 
     companion object {
         operator fun invoke(networkConnectionInterceptor: NetworkConnectionInterceptor): ConnectionAppService {

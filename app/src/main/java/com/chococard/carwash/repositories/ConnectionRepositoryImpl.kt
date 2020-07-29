@@ -8,6 +8,7 @@ import com.chococard.carwash.data.networks.request.SignInRequest
 import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.SignInResponse
+import com.chococard.carwash.data.networks.response.ValidatePhoneResponse
 import com.chococard.carwash.data.sharedpreference.SharedPreference
 import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.toRequestBody
@@ -54,7 +55,7 @@ class ConnectionRepositoryImpl(
         return response
     }
 
-    override suspend fun callValidatePhone(validatePhone: ValidatePhoneRequest): BaseResponse {
+    override suspend fun callValidatePhone(validatePhone: ValidatePhoneRequest): ValidatePhoneResponse {
         return api.callValidatePhone(validatePhone)
     }
 

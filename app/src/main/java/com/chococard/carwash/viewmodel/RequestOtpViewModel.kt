@@ -3,7 +3,7 @@ package com.chococard.carwash.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
-import com.chococard.carwash.data.networks.response.BaseResponse
+import com.chococard.carwash.data.networks.response.ValidatePhoneResponse
 import com.chococard.carwash.repositories.ConnectionRepository
 import com.chococard.carwash.util.extension.isVerifyPhone
 import kotlinx.coroutines.launch
@@ -25,8 +25,8 @@ class RequestOtpViewModel(
     private val repository: ConnectionRepository
 ) : BaseViewModel<RequestOtpViewState>(RequestOtpViewState()) {
 
-    private val validatePhoneResponse = MutableLiveData<BaseResponse>()
-    val getValidatePhone: LiveData<BaseResponse>
+    private val validatePhoneResponse = MutableLiveData<ValidatePhoneResponse>()
+    val getValidatePhone: LiveData<ValidatePhoneResponse>
         get() = validatePhoneResponse
 
     private val _onValidatePhone = MutableLiveData<ValidatePhoneNumber>()

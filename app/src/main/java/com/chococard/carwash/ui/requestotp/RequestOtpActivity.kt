@@ -32,9 +32,8 @@ class RequestOtpActivity : BaseActivity() {
         }
 
         viewModel.getValidatePhone.observe { response ->
-            val (success, message) = response
+            val (success, message, phoneNumber) = response
             if (success) {
-                val phoneNumber = et_phone.getContents()
                 startActivity<OtpSignUpActivity> { intent ->
                     intent.putExtra(CommonsConstant.PHONE, phoneNumber)
                     finish()
