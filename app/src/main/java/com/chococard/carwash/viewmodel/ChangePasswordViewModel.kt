@@ -4,9 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.request.ChangePasswordRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
-import com.chococard.carwash.repositories.HeaderRepository
+import com.chococard.carwash.repositories.HeaderRepositoryV2
+import kotlinx.coroutines.launch
 
-class ChangePasswordViewModel(private val repository: HeaderRepository) : BaseViewModel() {
+data class ChangePasswordViewState(
+    val loading: Boolean = false
+)
+
+class ChangePasswordViewModel(
+    private val repository: HeaderRepositoryV2
+) : BaseViewModelV2<ChangePasswordViewState>(ChangePasswordViewState()) {
 
     private val changePasswordResponse = MutableLiveData<BaseResponse>()
     val getChangePassword: LiveData<BaseResponse>
@@ -41,19 +48,35 @@ class ChangePasswordViewModel(private val repository: HeaderRepository) : BaseVi
             newPassword != rePassword ->
                 _errorMessage.value = "Please enter the password to match"
             else -> {
-                val changePassword = ChangePasswordRequest(oldPassword, newPassword)
-                launchCallApi(
-                    request = { repository.callChangePassword(changePassword) },
-                    response = { changePasswordResponse.value = it }
-                )
+                launch {
+                    try {
+                        setState { copy(loading = true) }
+                        val request = ChangePasswordRequest(oldPassword, newPassword)
+                        val response = repository.callChangePassword(request)
+                        changePasswordResponse.value = response
+                        setState { copy(loading = false) }
+                    } catch (e: Throwable) {
+                        setState { copy(loading = false) }
+                        setError(e)
+                    }
+                }
             }
         }
     }
 
-    fun callLogout() = launchCallApi(
-        request = { repository.callLogout() },
-        response = { logoutResponse.value = it }
-    )
+    fun callLogout() {
+        launch {
+            try {
+                setState { copy(loading = true) }
+                val response = repository.callLogout()
+                logoutResponse.value = response
+                setState { copy(loading = false) }
+            } catch (e: Throwable) {
+                setState { copy(loading = false) }
+                setError(e)
+            }
+        }
+    }
 
     fun setValueValidateChangePassword(oldPassword: String, newPassword: String, rePassword: String) {
         when {

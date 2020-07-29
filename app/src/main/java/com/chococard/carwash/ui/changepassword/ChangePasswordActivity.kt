@@ -73,9 +73,12 @@ class ChangePasswordActivity : BaseActivity() {
         }
 
         //observe
+        viewModel.state.observe { state ->
+            if (state.loading) progress_bar.show() else progress_bar.hide()
+        }
+
         viewModel.getChangePassword.observe { response ->
             val (success, message) = response
-            progress_bar.hide()
             root_layout.snackbar(message)
             if (success) {
                 startActivity<SplashScreenActivity> {
@@ -85,7 +88,6 @@ class ChangePasswordActivity : BaseActivity() {
         }
 
         viewModel.getLogout.observe { response ->
-            progress_bar.hide()
             val (success, message) = response
             if (success) {
                 startActivity<SplashScreenActivity> {
@@ -97,7 +99,6 @@ class ChangePasswordActivity : BaseActivity() {
         }
 
         viewModel.errorMessage.observe {
-            progress_bar.hide()
             root_layout.snackbar(it)
         }
 
@@ -105,10 +106,7 @@ class ChangePasswordActivity : BaseActivity() {
             if (it) bt_confirm.ready() else bt_confirm.unready()
         }
 
-        viewModel.getError.observe {
-            progress_bar.hide()
-            dialogError(it)
-        }
+        viewModel.error.observeError()
     }
 
     private fun validateChangePassword() = viewModel.setValueValidateChangePassword(
@@ -118,7 +116,6 @@ class ChangePasswordActivity : BaseActivity() {
     )
 
     private fun callChangePassword() {
-        progress_bar.show()
         val oldPassword = et_old_password.getContents()
         val newPassword = et_new_password.getContents()
         val rePassword = et_re_password.getContents()
@@ -129,10 +126,7 @@ class ChangePasswordActivity : BaseActivity() {
         when (item.itemId) {
             R.id.option_change_profile -> startActivity<ChangeProfileActivity> { finish() }
             R.id.option_contact_admin -> dialogContactAdmin { startActivityActionDial() }
-            R.id.option_logout -> dialogLogout {
-                progress_bar.show()
-                viewModel.callLogout()
-            }
+            R.id.option_logout -> dialogLogout { viewModel.callLogout() }
         }
         return super.onOptionsItemSelected(item)
     }
