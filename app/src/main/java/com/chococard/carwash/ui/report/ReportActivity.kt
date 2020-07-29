@@ -35,8 +35,11 @@ class ReportActivity : BaseActivity() {
         bt_report.setOnClickListener { reportJob() }
 
         // observe
+        viewModel.state.observe { state ->
+            if (state.loading) progress_bar.show() else progress_bar.hide()
+        }
+
         viewModel.getReportJob.observe { response ->
-            progress_bar.hide()
             val (success, message) = response
             if (success) {
                 startActivity<MainActivity> {
@@ -47,10 +50,7 @@ class ReportActivity : BaseActivity() {
             }
         }
 
-        viewModel.getError.observe {
-            progress_bar.hide()
-            dialogError(it)
-        }
+        viewModel.error.observeError()
     }
 
     private fun reportJob() {
@@ -63,7 +63,6 @@ class ReportActivity : BaseActivity() {
             }
         }
 
-        progress_bar.show()
         viewModel.callReportJob(ReportRequest(report))
     }
 

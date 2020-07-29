@@ -4,17 +4,33 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.chococard.carwash.data.networks.request.ReportRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
-import com.chococard.carwash.repositories.HeaderRepository
+import com.chococard.carwash.repositories.HeaderRepositoryV2
+import kotlinx.coroutines.launch
 
-class ReportViewModel(private val repository: HeaderRepository) : BaseViewModel() {
+data class ReportViewState(
+    val loading: Boolean = false
+)
+
+class ReportViewModel(
+    private val repository: HeaderRepositoryV2
+) : BaseViewModelV2<ReportViewState>(ReportViewState()) {
 
     private val reportJobResponse = MutableLiveData<BaseResponse>()
     val getReportJob: LiveData<BaseResponse>
         get() = reportJobResponse
 
-    fun callReportJob(report: ReportRequest) = launchCallApi(
-        request = { repository.callReportJob(report) },
-        response = { reportJobResponse.value = it }
-    )
+    fun callReportJob(report: ReportRequest) {
+        launch {
+            try {
+                setState { copy(loading = true) }
+                val response = repository.callReportJob(report)
+                reportJobResponse.value = response
+                setState { copy(loading = false) }
+            } catch (e: Throwable) {
+                setState { copy(loading = false) }
+                setError(e)
+            }
+        }
+    }
 
 }
