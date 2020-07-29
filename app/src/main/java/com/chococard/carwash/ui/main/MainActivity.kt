@@ -60,15 +60,16 @@ class MainActivity : BaseLocationActivity(),
         }
 
         viewModel.getDbUserInfoLiveData.observe { userInfo ->
+            if (userInfo == null) return@observe
+
+            // Signal R
+            viewModel.initSignalR(userInfo.userId)
+
             // fetch user info & sign in firebase
-            when (FirebaseAuth.getInstance().currentUser) {
-                null -> {
-                    viewModel.initSignalR(userInfo.userId)
-                    startActivity<OtpSignInActivity> { intent ->
-                        intent.putExtra(CommonsConstant.PHONE, userInfo.phone)
-                    }
+            if (FirebaseAuth.getInstance().currentUser == null) {
+                startActivity<OtpSignInActivity> { intent ->
+                    intent.putExtra(CommonsConstant.PHONE, userInfo.phone)
                 }
-                else -> viewModel.initSignalR(userInfo.userId)
             }
         }
 

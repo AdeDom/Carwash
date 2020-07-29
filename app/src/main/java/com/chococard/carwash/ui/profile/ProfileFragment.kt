@@ -15,8 +15,9 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.getDbUserLiveData.observe { user ->
-            val (_, fullName, idCardNumber, phone, _, image) = user
+        viewModel.getDbUserLiveData.observe { userInfo ->
+            if (userInfo == null) return@observe
+            val (_, fullName, idCardNumber, phone, _, image) = userInfo
             tv_full_name.text = fullName
             tv_identity_card.text = idCardNumber
             tv_phone.text = phone

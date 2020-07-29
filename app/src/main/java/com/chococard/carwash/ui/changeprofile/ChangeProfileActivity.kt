@@ -33,13 +33,14 @@ class ChangeProfileActivity : BaseActivity() {
         setToolbar(toolbar)
 
         //set widgets
-        viewModel.getDbUser.observe { user ->
-            val (_, _, _, phone, _, image) = user
+        viewModel.getDbUserInfoLiveData.observe { userInfo ->
+            if (userInfo == null) return@observe
+            val (_, _, _, phone, _, image) = userInfo
             et_phone.setText(phone)
             et_phone.setSelection(et_phone.length())
             iv_photo.setImageCircle(image)
 
-            viewModel.setValueUser(user)
+            viewModel.setValueUser(userInfo)
         }
 
         //set event

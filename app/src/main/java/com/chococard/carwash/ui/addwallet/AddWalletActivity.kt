@@ -26,6 +26,7 @@ class AddWalletActivity : BaseActivity() {
 
         // set widgets
         viewModel.getDbUserLiveData.observe {
+            if (it == null) return@observe
             tv_full_name.text = it.fullName
         }
 

@@ -19,7 +19,7 @@ class ChangeProfileViewModel(
     private val repository: HeaderRepository
 ) : BaseViewModel<ChangeProfileViewState>(ChangeProfileViewState()) {
 
-    val getDbUser = repository.getDbUserInfoLiveData()
+    val getDbUserInfoLiveData = repository.getDbUserInfoLiveData()
 
     private var user: UserInfo? = null
 

@@ -20,6 +20,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         // set widget
         viewModel.getDbUserLiveData.observe {
+            if (it == null) return@observe
             tv_full_name.text = it.fullName
             iv_photo.setImageCircle(it.image)
         }
