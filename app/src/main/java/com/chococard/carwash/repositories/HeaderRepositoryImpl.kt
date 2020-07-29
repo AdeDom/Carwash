@@ -7,6 +7,7 @@ import com.chococard.carwash.data.db.entities.UserInfo
 import com.chococard.carwash.data.networks.HeaderAppService
 import com.chococard.carwash.data.networks.request.*
 import com.chococard.carwash.data.networks.response.BaseResponse
+import com.chococard.carwash.data.networks.response.ChangeImageProfileResponse
 import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.data.sharedpreference.SharedPreference
@@ -32,9 +33,9 @@ class HeaderRepositoryImpl(
     private suspend fun deleteUserInfo() = db.getUserInfoDao().deleteUserInfo()
     // user info
 
-    override suspend fun callChangeImageProfile(file: MultipartBody.Part): BaseResponse {
+    override suspend fun callChangeImageProfile(file: MultipartBody.Part): ChangeImageProfileResponse {
         val response = api.callChangeImageProfile(file)
-        if (response.success) callFetchUserInfo()
+        if (response.success && response.userInfo != null) saveUserInfo(response.userInfo)
         return response
     }
 

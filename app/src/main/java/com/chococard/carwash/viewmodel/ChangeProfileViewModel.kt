@@ -6,6 +6,7 @@ import com.chococard.carwash.data.db.entities.UserInfo
 import com.chococard.carwash.data.networks.request.ChangePhoneRequest
 import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
+import com.chococard.carwash.data.networks.response.ChangeImageProfileResponse
 import com.chococard.carwash.repositories.HeaderRepository
 import com.chococard.carwash.util.extension.isVerifyPhone
 import kotlinx.coroutines.launch
@@ -23,8 +24,8 @@ class ChangeProfileViewModel(
 
     private var user: UserInfo? = null
 
-    private val changeImageProfileResponse = MutableLiveData<BaseResponse>()
-    val getChangeImageProfile: LiveData<BaseResponse>
+    private val changeImageProfileResponse = MutableLiveData<ChangeImageProfileResponse>()
+    val getChangeImageProfile: LiveData<ChangeImageProfileResponse>
         get() = changeImageProfileResponse
 
     private val changePhoneResponse = MutableLiveData<BaseResponse>()

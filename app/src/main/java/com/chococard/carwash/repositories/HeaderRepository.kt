@@ -13,7 +13,7 @@ interface HeaderRepository {
 
     fun getDbUserInfoLiveData(): LiveData<UserInfo>
 
-    suspend fun callChangeImageProfile(file: MultipartBody.Part): BaseResponse
+    suspend fun callChangeImageProfile(file: MultipartBody.Part): ChangeImageProfileResponse
 
     suspend fun callLogout(): BaseResponse
 
