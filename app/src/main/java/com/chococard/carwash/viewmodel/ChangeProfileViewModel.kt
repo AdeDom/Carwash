@@ -6,13 +6,20 @@ import com.chococard.carwash.data.db.entities.User
 import com.chococard.carwash.data.networks.request.ChangePhoneRequest
 import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
-import com.chococard.carwash.repositories.HeaderRepository
+import com.chococard.carwash.repositories.HeaderRepositoryV2
 import com.chococard.carwash.util.extension.isVerifyPhone
+import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 
-class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseViewModel() {
+data class ChangeProfileViewState(
+    val loading: Boolean = false
+)
 
-    val getDbUser = repository.getUser()
+class ChangeProfileViewModel(
+    private val repository: HeaderRepositoryV2
+) : BaseViewModelV2<ChangeProfileViewState>(ChangeProfileViewState()) {
+
+    val getDbUser = repository.getDbUserLiveData()
 
     private var user: User? = null
 
@@ -40,20 +47,47 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun callChangeImageProfile(file: MultipartBody.Part) = launchCallApi(
-        request = { repository.callChangeImageProfile(file) },
-        response = { changeImageProfileResponse.value = it }
-    )
+    fun callChangeImageProfile(file: MultipartBody.Part) {
+        launch {
+            try {
+                setState { copy(loading = true) }
+                val response = repository.callChangeImageProfile(file)
+                changeImageProfileResponse.value = response
+                setState { copy(loading = false) }
+            } catch (e: Throwable) {
+                setState { copy(loading = false) }
+                setError(e)
+            }
+        }
+    }
 
-    fun callChangePhone(changePhone: ChangePhoneRequest) = launchCallApi(
-        request = { repository.callChangePhone(changePhone) },
-        response = { changePhoneResponse.value = it }
-    )
+    fun callChangePhone(changePhone: ChangePhoneRequest) {
+        launch {
+            try {
+                setState { copy(loading = true) }
+                val response = repository.callChangePhone(changePhone)
+                changePhoneResponse.value = response
+                setState { copy(loading = false) }
+            } catch (e: Throwable) {
+                setState { copy(loading = false) }
+                setError(e)
+            }
+        }
+    }
 
-    fun callLogout() = launchCallApi(
-        request = { repository.callLogout() },
-        response = { logoutResponse.value = it }
-    )
+    fun callLogout() {
+        launch {
+            try {
+                setState { copy(loading = true) }
+                val response = repository.callLogout()
+                logoutResponse.value = response
+                setState { copy(loading = false) }
+            } catch (e: Throwable) {
+                setState { copy(loading = false) }
+                setError(e)
+            }
+        }
+    }
 
     fun callValidatePhone(phoneNumber: String) {
         when {
@@ -68,11 +102,18 @@ class ChangeProfileViewModel(private val repository: HeaderRepository) : BaseVie
             phoneNumber.isVerifyPhone() ->
                 _errorMessage.value = "Please enter the correct phone number"
             else -> {
-                val validatePhone = ValidatePhoneRequest(phoneNumber)
-                launchCallApi(
-                    request = { repository.callValidatePhone(validatePhone) },
-                    response = { validatePhoneResponse.value = it }
-                )
+                launch {
+                    try {
+                        setState { copy(loading = true) }
+                        val request = ValidatePhoneRequest(phoneNumber)
+                        val response = repository.callValidatePhone(request)
+                        validatePhoneResponse.value = response
+                        setState { copy(loading = false) }
+                    } catch (e: Throwable) {
+                        setState { copy(loading = false) }
+                        setError(e)
+                    }
+                }
             }
         }
     }

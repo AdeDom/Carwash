@@ -68,20 +68,21 @@ class ChangeProfileActivity : BaseActivity() {
         et_phone.addTextChangedListener { viewModel.setValueValidatePhone(it.toString()) }
 
         //observe
+        viewModel.state.observe { state ->
+            if (state.loading) progress_bar.show() else progress_bar.hide()
+        }
+
         viewModel.getChangeImageProfile.observe { response ->
             val (success, message) = response
-            progress_bar.hide()
             if (!success) root_layout.snackbar(message)
         }
 
         viewModel.getChangePhone.observe { response ->
-            progress_bar.hide()
             val (_, message) = response
             root_layout.snackbar(message)
         }
 
         viewModel.getLogout.observe { response ->
-            progress_bar.hide()
             val (success, message) = response
             if (success) {
                 startActivity<SplashScreenActivity> {
@@ -93,7 +94,6 @@ class ChangeProfileActivity : BaseActivity() {
         }
 
         viewModel.getValidatePhone.observe { response ->
-            progress_bar.hide()
             val (success, message) = response
             if (success) changeProfile() else root_layout.snackbar(message)
         }
@@ -103,14 +103,10 @@ class ChangeProfileActivity : BaseActivity() {
         }
 
         viewModel.errorMessage.observe {
-            progress_bar.hide()
             root_layout.snackbar(it)
         }
 
-        viewModel.getError.observe {
-            progress_bar.hide()
-            dialogError(it)
-        }
+        viewModel.error.observeError()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -119,11 +115,9 @@ class ChangeProfileActivity : BaseActivity() {
             val fileUri = data.data!!
             card_remove_profile.show()
             iv_photo.setImageCircle(fileUri.toString())
-            progress_bar.show()
             val multipartBody = convertToMultipartBody(fileUri)
             viewModel.callChangeImageProfile(multipartBody)
         } else if (requestCode == CommonsConstant.REQUEST_CODE_VERIFY_PHONE && resultCode == Activity.RESULT_OK) {
-            progress_bar.show()
             val phoneNumber = et_phone.getContents()
             val changePhone = ChangePhoneRequest(phoneNumber)
             viewModel.callChangePhone(changePhone)
@@ -131,7 +125,6 @@ class ChangeProfileActivity : BaseActivity() {
     }
 
     private fun callValidatePhone() {
-        progress_bar.show()
         val phoneNumber = et_phone.getContents()
         viewModel.callValidatePhone(phoneNumber)
     }
@@ -148,10 +141,7 @@ class ChangeProfileActivity : BaseActivity() {
         when (item.itemId) {
             R.id.option_change_password -> startActivity<ChangePasswordActivity> { finish() }
             R.id.option_contact_admin -> dialogContactAdmin { startActivityActionDial() }
-            R.id.option_logout -> dialogLogout {
-                progress_bar.show()
-                viewModel.callLogout()
-            }
+            R.id.option_logout -> dialogLogout { viewModel.callLogout() }
         }
         return super.onOptionsItemSelected(item)
     }

@@ -1,5 +1,6 @@
 package com.chococard.carwash.repositories
 
+import androidx.lifecycle.LiveData
 import com.chococard.carwash.data.db.AppDatabase
 import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.db.entities.User
@@ -28,6 +29,7 @@ class HeaderRepositoryV2Impl(
 
     private suspend fun saveUser(user: User) = db.getUserDao().saveUser(user)
     override suspend fun getDbUser(): User? = db.getUserDao().getDbUser()
+    override fun getDbUserLiveData(): LiveData<User> = db.getUserDao().getUser()
     private suspend fun deleteUser() = db.getUserDao().deleteUser()
     // user
 

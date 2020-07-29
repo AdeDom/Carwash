@@ -14,6 +14,8 @@ interface HeaderRepositoryV2 {
 
     suspend fun getDbUser(): User?
 
+    fun getDbUserLiveData(): LiveData<User>
+
     suspend fun callChangeImageProfile(file: MultipartBody.Part): BaseResponse
 
     suspend fun callLogout(): BaseResponse
