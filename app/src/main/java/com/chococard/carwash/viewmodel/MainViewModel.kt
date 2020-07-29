@@ -10,18 +10,22 @@ import com.chococard.carwash.data.networks.response.BaseResponse
 import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.networks.response.UserResponse
 import com.chococard.carwash.data.sharedpreference.SharedPreference
-import com.chococard.carwash.repositories.HeaderRepository
+import com.chococard.carwash.repositories.HeaderRepositoryV2
 import com.chococard.carwash.signalr.SignalREmployeeHub
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+data class MainViewState(
+    val loading: Boolean = false
+)
+
 class MainViewModel(
-    private val repository: HeaderRepository,
+    private val repository: HeaderRepositoryV2,
     private val sharedPreference: SharedPreference
-) : BaseViewModel(),
+) : BaseViewModelV2<MainViewState>(MainViewState()),
     SignalREmployeeHub.SignalRListener {
 
-    val getDbUser = repository.getUser()
+    val getDbUser = repository.getDbUserLiveData()
 
     private val userInfoResponse = MutableLiveData<UserResponse>()
     val getUserInfo: LiveData<UserResponse>
@@ -55,37 +59,89 @@ class MainViewModel(
     val counterExit: LiveData<Int>
         get() = _counterExit
 
-    fun callFetchUserInfo() = launchCallApi(
-        request = { repository.callFetchUserInfo() },
-        response = { userInfoResponse.value = it }
-    )
+    fun callFetchUserInfo() {
+        launch {
+            try {
+                setState { copy(loading = true) }
+                val response = repository.callFetchUserInfo()
+                userInfoResponse.value = response
+                setState { copy(loading = false) }
+            } catch (e: Throwable) {
+                setState { copy(loading = false) }
+                setError(e)
+            }
+        }
+    }
 
-    fun callJobAnswer(jobAnswer: JobAnswerRequest) = launchCallApi(
-        request = { repository.callJobAnswer(jobAnswer) },
-        response = { jobAnswerResponse.value = it }
-    )
+    fun callJobAnswer(jobAnswer: JobAnswerRequest) {
+        launch {
+            try {
+                setState { copy(loading = true) }
+                val response = repository.callJobAnswer(jobAnswer)
+                jobAnswerResponse.value = response
+                setState { copy(loading = false) }
+            } catch (e: Throwable) {
+                setState { copy(loading = false) }
+                setError(e)
+            }
+        }
+    }
 
-    fun callLogsActive(logsActive: LogsActiveRequest) = launchCallApi(
-        request = { repository.callLogsActive(logsActive) },
-        response = { logsActiveResponse.value = it }
-    )
+    fun callLogsActive(logsActive: LogsActiveRequest) {
+        launch {
+            try {
+                setState { copy(loading = true) }
+                val response = repository.callLogsActive(logsActive)
+                logsActiveResponse.value = response
+                setState { copy(loading = false) }
+            } catch (e: Throwable) {
+                setState { copy(loading = false) }
+                setError(e)
+            }
+        }
+    }
 
-    fun callLogout() = launchCallApi(
-        request = { repository.callLogout() },
-        response = { logoutResponse.value = it }
-    )
+    fun callLogout() {
+        launch {
+            try {
+                setState { copy(loading = true) }
+                val response = repository.callLogout()
+                logoutResponse.value = response
+                setState { copy(loading = false) }
+            } catch (e: Throwable) {
+                setState { copy(loading = false) }
+                setError(e)
+            }
+        }
+    }
 
-    fun callSetLocation(setLocation: SetLocationRequest) = launchCallApi(
-        request = { repository.callSetLocation(setLocation) },
-        response = { locationResponse.value = it }
-    )
+    fun callSetLocation(setLocation: SetLocationRequest) {
+        launch {
+            try {
+                setState { copy(loading = true) }
+                val response = repository.callSetLocation(setLocation)
+                locationResponse.value = response
+                setState { copy(loading = false) }
+            } catch (e: Throwable) {
+                setState { copy(loading = false) }
+                setError(e)
+            }
+        }
+    }
 
     fun callSwitchSystem(switchSystem: SwitchSystemRequest) {
         sharedPreference.switchFlag = switchSystem.state ?: 0
-        launchCallApi(
-            request = { repository.callSwitchSystem(switchSystem) },
-            response = { switchSystemResponse.value = it }
-        )
+        launch {
+            try {
+                setState { copy(loading = true) }
+                val response = repository.callSwitchSystem(switchSystem)
+                switchSystemResponse.value = response
+                setState { copy(loading = false) }
+            } catch (e: Throwable) {
+                setState { copy(loading = false) }
+                setError(e)
+            }
+        }
     }
 
     fun setCounterExit() {

@@ -55,6 +55,10 @@ class MainActivity : BaseLocationActivity(),
         viewModel.callLogsActive(LogsActiveRequest(FlagConstant.LOGS_STATUS_ACTIVE))
 
         //observe
+        viewModel.state.observe { state ->
+            if (state.loading) progress_bar.show() else progress_bar.hide()
+        }
+
         viewModel.getDbUser.observe { user ->
             // fetch user info & sign in firebase
             when {
@@ -83,7 +87,6 @@ class MainActivity : BaseLocationActivity(),
         }
 
         viewModel.getJobAnswer.observe { response ->
-            progress_bar.hide()
             val (success, _, _) = response
             if (success) {
                 startActivity<NavigationActivity> {
@@ -93,7 +96,6 @@ class MainActivity : BaseLocationActivity(),
         }
 
         viewModel.getLogout.observe { response ->
-            progress_bar.hide()
             val (success, message) = response
             if (success) {
                 startActivity<SplashScreenActivity> {
@@ -124,10 +126,7 @@ class MainActivity : BaseLocationActivity(),
             if (it > 1) finishAffinity()
         }
 
-        viewModel.getError.observe {
-            progress_bar.hide()
-            dialogError(it)
-        }
+        viewModel.error.observeError()
     }
 
     private fun onHasJobAlert(job: Job?) {
@@ -189,10 +188,7 @@ class MainActivity : BaseLocationActivity(),
             R.id.option_change_profile -> startActivity<ChangeProfileActivity>()
             R.id.option_change_password -> startActivity<ChangePasswordActivity>()
             R.id.option_contact_admin -> dialogContactAdmin { startActivityActionDial() }
-            R.id.option_logout -> dialogLogout {
-                progress_bar.show()
-                viewModel.callLogout()
-            }
+            R.id.option_logout -> dialogLogout { viewModel.callLogout() }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -211,10 +207,7 @@ class MainActivity : BaseLocationActivity(),
         viewModel.callSetLocation(setLocation)
     }
 
-    override fun onFlag(answer: JobAnswerRequest) {
-        progress_bar.show()
-        viewModel.callJobAnswer(answer)
-    }
+    override fun onFlag(answer: JobAnswerRequest) = viewModel.callJobAnswer(answer)
 
     override fun onBackPressed() {
         toast(getString(R.string.finish_affinity))
