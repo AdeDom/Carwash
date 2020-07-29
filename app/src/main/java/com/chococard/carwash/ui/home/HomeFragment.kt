@@ -47,6 +47,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             }
         }
 
+        viewModel.attachFirstTime.observe {
+            if (savedInstanceState == null) viewModel.initialize()
+        }
+
         viewModel.error.observeError()
 
         // set event

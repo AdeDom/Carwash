@@ -20,10 +20,8 @@ class HomeViewModel(
 
     val getDbUserLiveData = repository.getDbUserLiveData()
 
-    init {
-        launch {
-            setState { copy(switchSystem = sharedPreference.switchFlag) }
-        }
+    fun initialize() {
+        setState { copy(switchSystem = sharedPreference.switchFlag) }
     }
 
     fun callSwitchSystem() {
