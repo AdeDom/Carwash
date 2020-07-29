@@ -2,7 +2,7 @@ package com.chococard.carwash.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.chococard.carwash.data.db.entities.User
+import com.chococard.carwash.data.db.entities.UserInfo
 import com.chococard.carwash.data.networks.request.ChangePhoneRequest
 import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
@@ -19,9 +19,9 @@ class ChangeProfileViewModel(
     private val repository: HeaderRepository
 ) : BaseViewModel<ChangeProfileViewState>(ChangeProfileViewState()) {
 
-    val getDbUser = repository.getDbUserLiveData()
+    val getDbUser = repository.getDbUserInfoLiveData()
 
-    private var user: User? = null
+    private var user: UserInfo? = null
 
     private val changeImageProfileResponse = MutableLiveData<BaseResponse>()
     val getChangeImageProfile: LiveData<BaseResponse>
@@ -118,7 +118,7 @@ class ChangeProfileViewModel(
         }
     }
 
-    fun setValueUser(user: User) {
+    fun setValueUser(user: UserInfo) {
         this.user = user
     }
 

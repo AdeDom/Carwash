@@ -61,7 +61,6 @@ class SignUpActivity : BaseActivity() {
 
         viewModel.getSignUp.observe { response ->
             val (success, message) = response
-            progress_bar.hide()
             if (success) {
                 dialogPositive(
                     R.string.contact_admin,

@@ -5,14 +5,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.chococard.carwash.data.db.dao.JobDao
-import com.chococard.carwash.data.db.dao.UserDao
+import com.chococard.carwash.data.db.dao.UserInfoDao
 import com.chococard.carwash.data.db.entities.Job
-import com.chococard.carwash.data.db.entities.User
+import com.chococard.carwash.data.db.entities.UserInfo
 
-@Database(entities = [User::class, Job::class], version = 1)
+@Database(entities = [UserInfo::class, Job::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun getUserDao(): UserDao
+    abstract fun getUserInfoDao(): UserInfoDao
     abstract fun getJobDao(): JobDao
 
     companion object {

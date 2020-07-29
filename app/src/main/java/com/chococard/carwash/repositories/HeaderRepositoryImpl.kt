@@ -3,7 +3,7 @@ package com.chococard.carwash.repositories
 import androidx.lifecycle.LiveData
 import com.chococard.carwash.data.db.AppDatabase
 import com.chococard.carwash.data.db.entities.Job
-import com.chococard.carwash.data.db.entities.User
+import com.chococard.carwash.data.db.entities.UserInfo
 import com.chococard.carwash.data.networks.HeaderAppService
 import com.chococard.carwash.data.networks.request.*
 import com.chococard.carwash.data.networks.response.BaseResponse
@@ -20,17 +20,17 @@ class HeaderRepositoryImpl(
     private val sharedPreference: SharedPreference
 ) : HeaderRepository {
 
-    // user
+    // user info
     override suspend fun callFetchUserInfo(): UserResponse {
         val response = api.callFetchUserInfo()
-        if (response.success && response.user != null) saveUser(response.user)
+        if (response.success && response.user != null) saveUserInfo(response.user)
         return response
     }
 
-    private suspend fun saveUser(user: User) = db.getUserDao().saveUser(user)
-    override suspend fun getDbUser(): User? = db.getUserDao().getDbUser()
-    override fun getDbUserLiveData(): LiveData<User> = db.getUserDao().getUser()
-    private suspend fun deleteUser() = db.getUserDao().deleteUser()
+    private suspend fun saveUserInfo(userInfo: UserInfo) = db.getUserInfoDao().saveUserInfo(userInfo)
+    override suspend fun getDbUserInfo(): UserInfo? = db.getUserInfoDao().getDbUserInfo()
+    override fun getDbUserInfoLiveData(): LiveData<UserInfo> = db.getUserInfoDao().getDbUserInfoLiveData()
+    private suspend fun deleteUserInfo() = db.getUserInfoDao().deleteUserInfo()
     // user
 
     override suspend fun callChangeImageProfile(file: MultipartBody.Part): BaseResponse {
@@ -58,7 +58,7 @@ class HeaderRepositoryImpl(
     }
 
     private suspend fun clearUserAndToken() {
-        deleteUser()
+        deleteUserInfo()
         FirebaseAuth.getInstance().signOut()
         sharedPreference.accessToken = ""
         sharedPreference.refreshToken = ""

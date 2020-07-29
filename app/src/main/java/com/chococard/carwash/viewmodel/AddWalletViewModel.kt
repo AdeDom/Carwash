@@ -10,6 +10,6 @@ class AddWalletViewModel(
     private val repository: HeaderRepository
 ) : BaseViewModel<AddWalletViewState>(AddWalletViewState()) {
 
-    val getDbUserLiveData = repository.getDbUserLiveData()
+    val getDbUserLiveData = repository.getDbUserInfoLiveData()
 
 }

@@ -27,6 +27,7 @@ object ApiConstant {
     const val JOB = "Job"
     const val HISTORIES = "Histories"
     const val TOKEN = "Token"
+    const val ACCESS_TOKEN = "AccessToken"
     const val REFRESH_TOKEN = "RefreshToken"
     const val USER_INFO = "UserInfo"
     const val COMMENT = "Comment"

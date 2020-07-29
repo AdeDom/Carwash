@@ -2,7 +2,7 @@ package com.chococard.carwash.data.db
 
 object DatabaseConstant {
 
-    const val USER = "user"
+    const val USER_INFO = "user_info"
     const val JOB = "job"
 
     const val USER_ID = "user_id"

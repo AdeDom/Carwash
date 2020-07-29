@@ -2,7 +2,7 @@ package com.chococard.carwash.repositories
 
 import androidx.lifecycle.LiveData
 import com.chococard.carwash.data.db.entities.Job
-import com.chococard.carwash.data.db.entities.User
+import com.chococard.carwash.data.db.entities.UserInfo
 import com.chococard.carwash.data.networks.request.*
 import com.chococard.carwash.data.networks.response.*
 import okhttp3.MultipartBody
@@ -11,9 +11,9 @@ interface HeaderRepository {
 
     suspend fun callFetchUserInfo(): UserResponse
 
-    suspend fun getDbUser(): User?
+    suspend fun getDbUserInfo(): UserInfo?
 
-    fun getDbUserLiveData(): LiveData<User>
+    fun getDbUserInfoLiveData(): LiveData<UserInfo>
 
     suspend fun callChangeImageProfile(file: MultipartBody.Part): BaseResponse
 

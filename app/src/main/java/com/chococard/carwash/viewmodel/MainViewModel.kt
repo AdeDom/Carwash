@@ -25,7 +25,7 @@ class MainViewModel(
 ) : BaseViewModel<MainViewState>(MainViewState()),
     SignalREmployeeHub.SignalRListener {
 
-    val getDbUser = repository.getDbUserLiveData()
+    val getDbUser = repository.getDbUserInfoLiveData()
 
     private val userInfoResponse = MutableLiveData<UserResponse>()
     val getUserInfo: LiveData<UserResponse>

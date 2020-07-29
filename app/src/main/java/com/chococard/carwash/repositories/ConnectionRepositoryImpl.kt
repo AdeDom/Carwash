@@ -2,7 +2,7 @@ package com.chococard.carwash.repositories
 
 import com.chococard.carwash.data.db.AppDatabase
 import com.chococard.carwash.data.db.entities.Job
-import com.chococard.carwash.data.db.entities.User
+import com.chococard.carwash.data.db.entities.UserInfo
 import com.chococard.carwash.data.networks.ConnectionAppService
 import com.chococard.carwash.data.networks.request.SignInRequest
 import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
@@ -19,7 +19,9 @@ class ConnectionRepositoryImpl(
     private val sharedPreference: SharedPreference
 ) : ConnectionRepository {
 
-    override suspend fun getDbUser(): User? = db.getUserDao().getDbUser()
+    override suspend fun getDbUserInfo(): UserInfo? = db.getUserInfoDao().getDbUserInfo()
+    private suspend fun saveUserInfo(userInfo: UserInfo) =
+        db.getUserInfoDao().saveUserInfo(userInfo)
 
     override suspend fun getDbJob(): Job? = db.getJobDao().getDbJob()
 
@@ -45,8 +47,9 @@ class ConnectionRepositoryImpl(
     override suspend fun callSignIn(signIn: SignInRequest): SignInResponse {
         val response = api.callSignIn(signIn)
         if (response.success) {
-            sharedPreference.accessToken = response.token.orEmpty()
-            sharedPreference.refreshToken = response.refreshToken.orEmpty()
+            sharedPreference.accessToken = response.token?.accessToken.orEmpty()
+            sharedPreference.refreshToken = response.token?.refreshToken.orEmpty()
+            response.userInfo?.let { saveUserInfo(it) }
         }
         return response
     }

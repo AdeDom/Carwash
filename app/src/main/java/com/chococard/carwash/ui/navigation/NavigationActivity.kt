@@ -8,7 +8,7 @@ import android.view.WindowManager
 import androidx.core.app.ActivityCompat
 import com.chococard.carwash.R
 import com.chococard.carwash.data.db.entities.Job
-import com.chococard.carwash.data.db.entities.User
+import com.chococard.carwash.data.db.entities.UserInfo
 import com.chococard.carwash.data.networks.request.SetNavigationRequest
 import com.chococard.carwash.ui.base.BaseLocationActivity
 import com.chococard.carwash.ui.report.ReportActivity
@@ -37,7 +37,7 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
     private var mIsFlagMoveCamera: Boolean = true
     private var mMarkerMyLocation: Marker? = null
     private var mMarkerCustomer: Marker? = null
-    private var mDbUser: User? = null
+    private var mDbUser: UserInfo? = null
     private var mDbJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

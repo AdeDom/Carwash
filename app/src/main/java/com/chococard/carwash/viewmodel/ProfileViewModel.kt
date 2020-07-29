@@ -10,6 +10,6 @@ class ProfileViewModel(
     private val repository: HeaderRepository
 ) : BaseViewModel<ProfileViewState>(ProfileViewState()) {
 
-    val getDbUserLiveData = repository.getDbUserLiveData()
+    val getDbUserLiveData = repository.getDbUserInfoLiveData()
 
 }

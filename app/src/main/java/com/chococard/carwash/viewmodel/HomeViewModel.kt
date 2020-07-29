@@ -18,7 +18,7 @@ class HomeViewModel(
     private val sharedPreference: SharedPreference
 ) : BaseViewModel<HomeViewState>(HomeViewState()) {
 
-    val getDbUserLiveData = repository.getDbUserLiveData()
+    val getDbUserLiveData = repository.getDbUserInfoLiveData()
 
     fun initialize() {
         setState { copy(switchSystem = sharedPreference.switchFlag) }

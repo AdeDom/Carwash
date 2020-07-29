@@ -1,7 +1,7 @@
 package com.chococard.carwash.repositories
 
 import com.chococard.carwash.data.db.entities.Job
-import com.chococard.carwash.data.db.entities.User
+import com.chococard.carwash.data.db.entities.UserInfo
 import com.chococard.carwash.data.networks.request.SignInRequest
 import com.chococard.carwash.data.networks.request.ValidatePhoneRequest
 import com.chococard.carwash.data.networks.response.BaseResponse
@@ -10,7 +10,7 @@ import okhttp3.MultipartBody
 
 interface ConnectionRepository {
 
-    suspend fun getDbUser(): User?
+    suspend fun getDbUserInfo(): UserInfo?
 
     suspend fun getDbJob(): Job?
 

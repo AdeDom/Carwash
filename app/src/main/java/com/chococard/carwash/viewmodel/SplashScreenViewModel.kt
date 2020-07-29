@@ -23,7 +23,7 @@ class SplashScreenViewModel(
         launch {
             _rootNavigation.value = when {
                 repository.getDbJob() != null -> RootNavigation.HAS_JOB
-                repository.getDbUser() != null -> RootNavigation.MAIN
+                repository.getDbUserInfo() != null -> RootNavigation.MAIN
                 else -> RootNavigation.AUTHENTICATION
             }
         }

@@ -7,8 +7,8 @@ import com.chococard.carwash.data.db.DatabaseConstant
 import com.chococard.carwash.data.networks.ApiConstant
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = DatabaseConstant.USER)
-data class User(
+@Entity(tableName = DatabaseConstant.USER_INFO)
+data class UserInfo(
     @PrimaryKey(autoGenerate = false)
     @SerializedName(ApiConstant.USER_ID) @ColumnInfo(name = DatabaseConstant.USER_ID) val userId: Int = 0,
     @SerializedName(ApiConstant.FULL_NAME) @ColumnInfo(name = DatabaseConstant.FULL_NAME) val fullName: String? = null,
