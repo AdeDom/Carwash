@@ -2,11 +2,17 @@ package com.chococard.carwash.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.chococard.carwash.repositories.HeaderRepository
+import com.chococard.carwash.repositories.HeaderRepositoryV2
 
-class ServiceInfoViewModel(private val repository: HeaderRepository) : BaseViewModel() {
+data class ServiceViewState(
+    val loading: Boolean = false
+)
 
-    val getDbJob = repository.getJob()
+class ServiceInfoViewModel(
+    private val repository: HeaderRepositoryV2
+) : BaseViewModelV2<ServiceViewState>(ServiceViewState()) {
+
+    val getDbJobLiveData = repository.getDbJobLiveData()
 
     private val serviceNavigation = MutableLiveData<Pair<Double, Double>>()
     val getServiceNavigation: LiveData<Pair<Double, Double>>

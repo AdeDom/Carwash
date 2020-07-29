@@ -27,7 +27,7 @@ class ServiceInfoActivity : BaseLocationActivity() {
         iv_arrow_back.setOnClickListener { onBackPressed() }
 
         // observe
-        viewModel.getDbJob.observe { job ->
+        viewModel.getDbJobLiveData.observe { job ->
             // set widget
             val (_, _, fullName, imageProfile, phone, packageName, price, vehicleRegistration, latitude, longitude, location, _, dateTime) = job
             tv_date_time.text = dateTime
@@ -57,10 +57,6 @@ class ServiceInfoActivity : BaseLocationActivity() {
                     endLongitude = mLatLngCustomer?.second
                 )
             }
-        }
-
-        viewModel.getError.observe {
-            dialogError(it)
         }
     }
 
