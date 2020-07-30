@@ -2,7 +2,6 @@ package com.chococard.carwash.viewmodel
 
 import com.chococard.carwash.data.models.ServiceImage
 import com.chococard.carwash.data.networks.request.DeleteImageServiceRequest
-import com.chococard.carwash.data.networks.response.ServiceImageResponse
 import com.chococard.carwash.repositories.HeaderRepository
 import com.chococard.carwash.util.FlagConstant
 import kotlinx.coroutines.launch
@@ -96,12 +95,10 @@ class ServiceViewModel(
                 setState {
                     copy(
                         loading = false,
-                        serviceImage = response.serviceImage,
-                        imageId = response.imageId ?: 0,
-                        countOtherImage = response.serviceImage?.otherImageService?.size ?: 0,
-                        isValidMaximumOtherImage = (response.serviceImage?.otherImageService?.size ?: 0) < 5
+                        imageId = response.imageId ?: 0
                     )
                 }
+                setServiceImageOnResponse(response.serviceImage)
             } catch (e: Throwable) {
                 setState { copy(loading = false) }
                 setError(e)
@@ -149,7 +146,15 @@ class ServiceViewModel(
             copy(
                 serviceImage = serviceImage,
                 countOtherImage = serviceImage?.otherImageService?.size ?: 0,
-                isValidMaximumOtherImage = (serviceImage?.otherImageService?.size ?: 0) < 5
+                isValidMaximumOtherImage = (serviceImage?.otherImageService?.size ?: 0) < 5,
+                isConfirmService = serviceImage?.frontBefore.orEmpty().isNotBlank() &&
+                        serviceImage?.backBefore.orEmpty().isNotBlank() &&
+                        serviceImage?.leftBefore.orEmpty().isNotBlank() &&
+                        serviceImage?.rightBefore.orEmpty().isNotBlank() &&
+                        serviceImage?.frontAfter.orEmpty().isNotBlank() &&
+                        serviceImage?.backAfter.orEmpty().isNotBlank() &&
+                        serviceImage?.leftAfter.orEmpty().isNotBlank() &&
+                        serviceImage?.rightAfter.orEmpty().isNotBlank()
             )
         }
     }

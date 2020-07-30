@@ -23,7 +23,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ServiceActivity : BaseActivity() {
 
     val viewModel by viewModel<ServiceViewModel>()
-    private val mListImageService = ArrayList<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,12 +80,7 @@ class ServiceActivity : BaseActivity() {
 
         iv_add_other_image.setOnClickListener { selectImage(CommonsConstant.REQUEST_CODE_IMAGE_OTHER_IMAGE) }
 
-        bt_service.setOnClickListener {
-            if (mListImageService.size == 8)
-                startActivity<PaymentActivity>()
-            else
-                dialogError(getString(R.string.error_empty_image))
-        }
+        bt_service.setOnClickListener { startActivity<PaymentActivity>() }
 
         // observe
         viewModel.state.observe { state ->
@@ -114,6 +108,9 @@ class ServiceActivity : BaseActivity() {
                 card_add_other_image.hide()
                 tv_maximum_other_image.show()
             }
+
+            // button service
+            if (state.isConfirmService) bt_service.ready() else bt_service.unready()
         }
 
         viewModel.attachFirstTime.observe {
@@ -200,7 +197,6 @@ class ServiceActivity : BaseActivity() {
 
     private fun setImageJobService(serviceImage: ServiceImage) {
         val (frontBefore, backBefore, leftBefore, rightBefore, frontAfter, backAfter, leftAfter, rightAfter, _) = serviceImage
-        mListImageService.clear()
 
         setImageView(
             frontBefore,
@@ -259,7 +255,6 @@ class ServiceActivity : BaseActivity() {
         cardRemove: CardView
     ) {
         if (url != null) {
-            mListImageService.add(1)
             ivCamera.hide()
             ivImage.setImageFromInternet(url)
             cardRemove.show()
