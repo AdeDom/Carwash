@@ -6,7 +6,10 @@ import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.db.entities.UserInfo
 import com.chococard.carwash.data.networks.HeaderAppService
 import com.chococard.carwash.data.networks.request.*
-import com.chococard.carwash.data.networks.response.*
+import com.chococard.carwash.data.networks.response.BaseResponse
+import com.chococard.carwash.data.networks.response.ChangeImageProfileResponse
+import com.chococard.carwash.data.networks.response.ChangePhoneNumberResponse
+import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.sharedpreference.SharedPreference
 import com.chococard.carwash.util.extension.toRequestBody
 import com.google.firebase.auth.FirebaseAuth
@@ -104,8 +107,9 @@ class HeaderRepositoryImpl(
 
     override suspend fun callUploadImageService(
         file: MultipartBody.Part,
-        statusService: Int
-    ) = api.callUploadImageService(file, statusService.toRequestBody())
+        statusService: Int,
+        imageId: Int
+    ) = api.callUploadImageService(file, statusService.toRequestBody(), imageId.toRequestBody())
 
     override suspend fun callFetchImageService() = api.callFetchImageService()
 

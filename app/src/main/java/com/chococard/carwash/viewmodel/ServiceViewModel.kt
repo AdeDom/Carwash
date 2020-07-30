@@ -1,7 +1,6 @@
 package com.chococard.carwash.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import com.chococard.carwash.data.models.ServiceImage
 import com.chococard.carwash.data.networks.request.DeleteImageServiceRequest
 import com.chococard.carwash.data.networks.response.ServiceImageResponse
 import com.chococard.carwash.repositories.HeaderRepository
@@ -10,6 +9,11 @@ import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 
 data class ServiceViewState(
+    val serviceImage: ServiceImage? = ServiceImage(),
+    val imageId: Int = 0,
+    val countOtherImage: Int = 0,
+    val isValidMaximumOtherImage: Boolean = false,
+    val isConfirmService: Boolean = false,
     val loading: Boolean = false,
     val loadingFrontBefore: Boolean = false,
     val loadingBackBefore: Boolean = false,
@@ -26,26 +30,6 @@ class ServiceViewModel(
     private val repository: HeaderRepository
 ) : BaseViewModel<ServiceViewState>(ServiceViewState()) {
 
-    private val uploadImageServiceResponse = MutableLiveData<ServiceImageResponse>()
-    val getUploadImageService: LiveData<ServiceImageResponse>
-        get() = uploadImageServiceResponse
-
-    private val imageServiceResponse = MutableLiveData<ServiceImageResponse>()
-    val getImageService: LiveData<ServiceImageResponse>
-        get() = imageServiceResponse
-
-    private val deleteServiceImageResponse = MutableLiveData<ServiceImageResponse>()
-    val getDeleteServiceImage: LiveData<ServiceImageResponse>
-        get() = deleteServiceImageResponse
-
-    private val deleteServiceOtherImageResponse = MutableLiveData<ServiceImageResponse>()
-    val getDeleteServiceOtherImage: LiveData<ServiceImageResponse>
-        get() = deleteServiceOtherImageResponse
-
-    private val validateMaximumOtherImage = MutableLiveData<Int>()
-    val getValidateMaximumOtherImage: LiveData<Int>
-        get() = validateMaximumOtherImage
-
     fun callUploadImageService(
         file: MultipartBody.Part,
         statusService: Int
@@ -53,8 +37,18 @@ class ServiceViewModel(
         launch {
             try {
                 showProgressBar(statusService)
-                val response = repository.callUploadImageService(file, statusService)
-                uploadImageServiceResponse.value = response
+                setState {
+                    copy(
+                        countOtherImage = (state.value?.countOtherImage ?: 0).plus(1),
+                        isValidMaximumOtherImage = (state.value?.countOtherImage ?: 0) < 5
+                    )
+                }
+                val response = repository.callUploadImageService(
+                    file,
+                    statusService,
+                    state.value?.imageId ?: 0
+                )
+                setServiceImageOnResponse(response.serviceImage)
                 hideProgressBar()
             } catch (e: Throwable) {
                 hideProgressBar()
@@ -99,11 +93,15 @@ class ServiceViewModel(
             try {
                 setState { copy(loading = true) }
                 val response = repository.callFetchImageService()
-                setValueValidateMaximumOtherImage(
-                    response.serviceImage?.otherImageService?.size ?: 0
-                )
-                imageServiceResponse.value = response
-                setState { copy(loading = false) }
+                setState {
+                    copy(
+                        loading = false,
+                        serviceImage = response.serviceImage,
+                        imageId = response.imageId ?: 0,
+                        countOtherImage = response.serviceImage?.otherImageService?.size ?: 0,
+                        isValidMaximumOtherImage = (response.serviceImage?.otherImageService?.size ?: 0) < 5
+                    )
+                }
             } catch (e: Throwable) {
                 setState { copy(loading = false) }
                 setError(e)
@@ -117,7 +115,7 @@ class ServiceViewModel(
                 showProgressBar(statusService)
                 val request = DeleteImageServiceRequest(statusService)
                 val response = repository.callDeleteServiceImage(request)
-                deleteServiceImageResponse.value = response
+                setServiceImageOnResponse(response.serviceImage)
                 hideProgressBar()
             } catch (e: Throwable) {
                 hideProgressBar()
@@ -127,12 +125,17 @@ class ServiceViewModel(
     }
 
     fun callDeleteServiceOtherImage(deleteImageService: DeleteImageServiceRequest) {
-        setValueValidateMaximumOtherImage(getValueValidateMaximumOtherImage().minus(1))
         launch {
             try {
-                setState { copy(loadingOtherImage = true) }
+                setState {
+                    copy(
+                        loadingOtherImage = true,
+                        countOtherImage = (state.value?.countOtherImage ?: 0).minus(1),
+                        isValidMaximumOtherImage = (state.value?.countOtherImage ?: 0) < 5
+                    )
+                }
                 val response = repository.callDeleteServiceOtherImage(deleteImageService)
-                deleteServiceOtherImageResponse.value = response
+                setServiceImageOnResponse(response.serviceImage)
                 setState { copy(loadingOtherImage = false) }
             } catch (e: Throwable) {
                 setState { copy(loadingOtherImage = false) }
@@ -141,10 +144,14 @@ class ServiceViewModel(
         }
     }
 
-    fun setValueValidateMaximumOtherImage(count: Int) {
-        validateMaximumOtherImage.value = count
+    private fun setServiceImageOnResponse(serviceImage: ServiceImage?) {
+        setState {
+            copy(
+                serviceImage = serviceImage,
+                countOtherImage = serviceImage?.otherImageService?.size ?: 0,
+                isValidMaximumOtherImage = (serviceImage?.otherImageService?.size ?: 0) < 5
+            )
+        }
     }
-
-    fun getValueValidateMaximumOtherImage() = validateMaximumOtherImage.value ?: 0
 
 }

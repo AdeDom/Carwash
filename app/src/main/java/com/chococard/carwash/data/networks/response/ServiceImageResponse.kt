@@ -7,5 +7,6 @@ import com.google.gson.annotations.SerializedName
 data class ServiceImageResponse(
     @SerializedName(ApiConstant.SUCCESS) val success: Boolean = false,
     @SerializedName(ApiConstant.MESSAGE) val message: String? = null,
-    @SerializedName(ApiConstant.SERVICE_IMAGE) val serviceImage: ServiceImage? = null
+    @SerializedName(ApiConstant.SERVICE_IMAGE) val serviceImage: ServiceImage? = null,
+    @SerializedName(ApiConstant.IMAGE_ID) val imageId: Int? = null
 )

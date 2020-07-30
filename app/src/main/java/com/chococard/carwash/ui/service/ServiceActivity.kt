@@ -88,11 +88,9 @@ class ServiceActivity : BaseActivity() {
                 dialogError(getString(R.string.error_empty_image))
         }
 
-        // call api
-        viewModel.callFetchImageService()
-
         // observe
         viewModel.state.observe { state ->
+            // progress bar
             if (state.loading) progress_bar.show() else progress_bar.hide()
             if (state.loadingFrontBefore) progress_bar_front_before.show() else progress_bar_front_before.hide()
             if (state.loadingBackBefore) progress_bar_back_before.show() else progress_bar_back_before.hide()
@@ -103,52 +101,23 @@ class ServiceActivity : BaseActivity() {
             if (state.loadingLeftAfter) progress_bar_left_after.show() else progress_bar_left_after.hide()
             if (state.loadingRightAfter) progress_bar_right_after.show() else progress_bar_right_after.hide()
             if (state.loadingOtherImage) progress_bar_other_image.show() else progress_bar_other_image.hide()
-        }
 
-        viewModel.getUploadImageService.observe { response ->
-            val (success, message, serviceImage) = response
-            if (success) {
-                adt.setList(serviceImage?.otherImageService)
-                serviceImage?.let { setImageJobService(it) }
-            } else {
-                root_layout.snackbar(message)
-            }
-        }
+            // service image
+            adt.setList(state.serviceImage?.otherImageService)
+            state.serviceImage?.let { setImageJobService(it) }
 
-        viewModel.getImageService.observe { response ->
-            val (success, message, serviceImage) = response
-            if (success) {
-                adt.setList(serviceImage?.otherImageService)
-                serviceImage?.let { setImageJobService(it) }
-            } else {
-                root_layout.snackbar(message)
-            }
-        }
-
-        viewModel.getDeleteServiceImage.observe { response ->
-            val (success, message, serviceImage) = response
-            if (success)
-                serviceImage?.let { setImageJobService(it) }
-            else
-                root_layout.snackbar(message)
-        }
-
-        viewModel.getDeleteServiceOtherImage.observe { response ->
-            val (success, message, serviceImage) = response
-            if (success)
-                adt.setList(serviceImage?.otherImageService)
-            else
-                root_layout.snackbar(message)
-        }
-
-        viewModel.getValidateMaximumOtherImage.observe {
-            if (it >= 5) {
-                card_add_other_image.hide()
-                tv_maximum_other_image.show()
-            } else {
+            // other image
+            if (state.isValidMaximumOtherImage) {
                 card_add_other_image.show()
                 tv_maximum_other_image.hide()
+            } else {
+                card_add_other_image.hide()
+                tv_maximum_other_image.show()
             }
+        }
+
+        viewModel.attachFirstTime.observe {
+            viewModel.callFetchImageService()
         }
 
         viewModel.error.observeError()
@@ -217,11 +186,8 @@ class ServiceActivity : BaseActivity() {
                     iv_camera_right_after.hide()
                     FlagConstant.STATUS_SERVICE_RIGHT_AFTER
                 }
-                CommonsConstant.REQUEST_CODE_IMAGE_OTHER_IMAGE -> {
-                    val count: Int = viewModel.getValueValidateMaximumOtherImage()
-                    viewModel.setValueValidateMaximumOtherImage(count.plus(1))
+                CommonsConstant.REQUEST_CODE_IMAGE_OTHER_IMAGE ->
                     FlagConstant.STATUS_SERVICE_OTHER_IMAGE
-                }
                 else -> 0
             }
 
