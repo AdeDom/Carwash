@@ -13,6 +13,14 @@ data class ServiceViewState(
     val countOtherImage: Int = 0,
     val isValidMaximumOtherImage: Boolean = false,
     val isConfirmService: Boolean = false,
+    val isImageFrontBefore: Boolean = false,
+    val isImageBackBefore: Boolean = false,
+    val isImageLeftBefore: Boolean = false,
+    val isImageRightBefore: Boolean = false,
+    val isImageFrontAfter: Boolean = false,
+    val isImageBackAfter: Boolean = false,
+    val isImageLeftAfter: Boolean = false,
+    val isImageRightAfter: Boolean = false,
     val loading: Boolean = false,
     val loadingFrontBefore: Boolean = false,
     val loadingBackBefore: Boolean = false,
@@ -154,7 +162,15 @@ class ServiceViewModel(
                         serviceImage?.frontAfter.orEmpty().isNotBlank() &&
                         serviceImage?.backAfter.orEmpty().isNotBlank() &&
                         serviceImage?.leftAfter.orEmpty().isNotBlank() &&
-                        serviceImage?.rightAfter.orEmpty().isNotBlank()
+                        serviceImage?.rightAfter.orEmpty().isNotBlank(),
+                isImageFrontBefore = serviceImage?.frontBefore.orEmpty().isNotBlank(),
+                isImageBackBefore = serviceImage?.backBefore.orEmpty().isNotBlank(),
+                isImageLeftBefore = serviceImage?.leftBefore.orEmpty().isNotBlank(),
+                isImageRightBefore = serviceImage?.rightBefore.orEmpty().isNotBlank(),
+                isImageFrontAfter = serviceImage?.frontAfter.orEmpty().isNotBlank(),
+                isImageBackAfter = serviceImage?.backAfter.orEmpty().isNotBlank(),
+                isImageLeftAfter = serviceImage?.leftAfter.orEmpty().isNotBlank(),
+                isImageRightAfter = serviceImage?.rightAfter.orEmpty().isNotBlank()
             )
         }
     }

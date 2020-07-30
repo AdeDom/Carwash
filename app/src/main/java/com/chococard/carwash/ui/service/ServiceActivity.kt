@@ -5,11 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chococard.carwash.R
-import com.chococard.carwash.data.models.ServiceImage
 import com.chococard.carwash.data.networks.request.DeleteImageServiceRequest
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.payment.PaymentActivity
@@ -98,7 +95,6 @@ class ServiceActivity : BaseActivity() {
 
             // service image
             adt.setList(state.serviceImage?.otherImageService)
-            state.serviceImage?.let { setImageJobService(it) }
 
             // other image
             if (state.isValidMaximumOtherImage) {
@@ -111,6 +107,37 @@ class ServiceActivity : BaseActivity() {
 
             // button service
             if (state.isConfirmService) bt_service.ready() else bt_service.unready()
+
+            // image service 8 image (camera)
+            if (state.isImageFrontBefore) iv_camera_front_before.hide() else iv_camera_front_before.show()
+            if (state.isImageBackBefore) iv_camera_back_before.hide() else iv_camera_back_before.show()
+            if (state.isImageLeftBefore) iv_camera_left_before.hide() else iv_camera_left_before.show()
+            if (state.isImageRightBefore) iv_camera_right_before.hide() else iv_camera_right_before.show()
+            if (state.isImageFrontAfter) iv_camera_front_after.hide() else iv_camera_front_after.show()
+            if (state.isImageBackAfter) iv_camera_back_after.hide() else iv_camera_back_after.show()
+            if (state.isImageLeftAfter) iv_camera_left_after.hide() else iv_camera_left_after.show()
+            if (state.isImageRightAfter) iv_camera_right_after.hide() else iv_camera_right_after.show()
+
+            // image service 8 image (remove)
+            if (state.isImageFrontBefore) card_remove_front_before.show() else card_remove_front_before.hide()
+            if (state.isImageBackBefore) card_remove_back_before.show() else card_remove_back_before.hide()
+            if (state.isImageLeftBefore) card_remove_left_before.show() else card_remove_left_before.hide()
+            if (state.isImageRightBefore) card_remove_right_before.show() else card_remove_right_before.hide()
+            if (state.isImageFrontAfter) card_remove_front_after.show() else card_remove_front_after.hide()
+            if (state.isImageBackAfter) card_remove_back_after.show() else card_remove_back_after.hide()
+            if (state.isImageLeftAfter) card_remove_left_after.show() else card_remove_left_after.hide()
+            if (state.isImageRightAfter) card_remove_right_after.show() else card_remove_right_after.hide()
+
+            // image service 8 image (Glide load image)
+            val serviceImage = state.serviceImage
+            if (state.isImageFrontBefore) iv_image_front_before.setImageFromInternet(serviceImage?.frontBefore) else iv_image_front_before.setImageResource(0)
+            if (state.isImageBackBefore) iv_image_back_before.setImageFromInternet(serviceImage?.backBefore) else iv_image_back_before.setImageResource(0)
+            if (state.isImageLeftBefore) iv_image_left_before.setImageFromInternet(serviceImage?.leftBefore) else iv_image_left_before.setImageResource(0)
+            if (state.isImageRightBefore) iv_image_right_before.setImageFromInternet(serviceImage?.rightBefore) else iv_image_right_before.setImageResource(0)
+            if (state.isImageFrontAfter) iv_image_front_after.setImageFromInternet(serviceImage?.frontAfter) else iv_image_front_after.setImageResource(0)
+            if (state.isImageBackAfter) iv_image_back_after.setImageFromInternet(serviceImage?.backAfter) else iv_image_back_after.setImageResource(0)
+            if (state.isImageLeftAfter) iv_image_left_after.setImageFromInternet(serviceImage?.leftAfter) else iv_image_left_after.setImageResource(0)
+            if (state.isImageRightAfter) iv_image_right_after.setImageFromInternet(serviceImage?.rightAfter) else iv_image_right_after.setImageResource(0)
         }
 
         viewModel.attachFirstTime.observe {
@@ -151,38 +178,22 @@ class ServiceActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && data != null) {
             val statusService: Int = when (requestCode) {
-                CommonsConstant.REQUEST_CODE_IMAGE_FRONT_BEFORE -> {
-                    iv_camera_front_before.hide()
+                CommonsConstant.REQUEST_CODE_IMAGE_FRONT_BEFORE ->
                     FlagConstant.STATUS_SERVICE_FRONT_BEFORE
-                }
-                CommonsConstant.REQUEST_CODE_IMAGE_BACK_BEFORE -> {
-                    iv_camera_back_before.hide()
+                CommonsConstant.REQUEST_CODE_IMAGE_BACK_BEFORE ->
                     FlagConstant.STATUS_SERVICE_BACK_BEFORE
-                }
-                CommonsConstant.REQUEST_CODE_IMAGE_LEFT_BEFORE -> {
-                    iv_camera_left_before.hide()
+                CommonsConstant.REQUEST_CODE_IMAGE_LEFT_BEFORE ->
                     FlagConstant.STATUS_SERVICE_LEFT_BEFORE
-                }
-                CommonsConstant.REQUEST_CODE_IMAGE_RIGHT_BEFORE -> {
-                    iv_camera_right_before.hide()
+                CommonsConstant.REQUEST_CODE_IMAGE_RIGHT_BEFORE ->
                     FlagConstant.STATUS_SERVICE_RIGHT_BEFORE
-                }
-                CommonsConstant.REQUEST_CODE_IMAGE_FRONT_AFTER -> {
-                    iv_camera_front_after.hide()
+                CommonsConstant.REQUEST_CODE_IMAGE_FRONT_AFTER ->
                     FlagConstant.STATUS_SERVICE_FRONT_AFTER
-                }
-                CommonsConstant.REQUEST_CODE_IMAGE_BACK_AFTER -> {
-                    iv_camera_back_after.hide()
+                CommonsConstant.REQUEST_CODE_IMAGE_BACK_AFTER ->
                     FlagConstant.STATUS_SERVICE_BACK_AFTER
-                }
-                CommonsConstant.REQUEST_CODE_IMAGE_LEFT_AFTER -> {
-                    iv_camera_left_after.hide()
+                CommonsConstant.REQUEST_CODE_IMAGE_LEFT_AFTER ->
                     FlagConstant.STATUS_SERVICE_LEFT_AFTER
-                }
-                CommonsConstant.REQUEST_CODE_IMAGE_RIGHT_AFTER -> {
-                    iv_camera_right_after.hide()
+                CommonsConstant.REQUEST_CODE_IMAGE_RIGHT_AFTER ->
                     FlagConstant.STATUS_SERVICE_RIGHT_AFTER
-                }
                 CommonsConstant.REQUEST_CODE_IMAGE_OTHER_IMAGE ->
                     FlagConstant.STATUS_SERVICE_OTHER_IMAGE
                 else -> 0
@@ -192,76 +203,6 @@ class ServiceActivity : BaseActivity() {
                 convertToMultipartBody(data.data!!),
                 statusService
             )
-        }
-    }
-
-    private fun setImageJobService(serviceImage: ServiceImage) {
-        val (frontBefore, backBefore, leftBefore, rightBefore, frontAfter, backAfter, leftAfter, rightAfter, _) = serviceImage
-
-        setImageView(
-            frontBefore,
-            iv_image_front_before,
-            iv_camera_front_before,
-            card_remove_front_before
-        )
-        setImageView(
-            backBefore,
-            iv_image_back_before,
-            iv_camera_back_before,
-            card_remove_back_before
-        )
-        setImageView(
-            leftBefore,
-            iv_image_left_before,
-            iv_camera_left_before,
-            card_remove_left_before
-        )
-        setImageView(
-            rightBefore,
-            iv_image_right_before,
-            iv_camera_right_before,
-            card_remove_right_before
-        )
-        setImageView(
-            frontAfter,
-            iv_image_front_after,
-            iv_camera_front_after,
-            card_remove_front_after
-        )
-        setImageView(
-            backAfter,
-            iv_image_back_after,
-            iv_camera_back_after,
-            card_remove_back_after
-        )
-        setImageView(
-            leftAfter,
-            iv_image_left_after,
-            iv_camera_left_after,
-            card_remove_left_after
-        )
-        setImageView(
-            rightAfter,
-            iv_image_right_after,
-            iv_camera_right_after,
-            card_remove_right_after
-        )
-    }
-
-    private fun setImageView(
-        url: String?,
-        ivImage: ImageView,
-        ivCamera: ImageView,
-        cardRemove: CardView
-    ) {
-        if (url != null) {
-            ivCamera.hide()
-            ivImage.setImageFromInternet(url)
-            cardRemove.show()
-        } else {
-            ivCamera.show()
-            ivImage.setImageResource(0)
-            cardRemove.hide()
         }
     }
 
