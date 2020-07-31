@@ -121,6 +121,7 @@
 
     <style name="EditTextPassword" parent="EditText">
         <item name="android:digits">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890</item>
+        <item name="android:maxLength">12</item>
         <item name="android:drawableStart">@drawable/ic_key_gray</item>
         <item name="android:hint">@string/password</item>
         <item name="android:inputType">textPassword</item>
