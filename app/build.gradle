@@ -6,13 +6,13 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.chococard.carwash"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -41,7 +41,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.3.0'
+    implementation 'androidx.core:core-ktx:1.3.1'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13'
@@ -57,7 +57,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
 
     //New Material Design
-    implementation 'com.google.android.material:material:1.3.0-alpha01'
+    implementation 'com.google.android.material:material:1.3.0-alpha02'
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
@@ -73,9 +73,9 @@ dependencies {
     kapt "androidx.room:room-compiler:2.2.5"
 
     // Koin
-    implementation "org.koin:koin-androidx-scope:2.1.5"
-    implementation "org.koin:koin-androidx-viewmodel:2.1.5"
-    implementation "org.koin:koin-androidx-fragment:2.1.5"
+    implementation "org.koin:koin-androidx-scope:2.1.6"
+    implementation "org.koin:koin-androidx-viewmodel:2.1.6"
+    implementation "org.koin:koin-androidx-fragment:2.1.6"
 
     // firebase authentication
     implementation 'com.google.firebase:firebase-auth:19.3.2'
@@ -84,4 +84,7 @@ dependencies {
     implementation 'com.microsoft.signalr:signalr:3.0.0-preview3-19153-02'
     implementation 'org.slf4j:slf4j-jdk14:1.7.7'
 
+    // coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2"
 }
