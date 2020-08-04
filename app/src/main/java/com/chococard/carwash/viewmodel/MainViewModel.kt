@@ -133,7 +133,11 @@ class MainViewModel(
         }
     }
 
-    fun initSignalR(employeeId: Int) = SignalREmployeeHub(employeeId, this)
+    fun initSignalR() {
+        launch {
+            SignalREmployeeHub(repository.getDbUserInfo()?.userId, this@MainViewModel)
+        }
+    }
 
     override fun onReceive(job: JobResponse) = jobQuestionResponse.postValue(job)
 

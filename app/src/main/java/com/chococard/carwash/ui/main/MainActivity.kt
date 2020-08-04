@@ -51,19 +51,20 @@ class MainActivity : BaseLocationActivity(),
         bottom_navigation.setOnNavigationItemSelectedListener(this)
         if (savedInstanceState == null) replaceFragment(HomeFragment())
 
-        //call api
-        viewModel.callLogsActive(LogsActiveRequest(FlagConstant.LOGS_STATUS_ACTIVE))
-
         //observe
+        viewModel.attachFirstTime.observe {
+            if (savedInstanceState == null) {
+                viewModel.callLogsActive(LogsActiveRequest(FlagConstant.LOGS_STATUS_ACTIVE))
+                viewModel.initSignalR()
+            }
+        }
+
         viewModel.state.observe { state ->
             if (state.loading) progress_bar.show() else progress_bar.hide()
         }
 
         viewModel.getDbUserInfoLiveData.observe { userInfo ->
             if (userInfo == null) return@observe
-
-            // Signal R
-            viewModel.initSignalR(userInfo.userId)
 
             // fetch user info & sign in firebase
             if (FirebaseAuth.getInstance().currentUser == null) {
