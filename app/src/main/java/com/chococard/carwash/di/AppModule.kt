@@ -27,7 +27,7 @@ val appModule = module {
     viewModel { SplashScreenViewModel(get()) }
 
     //header connection
-    single { NetworkHeaderInterceptor(get(), get()) }
+    single { NetworkHeaderInterceptor(get(), get(), get()) }
     single { HeaderAppService.invoke(get()) }
     single<HeaderRepository> { HeaderRepositoryImpl(get(), get(), get()) }
     viewModel { AddWalletViewModel(get()) }

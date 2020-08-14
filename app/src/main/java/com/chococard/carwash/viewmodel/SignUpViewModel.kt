@@ -126,8 +126,7 @@ class SignUpViewModel(
         setState {
             copy(
                 rePassword = rePassword,
-                isValidRePassword = rePassword.isNotBlank() && rePassword.length >= 8 &&
-                        state.value?.password.orEmpty() == rePassword
+                isValidRePassword = rePassword.isNotBlank() && rePassword.length >= 8 && password == rePassword
             )
         }
     }

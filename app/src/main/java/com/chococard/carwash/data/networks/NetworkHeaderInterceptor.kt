@@ -4,15 +4,18 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import com.chococard.carwash.data.db.AppDatabase
 import com.chococard.carwash.data.sharedpreference.SharedPreference
-import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
+import com.chococard.carwash.util.Coroutines
 import com.chococard.carwash.util.NoInternetException
-import com.chococard.carwash.util.extension.startActivity
+import com.chococard.carwash.util.TokenExpiredException
+import com.google.firebase.auth.FirebaseAuth
 import okhttp3.Interceptor
 import okhttp3.Response
 
 class NetworkHeaderInterceptor(
     private val context: Context,
+    private val db: AppDatabase,
     private val sharedPreference: SharedPreference
 ) : Interceptor {
 
@@ -29,7 +32,14 @@ class NetworkHeaderInterceptor(
         val response = chain.proceed(request)
 
         if (response.code() == 401 || response.code() == 403) {
-            context.startActivity<SplashScreenActivity>()
+            Coroutines.main {
+                FirebaseAuth.getInstance().signOut()
+                db.getUserInfoDao().deleteUserInfo()
+                db.getJobDao().deleteJob()
+                sharedPreference.accessToken = ""
+                sharedPreference.refreshToken = ""
+            }
+            throw TokenExpiredException("Token expired")
         }
 
         return response

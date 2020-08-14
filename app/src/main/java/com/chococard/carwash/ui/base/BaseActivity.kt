@@ -8,6 +8,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.chococard.carwash.R
+import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
+import com.chococard.carwash.util.TokenExpiredException
+import com.chococard.carwash.util.extension.startActivity
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -24,6 +27,12 @@ abstract class BaseActivity : AppCompatActivity() {
         observe(this@BaseActivity, Observer {
             it.printStackTrace()
             dialogError(it.message)
+
+            if (it is TokenExpiredException) {
+                startActivity<SplashScreenActivity> {
+                    finishAffinity()
+                }
+            }
         })
     }
 

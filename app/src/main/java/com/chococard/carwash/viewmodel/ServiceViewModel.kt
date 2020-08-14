@@ -46,8 +46,8 @@ class ServiceViewModel(
                 showProgressBar(statusService)
                 setState {
                     copy(
-                        countOtherImage = (state.value?.countOtherImage ?: 0).plus(1),
-                        isValidMaximumOtherImage = (state.value?.countOtherImage ?: 0) < 5
+                        countOtherImage = countOtherImage.plus(1),
+                        isValidMaximumOtherImage = countOtherImage < 5
                     )
                 }
                 val response = repository.callUploadImageService(
@@ -135,8 +135,8 @@ class ServiceViewModel(
                 setState {
                     copy(
                         loadingOtherImage = true,
-                        countOtherImage = (state.value?.countOtherImage ?: 0).minus(1),
-                        isValidMaximumOtherImage = (state.value?.countOtherImage ?: 0) < 5
+                        countOtherImage = countOtherImage.minus(1),
+                        isValidMaximumOtherImage = countOtherImage < 5
                     )
                 }
                 val response = repository.callDeleteServiceOtherImage(deleteImageService)
