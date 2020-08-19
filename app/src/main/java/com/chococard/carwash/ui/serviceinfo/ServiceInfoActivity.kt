@@ -60,9 +60,8 @@ class ServiceInfoActivity : BaseLocationActivity() {
         }
     }
 
-    override fun onLocationChanged(location: Location?) {
-        if (location == null) return
-
+    override fun onLocationResult(location: Location) {
+        super.onLocationResult(location)
         val navigation = Pair(location.latitude, location.longitude)
         viewModel.setValueServiceNavigation(navigation)
     }

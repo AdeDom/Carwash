@@ -133,8 +133,8 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         mGoogleMap.animateCamera()
     }
 
-    override fun onLocationChanged(location: Location?) {
-        if (location == null) return
+    override fun onLocationResult(location: Location) {
+        super.onLocationResult(location)
         val latLng = LatLng(location.latitude, location.longitude)
 
         if (mIsFlagMoveCamera) {

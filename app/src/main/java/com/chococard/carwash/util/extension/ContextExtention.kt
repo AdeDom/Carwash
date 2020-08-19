@@ -155,6 +155,6 @@ fun Context.startAnimationFabClose(view: View, @AnimRes anim: Int = R.anim.fab_c
     view.startAnimation(AnimationUtils.loadAnimation(this, anim))
 }
 
-fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
+fun Context.toast(message: String?, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, message, duration).show()
 }

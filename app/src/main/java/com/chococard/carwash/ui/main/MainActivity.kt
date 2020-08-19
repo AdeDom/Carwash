@@ -195,8 +195,9 @@ class MainActivity : BaseLocationActivity(),
         viewModel.callLogsActive(LogsActiveRequest(FlagConstant.LOGS_STATUS_INACTIVE))
     }
 
-    override fun onLocationChanged(location: Location?) {
-        val setLocation = SetLocationRequest(location?.latitude, location?.longitude)
+    override fun onLocationResult(location: Location) {
+        super.onLocationResult(location)
+        val setLocation = SetLocationRequest(location.latitude, location.longitude)
         viewModel.callSetLocation(setLocation)
     }
 
