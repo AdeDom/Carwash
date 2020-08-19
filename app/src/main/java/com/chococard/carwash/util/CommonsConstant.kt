@@ -1,17 +1,9 @@
 package com.chococard.carwash.util
 
-import android.Manifest
-import android.content.pm.PackageManager
-
 object CommonsConstant {
-
-    const val GRANTED = PackageManager.PERMISSION_GRANTED
-    const val ACCESS_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
-    const val ACCESS_COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION
 
     const val REQUEST_CODE_IMAGE = 1
     const val REQUEST_CODE_LOCATION = 2
-    const val REQUEST_CODE_PERMISSION = 3
     const val REQUEST_CODE_VERIFY_PHONE = 4
     const val REQUEST_CODE_DATE_RANGE = 5
     const val REQUEST_CODE_IMAGE_FRONT_BEFORE = 11

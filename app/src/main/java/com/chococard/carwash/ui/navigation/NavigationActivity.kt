@@ -1,11 +1,11 @@
 package com.chococard.carwash.ui.navigation
 
+import android.annotation.SuppressLint
 import android.location.Location
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
-import androidx.core.app.ActivityCompat
 import com.chococard.carwash.R
 import com.chococard.carwash.data.db.entities.Job
 import com.chococard.carwash.data.db.entities.UserInfo
@@ -14,9 +14,6 @@ import com.chococard.carwash.ui.base.BaseLocationActivity
 import com.chococard.carwash.ui.report.ReportActivity
 import com.chococard.carwash.ui.service.ServiceActivity
 import com.chococard.carwash.ui.serviceinfo.ServiceInfoActivity
-import com.chococard.carwash.util.CommonsConstant.ACCESS_COARSE_LOCATION
-import com.chococard.carwash.util.CommonsConstant.ACCESS_FINE_LOCATION
-import com.chococard.carwash.util.CommonsConstant.GRANTED
 import com.chococard.carwash.util.FlagConstant
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.NavigationViewModel
@@ -126,11 +123,9 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
         }
     }
 
+    @SuppressLint("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap?) {
         mGoogleMap = googleMap
-        if (ActivityCompat.checkSelfPermission(baseContext, ACCESS_FINE_LOCATION) != GRANTED &&
-            ActivityCompat.checkSelfPermission(baseContext, ACCESS_COARSE_LOCATION) != GRANTED
-        ) return
         mGoogleMap?.isMyLocationEnabled = true
         mGoogleMap?.setMinZoomPreference(12F)
         mGoogleMap?.setMaxZoomPreference(16F)

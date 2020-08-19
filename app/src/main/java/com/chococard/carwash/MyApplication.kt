@@ -12,7 +12,8 @@ class MyApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@MyApplication)
-            modules(appModule)
+            koin.loadModules(listOf(appModule))
+            koin.createRootScope()
         }
     }
 }

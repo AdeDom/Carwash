@@ -1,6 +1,10 @@
 package com.chococard.carwash.ui.base
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.view.Menu
+import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -10,9 +14,28 @@ import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
 import com.chococard.carwash.util.TokenExpiredException
+import com.chococard.carwash.util.extension.hasPermission
 import com.chococard.carwash.util.extension.startActivity
 
 abstract class BaseActivity : AppCompatActivity() {
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    override fun onStart() {
+        super.onStart()
+        if (!hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 0)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            recreate()
+        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_option, menu)
