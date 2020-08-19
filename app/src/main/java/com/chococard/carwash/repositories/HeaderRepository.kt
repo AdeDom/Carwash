@@ -29,6 +29,8 @@ interface HeaderRepository {
 
     fun getDbJobLiveData(): LiveData<Job>
 
+    suspend fun getDbJob(): Job?
+
     suspend fun callPaymentJob(): BaseResponse
 
     suspend fun callReportJob(report: ReportRequest): BaseResponse

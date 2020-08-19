@@ -1,21 +1,22 @@
 package com.chococard.carwash.ui.serviceinfo
 
-import android.location.Location
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.chococard.carwash.R
-import com.chococard.carwash.ui.base.BaseLocationActivity
+import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.report.ReportActivity
+import com.chococard.carwash.util.Coroutines
+import com.chococard.carwash.util.awaitLastLocation
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.ServiceInfoViewModel
+import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_service_info.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ServiceInfoActivity : BaseLocationActivity() {
+class ServiceInfoActivity : BaseActivity() {
 
     val viewModel by viewModel<ServiceInfoViewModel>()
-    private var mLatLngCustomer: Pair<Double, Double>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +36,6 @@ class ServiceInfoActivity : BaseLocationActivity() {
             tv_service.text = packageName
             tv_phone.text = phone.toUnderline()
             tv_location.text = location.toUnderline()
-            if (latitude != null && longitude != null)
-                mLatLngCustomer = Pair(latitude, longitude)
             tv_vehicle_registration.text = vehicleRegistration
             tv_price.text = price
             iv_photo.setImageCircle(imageProfile)
@@ -47,23 +46,23 @@ class ServiceInfoActivity : BaseLocationActivity() {
             }
         }
 
-        viewModel.getServiceNavigation.observe { navigation ->
-            val (latitude, longitude) = navigation
-            tv_location.setOnClickListener {
-                startActivityGoogleMapNavigation(
-                    beginLatitude = latitude,
-                    beginLongitude = longitude,
-                    endLatitude = mLatLngCustomer?.first,
-                    endLongitude = mLatLngCustomer?.second
-                )
+        viewModel.serviceNavigation.observe { serviceNavigation ->
+            startActivityGoogleMapNavigation(
+                beginLatitude = serviceNavigation.beginLatitude,
+                beginLongitude = serviceNavigation.beginLongitude,
+                endLatitude = serviceNavigation.endLatitude,
+                endLongitude = serviceNavigation.endLongitude
+            )
+        }
+
+        tv_location.setOnClickListener {
+            Coroutines.main {
+                val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+                val beginLatitude = fusedLocationClient.awaitLastLocation().latitude
+                val beginLongitude = fusedLocationClient.awaitLastLocation().longitude
+                viewModel.setServiceNavigation(beginLatitude, beginLongitude)
             }
         }
-    }
-
-    override fun onLocationResult(location: Location) {
-        super.onLocationResult(location)
-        val navigation = Pair(location.latitude, location.longitude)
-        viewModel.setValueServiceNavigation(navigation)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
