@@ -30,7 +30,7 @@ class ServiceInfoActivity : BaseActivity() {
         // observe
         viewModel.getDbJobLiveData.observe { job ->
             // set widget
-            val (_, _, fullName, imageProfile, phone, packageName, price, vehicleRegistration, latitude, longitude, location, _, dateTime) = job
+            val (_, _, fullName, imageProfile, phone, packageName, price, vehicleRegistration, _, _, location, _, dateTime) = job
             tv_date_time.text = dateTime
             tv_full_name.text = fullName
             tv_service.text = packageName

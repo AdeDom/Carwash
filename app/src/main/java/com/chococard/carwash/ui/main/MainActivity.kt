@@ -13,7 +13,6 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import com.chococard.carwash.R
 import com.chococard.carwash.data.db.entities.Job
-import com.chococard.carwash.data.networks.request.JobAnswerRequest
 import com.chococard.carwash.data.networks.request.LogsActiveRequest
 import com.chococard.carwash.data.networks.request.SetLocationRequest
 import com.chococard.carwash.data.networks.request.SwitchSystemRequest

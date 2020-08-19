@@ -123,10 +123,10 @@ fun Context.dialogNegative(@StringRes title: Int, @StringRes message: Int, negat
     AlertDialog.Builder(this).apply {
         setTitle(title)
         setMessage(message)
-        setPositiveButton(android.R.string.no) { dialog, _ ->
+        setPositiveButton(android.R.string.cancel) { dialog, _ ->
             dialog.dismiss()
         }
-        setNegativeButton(android.R.string.yes) { _, _ ->
+        setNegativeButton(android.R.string.ok) { _, _ ->
             negative.invoke()
         }
         setCancelable(false)

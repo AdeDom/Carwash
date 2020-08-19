@@ -10,7 +10,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.splashscreen.SplashScreenActivity
 import com.chococard.carwash.util.TokenExpiredException
@@ -43,11 +42,11 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     protected inline fun <reified T> LiveData<T>.observe(crossinline onNext: (T) -> Unit) {
-        observe(this@BaseActivity, Observer { onNext(it) })
+        observe(this@BaseActivity, { onNext(it) })
     }
 
     protected fun LiveData<Throwable>.observeError() {
-        observe(this@BaseActivity, Observer {
+        observe(this@BaseActivity, {
             it.printStackTrace()
             dialogError(it.message)
 
