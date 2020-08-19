@@ -30,7 +30,7 @@ class SignalREmployeeHub(employerId: Int?, listener: SignalRListener) {
     }
 
     interface SignalRListener {
-        fun onReceive(job: JobResponse)
+        fun onReceive(signalR: JobResponse)
     }
 
 }

@@ -201,7 +201,7 @@ class MainActivity : BaseLocationActivity(),
         viewModel.callSetLocation(setLocation)
     }
 
-    override fun onFlag(answer: JobAnswerRequest) = viewModel.callJobAnswer(answer)
+    override fun onFlag(flag: Int) = viewModel.callJobAnswer(flag)
 
     override fun onBackPressed() {
         toast(getString(R.string.finish_affinity))

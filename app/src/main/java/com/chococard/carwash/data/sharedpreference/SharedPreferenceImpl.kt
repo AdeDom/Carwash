@@ -26,6 +26,14 @@ class SharedPreferenceImpl(context: Context) : SharedPreference {
             }
         }
 
+    override var jobId: Int
+        get() = sharedPreference.getInt(CommonsConstant.JOB_ID, 0)
+        set(value) {
+            sharedPreference.edit {
+                putInt(CommonsConstant.JOB_ID, value)
+            }
+        }
+
     override var switchFlag: Int
         get() = sharedPreference.getInt(CommonsConstant.SWITCH, 0)
         set(value) {

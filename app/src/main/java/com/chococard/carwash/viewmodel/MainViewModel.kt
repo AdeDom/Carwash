@@ -54,11 +54,12 @@ class MainViewModel(
     val counterExit: LiveData<Int>
         get() = _counterExit
 
-    fun callJobAnswer(jobAnswer: JobAnswerRequest) {
+    fun callJobAnswer(flag: Int) {
         launch {
             try {
                 setState { copy(loading = true) }
-                val response = repository.callJobAnswer(jobAnswer)
+                val answer = JobAnswerRequest(jobId = sharedPreference.jobId, jobStatus = flag)
+                val response = repository.callJobAnswer(answer)
                 jobAnswerResponse.value = response
                 setState { copy(loading = false) }
             } catch (e: Throwable) {
@@ -139,6 +140,9 @@ class MainViewModel(
         }
     }
 
-    override fun onReceive(job: JobResponse) = jobQuestionResponse.postValue(job)
+    override fun onReceive(signalR: JobResponse) {
+        sharedPreference.jobId = signalR.job?.jobId ?: 0
+        jobQuestionResponse.postValue(signalR)
+    }
 
 }

@@ -8,7 +8,6 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import com.chococard.carwash.R
 import com.chococard.carwash.data.db.entities.Job
-import com.chococard.carwash.data.networks.request.JobAnswerRequest
 import com.chococard.carwash.ui.BaseDialog
 import com.chococard.carwash.util.CommonsConstant
 import com.chococard.carwash.util.Coroutines
@@ -19,7 +18,6 @@ import kotlinx.coroutines.delay
 
 class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dialog_job) {
 
-    private var mJobId: Int = 0
     private var mTimerDialog: Int = 15
     private var mIsOnPause = false
 
@@ -33,8 +31,7 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
         val job = arguments?.getParcelable(CommonsConstant.JOB) as Job? ?: return
 
         // set widgets
-        val (jobId, employeeId, fullName, imageProfile, _, packageName, _, _, _, _, location, distance, _) = job
-        mJobId = jobId
+        val (_, _, fullName, imageProfile, _, packageName, _, _, _, _, location, distance, _) = job
         tv_full_name.text = fullName
         tv_service.text = packageName
         tv_location.text = location
@@ -80,7 +77,7 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
 
     private fun jobAnswer(flag: Int) {
         mTimerDialog = -1
-        listener.onFlag(JobAnswerRequest(mJobId, flag))
+        listener.onFlag(flag)
         if (!mIsOnPause) dismiss()
     }
 
@@ -95,7 +92,7 @@ class JobDialog(private val listener: FlagJobListener) : BaseDialog(R.layout.dia
     }
 
     interface FlagJobListener {
-        fun onFlag(answer: JobAnswerRequest)
+        fun onFlag(flag: Int)
     }
 
 }

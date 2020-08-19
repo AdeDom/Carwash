@@ -19,6 +19,7 @@ object CommonsConstant {
     const val PREF_FILE = "pref_file"
     const val ACCESS_TOKEN = "access_token"
     const val REFRESH_TOKEN = "refresh_token"
+    const val JOB_ID = "job_id"
     const val JOB = "job"
     const val SWITCH = "switch"
     const val PHONE = "phone"
