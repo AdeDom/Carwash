@@ -11,6 +11,7 @@ import com.chococard.carwash.data.networks.response.JobResponse
 import com.chococard.carwash.data.sharedpreference.SharedPreference
 import com.chococard.carwash.repositories.HeaderRepository
 import com.chococard.carwash.signalr.SignalREmployeeHub
+import com.chococard.carwash.util.FlagConstant
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -59,8 +60,11 @@ class MainViewModel(
             try {
                 setState { copy(loading = true) }
                 val answer = JobAnswerRequest(jobId = sharedPreference.jobId, jobStatus = flag)
-                val response = repository.callJobAnswer(answer)
-                jobAnswerResponse.value = response
+                repository.callJobAnswer(answer)
+                if (flag == FlagConstant.JOB_RECEIVE) {
+                    val response = repository.callFetchJobInfo(sharedPreference.jobId)
+                    jobAnswerResponse.value = response
+                }
                 setState { copy(loading = false) }
             } catch (e: Throwable) {
                 setState { copy(loading = false) }

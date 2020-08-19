@@ -25,7 +25,9 @@ interface HeaderRepository {
 
     suspend fun callFetchHistory(dateBegin: Long, dateEnd: Long): HistoryResponse
 
-    suspend fun callJobAnswer(jobAnswer: JobAnswerRequest): JobResponse
+    suspend fun callJobAnswer(jobAnswer: JobAnswerRequest): BaseResponse
+
+    suspend fun callFetchJobInfo(jobId: Int): JobResponse
 
     fun getDbJobLiveData(): LiveData<Job>
 
