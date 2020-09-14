@@ -22,14 +22,15 @@ class PaymentActivity : BaseActivity() {
         setToolbar(toolbar)
 
         // set widgets
-        viewModel.getDbJobLiveData.observe { job ->
+        viewModel.getDbJobLiveData.observe(this, { job ->
+            if (job == null) return@observe
             val (_, _, fullName, imageProfile, _, packageName, price, _, _, _, _, _, dateTime) = job
             tv_date_time.text = dateTime
             tv_full_name.text = fullName
             tv_service.text = packageName
             tv_price.text = price
             iv_photo.setImageCircle(imageProfile)
-        }
+        })
 
         iv_arrow_back.setOnClickListener { onBackPressed() }
         bt_payment.setOnClickListener { viewModel.callPaymentJob() }

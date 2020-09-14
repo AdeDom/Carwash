@@ -28,7 +28,8 @@ class ServiceInfoActivity : BaseActivity() {
         iv_arrow_back.setOnClickListener { onBackPressed() }
 
         // observe
-        viewModel.getDbJobLiveData.observe { job ->
+        viewModel.getDbJobLiveData.observe(this, { job ->
+            if (job == null) return@observe
             // set widget
             val (_, _, fullName, imageProfile, phone, packageName, price, vehicleRegistration, _, _, location, _, dateTime) = job
             tv_date_time.text = dateTime
@@ -44,7 +45,7 @@ class ServiceInfoActivity : BaseActivity() {
             tv_phone.setOnClickListener {
                 startActivityActionDial(phone)
             }
-        }
+        })
 
         viewModel.serviceNavigation.observe { serviceNavigation ->
             startActivityGoogleMapNavigation(
