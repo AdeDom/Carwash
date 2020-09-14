@@ -18,7 +18,7 @@ data class Job(
     @SerializedName(ApiConstant.IMAGE_PROFILE) @ColumnInfo(name = DatabaseConstant.IMAGE_PROFILE) val imageProfile: String? = null,
     @SerializedName(ApiConstant.PHONE) @ColumnInfo(name = DatabaseConstant.PHONE) val phone: String? = null,
     @SerializedName(ApiConstant.PACKAGE_NAME) @ColumnInfo(name = DatabaseConstant.PACKAGE_NAME) val packageName: String? = null,
-    @SerializedName(ApiConstant.PRICE) @ColumnInfo(name = DatabaseConstant.PRICE) val price: String? = null,
+    @SerializedName(ApiConstant.TOTAL_PRICE) @ColumnInfo(name = DatabaseConstant.PRICE) val price: String? = null,
     @SerializedName(ApiConstant.VEHICLE_REGISTRATION) @ColumnInfo(name = DatabaseConstant.VEHICLE_REGISTRATION) val vehicleRegistration: String? = null,
     @SerializedName(ApiConstant.LATITUDE) @ColumnInfo(name = DatabaseConstant.LATITUDE) val latitude: Double? = null,
     @SerializedName(ApiConstant.LONGITUDE) @ColumnInfo(name = DatabaseConstant.LONGITUDE) val longitude: Double? = null,

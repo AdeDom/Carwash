@@ -20,6 +20,7 @@ object ApiConstant {
     const val IMAGE_PROFILE = "ImageProfile"
     const val PACKAGE_NAME = "PackageName"
     const val PRICE = "Price"
+    const val TOTAL_PRICE = "TotalPrice"
     const val VEHICLE_REGISTRATION = "VehicleRegistration"
     const val DATE_TIME = "DateTime"
     const val JOB_DATE_TIME = "JobDateTime"
