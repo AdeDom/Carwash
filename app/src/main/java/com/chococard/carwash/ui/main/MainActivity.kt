@@ -62,7 +62,7 @@ class MainActivity : BaseLocationActivity(),
             if (state.loading) progress_bar.show() else progress_bar.hide()
         }
 
-        viewModel.getDbUserInfoLiveData.observe { userInfo ->
+        viewModel.getDbUserInfoLiveData.observe(this, { userInfo ->
             if (userInfo == null) return@observe
 
             // fetch user info & sign in firebase
@@ -71,7 +71,7 @@ class MainActivity : BaseLocationActivity(),
                     intent.putExtra(CommonsConstant.PHONE, userInfo.phone)
                 }
             }
-        }
+        })
 
         viewModel.getLogsActive.observe { response ->
             val (success, message) = response

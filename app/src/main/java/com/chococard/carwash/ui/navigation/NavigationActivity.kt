@@ -78,10 +78,10 @@ class NavigationActivity : BaseLocationActivity(), OnMapReadyCallback {
             mDbJob = job
         }
 
-        viewModel.getDbUserLiveData.observe { userInfo ->
+        viewModel.getDbUserLiveData.observe(this, { userInfo ->
             if (userInfo == null) return@observe
             mDbUser = userInfo
-        }
+        })
 
         viewModel.getNavigation.observe { response ->
             val (success, message, navigation) = response

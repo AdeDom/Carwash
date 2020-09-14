@@ -25,10 +25,10 @@ class AddWalletActivity : BaseActivity() {
         setToolbar(toolbar)
 
         // set widgets
-        viewModel.getDbUserLiveData.observe {
+        viewModel.getDbUserLiveData.observe(this, {
             if (it == null) return@observe
             tv_full_name.text = it.fullName
-        }
+        })
 
         //set event
         iv_arrow_back.setOnClickListener { onBackPressed() }

@@ -33,7 +33,7 @@ class ChangeProfileActivity : BaseActivity() {
         setToolbar(toolbar)
 
         //set widgets
-        viewModel.getDbUserInfoLiveData.observe { userInfo ->
+        viewModel.getDbUserInfoLiveData.observe(this, { userInfo ->
             if (userInfo == null) return@observe
             val (_, _, _, phone, _, image) = userInfo
             et_phone.setText(phone)
@@ -41,7 +41,7 @@ class ChangeProfileActivity : BaseActivity() {
             iv_photo.setImageCircle(image)
 
             viewModel.setValueUser(userInfo)
-        }
+        })
 
         //set event
         iv_arrow_back.setOnClickListener { onBackPressed() }

@@ -1,6 +1,6 @@
 package com.chococard.carwash.signalr
 
-import com.chococard.carwash.data.networks.BASE_URL
+import com.chococard.carwash.data.networks.RetrofitClient
 import com.chococard.carwash.data.networks.response.JobResponse
 import com.google.gson.Gson
 import com.microsoft.signalr.HubConnection
@@ -11,7 +11,7 @@ import com.microsoft.signalr.TransportEnum
 class SignalREmployeeHub(employerId: Int?, listener: SignalRListener) {
 
     private val hubConnection: HubConnection = HubConnectionBuilder
-        .create("${BASE_URL}carwash/signalr/employeehub")
+        .create("${RetrofitClient.BASE_URL}carwash/signalr/employeehub")
         .withTransport(TransportEnum.LONG_POLLING)
         .build()
 

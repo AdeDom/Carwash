@@ -19,11 +19,11 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // set widget
-        viewModel.getDbUserLiveData.observe {
+        viewModel.getDbUserLiveData.observe(viewLifecycleOwner, {
             if (it == null) return@observe
             tv_full_name.text = it.fullName
             iv_photo.setImageCircle(it.image)
-        }
+        })
 
         // observe
         viewModel.state.observe { state ->

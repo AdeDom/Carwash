@@ -6,7 +6,7 @@ import androidx.core.widget.addTextChangedListener
 import com.chococard.carwash.R
 import com.chococard.carwash.ui.base.BaseActivity
 import com.chococard.carwash.ui.main.MainActivity
-import com.chococard.carwash.ui.signup.SignUpActivity
+import com.chococard.carwash.ui.requestotp.RequestOtpActivity
 import com.chococard.carwash.util.extension.*
 import com.chococard.carwash.viewmodel.SignInViewModel
 import com.chococard.carwash.viewmodel.ValidateSignIn
@@ -76,7 +76,7 @@ class SignInActivity : BaseActivity() {
         bt_sign_in.setOnClickListener { viewModel.onSignIn() }
 
         tv_sign_up.setOnClickListener {
-            startActivity<SignUpActivity> {
+            startActivity<RequestOtpActivity> {
                 finish()
             }
         }
